@@ -40,10 +40,10 @@ class Rede
                 case NetIncomingMessageType.StatusChanged:
                     NetConnectionStatus Status = (NetConnectionStatus)Dados.ReadByte();
 
-                    // Nova conexão - Conecta o jogador ao jogo
+                    // Nova conexão - Conecta o jogador ao Game
                     if (Status == NetConnectionStatus.Connected)
                         Conectar(Dados);
-                    // Conexão perdida, disconecta o jogador do jogo
+                    // Conexão perdida, disconecta o jogador do Game
                     else if (Status == NetConnectionStatus.Disconnected)
                         Desconectar(Índice);
 
@@ -64,13 +64,13 @@ class Rede
         Conexão[EncontrarConexão(null)] = IncomingMsg.SenderConnection;
 
         // Redefine o índice máximo de jogadores
-        Jogo.RedefinirMaiorÍndice();
+        Game.RedefinirMaiorÍndice();
     }
 
     public static void Desconectar(byte Índice)
     {
         // Redefine o maior índice dos jogadores
-        Jogo.RedefinirMaiorÍndice();
+        Game.RedefinirMaiorÍndice();
 
         // Acaba com a conexão e restabelece os dados do jogador
         Conexão[Índice] = null;

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Drawing;
 
-class Jogador
+class Player
 {
     public static Personagem_Estrutura Personagem(byte Índice)
     {
@@ -19,12 +19,12 @@ class Jogador
         public short Level;
         private short experiência;
         public byte Pontos;
-        public short[] Vital = new short[(byte)Jogo.Vitais.Quantidade];
-        public short[] Atributo = new short[(byte)Jogo.Atributos.Quantidade];
+        public short[] Vital = new short[(byte)Game.Vitais.Quantidade];
+        public short[] Atributo = new short[(byte)Game.Atributos.Quantidade];
         public short Mapa;
         public byte X;
         public byte Y;
-        public Jogo.Direções Direção;
+        public Game.Direções Direção;
         public int Ataque_Tempo;
         public Listas.Estruturas.Inventário[] Inventário;
         public short[] Equipamento;
@@ -48,7 +48,7 @@ class Jogador
         {
             get
             {
-                return (short)(Atributo[(byte)Jogo.Atributos.Força] + Listas.Item[Equipamento[(byte)Jogo.Equipamentos.Arma]].Arma_Dano);
+                return (short)(Atributo[(byte)Game.Atributos.Força] + Listas.Item[Equipamento[(byte)Game.Equipamentos.Arma]].Arma_Dano);
             }
         }
 
@@ -57,7 +57,7 @@ class Jogador
         {
             get
             {
-                return Atributo[(byte)Jogo.Atributos.Resistência];
+                return Atributo[(byte)Game.Atributos.Resistência];
             }
         }
 
@@ -66,12 +66,12 @@ class Jogador
             short[] Base = Listas.Classe[Classe].Vital;
 
             // Cálcula o máximo de vital que um jogador possui
-            switch ((Jogo.Vitais)Vital)
+            switch ((Game.Vitais)Vital)
             {
-                case Jogo.Vitais.Vida:
-                    return (short)(Base[Vital] + (Atributo[(byte)Jogo.Atributos.Vitalidade] * 1.50 * (Level * 0.75)));
-                case Jogo.Vitais.Mana:
-                    return (short)(Base[Vital] + (Atributo[(byte)Jogo.Atributos.Inteligência] * 1.25 * (Level * 0.5)));
+                case Game.Vitais.Vida:
+                    return (short)(Base[Vital] + (Atributo[(byte)Game.Atributos.Vitalidade] * 1.50 * (Level * 0.75)));
+                case Game.Vitais.Mana:
+                    return (short)(Base[Vital] + (Atributo[(byte)Game.Atributos.Inteligência] * 1.25 * (Level * 0.5)));
             }
 
             return 0;
@@ -80,12 +80,12 @@ class Jogador
         public short Regeneração(byte Vital)
         {
             // Cálcula o máximo de vital que um jogador possui
-            switch ((Jogo.Vitais)Vital)
+            switch ((Game.Vitais)Vital)
             {
-                case Jogo.Vitais.Vida:
-                    return (short)(MáxVital(Vital) * 0.05 + Atributo[(byte)Jogo.Atributos.Vitalidade] * 0.3);
-                case Jogo.Vitais.Mana:
-                    return (short)(MáxVital(Vital) * 0.05 + Atributo[(byte)Jogo.Atributos.Inteligência] * 0.1);
+                case Game.Vitais.Vida:
+                    return (short)(MáxVital(Vital) * 0.05 + Atributo[(byte)Game.Atributos.Vitalidade] * 0.3);
+                case Game.Vitais.Mana:
+                    return (short)(MáxVital(Vital) * 0.05 + Atributo[(byte)Game.Atributos.Inteligência] * 0.1);
             }
 
             return 0;
@@ -97,7 +97,7 @@ class Jogador
             {
                 short Soma = 0;
                 // Quantidade de experiência para passar para o próximo level
-                for (byte i = 0; i <= (byte)(Jogo.Atributos.Quantidade - 1); i++) Soma += Atributo[i];
+                for (byte i = 0; i <= (byte)(Game.Atributos.Quantidade - 1); i++) Soma += Atributo[i];
                 return (short)((Level + 1) * 2.5 + (Soma + Pontos) / 2);
             }
         }
@@ -109,7 +109,7 @@ class Jogador
         if (EstáJogando(Índice))
             return;
 
-        // Define que o jogador está dentro do jogo
+        // Define que o jogador está dentro do Game
         Listas.TempJogador[Índice].Jogando = true;
 
         // Envia todos os dados necessários
@@ -125,7 +125,7 @@ class Jogador
         // Transporta o jogador para a sua determinada Posição
         Transportar(Índice, Personagem(Índice).Mapa, Personagem(Índice).X, Personagem(Índice).Y);
 
-        // Entra no jogo
+        // Entra no Game
         Enviar.Entrar(Índice);
         Enviar.Mensagem(Índice, Listas.Servidor_Dados.Mensagem, Color.Blue);
     }
@@ -142,7 +142,7 @@ class Jogador
 
     public static bool EstáJogando(byte Índice)
     {
-        // Verifica se o jogador está dentro do jogo
+        // Verifica se o jogador está dentro do Game
         if (Rede.EstáConectado(Índice))
             if (Listas.TempJogador[Índice].Jogando)
                 return true;
@@ -183,7 +183,7 @@ class Jogador
     public static bool MúltiplasContas(string Usuário)
     {
         // Verifica se já há alguém conectado com essa conta
-        for (byte i = 1; i <= Jogo.MaiorÍndice; i++)
+        for (byte i = 1; i <= Game.MaiorÍndice; i++)
             if (Rede.EstáConectado(i))
                 if (Listas.Jogador[i].Usuário == Usuário)
                     return true;
@@ -204,18 +204,18 @@ class Jogador
         if (Listas.TempJogador[Índice].ObtendoMapa) return;
 
         // Próximo azulejo
-        Mapa.PróximoAzulejo(Personagem(Índice).Direção, ref Próximo_X, ref Próximo_Y);
+        Map.PróximoAzulejo(Personagem(Índice).Direção, ref Próximo_X, ref Próximo_Y);
 
         // Ponto de ligação
-        if (Mapa.ForaDoLimite(Mapa_Num, Próximo_X, Próximo_Y))
+        if (Map.ForaDoLimite(Mapa_Num, Próximo_X, Próximo_Y))
         {
             if (Ligação > 0)
                 switch (Personagem(Índice).Direção)
                 {
-                    case Jogo.Direções.Acima: Transportar(Índice, Ligação, x, Listas.Mapa[Mapa_Num].Altura); break;
-                    case Jogo.Direções.Abaixo: Transportar(Índice, Ligação, x, 0); break;
-                    case Jogo.Direções.Direita: Transportar(Índice, Ligação, 0, y); break;
-                    case Jogo.Direções.Esquerda: Transportar(Índice, Ligação, Listas.Mapa[Mapa_Num].Largura, y); break;
+                    case Game.Direções.Acima: Transportar(Índice, Ligação, x, Listas.Mapa[Mapa_Num].Altura); break;
+                    case Game.Direções.Abaixo: Transportar(Índice, Ligação, x, 0); break;
+                    case Game.Direções.Direita: Transportar(Índice, Ligação, 0, y); break;
+                    case Game.Direções.Esquerda: Transportar(Índice, Ligação, Listas.Mapa[Mapa_Num].Largura, y); break;
                 }
             else
             {
@@ -224,7 +224,7 @@ class Jogador
             }
         }
         // Bloqueio
-        else if (!Mapa.Azulejo_Bloqueado(Mapa_Num, x, y, Personagem(Índice).Direção))
+        else if (!Map.Azulejo_Bloqueado(Mapa_Num, x, y, Personagem(Índice).Direção))
         {
             Personagem(Índice).X = (byte)Próximo_X;
             Personagem(Índice).Y = (byte)Próximo_Y;
@@ -233,11 +233,11 @@ class Jogador
         // Atributos
         Listas.Estruturas.Azulejo Azulejo = Listas.Mapa[Mapa_Num].Azulejo[Próximo_X, Próximo_Y];
 
-        switch ((Mapa.Atributos)Azulejo.Atributo)
+        switch ((Map.Atributos)Azulejo.Atributo)
         {
             // Teletransporte
-            case Mapa.Atributos.Teletransporte:
-                if (Azulejo.Dado_4 > 0) Personagem(Índice).Direção = (Jogo.Direções)Azulejo.Dado_4 - 1;
+            case Map.Atributos.Teletransporte:
+                if (Azulejo.Dado_4 > 0) Personagem(Índice).Direção = (Game.Direções)Azulejo.Dado_4 - 1;
                 Transportar(Índice, Azulejo.Dado_1, (byte)Azulejo.Dado_2, (byte)Azulejo.Dado_3);
                 OutroMovimento = true;
                 break;
@@ -288,14 +288,14 @@ class Jogador
         byte Vítima_Índice;
 
         // Próximo azulejo
-        Mapa.PróximoAzulejo(Personagem(Índice).Direção, ref Próx_X, ref Próx_Y);
+        Map.PróximoAzulejo(Personagem(Índice).Direção, ref Próx_X, ref Próx_Y);
 
         // Apenas se necessário
         if (Environment.TickCount < Personagem(Índice).Ataque_Tempo + 750) return;
-        if (Mapa.Azulejo_Bloqueado(Personagem(Índice).Mapa, Personagem(Índice).X, Personagem(Índice).Y, Personagem(Índice).Direção, false)) goto continuar;
+        if (Map.Azulejo_Bloqueado(Personagem(Índice).Mapa, Personagem(Índice).X, Personagem(Índice).Y, Personagem(Índice).Direção, false)) goto continuar;
 
         // Ataca um jogador
-        Vítima_Índice = Mapa.HáJogador(Personagem(Índice).Mapa, Próx_X, Próx_Y);
+        Vítima_Índice = Map.HáJogador(Personagem(Índice).Mapa, Próx_X, Próx_Y);
         if (Vítima_Índice > 0)
         {
             Atacar_Jogador(Índice, Vítima_Índice);
@@ -303,7 +303,7 @@ class Jogador
         }
 
         // Ataca um NPC
-        Vítima_Índice = Mapa.HáNPC(Personagem(Índice).Mapa, Próx_X, Próx_Y);
+        Vítima_Índice = Map.HáNPC(Personagem(Índice).Mapa, Próx_X, Próx_Y);
         if (Vítima_Índice > 0)
         {
             Atacar_NPC(Índice, Vítima_Índice);
@@ -322,21 +322,21 @@ class Jogador
         short x = Personagem(Índice).X, y = Personagem(Índice).Y;
 
         // Define o azujelo a frente do jogador
-        Mapa.PróximoAzulejo(Personagem(Índice).Direção, ref x, ref y);
+        Map.PróximoAzulejo(Personagem(Índice).Direção, ref x, ref y);
 
         // Verifica se a vítima pode ser atacada
         if (!EstáJogando(Vítima)) return;
         if (Listas.TempJogador[Vítima].ObtendoMapa) return;
         if (Personagem(Índice).Mapa != Personagem(Vítima).Mapa) return;
         if (Personagem(Vítima).X != x || Personagem(Vítima).Y != y) return;
-        if (Listas.Mapa[Personagem(Índice).Mapa].Moral == (byte)Mapa.Morais.Pacífico)
+        if (Listas.Mapa[Personagem(Índice).Mapa].Moral == (byte)Map.Morais.Pacífico)
         {
             Enviar.Mensagem(Índice, "Essa é uma área pacífica.", Color.White);
             return;
         }
 
         // Demonstra o ataque aos outros jogadores
-        Enviar.Jogador_Atacar(Índice, Vítima, (byte)Jogo.Alvo.Jogador);
+        Enviar.Jogador_Atacar(Índice, Vítima, (byte)Game.Alvo.Jogador);
 
         // Tempo de ataque 
         Personagem(Índice).Ataque_Tempo = Environment.TickCount;
@@ -345,9 +345,9 @@ class Jogador
         Dano = (short)(Personagem(Índice).Dano - Personagem(Vítima).Jogador_Defesa);
 
         // Dano não fatal
-        if (Dano <= Personagem(Vítima).MáxVital((byte)Jogo.Vitais.Vida))
+        if (Dano <= Personagem(Vítima).MáxVital((byte)Game.Vitais.Vida))
         {
-            Personagem(Vítima).Vital[(byte)Jogo.Vitais.Vida] -= Dano;
+            Personagem(Vítima).Vital[(byte)Game.Vitais.Vida] -= Dano;
             Enviar.Jogador_Vitais(Vítima);
         }
         // FATALITY
@@ -368,29 +368,29 @@ class Jogador
         Listas.Estruturas.Mapa_NPCs NPC = Listas.Mapa[Personagem(Índice).Mapa].Temp_NPC[Vítima];
 
         // Define o azujelo a frente do jogador
-        Mapa.PróximoAzulejo(Personagem(Índice).Direção, ref x, ref y);
+        Map.PróximoAzulejo(Personagem(Índice).Direção, ref x, ref y);
 
         // Verifica se a vítima pode ser atacada
         if (NPC.X != x || NPC.Y != y) return;
-        if (Listas.NPC[NPC.Índice].Agressividade == (byte)global::NPC.Agressividade.Passivo) return;
+        if (Listas.NPC[NPC.Índice].Agressividade == (byte)global::NPC.Aggressiveness.Passive) return;
 
         // Define o alvo do NPC
         Listas.Mapa[Personagem(Índice).Mapa].Temp_NPC[Vítima].Alvo_Índice = Índice;
-        Listas.Mapa[Personagem(Índice).Mapa].Temp_NPC[Vítima].Alvo_Tipo = (byte)Jogo.Alvo.Jogador;
+        Listas.Mapa[Personagem(Índice).Mapa].Temp_NPC[Vítima].Alvo_Tipo = (byte)Game.Alvo.Jogador;
 
         // Demonstra o ataque aos outros jogadores
-        Enviar.Jogador_Atacar(Índice, Vítima, (byte)Jogo.Alvo.NPC);
+        Enviar.Jogador_Atacar(Índice, Vítima, (byte)Game.Alvo.NPC);
 
         // Tempo de ataque 
         Personagem(Índice).Ataque_Tempo = Environment.TickCount;
 
         // Cálculo de dano
-        Dano = (short)(Personagem(Índice).Dano - Listas.NPC[NPC.Índice].Atributo[(byte)Jogo.Atributos.Resistência]);
+        Dano = (short)(Personagem(Índice).Dano - Listas.NPC[NPC.Índice].Atributo[(byte)Game.Atributos.Resistência]);
 
         // Dano não fatal
-        if (Dano < Listas.Mapa[Personagem(Índice).Mapa].Temp_NPC[Vítima].Vital[(byte)Jogo.Vitais.Vida])
+        if (Dano < Listas.Mapa[Personagem(Índice).Mapa].Temp_NPC[Vítima].Vital[(byte)Game.Vitais.Vida])
         {
-            Listas.Mapa[Personagem(Índice).Mapa].Temp_NPC[Vítima].Vital[(byte)Jogo.Vitais.Vida] -= Dano;
+            Listas.Mapa[Personagem(Índice).Mapa].Temp_NPC[Vítima].Vital[(byte)Game.Vitais.Vida] -= Dano;
             Enviar.Mapa_NPC_Vitais(Personagem(Índice).Mapa, Vítima);
         }
         // FATALITY
@@ -409,7 +409,7 @@ class Jogador
         Listas.Estruturas.Classes Dados = Listas.Classe[Personagem(Índice).Classe];
 
         // Recupera os vitais
-        for (byte n = 0; n <= (byte)Jogo.Vitais.Quantidade - 1; n++)
+        for (byte n = 0; n <= (byte)Game.Vitais.Quantidade - 1; n++)
             Personagem(Índice).Vital[n] = Personagem(Índice).MáxVital(n);
 
         // Perde 10% da experiência
@@ -417,14 +417,14 @@ class Jogador
         Enviar.Jogador_Experiência(Índice);
 
         // Retorna para o ínicio
-        Personagem(Índice).Direção = (Jogo.Direções)Dados.Aparecer_Direção;
+        Personagem(Índice).Direção = (Game.Direções)Dados.Aparecer_Direção;
         Transportar(Índice, Dados.Aparecer_Mapa, Dados.Aparecer_X, Dados.Aparecer_Y);
     }
 
     public static void Lógica()
     {
         // Lógica dos NPCs
-        for (byte i = 1; i <= Jogo.MaiorÍndice; i++)
+        for (byte i = 1; i <= Game.MaiorÍndice; i++)
         {
             // Não é necessário
             if (!EstáJogando(i)) continue;
@@ -432,8 +432,8 @@ class Jogador
             ///////////////
             // Reneração // 
             ///////////////
-            if (Environment.TickCount > Laço.Contagem_Jogador_Reneração + 5000)
-                for (byte v = 0; v <= (byte)Jogo.Vitais.Quantidade - 1; v++)
+            if (Environment.TickCount > Tie.Score_Player_Reneration + 5000)
+                for (byte v = 0; v <= (byte)Game.Vitais.Quantidade - 1; v++)
                     if (Personagem(i).Vital[v] < Personagem(i).MáxVital(v))
                     {
                         // Renera a vida do jogador
@@ -446,7 +446,7 @@ class Jogador
         }
 
         // Reseta as contagens
-        if (Environment.TickCount > Laço.Contagem_Jogador_Reneração + 5000) Laço.Contagem_Jogador_Reneração = Environment.TickCount;
+        if (Environment.TickCount > Tie.Score_Player_Reneration + 5000) Tie.Score_Player_Reneration = Environment.TickCount;
     }
 
     public static void VerificarLevel(byte Índice)
@@ -503,7 +503,7 @@ class Jogador
         Listas.Estruturas.Mapa_Itens Mapa_Item = new Listas.Estruturas.Mapa_Itens();
 
         // Somente se necessário
-        if (Listas.Mapa[Mapa_Num].Temp_Item.Count == Jogo.Máx_Mapa_Itens) return;
+        if (Listas.Mapa[Mapa_Num].Temp_Item.Count == Game.Max_Mapa_Itens) return;
         if (Personagem(Índice).Inventário[Slot].Item_Num == 0) return;
         if (Listas.Item[Personagem(Índice).Inventário[Slot].Item_Num].NãoDropável) return;
 
@@ -541,10 +541,10 @@ class Jogador
                 return;
             }
 
-        if (Listas.Item[Item_Num].Tipo == (byte)Jogo.Itens.Equipamento)
+        if (Listas.Item[Item_Num].Tipo == (byte)Game.Itens.Equipamento)
         {
             // Retira o item da hotbar
-            byte HotbarSlot = EncontrarHotbar(Índice, (byte)Jogo.Hotbar.Item, Slot);
+            byte HotbarSlot = EncontrarHotbar(Índice, (byte)Game.Hotbar.Item, Slot);
             Personagem(Índice).Hotbar[HotbarSlot].Tipo = 0;
             Personagem(Índice).Hotbar[HotbarSlot].Slot = 0;
 
@@ -557,20 +557,20 @@ class Jogador
 
             // Equipa o item
             Personagem(Índice).Equipamento[Listas.Item[Item_Num].Equip_Tipo] = Item_Num;
-            for (byte i = 0; i <= (byte)Jogo.Atributos.Quantidade - 1; i++) Personagem(Índice).Atributo[i] += Listas.Item[Item_Num].Equip_Atributo[i];
+            for (byte i = 0; i <= (byte)Game.Atributos.Quantidade - 1; i++) Personagem(Índice).Atributo[i] += Listas.Item[Item_Num].Equip_Atributo[i];
 
             // Envia os dados
             Enviar.Jogador_Inventário(Índice);
             Enviar.Jogador_Equipamentos(Índice);
             Enviar.Jogador_Hotbar(Índice);
         }
-        else if (Listas.Item[Item_Num].Tipo == (byte)Jogo.Itens.Poção)
+        else if (Listas.Item[Item_Num].Tipo == (byte)Game.Itens.Poção)
         {
             // Efeitos
             bool TeveEfeito = false;
             Personagem(Índice).Experiência += Listas.Item[Item_Num].Poção_Experiência;
             if (Personagem(Índice).Experiência < 0) Personagem(Índice).Experiência = 0;
-            for (byte i = 0; i <= (byte)Jogo.Vitais.Quantidade - 1; i++)
+            for (byte i = 0; i <= (byte)Game.Vitais.Quantidade - 1; i++)
             {
                 // Verifica se o item causou algum efeito 
                 if (Personagem(Índice).Vital[i] < Personagem(Índice).MáxVital(i) && Listas.Item[Item_Num].Poção_Vital[i] != 0) TeveEfeito = true;
@@ -584,7 +584,7 @@ class Jogador
             }
 
             // Foi fatal
-            if (Personagem(Índice).Vital[(byte)Jogo.Vitais.Vida] == 0) Morreu(Índice);
+            if (Personagem(Índice).Vital[(byte)Game.Vitais.Vida] == 0) Morreu(Índice);
 
             // Remove o item caso tenha tido algum efeito
             if (Listas.Item[Item_Num].Poção_Experiência > 0 || TeveEfeito)
@@ -600,7 +600,7 @@ class Jogador
     public static byte EncontrarHotbar(byte Índice, byte Tipo, byte Slot)
     {
         // Encontra algo especifico na hotbar
-        for (byte i = 1; i <= Jogo.Máx_Hotbar; i++)
+        for (byte i = 1; i <= Game.Max_Hotbar; i++)
             if (Personagem(Índice).Hotbar[i].Tipo == Tipo && Personagem(Índice).Hotbar[i].Slot == Slot)
                 return i;
 
@@ -610,7 +610,7 @@ class Jogador
     public static byte EncontrarInventário(byte Índice, short Item_Num)
     {
         // Encontra algo especifico na hotbar
-        for (byte i = 1; i <= Jogo.Máx_Inventário; i++)
+        for (byte i = 1; i <= Game.Max_Inventário; i++)
             if (Personagem(Índice).Inventário[i].Item_Num == Item_Num)
                 return i;
 

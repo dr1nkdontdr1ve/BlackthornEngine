@@ -17,7 +17,7 @@
     {
         public struct Opções
         {
-            public string Jogo_Nome;
+            public string Game_Nome;
             public bool SalvarUsuário;
             public bool Sons;
             public bool Músicas;
@@ -65,8 +65,8 @@
             public short Mapa;
             public byte X;
             public byte Y;
-            public Jogo.Direções Direção;
-            public Jogo.Movimentos Movimento;
+            public Game.Direções Direção;
+            public Game.Movimentos Movimento;
             public short[] Equipamento;
         }
 
@@ -180,8 +180,8 @@
             public short Índice;
             public byte X;
             public byte Y;
-            public Jogo.Direções Direção;
-            public Jogo.Movimentos Movimento;
+            public Game.Direções Direção;
+            public Game.Movimentos Movimento;
             public short[] Vital;
         }
 

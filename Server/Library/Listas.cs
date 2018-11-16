@@ -16,7 +16,7 @@ class Listas
     {
         public struct Servidor_Dados
         {
-            public string Jogo_Nome;
+            public string Game_Nome;
             public string Mensagem;
             public short Porta;
             public byte Máx_Jogadores;
@@ -32,7 +32,7 @@ class Listas
         {
             public string Usuário;
             public string Senha;
-            public Jogo.Acessos Acesso;
+            public Game.Acessos Acesso;
             public global::Jogador.Personagem_Estrutura[] Personagem;
         }
 
@@ -149,7 +149,7 @@ class Listas
             public short Índice;
             public byte X;
             public byte Y;
-            public Jogo.Direções Direção;
+            public Game.Direções Direção;
             public byte Alvo_Tipo;
             public byte Alvo_Índice;
             public short[] Vital;

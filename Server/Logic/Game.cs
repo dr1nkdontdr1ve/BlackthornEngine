@@ -1,6 +1,6 @@
 ﻿using System;
 
-class Jogo
+class Game
 {
     // Números aleatórios
     public static Random Aleatório = new Random();
@@ -13,17 +13,17 @@ class Jogo
     public static bool CPS_Travado;
 
     // Bloqueio direcional
-    public const byte Máx_BloqDirecional = 3;
+    public const byte Max_BloqDirecional = 3;
 
-    // Máximo e mínimo de caracteres permidos em alguns texto
-    public const byte Máx_Caractere = 12;
-    public const byte Min_Caractere = 3;
+    // Maximum and minimum characters allowed in some text
+    public const byte Max_Character = 12;
+    public const byte Min_Character = 3;
 
-    // Limites em geral
-    public const byte Máx_NPC_Queda = 4;
-    public const byte Máx_Inventário = 30;
-    public const byte Máx_Mapa_Itens = 100;
-    public const byte Máx_Hotbar = 10;
+    // Limits in general
+    public const byte Max_NPC_Queda = 4;
+    public const byte Max_Inventário = 30;
+    public const byte Max_Mapa_Itens = 100;
+    public const byte Max_Hotbar = 10;
 
     #region Númerações
     public enum Direções
@@ -68,7 +68,7 @@ class Jogo
 
     public enum Mensagens
     {
-        Jogo,
+        Game,
         Mapa,
         Global,
         Particular

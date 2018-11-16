@@ -378,7 +378,7 @@ partial class Gráficos
         TempTamanho.Width = (Listas.Mapa[Índice].Largura + 1 - Editor_Mapas.Objetos.scrlMapaX.Value) * Globais.Grade_Zoom;
         TempTamanho.Height = (Listas.Mapa[Índice].Altura + 1 - Editor_Mapas.Objetos.scrlMapaY.Value) * Globais.Grade_Zoom;
 
-        // Não permite que o tamanho ultrapasse a tela de jogo
+        // Não permite que o tamanho ultrapasse a tela de Game
         if (Tamanho.Width > TempTamanho.Width) Tamanho.Width = TempTamanho.Width;
         if (Tamanho.Height > TempTamanho.Height) Tamanho.Height = TempTamanho.Height;
 

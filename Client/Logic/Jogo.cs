@@ -2,7 +2,7 @@
 using System.Drawing;
 using System.Windows.Forms;
 
-public class Jogo
+public class Game
 {
     // Números aleatórios
     public static Random Aleatório = new Random();
@@ -10,7 +10,7 @@ public class Jogo
     // Dimensão das grades 
     public const byte Grade = 32;
 
-    // Medida de calculo do atraso do jogo
+    // Medida de calculo do atraso do Game
     public static short FPS;
 
     // Interface
@@ -106,7 +106,7 @@ public class Jogo
 
     public enum Mensagens
     {
-        Jogo,
+        Game,
         Mapa,
         Global,
         Particular

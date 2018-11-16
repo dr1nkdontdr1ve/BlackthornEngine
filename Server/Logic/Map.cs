@@ -40,7 +40,7 @@ class Map
             NPC.Lógica(i);
 
             // Faz reaparecer todos os itens do mapa
-            if (Environment.TickCount > Laço.Contagem_Mapa_Itens + 300000)
+            if (Environment.TickCount > Tie.Score_Map_Items + 300000)
             {
                 Listas.Mapa[i].Temp_Item = new System.Collections.Generic.List<Listas.Estruturas.Mapa_Itens>();
                 Aparecer_Itens(i);
@@ -49,8 +49,8 @@ class Map
         }
 
         // Reseta as contagens
-        if (Environment.TickCount > Laço.Contagem_NPC_Reneração + 5000) Laço.Contagem_NPC_Reneração = Environment.TickCount;
-        if (Environment.TickCount > Laço.Contagem_Mapa_Itens + 300000) Laço.Contagem_Mapa_Itens = Environment.TickCount;
+        if (Environment.TickCount > Tie.Score_NPC_Reneration + 5000) Tie.Score_NPC_Reneration = Environment.TickCount;
+        if (Environment.TickCount > Tie.Score_Map_Items + 300000) Tie.Score_Map_Items = Environment.TickCount;
     }
 
     public static byte HáNPC(short Mapa_Num, short X, short Y)
@@ -67,9 +67,9 @@ class Map
     public static byte HáJogador(short Mapa_Num, short X, short Y)
     {
         // Verifica se há algum Jogador na cordenada
-        for (byte i = 1; i <= Jogo.MaiorÍndice; i++)
-            if (Jogador.EstáJogando(i))
-                if (Jogador.Personagem(i).X == X && Jogador.Personagem(i).Y == Y && Jogador.Personagem(i).Mapa == Mapa_Num)
+        for (byte i = 1; i <= Game.MaiorÍndice; i++)
+            if (Player.EstáJogando(i))
+                if (Player.Personagem(i).X == X && Player.Personagem(i).Y == Y && Player.Personagem(i).Mapa == Mapa_Num)
                     return i;
 
         return 0;
@@ -78,9 +78,9 @@ class Map
     public static bool HáJogadores(short Mapa_Num)
     {
         // Verifica se tem algum jogador no mapa
-        for (byte i = 1; i <= Jogo.MaiorÍndice; i++)
-            if (Jogador.EstáJogando(i))
-                if (Jogador.Personagem(i).Mapa == Mapa_Num)
+        for (byte i = 1; i <= Game.MaiorÍndice; i++)
+            if (Player.EstáJogando(i))
+                if (Player.Personagem(i).Mapa == Mapa_Num)
                     return true;
 
         return false;
@@ -105,15 +105,15 @@ class Map
             return false;
     }
 
-    public static void PróximoAzulejo(Jogo.Direções Direção, ref short X, ref short Y)
+    public static void PróximoAzulejo(Game.Direções Direção, ref short X, ref short Y)
     {
         // Próximo azulejo
         switch (Direção)
         {
-            case Jogo.Direções.Acima: Y -= 1; break;
-            case Jogo.Direções.Abaixo: Y += 1; break;
-            case Jogo.Direções.Direita: X += 1; break;
-            case Jogo.Direções.Esquerda: X -= 1; break;
+            case Game.Direções.Acima: Y -= 1; break;
+            case Game.Direções.Abaixo: Y += 1; break;
+            case Game.Direções.Direita: X += 1; break;
+            case Game.Direções.Esquerda: X -= 1; break;
         }
     }
 
@@ -128,7 +128,7 @@ class Map
         return false;
     }
 
-    public static bool Azulejo_Bloqueado(short Mapa_Num, short X, short Y, Jogo.Direções Direção, bool ContarPersonagens = true)
+    public static bool Azulejo_Bloqueado(short Mapa_Num, short X, short Y, Game.Direções Direção, bool ContarPersonagens = true)
     {
         short Próximo_X = X, Próximo_Y = Y;
 
@@ -138,7 +138,7 @@ class Map
         // Verifica se o azulejo está bloqueado
         if (Azulejo_Bloqueado(Mapa_Num, (byte)Próximo_X, (byte)Próximo_Y))
             return true;
-        else if (Listas.Mapa[Mapa_Num].Azulejo[Próximo_X, Próximo_Y].Bloqueio[(byte)Jogo.DireçãoInversa(Direção)])
+        else if (Listas.Mapa[Mapa_Num].Azulejo[Próximo_X, Próximo_Y].Bloqueio[(byte)Game.DireçãoInversa(Direção)])
             return true;
         else if (Listas.Mapa[Mapa_Num].Azulejo[X, Y].Bloqueio[(byte)Direção])
             return true;
@@ -204,8 +204,8 @@ partial class Ler
         Listas.Mapa[Índice].Iluminação = Binário.ReadByte();
 
         // Ligações
-        Listas.Mapa[Índice].Ligação = new short[(byte)Jogo.Direções.Quantidade];
-        for (short i = 0; i <= (short)Jogo.Direções.Quantidade - 1; i++)
+        Listas.Mapa[Índice].Ligação = new short[(byte)Game.Direções.Quantidade];
+        for (short i = 0; i <= (short)Game.Direções.Quantidade - 1; i++)
             Listas.Mapa[Índice].Ligação[i] = Binário.ReadInt16();
 
         // Azulejos
@@ -223,8 +223,8 @@ partial class Ler
                 Listas.Mapa[Índice].Azulejo[x, y].Zona = Binário.ReadByte();
 
                 // Bloqueio direcional
-                Listas.Mapa[Índice].Azulejo[x, y].Bloqueio = new bool[(byte)Jogo.Direções.Quantidade];
-                for (byte i = 0; i <= (byte)Jogo.Direções.Quantidade - 1; i++)
+                Listas.Mapa[Índice].Azulejo[x, y].Bloqueio = new bool[(byte)Game.Direções.Quantidade];
+                for (byte i = 0; i <= (byte)Game.Direções.Quantidade - 1; i++)
                     Listas.Mapa[Índice].Azulejo[x, y].Bloqueio[i] = Binário.ReadBoolean();
             }
 

@@ -12,11 +12,11 @@ public partial class Janela : Form
 
     private void Janela_FormClosing(object sender, FormClosingEventArgs e)
     {
-        // Fecha o jogo
-        if (Ferramentas.JanelaAtual == Ferramentas.Janelas.Jogo)
+        // Fecha o Game
+        if (Ferramentas.JanelaAtual == Ferramentas.Janelas.Game)
         {
             e.Cancel = true;
-            Jogo.Sair();
+            Game.Sair();
         }
         else
             Aplicação.Funcionado = false;
@@ -31,8 +31,8 @@ public partial class Janela : Form
                 case Ferramentas.Tipos.Botão: Botões.Eventos.MouseDown(e, Ferramentas.Ordem[i].Índice); break;
             }
 
-        // Eventos em jogo
-        if (Ferramentas.JanelaAtual == Ferramentas.Janelas.Jogo)
+        // Eventos em Game
+        if (Ferramentas.JanelaAtual == Ferramentas.Janelas.Game)
         {
             Ferramentas.Inventário_MouseDown(e);
             Ferramentas.Equipamento_MouseDown(e);
@@ -65,8 +65,8 @@ public partial class Janela : Form
                 case Ferramentas.Tipos.Digitalizador: Digitalizadores.Eventos.MouseUp(e, Ferramentas.Ordem[i].Índice); break;
             }
 
-        // Eventos em jogo
-        if (Ferramentas.JanelaAtual == Ferramentas.Janelas.Jogo)
+        // Eventos em Game
+        if (Ferramentas.JanelaAtual == Ferramentas.Janelas.Game)
         {
             // Muda o slot do item
             if (Jogador.Inventário_Movendo > 0)
@@ -77,7 +77,7 @@ public partial class Janela : Form
             if (Ferramentas.Hotbar_Sobrepondo() > 0)
             {
                 if (Jogador.Hotbar_Movendo > 0) Enviar.Hotbar_Mudar(Jogador.Hotbar_Movendo, Ferramentas.Hotbar_Sobrepondo());
-                if (Jogador.Inventário_Movendo > 0) Enviar.Hotbar_Adicionar(Ferramentas.Hotbar_Sobrepondo(), (byte)Jogo.Hotbar.Item, Jogador.Inventário_Movendo);
+                if (Jogador.Inventário_Movendo > 0) Enviar.Hotbar_Adicionar(Ferramentas.Hotbar_Sobrepondo(), (byte)Game.Hotbar.Item, Jogador.Inventário_Movendo);
             }
 
             // Reseta a movimentação
@@ -97,17 +97,17 @@ public partial class Janela : Form
         // Define se um botão está sendo pressionado
         switch (e.KeyCode)
         {
-            case Keys.Up: Jogo.Pressionado_Acima = true; break;
-            case Keys.Down: Jogo.Pressionado_Abaixo = true; break;
-            case Keys.Left: Jogo.Pressionado_Esquerda = true; break;
-            case Keys.Right: Jogo.Pressionado_Direita = true; break;
-            case Keys.ShiftKey: Jogo.Pressionado_Shift = true; break;
-            case Keys.ControlKey: Jogo.Pressionado_Control = true; break;
+            case Keys.Up: Game.Pressionado_Acima = true; break;
+            case Keys.Down: Game.Pressionado_Abaixo = true; break;
+            case Keys.Left: Game.Pressionado_Esquerda = true; break;
+            case Keys.Right: Game.Pressionado_Direita = true; break;
+            case Keys.ShiftKey: Game.Pressionado_Shift = true; break;
+            case Keys.ControlKey: Game.Pressionado_Control = true; break;
             case Keys.Enter: Digitalizadores.Chat_Digitar(); break;
         }
 
-        // Em jogo
-        if (Ferramentas.JanelaAtual == Ferramentas.Janelas.Jogo)
+        // Em Game
+        if (Ferramentas.JanelaAtual == Ferramentas.Janelas.Game)
             if (!Paineis.Encontrar("Chat").Geral.Visível)
             {
                 switch (e.KeyCode)
@@ -132,12 +132,12 @@ public partial class Janela : Form
         // Define se um botão está sendo pressionado
         switch (e.KeyCode)
         {
-            case Keys.Up: Jogo.Pressionado_Acima = false; break;
-            case Keys.Down: Jogo.Pressionado_Abaixo = false; break;
-            case Keys.Left: Jogo.Pressionado_Esquerda = false; break;
-            case Keys.Right: Jogo.Pressionado_Direita = false; break;
-            case Keys.ShiftKey: Jogo.Pressionado_Shift = false; break;
-            case Keys.ControlKey: Jogo.Pressionado_Control = false; break;
+            case Keys.Up: Game.Pressionado_Acima = false; break;
+            case Keys.Down: Game.Pressionado_Abaixo = false; break;
+            case Keys.Left: Game.Pressionado_Esquerda = false; break;
+            case Keys.Right: Game.Pressionado_Direita = false; break;
+            case Keys.ShiftKey: Game.Pressionado_Shift = false; break;
+            case Keys.ControlKey: Game.Pressionado_Control = false; break;
         }
     }
 
@@ -149,8 +149,8 @@ public partial class Janela : Form
 
     private void Janela_DoubleClick(object sender, System.EventArgs e)
     {
-        // Eventos em jogo
-        if (Ferramentas.JanelaAtual == Ferramentas.Janelas.Jogo)
+        // Eventos em Game
+        if (Ferramentas.JanelaAtual == Ferramentas.Janelas.Game)
         {
             // Usar item
             byte Slot = Ferramentas.Inventário_Sobrepondo();

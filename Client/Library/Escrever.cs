@@ -14,7 +14,7 @@ class Escrever
         BinaryWriter Arquivo = new BinaryWriter(File.OpenWrite(Diretórios.Opções.FullName));
 
         // Carrega todas as opções
-        Arquivo.Write(Listas.Opções.Jogo_Nome);
+        Arquivo.Write(Listas.Opções.Game_Nome);
         Arquivo.Write(Listas.Opções.SalvarUsuário);
         Arquivo.Write(Listas.Opções.Sons);
         Arquivo.Write(Listas.Opções.Músicas);
@@ -47,7 +47,7 @@ class Escrever
         Binário.Write(Listas.Mapa.Fumaça.Transparência);
 
         // Ligação
-        for (short i = 0; i <= (short)Jogo.Direções.Quantidade - 1; i++)
+        for (short i = 0; i <= (short)Game.Direções.Quantidade - 1; i++)
             Binário.Write(Listas.Mapa.Ligação[i]);
 
         // Azulejos
@@ -68,7 +68,7 @@ class Escrever
             for (byte y = 0; y <= Listas.Mapa.Altura; y++)
             {
                 Binário.Write((byte)Listas.Mapa.Azulejo[x, y].Atributo);
-                for (byte i = 0; i <= (byte)Jogo.Direções.Quantidade - 1; i++)
+                for (byte i = 0; i <= (byte)Game.Direções.Quantidade - 1; i++)
                     Binário.Write(Listas.Mapa.Azulejo[x, y].Bloqueio[i]);
             }
 

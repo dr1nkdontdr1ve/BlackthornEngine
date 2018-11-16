@@ -40,7 +40,7 @@ class Listas
 
         public struct Servidor_Dados
         {
-            public string Jogo_Nome;
+            public string Game_Nome;
             public string Mensagem;
             public short Porta;
             public byte Máx_Jogadores;

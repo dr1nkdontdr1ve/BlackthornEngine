@@ -31,7 +31,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.numPorta = new System.Windows.Forms.NumericUpDown();
             this.label4 = new System.Windows.Forms.Label();
-            this.txtJogo_Nome = new System.Windows.Forms.TextBox();
+            this.txtGame_Nome = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.numMáx_Personagens = new System.Windows.Forms.NumericUpDown();
             this.label2 = new System.Windows.Forms.Label();
@@ -51,7 +51,7 @@
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.numPorta);
             this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Controls.Add(this.txtJogo_Nome);
+            this.groupBox1.Controls.Add(this.txtGame_Nome);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.numMáx_Personagens);
             this.groupBox1.Controls.Add(this.label2);
@@ -101,12 +101,12 @@
             this.label4.TabIndex = 6;
             this.label4.Text = "Porta:";
             // 
-            // txtJogo_Nome
+            // txtGame_Nome
             // 
-            this.txtJogo_Nome.Location = new System.Drawing.Point(9, 41);
-            this.txtJogo_Nome.Name = "txtJogo_Nome";
-            this.txtJogo_Nome.Size = new System.Drawing.Size(246, 20);
-            this.txtJogo_Nome.TabIndex = 1;
+            this.txtGame_Nome.Location = new System.Drawing.Point(9, 41);
+            this.txtGame_Nome.Name = "txtGame_Nome";
+            this.txtGame_Nome.Size = new System.Drawing.Size(246, 20);
+            this.txtGame_Nome.TabIndex = 1;
             // 
             // label3
             // 
@@ -115,7 +115,7 @@
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(79, 13);
             this.label3.TabIndex = 4;
-            this.label3.Text = "Nome do Jogo:";
+            this.label3.Text = "Nome do Game:";
             // 
             // numMáx_Personagens
             // 
@@ -202,7 +202,7 @@
     private System.Windows.Forms.Button butSalvar;
     public System.Windows.Forms.NumericUpDown numMáx_Jogadores;
     public System.Windows.Forms.NumericUpDown numMáx_Personagens;
-    public System.Windows.Forms.TextBox txtJogo_Nome;
+    public System.Windows.Forms.TextBox txtGame_Nome;
     public System.Windows.Forms.NumericUpDown numPorta;
     private System.Windows.Forms.Label label4;
     private System.Windows.Forms.Label label5;

@@ -140,7 +140,7 @@ public class Botões
             if (!Paineis.Encontrar("SelecionarPersonagem").Geral.Visível)
                 return;
 
-            if (Listas.Personagens[Jogo.SelecionarPersonagem].Classe != 0)
+            if (Listas.Personagens[Game.SelecionarPersonagem].Classe != 0)
                 Visibilidade = true;
 
             // Altera os botões visíveis
@@ -195,8 +195,8 @@ public class Botões
             Listas.Opções.Usuário = Digitalizadores.Encontrar("Conectar_Usuário").Texto;
             Escrever.Opções();
 
-            // Conecta-se ao jogo
-            Jogo.DefinirSituação(Jogo.Situações.Conectar);
+            // Conecta-se ao Game
+            Game.DefinirSituação(Game.Situações.Conectar);
         }
 
         public static void Registrar_Pronto()
@@ -209,31 +209,31 @@ public class Botões
             }
 
             // Registra o jogador, se estiver tudo certo
-            Jogo.DefinirSituação(Jogo.Situações.Registrar);
+            Game.DefinirSituação(Game.Situações.Registrar);
         }
 
         public static void CriarPersonagem()
         {
             // Abre a criação de personagem
-            Jogo.DefinirSituação(Jogo.Situações.CriarPersonagem);
+            Game.DefinirSituação(Game.Situações.CriarPersonagem);
         }
 
         public static void CriarPersonagem_TrocarDireita()
         {
             // Altera a classe selecionada pelo jogador
-            if (Jogo.CriarPersonagem_Classe == Listas.Classe.GetUpperBound(0))
-                Jogo.CriarPersonagem_Classe = 1;
+            if (Game.CriarPersonagem_Classe == Listas.Classe.GetUpperBound(0))
+                Game.CriarPersonagem_Classe = 1;
             else
-                Jogo.CriarPersonagem_Classe += 1;
+                Game.CriarPersonagem_Classe += 1;
         }
 
         public static void CriarPersonagem_TrocarEsquerda()
         {
             // Altera a classe selecionada pelo jogador
-            if (Jogo.CriarPersonagem_Classe == 1)
-                Jogo.CriarPersonagem_Classe = (byte)Listas.Classe.GetUpperBound(0);
+            if (Game.CriarPersonagem_Classe == 1)
+                Game.CriarPersonagem_Classe = (byte)Listas.Classe.GetUpperBound(0);
             else
-                Jogo.CriarPersonagem_Classe -= 1;
+                Game.CriarPersonagem_Classe -= 1;
         }
 
         public static void CriarPersonagem_Retornar()
@@ -264,19 +264,19 @@ public class Botões
         public static void Personagem_TrocarDireita()
         {
             // Altera o personagem selecionado pelo jogador
-            if (Jogo.SelecionarPersonagem == Listas.Servidor_Dados.Máx_Personagens)
-                Jogo.SelecionarPersonagem = 1;
+            if (Game.SelecionarPersonagem == Listas.Servidor_Dados.Máx_Personagens)
+                Game.SelecionarPersonagem = 1;
             else
-                Jogo.SelecionarPersonagem += 1;
+                Game.SelecionarPersonagem += 1;
         }
 
         public static void Personagem_TrocarEsquerda()
         {
             // Altera o personagem selecionado pelo jogador
-            if (Jogo.SelecionarPersonagem == 1)
-                Jogo.SelecionarPersonagem = Listas.Servidor_Dados.Máx_Personagens;
+            if (Game.SelecionarPersonagem == 1)
+                Game.SelecionarPersonagem = Listas.Servidor_Dados.Máx_Personagens;
             else
-                Jogo.SelecionarPersonagem -= 1;
+                Game.SelecionarPersonagem -= 1;
         }
 
         public static void Chat_Subir()
@@ -302,27 +302,27 @@ public class Botões
 
         public static void Atributos_Força()
         {
-            Enviar.AdicionarPonto(Jogo.Atributos.Força);
+            Enviar.AdicionarPonto(Game.Atributos.Força);
         }
 
         public static void Atributos_Resistência()
         {
-            Enviar.AdicionarPonto(Jogo.Atributos.Resistência);
+            Enviar.AdicionarPonto(Game.Atributos.Resistência);
         }
 
         public static void Atributos_Inteligência()
         {
-            Enviar.AdicionarPonto(Jogo.Atributos.Inteligência);
+            Enviar.AdicionarPonto(Game.Atributos.Inteligência);
         }
 
         public static void Atributos_Agilidade()
         {
-            Enviar.AdicionarPonto(Jogo.Atributos.Agilidade);
+            Enviar.AdicionarPonto(Game.Atributos.Agilidade);
         }
 
         public static void Atributos_Vitalidade()
         {
-            Enviar.AdicionarPonto(Jogo.Atributos.Vitalidade);
+            Enviar.AdicionarPonto(Game.Atributos.Vitalidade);
         }
 
         public static void Menu_Inventário()

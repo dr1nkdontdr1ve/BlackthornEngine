@@ -53,12 +53,12 @@ public class Ferramentas
         public SFML.Graphics.Color Cor;
     }
 
-    // Identificação das janelas do jogo
+    // Identificação das janelas do Game
     public enum Janelas
     {
         Nenhuma,
         Menu,
-        Jogo
+        Game
     }
 
     // Tipos de ferramentas
@@ -225,7 +225,7 @@ public class Ferramentas
         byte NumColunas = 5;
         Point Painel_Posição = Paineis.Encontrar("Menu_Inventário").Geral.Posição;
 
-        for (byte i = 1; i <= Jogo.Máx_Inventário; i++)
+        for (byte i = 1; i <= Game.Máx_Inventário; i++)
         {
             // Posição do item
             byte Linha = (byte)((i - 1) / NumColunas);
@@ -266,7 +266,7 @@ public class Ferramentas
     {
         Point Painel_Posição = Paineis.Encontrar("Menu_Personagem").Geral.Posição;
 
-        for (byte i = 0; i <= (byte)Jogo.Equipamentos.Quantidade - 1; i++)
+        for (byte i = 0; i <= (byte)Game.Equipamentos.Quantidade - 1; i++)
             if (EstáSobrepondo(new Rectangle(Painel_Posição.X + 7 + i * 36, Painel_Posição.Y + 247, 32, 32)))
                 // Remove o equipamento
                 if (e.Button == MouseButtons.Right)
@@ -280,7 +280,7 @@ public class Ferramentas
     {
         Point Painel_Posição = Paineis.Encontrar("Hotbar").Geral.Posição;
 
-        for (byte i = 1; i <= Jogo.Máx_Hotbar; i++)
+        for (byte i = 1; i <= Game.Máx_Hotbar; i++)
         {
             // Posição do slot
             Point Posição = new Point(Painel_Posição.X + 8 + (i - 1) * 36, Painel_Posição.Y + 6);

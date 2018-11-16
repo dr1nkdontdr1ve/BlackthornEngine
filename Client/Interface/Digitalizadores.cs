@@ -126,7 +126,7 @@ public class Digitalizadores
 
         // Global
         if (Mensagem.Substring(0, 1) == "'")
-            Enviar.Mensagem(Mensagem.Substring(1), Jogo.Mensagens.Global);
+            Enviar.Mensagem(Mensagem.Substring(1), Game.Mensagens.Global);
         // Particular
         else if (Mensagem.Substring(0, 1) == "!")
         {
@@ -140,12 +140,12 @@ public class Digitalizadores
                 Mensagem = Mensagem.Substring(Partes[0].Length + 1);
 
                 // Envia a mensagem
-                Enviar.Mensagem(Mensagem, Jogo.Mensagens.Particular, Destinatário);
+                Enviar.Mensagem(Mensagem, Game.Mensagens.Particular, Destinatário);
             }
         }
         // Mapa
         else
-            Enviar.Mensagem(Mensagem, Jogo.Mensagens.Mapa);
+            Enviar.Mensagem(Mensagem, Game.Mensagens.Mapa);
 
         // Limpa a caixa de texto
         Lista[Índice].Texto = string.Empty;

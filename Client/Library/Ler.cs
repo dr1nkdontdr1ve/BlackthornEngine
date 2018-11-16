@@ -24,7 +24,7 @@ class Ler
             BinaryReader Arquivo = new BinaryReader(File.OpenRead(Diretórios.Opções.FullName));
 
             // Carrega os dados
-            Listas.Opções.Jogo_Nome = Arquivo.ReadString();
+            Listas.Opções.Game_Nome = Arquivo.ReadString();
             Listas.Opções.SalvarUsuário = Arquivo.ReadBoolean();
             Listas.Opções.Sons = Arquivo.ReadBoolean();
             Listas.Opções.Músicas = Arquivo.ReadBoolean();
@@ -198,8 +198,8 @@ class Ler
         Listas.Mapa.Fumaça.Transparência = Binário.ReadByte();
 
         // Redimensiona as ligações
-        Listas.Mapa.Ligação = new short[(byte)Jogo.Direções.Quantidade];
-        for (short i = 0; i <= (short)Jogo.Direções.Quantidade - 1; i++)
+        Listas.Mapa.Ligação = new short[(byte)Game.Direções.Quantidade];
+        for (short i = 0; i <= (short)Game.Direções.Quantidade - 1; i++)
             Listas.Mapa.Ligação[i] = Binário.ReadInt16();
 
         // Redimensiona os azulejos 
@@ -229,8 +229,8 @@ class Ler
             for (byte y = 0; y <= Listas.Mapa.Altura; y++)
             {
                 Listas.Mapa.Azulejo[x, y].Atributo = Binário.ReadByte();
-                Listas.Mapa.Azulejo[x, y].Bloqueio = new bool[(byte)Jogo.Direções.Quantidade];
-                for (byte i = 0; i <= (byte)Jogo.Direções.Quantidade - 1; i++)
+                Listas.Mapa.Azulejo[x, y].Bloqueio = new bool[(byte)Game.Direções.Quantidade];
+                for (byte i = 0; i <= (byte)Game.Direções.Quantidade - 1; i++)
                     Listas.Mapa.Azulejo[x, y].Bloqueio[i] = Binário.ReadBoolean();
             }
 

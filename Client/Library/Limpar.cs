@@ -3,7 +3,7 @@
     public static void Opções()
     {
         // Defini os dados das opções
-        Listas.Opções.Jogo_Nome = "CryBits";
+        Listas.Opções.Game_Nome = "CryBits";
         Listas.Opções.SalvarUsuário = true;
         Listas.Opções.Músicas = true;
         Listas.Opções.Sons = true;
@@ -45,10 +45,10 @@
     {
         // Limpa a estrutura
         Listas.Jogador[Índice] = new Listas.Estruturas.Jogador();
-        Listas.Jogador[Índice].Vital = new short[(byte)Jogo.Vitais.Quantidade];
-        Listas.Jogador[Índice].Máx_Vital = new short[(byte)Jogo.Vitais.Quantidade];
-        Listas.Jogador[Índice].Atributo = new short[(byte)Jogo.Atributos.Quantidade];
-        Listas.Jogador[Índice].Equipamento = new short[(byte)Jogo.Equipamentos.Quantidade];
+        Listas.Jogador[Índice].Vital = new short[(byte)Game.Vitais.Quantidade];
+        Listas.Jogador[Índice].Máx_Vital = new short[(byte)Game.Vitais.Quantidade];
+        Listas.Jogador[Índice].Atributo = new short[(byte)Game.Atributos.Quantidade];
+        Listas.Jogador[Índice].Equipamento = new short[(byte)Game.Equipamentos.Quantidade];
 
         // Reseta os valores
         Listas.Jogador[Índice].Nome = string.Empty;

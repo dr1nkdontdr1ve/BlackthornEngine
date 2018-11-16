@@ -43,8 +43,8 @@ class Limpar
         // Limpa os dados
         Listas.Jogador[Índice].Personagem[Personagem] = new Jogador.Personagem_Estrutura();
         Listas.Jogador[Índice].Personagem[Personagem].Índice = Índice;
-        Listas.Jogador[Índice].Personagem[Personagem].Inventário = new Listas.Estruturas.Inventário[Jogo.Máx_Inventário + 1];
-        Listas.Jogador[Índice].Personagem[Personagem].Equipamento = new short[(byte)Jogo.Equipamentos.Quantidade];
-        Listas.Jogador[Índice].Personagem[Personagem].Hotbar = new Listas.Estruturas.Hotbar[Jogo.Máx_Hotbar + 1];
+        Listas.Jogador[Índice].Personagem[Personagem].Inventário = new Listas.Estruturas.Inventário[Game.Máx_Inventário + 1];
+        Listas.Jogador[Índice].Personagem[Personagem].Equipamento = new short[(byte)Game.Equipamentos.Quantidade];
+        Listas.Jogador[Índice].Personagem[Personagem].Hotbar = new Listas.Estruturas.Hotbar[Game.Máx_Hotbar + 1];
     }
 }

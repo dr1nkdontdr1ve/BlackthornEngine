@@ -64,7 +64,7 @@ partial class Enviar
         // Envia os dados
         Dados.Write((byte)Pacotes.CriarPersonagem);
         Dados.Write(Digitalizadores.Encontrar("CriarPersonagem_Nome").Texto);
-        Dados.Write(Jogo.CriarPersonagem_Classe);
+        Dados.Write(Game.CriarPersonagem_Classe);
         Dados.Write(Marcadores.Encontrar("GêneroMasculino").Estado);
         Pacote(Dados);
     }
@@ -75,7 +75,7 @@ partial class Enviar
 
         // Envia os dados
         Dados.Write((byte)Pacotes.Personagem_Usar);
-        Dados.Write(Jogo.SelecionarPersonagem);
+        Dados.Write(Game.SelecionarPersonagem);
         Pacote(Dados);
     }
 
@@ -94,7 +94,7 @@ partial class Enviar
 
         // Envia os dados
         Dados.Write((byte)Pacotes.Personagem_Deletar);
-        Dados.Write(Jogo.SelecionarPersonagem);
+        Dados.Write(Game.SelecionarPersonagem);
         Pacote(Dados);
     }
 
@@ -117,10 +117,10 @@ partial class Enviar
         Pacote(Dados);
 
         // Define a contaem na hora do envio
-        Jogo.Latência_Envio = Environment.TickCount;
+        Game.Latência_Envio = Environment.TickCount;
     }
 
-    public static void Mensagem(string Mensagem, Jogo.Mensagens Tipo, string Dado = "")
+    public static void Mensagem(string Mensagem, Game.Mensagens Tipo, string Dado = "")
     {
         NetOutgoingMessage Dados = Rede.Dispositivo.CreateMessage();
 
@@ -132,7 +132,7 @@ partial class Enviar
         Pacote(Dados);
     }
 
-    public static void AdicionarPonto(Jogo.Atributos Atributo)
+    public static void AdicionarPonto(Game.Atributos Atributo)
     {
         NetOutgoingMessage Dados = Rede.Dispositivo.CreateMessage();
 

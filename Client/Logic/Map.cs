@@ -63,15 +63,15 @@ class Map
         Clima();
     }
 
-    public static void PróximoAzulejo(Jogo.Direções Direção, ref short X, ref short Y)
+    public static void PróximoAzulejo(Game.Direções Direção, ref short X, ref short Y)
     {
         // Próximo azulejo
         switch (Direção)
         {
-            case Jogo.Direções.Acima: Y -= 1; break;
-            case Jogo.Direções.Abaixo: Y += 1; break;
-            case Jogo.Direções.Direita: X += 1; break;
-            case Jogo.Direções.Esquerda: X -= 1; break;
+            case Game.Direções.Acima: Y -= 1; break;
+            case Game.Direções.Abaixo: Y += 1; break;
+            case Game.Direções.Direita: X += 1; break;
+            case Game.Direções.Esquerda: X -= 1; break;
         }
     }
 
@@ -84,7 +84,7 @@ class Map
             return false;
     }
 
-    public static bool Azulejo_Bloqueado(short Mapa, byte X, byte Y, Jogo.Direções Direção)
+    public static bool Azulejo_Bloqueado(short Mapa, byte X, byte Y, Game.Direções Direção)
     {
         short Próximo_X = X, Próximo_Y = Y;
 
@@ -101,7 +101,7 @@ class Map
         // Verifica se o azulejo está bloqueado
         if (Listas.Mapa.Azulejo[Próximo_X, Próximo_Y].Atributo == (byte)Azulejo_Atributos.Bloqueio)
             return true;
-        else if (Listas.Mapa.Azulejo[Próximo_X, Próximo_Y].Bloqueio[(byte)Jogo.DireçãoInversa(Direção)])
+        else if (Listas.Mapa.Azulejo[Próximo_X, Próximo_Y].Bloqueio[(byte)Game.DireçãoInversa(Direção)])
             return true;
         else if (Listas.Mapa.Azulejo[X, Y].Bloqueio[(byte)Direção])
             return true;
@@ -227,7 +227,7 @@ class Map
         for (short i = 1; i <= Listas.Clima_Partículas.GetUpperBound(0); i++)
             if (!Listas.Clima_Partículas[i].Visível)
             {
-                if (Jogo.Aleatório.Next(0, Máx_Clima_Intensidade - Listas.Mapa.Clima.Intensidade) == 0)
+                if (Game.Aleatório.Next(0, Máx_Clima_Intensidade - Listas.Mapa.Clima.Intensidade) == 0)
                 {
                     if (!Parar)
                     {
@@ -257,16 +257,16 @@ class Map
                 }
 
                 // Reseta a partícula
-                if (Listas.Clima_Partículas[i].x > Jogo.Tela_Largura || Listas.Clima_Partículas[i].y > Jogo.Tela_Altura)
+                if (Listas.Clima_Partículas[i].x > Game.Tela_Largura || Listas.Clima_Partículas[i].y > Game.Tela_Altura)
                     Listas.Clima_Partículas[i] = new Listas.Estruturas.Clima();
             }
 
         // Trovoadas
         if (Listas.Mapa.Clima.Tipo == (byte)Climas.Trovoando)
-            if (Jogo.Aleatório.Next(0, Máx_Clima_Intensidade * 10 - Listas.Mapa.Clima.Intensidade * 2) == 0)
+            if (Game.Aleatório.Next(0, Máx_Clima_Intensidade * 10 - Listas.Mapa.Clima.Intensidade * 2) == 0)
             {
                 // Som do trovão
-                int Trovão = Jogo.Aleatório.Next(Primerio_Trovão, Último_Trovão);
+                int Trovão = Game.Aleatório.Next(Primerio_Trovão, Último_Trovão);
                 Áudio.Som.Reproduzir((Áudio.Sons)Trovão);
 
                 // Relâmpago
@@ -277,16 +277,16 @@ class Map
     private static void Clima_Chuva_Criação(int i)
     {
         // Define a velocidade e a posição da partícula
-        Listas.Clima_Partículas[i].Velocidade = Jogo.Aleatório.Next(8, 13);
+        Listas.Clima_Partículas[i].Velocidade = Game.Aleatório.Next(8, 13);
 
-        if (Jogo.Aleatório.Next(2) == 0)
+        if (Game.Aleatório.Next(2) == 0)
         {
             Listas.Clima_Partículas[i].x = -32;
-            Listas.Clima_Partículas[i].y = Jogo.Aleatório.Next(-32, Jogo.Tela_Altura);
+            Listas.Clima_Partículas[i].y = Game.Aleatório.Next(-32, Game.Tela_Altura);
         }
         else
         {
-            Listas.Clima_Partículas[i].x = Jogo.Aleatório.Next(-32, Jogo.Tela_Largura);
+            Listas.Clima_Partículas[i].x = Game.Aleatório.Next(-32, Game.Tela_Largura);
             Listas.Clima_Partículas[i].y = -32;
         }
     }
@@ -301,12 +301,12 @@ class Map
     private static void Clima_Neve_Criação(int i)
     {
         // Define a velocidade e a posição da partícula
-        Listas.Clima_Partículas[i].Velocidade = Jogo.Aleatório.Next(1, 3);
+        Listas.Clima_Partículas[i].Velocidade = Game.Aleatório.Next(1, 3);
         Listas.Clima_Partículas[i].y = -32;
-        Listas.Clima_Partículas[i].x = Jogo.Aleatório.Next(-32, Jogo.Tela_Largura);
+        Listas.Clima_Partículas[i].x = Game.Aleatório.Next(-32, Game.Tela_Largura);
         Listas.Clima_Partículas[i].Inicío = Listas.Clima_Partículas[i].x;
 
-        if (Jogo.Aleatório.Next(2) == 0)
+        if (Game.Aleatório.Next(2) == 0)
             Listas.Clima_Partículas[i].Voltar = false;
         else
             Listas.Clima_Partículas[i].Voltar = true;
@@ -314,7 +314,7 @@ class Map
 
     private static void Clima_Neve_Movimentação(int i, bool Movimentrar = true)
     {
-        int Diferença = Jogo.Aleatório.Next(0, Neve_Movimento / 3);
+        int Diferença = Game.Aleatório.Next(0, Neve_Movimento / 3);
         int x1 = Listas.Clima_Partículas[i].Inicío + Neve_Movimento + Diferença;
         int x2 = Listas.Clima_Partículas[i].Inicío - Neve_Movimento - Diferença;
 
@@ -432,8 +432,8 @@ class Map
 
             // Define a posição do mini azulejo
             Listas.Estruturas.Azulejo_Dados Dados = Listas.Mapa.Azulejo[x, y].Dados[Camada_Tipo, Camada_Num];
-            Listas.Mapa.Azulejo[x, y].Dados[Camada_Tipo, Camada_Num].Mini[Parte].X = Dados.x * Jogo.Grade + Posição.X;
-            Listas.Mapa.Azulejo[x, y].Dados[Camada_Tipo, Camada_Num].Mini[Parte].Y = Dados.y * Jogo.Grade + Posição.Y;
+            Listas.Mapa.Azulejo[x, y].Dados[Camada_Tipo, Camada_Num].Mini[Parte].X = Dados.x * Game.Grade + Posição.X;
+            Listas.Mapa.Azulejo[x, y].Dados[Camada_Tipo, Camada_Num].Mini[Parte].Y = Dados.y * Game.Grade + Posição.Y;
         }
 
         public static bool Verificar(int X1, int Y1, int X2, int Y2, byte Camada_Num, byte Camada_Tipo)
@@ -592,20 +592,20 @@ partial class Gráficos
         SFML.Graphics.Color Cor = CCor(TempCor.R, TempCor.G, TempCor.B);
 
         // Desenha todas as camadas dos azulejos
-        for (short x = (short)Jogo.Azulejos_Visão.X; x <= Jogo.Azulejos_Visão.Width; x++)
-            for (short y = (short)Jogo.Azulejos_Visão.Y; y <= Jogo.Azulejos_Visão.Height; y++)
+        for (short x = (short)Game.Azulejos_Visão.X; x <= Game.Azulejos_Visão.Width; x++)
+            for (short y = (short)Game.Azulejos_Visão.Y; y <= Game.Azulejos_Visão.Height; y++)
                 if (!Map.ForaDoLimite(x, y))
                     for (byte q = 0; q <= Listas.Mapa.Azulejo[x, y].Dados.GetUpperBound(1); q++)
                         if (Listas.Mapa.Azulejo[x, y].Dados[c, q].Azulejo > 0)
                         {
-                            int x2 = Listas.Mapa.Azulejo[x, y].Dados[c, q].x * Jogo.Grade;
-                            int y2 = Listas.Mapa.Azulejo[x, y].Dados[c, q].y * Jogo.Grade;
+                            int x2 = Listas.Mapa.Azulejo[x, y].Dados[c, q].x * Game.Grade;
+                            int y2 = Listas.Mapa.Azulejo[x, y].Dados[c, q].y * Game.Grade;
 
                             // Desenha o azulejo
                             if (!Listas.Mapa.Azulejo[x, y].Dados[c, q].Automático)
-                                Desenhar(Tex_Azulejo[Listas.Mapa.Azulejo[x, y].Dados[c, q].Azulejo], Jogo.ConverterX(x * Jogo.Grade), Jogo.ConverterY(y * Jogo.Grade), x2, y2, Jogo.Grade, Jogo.Grade, Cor);
+                                Desenhar(Tex_Azulejo[Listas.Mapa.Azulejo[x, y].Dados[c, q].Azulejo], Game.ConverterX(x * Game.Grade), Game.ConverterY(y * Game.Grade), x2, y2, Game.Grade, Game.Grade, Cor);
                             else
-                                Mapas_AutoCriação(new Point(Jogo.ConverterX(x * Jogo.Grade), Jogo.ConverterY(y * Jogo.Grade)), Listas.Mapa.Azulejo[x, y].Dados[c, q], Cor);
+                                Mapas_AutoCriação(new Point(Game.ConverterX(x * Game.Grade), Game.ConverterY(y * Game.Grade)), Listas.Mapa.Azulejo[x, y].Dados[c, q], Cor);
                         }
     }
 
@@ -645,8 +645,8 @@ partial class Gráficos
         if (Dados.Textura <= 0) return;
 
         // Desenha a fumaça
-        for (int x = -1; x <= Listas.Mapa.Largura * Jogo.Grade / Textura_Tamanho.Width + 1; x++)
-            for (int y = -1; y <= Listas.Mapa.Altura * Jogo.Grade / Textura_Tamanho.Height + 1; y++)
+        for (int x = -1; x <= Listas.Mapa.Largura * Game.Grade / Textura_Tamanho.Width + 1; x++)
+            for (int y = -1; y <= Listas.Mapa.Altura * Game.Grade / Textura_Tamanho.Height + 1; y++)
                 Desenhar(Tex_Fumaça[Dados.Textura], new Point(x * Textura_Tamanho.Width + Map.Fumaça_X, y * Textura_Tamanho.Height + Map.Fumaça_Y), new SFML.Graphics.Color(255, 255, 255, Dados.Transparência));
     }
 
@@ -669,7 +669,7 @@ partial class Gráficos
                 Desenhar(Tex_Clima, new Rectangle(x, 0, 32, 32), new Rectangle(Listas.Clima_Partículas[i].x, Listas.Clima_Partículas[i].y, 32, 32), CCor(255, 255, 255, 150));
 
         // Trovoadas
-        Desenhar(Tex_Preenchido, 0, 0, 0, 0, Jogo.Tela_Largura, Jogo.Tela_Altura, new SFML.Graphics.Color(255, 255, 255, Map.Relâmpago));
+        Desenhar(Tex_Preenchido, 0, 0, 0, 0, Game.Tela_Largura, Game.Tela_Altura, new SFML.Graphics.Color(255, 255, 255, Map.Relâmpago));
     }
 
     public static void Mapa_Nome()
@@ -701,7 +701,7 @@ partial class Gráficos
             if (Dados.Índice == 0) continue;
 
             // Desenha o item
-            Point Posição = new Point(Jogo.ConverterX(Dados.X * Jogo.Grade), Jogo.ConverterY(Dados.Y * Jogo.Grade));
+            Point Posição = new Point(Game.ConverterX(Dados.X * Game.Grade), Game.ConverterY(Dados.Y * Game.Grade));
             Desenhar(Tex_Item[Listas.Item[Dados.Índice].Textura], Posição);
         }
     }

@@ -83,8 +83,8 @@
     <Compile Include="Library\Limpar.cs" />
     <Compile Include="Library\Listas.cs" />
     <Compile Include="Logic\Jogador.cs" />
-    <Compile Include="Logic\Jogo.cs" />
-    <Compile Include="Logic\Laço.cs" />
+    <Compile Include="Logic\Game.cs" />
+    <Compile Include="Logic\Tie.cs" />
     <Compile Include="Communication\Enviar.cs" />
     <Compile Include="Communication\Receber.cs" />
     <Compile Include="Communication\Rede.cs" />

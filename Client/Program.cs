@@ -21,9 +21,9 @@ class Program
         Rede.Iniciar();
 
         // Abre a janela
-        Janela.Objetos.Text = Listas.Opções.Jogo_Nome;
+        Janela.Objetos.Text = Listas.Opções.Game_Nome;
         Janela.Objetos.Visible = true;
-        Jogo.AbrirMenu();
+        Game.AbrirMenu();
 
         // Inicia a aplicação
         Laço.Principal();

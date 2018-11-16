@@ -29,7 +29,7 @@ class Laço
             Digitalizador();
             Mapa.Lógica();
 
-            if (Jogador.MeuÍndice > 0 && Ferramentas.JanelaAtual == Ferramentas.Janelas.Jogo)
+            if (Jogador.MeuÍndice > 0 && Ferramentas.JanelaAtual == Ferramentas.Janelas.Game)
                 if (Contagem_30 < Environment.TickCount)
                 {
                     // Lógicas
@@ -48,7 +48,7 @@ class Laço
             if (Contagem_1000 < Environment.TickCount)
             {
                 Enviar.Latência();
-                Jogo.FPS = FPS;
+                Game.FPS = FPS;
                 FPS = 0;
                 Contagem_1000 = Environment.TickCount + 1000;
             }
@@ -56,7 +56,7 @@ class Laço
                 FPS += 1;
         }
 
-        // Fecha o jogo
+        // Fecha o Game
         Aplicação.Sair();
     }
 

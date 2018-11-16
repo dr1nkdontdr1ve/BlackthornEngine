@@ -16,7 +16,7 @@ public partial class Editor_Dados : Form
         Ler.Servidor_Dados();
 
         // Define os valores
-        Objetos.txtJogo_Nome.Text = Listas.Servidor_Dados.Jogo_Nome;
+        Objetos.txtGame_Nome.Text = Listas.Servidor_Dados.Game_Nome;
         Objetos.txtMensagem.Text = Listas.Servidor_Dados.Mensagem;
         Objetos.numPorta.Value = Listas.Servidor_Dados.Porta;
         Objetos.numMáx_Jogadores.Value = Listas.Servidor_Dados.Máx_Jogadores;
@@ -30,7 +30,7 @@ public partial class Editor_Dados : Form
     private void butSalvar_Click(object sender, System.EventArgs e)
     {
         // Salva os dados
-        Listas.Servidor_Dados.Jogo_Nome = Objetos.txtJogo_Nome.Text;
+        Listas.Servidor_Dados.Game_Nome = Objetos.txtGame_Nome.Text;
         Listas.Servidor_Dados.Mensagem = Objetos.txtMensagem.Text;
         Listas.Servidor_Dados.Porta = (short)Objetos.numPorta.Value;
         Listas.Servidor_Dados.Máx_Jogadores = (byte)Objetos.numMáx_Jogadores.Value;

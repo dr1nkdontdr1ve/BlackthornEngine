@@ -7,7 +7,7 @@ class Globais
     public const byte Grade = 32;
     public static Size Grade_Tamanho = new Size(Grade, Grade);
 
-    // Medida de calculo do atraso do jogo
+    // Medida de calculo do atraso do Game
     public static short FPS;
 
     // Captura de tela

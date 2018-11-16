@@ -18,7 +18,7 @@ class Diretórios
 
     public static void Criar()
     {
-        // Cria todos os diretórios do jogo
+        // Cria todos os diretórios do Game
         Servidor_Dados.Directory.Create();
         Contas.Create();
         Personagens.Directory.Create();

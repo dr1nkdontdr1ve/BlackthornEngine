@@ -95,7 +95,7 @@ partial class Receber
     private static void Conectar(NetIncomingMessage Dados)
     {
         // Reseta os valores
-        Jogo.SelecionarPersonagem = 1;
+        Game.SelecionarPersonagem = 1;
 
         // Abre o painel de seleção de personagens
         Paineis.Menu_Fechar();
@@ -121,7 +121,7 @@ partial class Receber
         Digitalizadores.Encontrar("CriarPersonagem_Nome").Texto = string.Empty;
         Marcadores.Encontrar("GêneroMasculino").Estado = true;
         Marcadores.Encontrar("GêneroFeminino").Estado = false;
-        Jogo.CriarPersonagem_Classe = 1;
+        Game.CriarPersonagem_Classe = 1;
 
         // Abre o painel de criação de personagem
         Paineis.Menu_Fechar();
@@ -172,9 +172,9 @@ partial class Receber
         Paineis.Encontrar("Chat").Geral.Visível = false;
         Ferramentas.Linha = 0;
 
-        // Abre o jogo
+        // Abre o Game
         Áudio.Música.Parar();
-        Ferramentas.JanelaAtual = Ferramentas.Janelas.Jogo;
+        Ferramentas.JanelaAtual = Ferramentas.Janelas.Game;
     }
 
     private static void MaiorÍndice(NetIncomingMessage Dados)
@@ -221,9 +221,9 @@ partial class Receber
         Listas.Mapa.Fumaça.Transparência = Dados.ReadByte();
 
         // Redimensiona as ligações
-        Listas.Mapa.Ligação = new short[(byte)Jogo.Direções.Quantidade];
+        Listas.Mapa.Ligação = new short[(byte)Game.Direções.Quantidade];
 
-        for (short i = 0; i <= (short)Jogo.Direções.Quantidade - 1; i++)
+        for (short i = 0; i <= (short)Game.Direções.Quantidade - 1; i++)
             Listas.Mapa.Ligação[i] = Dados.ReadInt16();
 
         // Redimensiona os azulejos
@@ -253,8 +253,8 @@ partial class Receber
             for (byte y = 0; y <= Listas.Mapa.Altura; y++)
             {
                 Listas.Mapa.Azulejo[x, y].Atributo = Dados.ReadByte();
-                Listas.Mapa.Azulejo[x, y].Bloqueio = new bool[(byte)Jogo.Direções.Quantidade];
-                for (byte i = 0; i <= (byte)Jogo.Direções.Quantidade - 1; i++)
+                Listas.Mapa.Azulejo[x, y].Bloqueio = new bool[(byte)Game.Direções.Quantidade];
+                for (byte i = 0; i <= (byte)Game.Direções.Quantidade - 1; i++)
                     Listas.Mapa.Azulejo[x, y].Bloqueio[i] = Dados.ReadBoolean();
             }
 
@@ -295,7 +295,7 @@ partial class Receber
     public static void Latência(NetIncomingMessage Dados)
     {
         // Define a latência
-        Jogo.Latência = Environment.TickCount - Jogo.Latência_Envio;
+        Game.Latência = Environment.TickCount - Game.Latência_Envio;
     }
 
     public static void Mensagem(NetIncomingMessage Dados)
@@ -314,8 +314,8 @@ partial class Receber
         for (byte i = 1; i <= Listas.Item.GetUpperBound(0); i++)
         {
             // Redimensiona os valores necessários 
-            Listas.Item[i].Poção_Vital = new short[(byte)Jogo.Vitais.Quantidade];
-            Listas.Item[i].Equip_Atributo = new short[(byte)Jogo.Atributos.Quantidade];
+            Listas.Item[i].Poção_Vital = new short[(byte)Game.Vitais.Quantidade];
+            Listas.Item[i].Equip_Atributo = new short[(byte)Game.Atributos.Quantidade];
 
             // Lê os dados
             Listas.Item[i].Nome = Dados.ReadString();
@@ -325,9 +325,9 @@ partial class Receber
             Listas.Item[i].Req_Level = Dados.ReadInt16();
             Listas.Item[i].Req_Classe = Dados.ReadByte();
             Listas.Item[i].Poção_Experiência = Dados.ReadInt16();
-            for (byte n = 0; n <= (byte)Jogo.Vitais.Quantidade - 1; n++) Listas.Item[i].Poção_Vital[n] = Dados.ReadInt16();
+            for (byte n = 0; n <= (byte)Game.Vitais.Quantidade - 1; n++) Listas.Item[i].Poção_Vital[n] = Dados.ReadInt16();
             Listas.Item[i].Equip_Tipo = Dados.ReadByte();
-            for (byte n = 0; n <= (byte)Jogo.Atributos.Quantidade - 1; n++) Listas.Item[i].Equip_Atributo[n] = Dados.ReadInt16();
+            for (byte n = 0; n <= (byte)Game.Atributos.Quantidade - 1; n++) Listas.Item[i].Equip_Atributo[n] = Dados.ReadInt16();
             Listas.Item[i].Arma_Dano = Dados.ReadInt16();
         }
     }

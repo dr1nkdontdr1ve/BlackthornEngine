@@ -80,7 +80,7 @@ class Ler
         BinaryReader Binário = new BinaryReader(Diretórios.Servidor_Dados.OpenRead());
 
         // Lê os dados
-        Listas.Servidor_Dados.Jogo_Nome = Binário.ReadString();
+        Listas.Servidor_Dados.Game_Nome = Binário.ReadString();
         Listas.Servidor_Dados.Mensagem = Binário.ReadString();
         Listas.Servidor_Dados.Porta = Binário.ReadInt16();
         Listas.Servidor_Dados.Máx_Jogadores = Binário.ReadByte();

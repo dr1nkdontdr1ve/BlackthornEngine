@@ -24,7 +24,7 @@ partial class Ler
         BinaryReader Binário = new BinaryReader(Diretórios.Servidor_Dados.OpenRead());
 
         // Lê os dados
-        Listas.Servidor_Dados.Jogo_Nome = Binário.ReadString();
+        Listas.Servidor_Dados.Game_Nome = Binário.ReadString();
         Listas.Servidor_Dados.Mensagem = Binário.ReadString();
         Listas.Servidor_Dados.Porta = Binário.ReadInt16();
         Listas.Servidor_Dados.Máx_Jogadores = Binário.ReadByte();
@@ -49,7 +49,7 @@ partial class Ler
         // Carrega os dados e os adiciona ao cache
         Listas.Jogador[Índice].Usuário = Arquivo.ReadString();
         Listas.Jogador[Índice].Senha = Arquivo.ReadString();
-        Listas.Jogador[Índice].Acesso = (Jogo.Acessos)Arquivo.ReadByte();
+        Listas.Jogador[Índice].Acesso = (Game.Acessos)Arquivo.ReadByte();
 
         // Dados do personagem
         if (Personagens)
@@ -64,16 +64,16 @@ partial class Ler
                 Listas.Jogador[Índice].Personagem[i].Mapa = Arquivo.ReadInt16();
                 Listas.Jogador[Índice].Personagem[i].X = Arquivo.ReadByte();
                 Listas.Jogador[Índice].Personagem[i].Y = Arquivo.ReadByte();
-                Listas.Jogador[Índice].Personagem[i].Direção = (Jogo.Direções)Arquivo.ReadByte();
-                for (byte n = 0; n <= (byte)Jogo.Vitais.Quantidade - 1; n++) Listas.Jogador[Índice].Personagem[i].Vital[n] = Arquivo.ReadInt16();
-                for (byte n = 0; n <= (byte)Jogo.Atributos.Quantidade - 1; n++) Listas.Jogador[Índice].Personagem[i].Atributo[n] = Arquivo.ReadInt16();
-                for (byte n = 1; n <= Jogo.Máx_Inventário; n++)
+                Listas.Jogador[Índice].Personagem[i].Direção = (Game.Direções)Arquivo.ReadByte();
+                for (byte n = 0; n <= (byte)Game.Vitais.Quantidade - 1; n++) Listas.Jogador[Índice].Personagem[i].Vital[n] = Arquivo.ReadInt16();
+                for (byte n = 0; n <= (byte)Game.Atributos.Quantidade - 1; n++) Listas.Jogador[Índice].Personagem[i].Atributo[n] = Arquivo.ReadInt16();
+                for (byte n = 1; n <= Game.Máx_Inventário; n++)
                 {
                     Listas.Jogador[Índice].Personagem[i].Inventário[n].Item_Num = Arquivo.ReadInt16();
                     Listas.Jogador[Índice].Personagem[i].Inventário[n].Quantidade = Arquivo.ReadInt16();
                 }
-                for (byte n = 0; n <= (byte)Jogo.Equipamentos.Quantidade - 1; n++) Listas.Jogador[Índice].Personagem[i].Equipamento[n] = Arquivo.ReadInt16();
-                for (byte n = 1; n <= Jogo.Máx_Hotbar; n++)
+                for (byte n = 0; n <= (byte)Game.Equipamentos.Quantidade - 1; n++) Listas.Jogador[Índice].Personagem[i].Equipamento[n] = Arquivo.ReadInt16();
+                for (byte n = 1; n <= Game.Máx_Hotbar; n++)
                 {
                     Listas.Jogador[Índice].Personagem[i].Hotbar[n].Tipo = Arquivo.ReadByte();
                     Listas.Jogador[Índice].Personagem[i].Hotbar[n].Slot = Arquivo.ReadByte();
@@ -138,8 +138,8 @@ partial class Ler
         BinaryReader Binário = new BinaryReader(Arquivo.OpenRead());
 
         // Redimensiona os valores necessários 
-        Listas.Classe[Índice].Vital = new short[(byte)Jogo.Vitais.Quantidade];
-        Listas.Classe[Índice].Atributo = new short[(byte)Jogo.Atributos.Quantidade];
+        Listas.Classe[Índice].Vital = new short[(byte)Game.Vitais.Quantidade];
+        Listas.Classe[Índice].Atributo = new short[(byte)Game.Atributos.Quantidade];
 
         // Lê os dados
         Listas.Classe[Índice].Nome = Binário.ReadString();
@@ -149,8 +149,8 @@ partial class Ler
         Listas.Classe[Índice].Aparecer_Direção = Binário.ReadByte();
         Listas.Classe[Índice].Aparecer_X = Binário.ReadByte();
         Listas.Classe[Índice].Aparecer_Y = Binário.ReadByte();
-        for (byte i = 0; i <= (byte)Jogo.Vitais.Quantidade - 1; i++) Listas.Classe[Índice].Vital[i] = Binário.ReadInt16();
-        for (byte i = 0; i <= (byte)Jogo.Atributos.Quantidade - 1; i++) Listas.Classe[Índice].Atributo[i] = Binário.ReadInt16();
+        for (byte i = 0; i <= (byte)Game.Vitais.Quantidade - 1; i++) Listas.Classe[Índice].Vital[i] = Binário.ReadInt16();
+        for (byte i = 0; i <= (byte)Game.Atributos.Quantidade - 1; i++) Listas.Classe[Índice].Atributo[i] = Binário.ReadInt16();
 
         // Fecha o sistema
         Binário.Dispose();
@@ -172,8 +172,8 @@ partial class Ler
         BinaryReader Binário = new BinaryReader(Arquivo.OpenRead());
 
         // Redimensiona os valores necessários 
-        Listas.Item[Índice].Poção_Vital = new short[(byte)Jogo.Vitais.Quantidade];
-        Listas.Item[Índice].Equip_Atributo = new short[(byte)Jogo.Atributos.Quantidade];
+        Listas.Item[Índice].Poção_Vital = new short[(byte)Game.Vitais.Quantidade];
+        Listas.Item[Índice].Equip_Atributo = new short[(byte)Game.Atributos.Quantidade];
 
         // Lê os dados
         Listas.Item[Índice].Nome = Binário.ReadString();
@@ -186,9 +186,9 @@ partial class Ler
         Listas.Item[Índice].Req_Level = Binário.ReadInt16();
         Listas.Item[Índice].Req_Classe = Binário.ReadByte();
         Listas.Item[Índice].Poção_Experiência = Binário.ReadInt16();
-        for (byte i = 0; i <= (byte)Jogo.Vitais.Quantidade - 1; i++) Listas.Item[Índice].Poção_Vital[i] = Binário.ReadInt16();
+        for (byte i = 0; i <= (byte)Game.Vitais.Quantidade - 1; i++) Listas.Item[Índice].Poção_Vital[i] = Binário.ReadInt16();
         Listas.Item[Índice].Equip_Tipo = Binário.ReadByte();
-        for (byte i = 0; i <= (byte)Jogo.Atributos.Quantidade - 1; i++) Listas.Item[Índice].Equip_Atributo[i] = Binário.ReadInt16();
+        for (byte i = 0; i <= (byte)Game.Atributos.Quantidade - 1; i++) Listas.Item[Índice].Equip_Atributo[i] = Binário.ReadInt16();
         Listas.Item[Índice].Arma_Dano = Binário.ReadInt16();
 
         // Fecha o sistema

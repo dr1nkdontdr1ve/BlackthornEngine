@@ -71,9 +71,9 @@ class Receber
         string Senha = Dados.ReadString();
 
         // Verifica se está tudo certo
-        if (Usuário.Length < Jogo.Min_Caractere || Usuário.Length > Jogo.Máx_Caractere || Senha.Length < Jogo.Min_Caractere || Senha.Length > Jogo.Máx_Caractere)
+        if (Usuário.Length < Game.Min_Caractere || Usuário.Length > Game.Máx_Caractere || Senha.Length < Game.Min_Caractere || Senha.Length > Game.Máx_Caractere)
         {
-            Enviar.Alerta(Índice, "O nome do usuário e a senha devem conter entre " + Jogo.Min_Caractere + " e " + Jogo.Máx_Caractere + " caracteres.");
+            Enviar.Alerta(Índice, "O nome do usuário e a senha devem conter entre " + Game.Min_Caractere + " e " + Game.Máx_Caractere + " caracteres.");
             return;
         }
         if (!File.Exists(Diretórios.Contas.FullName + Usuário + Diretórios.Formato))
@@ -117,9 +117,9 @@ class Receber
         string Senha = Dados.ReadString();
 
         // Verifica se está tudo certo
-        if (Usuário.Length < Jogo.Min_Caractere || Usuário.Length > Jogo.Máx_Caractere || Senha.Length < Jogo.Min_Caractere || Senha.Length > Jogo.Máx_Caractere)
+        if (Usuário.Length < Game.Min_Caractere || Usuário.Length > Game.Máx_Caractere || Senha.Length < Game.Min_Caractere || Senha.Length > Game.Máx_Caractere)
         {
-            Enviar.Alerta(Índice, "O nome do usuário e a senha devem conter entre " + Jogo.Min_Caractere + " e " + Jogo.Máx_Caractere + " caracteres.");
+            Enviar.Alerta(Índice, "O nome do usuário e a senha devem conter entre " + Game.Min_Caractere + " e " + Game.Máx_Caractere + " caracteres.");
             return;
         }
         else if (File.Exists(Diretórios.Contas.FullName + Usuário + Diretórios.Formato))
@@ -148,9 +148,9 @@ class Receber
         string Nome = Dados.ReadString().Trim();
 
         // Verifica se está tudo certo
-        if (Nome.Length < Jogo.Min_Caractere || Nome.Length > Jogo.Máx_Caractere)
+        if (Nome.Length < Game.Min_Caractere || Nome.Length > Game.Máx_Caractere)
         {
-            Enviar.Alerta(Índice, "O nome do personagem deve conter entre " + Jogo.Min_Caractere + " e " + Jogo.Máx_Caractere + " caracteres.", false);
+            Enviar.Alerta(Índice, "O nome do personagem deve conter entre " + Game.Min_Caractere + " e " + Game.Máx_Caractere + " caracteres.", false);
             return;
         }
         if (Nome.Contains(";") || Nome.Contains(":"))
@@ -174,16 +174,16 @@ class Receber
         Jogador.Personagem(Índice).Gênero = Dados.ReadBoolean();
         Jogador.Personagem(Índice).Atributo = Listas.Classe[Jogador.Personagem(Índice).Classe].Atributo;
         Jogador.Personagem(Índice).Mapa = Listas.Classe[Jogador.Personagem(Índice).Classe].Aparecer_Mapa;
-        Jogador.Personagem(Índice).Direção = (Jogo.Direções)Listas.Classe[Jogador.Personagem(Índice).Classe].Aparecer_Direção;
+        Jogador.Personagem(Índice).Direção = (Game.Direções)Listas.Classe[Jogador.Personagem(Índice).Classe].Aparecer_Direção;
         Jogador.Personagem(Índice).X = Listas.Classe[Jogador.Personagem(Índice).Classe].Aparecer_X;
         Jogador.Personagem(Índice).Y = Listas.Classe[Jogador.Personagem(Índice).Classe].Aparecer_Y;
-        for (byte i = 0; i <= (byte)Jogo.Vitais.Quantidade - 1; i++) Jogador.Personagem(Índice).Vital[i] = Jogador.Personagem(Índice).MáxVital(i);
+        for (byte i = 0; i <= (byte)Game.Vitais.Quantidade - 1; i++) Jogador.Personagem(Índice).Vital[i] = Jogador.Personagem(Índice).MáxVital(i);
 
         // Salva a conta
         Escrever.Personagem(Nome);
         Escrever.Jogador(Índice);
 
-        // Entra no jogo
+        // Entra no Game
         Jogador.Entrar(Índice);
     }
 
@@ -192,7 +192,7 @@ class Receber
         // Define o personagem que será usado
         Listas.TempJogador[Índice].Utilizado = Dados.ReadByte();
 
-        // Entra no jogo
+        // Entra no Game
         Jogador.Entrar(Índice);
     }
 
@@ -231,10 +231,10 @@ class Receber
 
     private static void Jogador_Direção(byte Índice, NetIncomingMessage Dados)
     {
-        Jogo.Direções Direção = (Jogo.Direções)Dados.ReadByte();
+        Game.Direções Direção = (Game.Direções)Dados.ReadByte();
 
         // Previni erros
-        if (Direção < Jogo.Direções.Acima || Direção > Jogo.Direções.Direita) return;
+        if (Direção < Game.Direções.Acima || Direção > Game.Direções.Direita) return;
         if (Listas.TempJogador[Índice].ObtendoMapa) return;
 
         // Defini a direção do jogador
@@ -276,11 +276,11 @@ class Receber
                 return;
 
         // Envia a mensagem para os outros jogadores
-        switch ((Jogo.Mensagens)Dados.ReadByte())
+        switch ((Game.Mensagens)Dados.ReadByte())
         {
-            case Jogo.Mensagens.Mapa: Enviar.Mensagem_Mapa(Índice, Mensagem); break;
-            case Jogo.Mensagens.Global: Enviar.Mensagem_Global(Índice, Mensagem); break;
-            case Jogo.Mensagens.Particular: Enviar.Mensagem_Particular(Índice, Dados.ReadString(), Mensagem); break;
+            case Game.Mensagens.Mapa: Enviar.Mensagem_Mapa(Índice, Mensagem); break;
+            case Game.Mensagens.Global: Enviar.Mensagem_Global(Índice, Mensagem); break;
+            case Game.Mensagens.Particular: Enviar.Mensagem_Particular(Índice, Dados.ReadString(), Mensagem); break;
         }
     }
 
@@ -330,7 +330,7 @@ class Receber
     private static void Inventário_Mudar(byte Índice, NetIncomingMessage Dados)
     {
         byte Slot_Antigo = Dados.ReadByte(), Slot_Novo = Dados.ReadByte();
-        byte Hotbar_Antigo = Jogador.EncontrarHotbar(Índice, (byte)Jogo.Hotbar.Item, Slot_Antigo), Hotbar_Novo = Jogador.EncontrarHotbar(Índice, (byte)Jogo.Hotbar.Item, Slot_Novo);
+        byte Hotbar_Antigo = Jogador.EncontrarHotbar(Índice, (byte)Game.Hotbar.Item, Slot_Antigo), Hotbar_Novo = Jogador.EncontrarHotbar(Índice, (byte)Game.Hotbar.Item, Slot_Novo);
         Listas.Estruturas.Inventário Antigo = Jogador.Personagem(Índice).Inventário[Slot_Antigo];
 
         // Somente se necessário
@@ -378,7 +378,7 @@ class Receber
         if (!Jogador.DarItem(Índice, Jogador.Personagem(Índice).Equipamento[Slot], 1))
         {
             // Somente se necessário
-            if (Listas.Mapa[Mapa_Num].Temp_Item.Count == Jogo.Máx_Mapa_Itens) return;
+            if (Listas.Mapa[Mapa_Num].Temp_Item.Count == Game.Máx_Mapa_Itens) return;
 
             // Solta o item no chão
             Mapa_Item.Índice = Jogador.Personagem(Índice).Equipamento[Slot];
@@ -393,7 +393,7 @@ class Receber
         }
 
         // Remove o equipamento
-        for (byte i = 0; i <= (byte)Jogo.Atributos.Quantidade - 1; i++) Jogador.Personagem(Índice).Atributo[i] -= Listas.Item[Jogador.Personagem(Índice).Equipamento[Slot]].Equip_Atributo[i];
+        for (byte i = 0; i <= (byte)Game.Atributos.Quantidade - 1; i++) Jogador.Personagem(Índice).Atributo[i] -= Listas.Item[Jogador.Personagem(Índice).Equipamento[Slot]].Equip_Atributo[i];
         Jogador.Personagem(Índice).Equipamento[Slot] = 0;
 
         // Envia os dados
@@ -449,7 +449,7 @@ class Receber
         byte Hotbar_Slot = Dados.ReadByte();
 
         // Usa o item
-        if (Jogador.Personagem(Índice).Hotbar[Hotbar_Slot].Tipo == (byte)Jogo.Hotbar.Item)
+        if (Jogador.Personagem(Índice).Hotbar[Hotbar_Slot].Tipo == (byte)Game.Hotbar.Item)
             Jogador.UsarItem(Índice, Jogador.Personagem(Índice).Hotbar[Hotbar_Slot].Slot);
     }
 }

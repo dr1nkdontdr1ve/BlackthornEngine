@@ -26,7 +26,7 @@ class Limpar
     public static void Servidor_Dados()
     {
         // Defini os dados das opções
-        Listas.Servidor_Dados.Jogo_Nome = "CryBits";
+        Listas.Servidor_Dados.Game_Nome = "CryBits";
         Listas.Servidor_Dados.Mensagem = "Bem vindos à CryBits.";
         Listas.Servidor_Dados.Porta = 7001;
         Listas.Servidor_Dados.Máx_Jogadores = 15;

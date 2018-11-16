@@ -57,7 +57,7 @@ partial class Enviar
     public static void ParaTodos(NetOutgoingMessage Dados)
     {
         // Envia os dados para todos conectados
-        for (byte i = 1; i <= Jogo.MaiorÍndice; i++)
+        for (byte i = 1; i <= Game.MaiorÍndice; i++)
             if (Jogador.EstáJogando(i))
                 Para(i, Dados);
     }
@@ -65,7 +65,7 @@ partial class Enviar
     public static void ParaTodosMenos(byte Índice, NetOutgoingMessage Dados)
     {
         // Envia os dados para todos conectados, com excessão do índice
-        for (byte i = 1; i <= Jogo.MaiorÍndice; i++)
+        for (byte i = 1; i <= Game.MaiorÍndice; i++)
             if (Jogador.EstáJogando(i))
                 if (Índice != i)
                     Para(i, Dados);
@@ -74,7 +74,7 @@ partial class Enviar
     public static void ParaMapa(short Mapa, NetOutgoingMessage Dados)
     {
         // Envia os dados para todos conectados, com excessão do índice
-        for (byte i = 1; i <= Jogo.MaiorÍndice; i++)
+        for (byte i = 1; i <= Game.MaiorÍndice; i++)
             if (Jogador.EstáJogando(i))
                 if (Jogador.Personagem(i).Mapa == Mapa)
                     Para(i, Dados);
@@ -83,7 +83,7 @@ partial class Enviar
     public static void ParaMapaMenos(short Mapa, byte Índice, NetOutgoingMessage Dados)
     {
         // Envia os dados para todos conectados, com excessão do índice
-        for (byte i = 1; i <= Jogo.MaiorÍndice; i++)
+        for (byte i = 1; i <= Game.MaiorÍndice; i++)
             if (Jogador.EstáJogando(i))
                 if (Jogador.Personagem(i).Mapa == Mapa)
                     if (Índice != i)
@@ -107,7 +107,7 @@ partial class Enviar
     public static void Mensagem(string Texto)
     {
         // Envia o alerta para todos
-        for (byte i = 1; i <= Jogo.MaiorÍndice; i++)
+        for (byte i = 1; i <= Game.MaiorÍndice; i++)
             if (Rede.Conexão[i] != null)
                 if (Rede.Conexão[i].Status == NetConnectionStatus.Connected)
                     Alerta(i, Texto);
@@ -139,7 +139,7 @@ partial class Enviar
         // Envia os dados
         Dados.Write((byte)Pacotes.Entrada);
         Dados.Write(Índice);
-        Dados.Write(Jogo.MaiorÍndice);
+        Dados.Write(Game.MaiorÍndice);
         Dados.Write(Listas.Servidor_Dados.Máx_Jogadores);
         Para(Índice, Dados);
     }
@@ -206,13 +206,13 @@ partial class Enviar
         Dados.Write(Jogador.Personagem(Índice).X);
         Dados.Write(Jogador.Personagem(Índice).Y);
         Dados.Write((byte)Jogador.Personagem(Índice).Direção);
-        for (byte n = 0; n <= (byte)Jogo.Vitais.Quantidade - 1; n++)
+        for (byte n = 0; n <= (byte)Game.Vitais.Quantidade - 1; n++)
         {
             Dados.Write(Jogador.Personagem(Índice).Vital[n]);
             Dados.Write(Jogador.Personagem(Índice).MáxVital(n));
         }
-        for (byte n = 0; n <= (byte)Jogo.Atributos.Quantidade - 1; n++) Dados.Write(Jogador.Personagem(Índice).Atributo[n]);
-        for (byte n = 0; n <= (byte)Jogo.Equipamentos.Quantidade - 1; n++) Dados.Write(Jogador.Personagem(Índice).Equipamento[n]);
+        for (byte n = 0; n <= (byte)Game.Atributos.Quantidade - 1; n++) Dados.Write(Jogador.Personagem(Índice).Atributo[n]);
+        for (byte n = 0; n <= (byte)Game.Equipamentos.Quantidade - 1; n++) Dados.Write(Jogador.Personagem(Índice).Equipamento[n]);
 
         return Dados;
     }
@@ -237,7 +237,7 @@ partial class Enviar
         // Envia os dados
         Dados.Write((byte)Pacotes.Jogador_Vitais);
         Dados.Write(Índice);
-        for (byte i = 0; i <= (byte)Jogo.Vitais.Quantidade - 1; i++)
+        for (byte i = 0; i <= (byte)Game.Vitais.Quantidade - 1; i++)
         {
             Dados.Write(Jogador.Personagem(Índice).Vital[i]);
             Dados.Write(Jogador.Personagem(Índice).MáxVital(i));
@@ -262,7 +262,7 @@ partial class Enviar
 
         // Envia os dados
         Dados.Write((byte)Pacotes.MaiorÍndice);
-        Dados.Write(Jogo.MaiorÍndice);
+        Dados.Write(Game.MaiorÍndice);
         ParaTodos(Dados);
     }
 
@@ -310,14 +310,14 @@ partial class Enviar
         // Envia os dados
         Dados.Write((byte)Pacotes.Jogador_Equipamentos);
         Dados.Write(Índice);
-        for (byte i = 0; i <= (byte)Jogo.Equipamentos.Quantidade - 1; i++) Dados.Write(Jogador.Personagem(Índice).Equipamento[i]);
+        for (byte i = 0; i <= (byte)Game.Equipamentos.Quantidade - 1; i++) Dados.Write(Jogador.Personagem(Índice).Equipamento[i]);
         ParaMapa(Jogador.Personagem(Índice).Mapa, Dados);
     }
 
     public static void Jogadores_Dados_Mapa(byte Índice)
     {
         // Envia os dados dos outros jogadores 
-        for (byte i = 1; i <= Jogo.MaiorÍndice; i++)
+        for (byte i = 1; i <= Game.MaiorÍndice; i++)
             if (Jogador.EstáJogando(i))
                 if (Índice != i)
                     if (Jogador.Personagem(i).Mapa == Jogador.Personagem(Índice).Mapa)
@@ -380,7 +380,7 @@ partial class Enviar
         Dados.Write(Listas.Mapa[Mapa].Fumaça.Transparência);
 
         // Ligações
-        for (short i = 0; i <= (short)Jogo.Direções.Quantidade - 1; i++)
+        for (short i = 0; i <= (short)Game.Direções.Quantidade - 1; i++)
             Dados.Write(Listas.Mapa[Mapa].Ligação[i]);
 
         // Azulejos
@@ -401,7 +401,7 @@ partial class Enviar
             for (byte y = 0; y <= Listas.Mapa[Mapa].Altura; y++)
             {
                 Dados.Write(Listas.Mapa[Mapa].Azulejo[x, y].Atributo);
-                for (byte i = 0; i <= (byte)Jogo.Direções.Quantidade - 1; i++)
+                for (byte i = 0; i <= (byte)Game.Direções.Quantidade - 1; i++)
                     Dados.Write(Listas.Mapa[Mapa].Azulejo[x, y].Bloqueio[i]);
             }
 
@@ -527,9 +527,9 @@ partial class Enviar
             Dados.Write(Listas.Item[i].Req_Level);
             Dados.Write(Listas.Item[i].Req_Classe);
             Dados.Write(Listas.Item[i].Poção_Experiência);
-            for (byte n = 0;n<= (byte)Jogo.Vitais.Quantidade - 1; n++) Dados.Write(Listas.Item[i].Poção_Vital[n]);
+            for (byte n = 0;n<= (byte)Game.Vitais.Quantidade - 1; n++) Dados.Write(Listas.Item[i].Poção_Vital[n]);
             Dados.Write(Listas.Item[i].Equip_Tipo );
-            for (byte n = 0; n <= (byte)Jogo.Atributos.Quantidade - 1; n++) Dados.Write(Listas.Item[i].Equip_Atributo[n]);
+            for (byte n = 0; n <= (byte)Game.Atributos.Quantidade - 1; n++) Dados.Write(Listas.Item[i].Equip_Atributo[n]);
             Dados.Write(Listas.Item[i].Arma_Dano);
         }
 
@@ -579,7 +579,7 @@ partial class Enviar
 
         // Envia os dados
         Dados.Write((byte)Pacotes.Jogador_Inventário);
-        for (byte i = 1; i <= Jogo.Máx_Inventário; i++)
+        for (byte i = 1; i <= Game.Máx_Inventário; i++)
         {
             Dados.Write(Jogador.Personagem(Índice).Inventário[i].Item_Num);
             Dados.Write(Jogador.Personagem(Índice).Inventário[i].Quantidade);
@@ -593,7 +593,7 @@ partial class Enviar
 
         // Envia os dados
         Dados.Write((byte)Pacotes.Jogador_Hotbar);
-        for (byte i = 1; i <= Jogo.Máx_Hotbar; i++)
+        for (byte i = 1; i <= Game.Máx_Hotbar; i++)
         {
             Dados.Write(Jogador.Personagem(Índice).Hotbar[i].Tipo);
             Dados.Write(Jogador.Personagem(Índice).Hotbar[i].Slot);

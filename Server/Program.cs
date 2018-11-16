@@ -6,30 +6,30 @@ class Program
 {
     public static void Main()
     {
-        // Abre o servidor e define suas configurações
+        // Opens the server and sets its settings
         Console.Title = "Server";
         Logo();
-        Console.WriteLine("[Inicialização]");
+        Console.WriteLine("[Initialization]");
 
-        // Verifica se todos os diretórios existem, se não existirem então criá-los
+        // Checks if all directories exist, if they do not exist then create them
         Diretórios.Criar();
-        Console.WriteLine("Diretórios criados.");
+        Console.WriteLine("Directories created.");
 
-        // Limpa e carrega todos os dados necessários
+        // Clears and loads all required data
         Ler.Necessário();
         Limpar.Necessário();
 
-        // Cria os dispositivos da rede
+        // Creates network devices
         Rede.Iniciar();
-        Console.WriteLine("Rede iniciada.");
+        Console.WriteLine("Network started.");
 
-        // Calcula quanto tempo demorou para inicializar o servidor
+        // Calculates how long it took to initialize the server
         Console.WriteLine("\r\n" + "Servidor iniciado. Digite 'Ajuda' para ver os comandos." + "\r\n");
 
-        // Inicia os laços
-        Thread Comandos_Laço = new Thread(Laço.Comandos);
+        // Starts the ties
+        Thread Comandos_Laço = new Thread(Tie.Commands);
         Comandos_Laço.Start();
-        Laço.Principal();
+        Tie.Principal();
     }
 
     public static void Logo()
@@ -40,13 +40,13 @@ class Program
  |  |    | '__/\\ // |   \_ | || __|/ __|
  |  |___ | |    | |  |     \| || |_ \__ \
  |______||_|    |_|  |_____/|_| \__||___/
-                      motor de orpg's 2d" + "\r\n");
+                      orpg's 2d engine" + "\r\n");
     }
 
-    public static void Fechar()
+    public static void Close()
     {
-        // Disconeta todos os jogadores e fecha o servidor
-        Rede.Dispositivo.Shutdown("O servidor foi desligado.");
+        // Disconnect all players and close the server
+        Rede.Dispositivo.Shutdown("The server has been shut down.");
         Application.Exit();
     }
 
@@ -56,75 +56,75 @@ class Program
         if (string.IsNullOrEmpty(Comando))
             return;
 
-        // Transforma o comando em letras minúsculas
+        // Transforms the command into lowercase letters
         Comando = Comando.ToLower();
 
-        // Separa os comandos em partes
+        // Separate commands into parts
         string[] Partes = Comando.Split(' ');
 
-        // Executa o determinado comando
+        // Execute the given command
         switch (Partes[0].ToLower())
         {
             case "ajuda":
-                Console.WriteLine(@"    Lista de comandos disponíveis:
-    definiracesso                  - define um nível de acesso para determinado jogador
-    cps                            - mostra o atual cps do servidor
-    recarregar                     - recarrega determinados dados");
+                Console.WriteLine(@"    List of available commands:
+    definiracesso                  - defines a level of access for a given player
+    cps                            - shows the current server cps
+    recarregar                     - reloads certain data");
                 break;
             case "cps":
-                Console.WriteLine("CPS: " + Jogo.CPS);
+                Console.WriteLine("CPS: " + Game.CPS);
                 break;
             case "definiracesso":
                 byte Acesso;
 
-                // Verifica se o que está digitado corretamente
+                // Checks if what is typed correctly
                 if (Partes.GetUpperBound(0) < 2 || string.IsNullOrEmpty(Partes[1]) || !Byte.TryParse(Partes[2], out Acesso))
                 {
                     Console.WriteLine("Utilize: definiracesso 'Nome do Jogador' 'Acesso'");
                     return;
                 }
 
-                // Encontra o jogador
-                byte Índice = Jogador.Encontrar(Partes[1]);
+                // Find the player
+                byte Índice = Player.Encontrar(Partes[1]);
 
                 if (Índice == 0)
                 {
-                    Console.WriteLine("Esse jogador não está conectado ou não existe.");
+                    Console.WriteLine("This player is not online or does not exist.");
                     return;
                 }
 
-                // Define o acesso do jogador
-                Listas.Jogador[Índice].Acesso = (Jogo.Acessos)Convert.ToByte(Partes[2]);
+                // Sets player access
+                Listas.Jogador[Índice].Acesso = (Game.Acessos)Convert.ToByte(Partes[2]);
 
-                // Salva os dados
+                // Save the data
                 Escrever.Jogador(Índice);
-                Console.WriteLine("Acesso de " + (Jogo.Acessos)Convert.ToByte(Partes[2]) + " concedido a " + Partes[1] + ".");
+                Console.WriteLine("Access from " + (Game.Acessos)Convert.ToByte(Partes[2]) + " granted to " + Partes[1] + ".");
                 break;
             case "recarregar":
-                // Verifica se o que está digitado corretamente
+                // Checks if what is typed correctly
                 if (Partes.GetUpperBound(0) < 1 || string.IsNullOrEmpty(Partes[1]))
                 {
-                    Console.WriteLine("Utilize: recarregar 'Item desejado");
+                    Console.WriteLine("Use: recarregar 'Desired item");
                     return;
                 }
 
                 switch (Partes[1])
                 {
-                    // Recarrega os mapas
+                    // Reload the maps
                     case "mapas":
                         Ler.Mapas();
-                        Console.WriteLine("Mapas recarregados");
+                        Console.WriteLine("Reloaded maps");
                         break;
-                    // Recarrega as classes
+                    // Recharges classes
                     case "classes":
                         Ler.Classes();
-                        Console.WriteLine("Classes recarregadas");
+                        Console.WriteLine("Recharged classes");
                         break;
                 }
                 break;
-            // Se o comando não existir mandar uma mensagem de ajuda
+            // If the command does not exist send a help message
             default:
-                Console.WriteLine("Esse comando não existe.");
+                Console.WriteLine("This command does not exist.");
                 break;
         }
     }

@@ -29,15 +29,15 @@ class Escrever
             Arquivo.Write(Listas.Jogador[Índice].Personagem[i].X);
             Arquivo.Write(Listas.Jogador[Índice].Personagem[i].Y);
             Arquivo.Write((byte)Listas.Jogador[Índice].Personagem[i].Direção);
-            for (byte n = 0; n <= (byte)Jogo.Vitais.Quantidade - 1; n++) Arquivo.Write(Listas.Jogador[Índice].Personagem[i].Vital[n]);
-            for (byte n = 0; n <= (byte)Jogo.Atributos.Quantidade - 1; n++) Arquivo.Write(Listas.Jogador[Índice].Personagem[i].Atributo[n]);
-            for (byte n = 1; n <= Jogo.Máx_Inventário; n++)
+            for (byte n = 0; n <= (byte)Game.Vitais.Quantidade - 1; n++) Arquivo.Write(Listas.Jogador[Índice].Personagem[i].Vital[n]);
+            for (byte n = 0; n <= (byte)Game.Atributos.Quantidade - 1; n++) Arquivo.Write(Listas.Jogador[Índice].Personagem[i].Atributo[n]);
+            for (byte n = 1; n <= Game.Máx_Inventário; n++)
             {
                 Arquivo.Write(Listas.Jogador[Índice].Personagem[i].Inventário[n].Item_Num);
                 Arquivo.Write(Listas.Jogador[Índice].Personagem[i].Inventário[n].Quantidade);
             }
-            for (byte n = 0; n <= (byte)Jogo.Equipamentos.Quantidade - 1; n++) Arquivo.Write(Listas.Jogador[Índice].Personagem[i].Equipamento[n]);
-            for (byte n = 1; n <= Jogo.Máx_Hotbar; n++)
+            for (byte n = 0; n <= (byte)Game.Equipamentos.Quantidade - 1; n++) Arquivo.Write(Listas.Jogador[Índice].Personagem[i].Equipamento[n]);
+            for (byte n = 1; n <= Game.Máx_Hotbar; n++)
             {
                 Arquivo.Write(Listas.Jogador[Índice].Personagem[i].Hotbar[n].Tipo);
                 Arquivo.Write(Listas.Jogador[Índice].Personagem[i].Hotbar[n].Slot);

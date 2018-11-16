@@ -43,7 +43,7 @@ class Rede
                 // Desconectar o jogador caso o servidor seja desligado
                 case NetIncomingMessageType.StatusChanged:
                     if ((NetConnectionStatus)Dados.ReadByte() == NetConnectionStatus.Disconnected)
-                        Jogo.Desconectar();
+                        Game.Desconectar();
 
                     break;
             }

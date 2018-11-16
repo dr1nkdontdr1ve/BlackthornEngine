@@ -40,7 +40,7 @@ class Escrever
         BinaryWriter Binário = new BinaryWriter(Diretórios.Servidor_Dados.OpenWrite());
 
         // Escreve os dados
-        Binário.Write(Listas.Servidor_Dados.Jogo_Nome);
+        Binário.Write(Listas.Servidor_Dados.Game_Nome);
         Binário.Write(Listas.Servidor_Dados.Mensagem);
         Binário.Write(Listas.Servidor_Dados.Porta);
         Binário.Write(Listas.Servidor_Dados.Máx_Jogadores);
