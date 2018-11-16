@@ -3,7 +3,7 @@ using System.Windows.Forms;
 
 class Laço
 {
-    // Usado para manter a aplicação aberta
+    // Usado para manter a application aberta
     public static bool Funcionando = true;
 
     // Contagens
