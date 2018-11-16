@@ -1,0 +1,8 @@
+C:\Users\mducharme.USINAGENADO\Desktop\CryBits v0.4.0\Servidor\bin\Debug\Server.exe.config
+C:\Users\mducharme.USINAGENADO\Desktop\CryBits v0.4.0\Servidor\bin\Debug\Server.exe
+C:\Users\mducharme.USINAGENADO\Desktop\CryBits v0.4.0\Servidor\bin\Debug\Server.pdb
+C:\Users\mducharme.USINAGENADO\Desktop\CryBits v0.4.0\Servidor\obj\Debug\Server.csprojAssemblyReference.cache
+C:\Users\mducharme.USINAGENADO\Desktop\CryBits v0.4.0\Servidor\obj\Debug\Server.csproj.CoreCompileInputs.cache
+C:\Users\mducharme.USINAGENADO\Desktop\CryBits v0.4.0\Servidor\obj\Debug\Server.csproj.CopyComplete
+C:\Users\mducharme.USINAGENADO\Desktop\CryBits v0.4.0\Servidor\obj\Debug\Server.exe
+C:\Users\mducharme.USINAGENADO\Desktop\CryBits v0.4.0\Servidor\obj\Debug\Server.pdb

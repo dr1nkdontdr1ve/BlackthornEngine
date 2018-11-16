@@ -1,0 +1,7 @@
+C:\Users\Usuario\Documents\Visual Studio 2013\Projects\CryBits\Servidor\bin\Release\Servidor.exe
+C:\Users\Usuario\Documents\Visual Studio 2013\Projects\CryBits\Servidor\bin\Release\Servidor.pdb
+C:\Users\Usuario\Documents\Visual Studio 2013\Projects\CryBits\Servidor\bin\Release\Lidgren.Network.dll
+C:\Users\Usuario\Documents\Visual Studio 2013\Projects\CryBits\Servidor\obj\Release\Servidor.Properties.Resources.resources
+C:\Users\Usuario\Documents\Visual Studio 2013\Projects\CryBits\Servidor\obj\Release\Servidor.csproj.GenerateResource.Cache
+C:\Users\Usuario\Documents\Visual Studio 2013\Projects\CryBits\Servidor\obj\Release\Servidor.exe
+C:\Users\Usuario\Documents\Visual Studio 2013\Projects\CryBits\Servidor\obj\Release\Servidor.pdb

@@ -1,0 +1,182 @@
+C:\Users\Usuario\Documents\Visual Studio 2015\Projects\CryBits v0.0.1\Editores\bin\Debug\Editores.exe.config
+C:\Users\Usuario\Documents\Visual Studio 2015\Projects\CryBits v0.0.1\Editores\bin\Debug\Editores.exe
+C:\Users\Usuario\Documents\Visual Studio 2015\Projects\CryBits v0.0.1\Editores\bin\Debug\Microsoft.DirectX.AudioVideoPlayback.dll
+C:\Users\Usuario\Documents\Visual Studio 2015\Projects\CryBits v0.0.1\Editores\bin\Debug\Microsoft.DirectX.Direct3D.dll
+C:\Users\Usuario\Documents\Visual Studio 2015\Projects\CryBits v0.0.1\Editores\bin\Debug\Microsoft.DirectX.Direct3DX.dll
+C:\Users\Usuario\Documents\Visual Studio 2015\Projects\CryBits v0.0.1\Editores\bin\Debug\Microsoft.DirectX.DirectSound.dll
+C:\Users\Usuario\Documents\Visual Studio 2015\Projects\CryBits v0.0.1\Editores\bin\Debug\Microsoft.DirectX.dll
+C:\Users\Usuario\Documents\Visual Studio 2015\Projects\CryBits v0.0.1\Editores\obj\Debug\Editores.csprojResolveAssemblyReference.cache
+C:\Users\Usuario\Documents\Visual Studio 2015\Projects\CryBits v0.0.1\Editores\obj\Debug\Editor_Classes.resources
+C:\Users\Usuario\Documents\Visual Studio 2015\Projects\CryBits v0.0.1\Editores\obj\Debug\Editor_Ferramentas.resources
+C:\Users\Usuario\Documents\Visual Studio 2015\Projects\CryBits v0.0.1\Editores\obj\Debug\Editor_Mapas.resources
+C:\Users\Usuario\Documents\Visual Studio 2015\Projects\CryBits v0.0.1\Editores\obj\Debug\Editor_Mapas_Propriedades.resources
+C:\Users\Usuario\Documents\Visual Studio 2015\Projects\CryBits v0.0.1\Editores\obj\Debug\Editor_Quantidade.resources
+C:\Users\Usuario\Documents\Visual Studio 2015\Projects\CryBits v0.0.1\Editores\obj\Debug\Seleção.resources
+C:\Users\Usuario\Documents\Visual Studio 2015\Projects\CryBits v0.0.1\Editores\obj\Debug\Editores.Properties.Resources.resources
+C:\Users\Usuario\Documents\Visual Studio 2015\Projects\CryBits v0.0.1\Editores\obj\Debug\Editores.csproj.GenerateResource.Cache
+C:\Users\Usuario\Documents\Visual Studio 2015\Projects\CryBits v0.0.1\Editores\obj\Debug\Editores.exe
+C:\Users\Usuario\Documents\Visual Studio 2015\Projects\CryBits v0.0.1\Editores\obj\Debug\Editores.pdb
+C:\Users\Usuario\Documents\Visual Studio 2015\Projects\CryBits v0.0.1\Editores\obj\Debug\Editores.TrustInfo.xml
+C:\Users\Usuario\Documents\Visual Studio 2015\Projects\CryBits v0.0.1\Editores\bin\Debug\Editores.exe.manifest
+C:\Users\Usuario\Documents\Visual Studio 2015\Projects\CryBits v0.0.1\Editores\bin\Debug\Editores.application
+C:\Users\Usuario\Documents\Visual Studio 2015\Projects\CryBits v0.0.1\Editores\bin\Debug\Editores.pdb
+C:\Users\Usuario\Documents\Visual Studio 2015\Projects\CryBits v0.0.1\Editores\obj\Debug\Editores.exe.manifest
+C:\Users\Usuario\Documents\Visual Studio 2015\Projects\CryBits v0.0.1\Editores\obj\Debug\Editores.application
+C:\Users\Usuario\Documents\Visual Studio 2015\Projects\CryBits v0.0.1\Editores\obj\Debug\Editor_Dados.resources
+C:\Users\Usuario\Documents\Visual Studio 2015\Projects\CryBits v0.0.2\Editores\bin\Debug\Editores.exe.config
+C:\Users\Usuario\Documents\Visual Studio 2015\Projects\CryBits v0.0.2\Editores\obj\Debug\Editores.exe
+C:\Users\Usuario\Documents\Visual Studio 2015\Projects\CryBits v0.0.2\Editores\obj\Debug\Editores.pdb
+C:\Users\Usuario\Documents\Visual Studio 2015\Projects\CryBits v0.0.2\Editores\bin\Debug\Editores.exe.manifest
+C:\Users\Usuario\Documents\Visual Studio 2015\Projects\CryBits v0.0.2\Editores\bin\Debug\Editores.application
+C:\Users\Usuario\Documents\Visual Studio 2015\Projects\CryBits v0.0.2\Editores\bin\Debug\Editores.exe
+C:\Users\Usuario\Documents\Visual Studio 2015\Projects\CryBits v0.0.2\Editores\bin\Debug\Editores.pdb
+C:\Users\Usuario\Documents\Visual Studio 2015\Projects\CryBits v0.0.2\Editores\bin\Debug\Microsoft.DirectX.AudioVideoPlayback.dll
+C:\Users\Usuario\Documents\Visual Studio 2015\Projects\CryBits v0.0.2\Editores\bin\Debug\Microsoft.DirectX.Direct3D.dll
+C:\Users\Usuario\Documents\Visual Studio 2015\Projects\CryBits v0.0.2\Editores\bin\Debug\Microsoft.DirectX.Direct3DX.dll
+C:\Users\Usuario\Documents\Visual Studio 2015\Projects\CryBits v0.0.2\Editores\bin\Debug\Microsoft.DirectX.DirectSound.dll
+C:\Users\Usuario\Documents\Visual Studio 2015\Projects\CryBits v0.0.2\Editores\bin\Debug\Microsoft.DirectX.dll
+C:\Users\Usuario\Documents\Visual Studio 2015\Projects\CryBits v0.0.2\Editores\obj\Debug\Editores.csprojResolveAssemblyReference.cache
+C:\Users\Usuario\Documents\Visual Studio 2015\Projects\CryBits v0.0.2\Editores\obj\Debug\Editor_Classes.resources
+C:\Users\Usuario\Documents\Visual Studio 2015\Projects\CryBits v0.0.2\Editores\obj\Debug\Editor_Dados.resources
+C:\Users\Usuario\Documents\Visual Studio 2015\Projects\CryBits v0.0.2\Editores\obj\Debug\Editor_Ferramentas.resources
+C:\Users\Usuario\Documents\Visual Studio 2015\Projects\CryBits v0.0.2\Editores\obj\Debug\Editor_Mapas.resources
+C:\Users\Usuario\Documents\Visual Studio 2015\Projects\CryBits v0.0.2\Editores\obj\Debug\Editor_Mapas_Propriedades.resources
+C:\Users\Usuario\Documents\Visual Studio 2015\Projects\CryBits v0.0.2\Editores\obj\Debug\Editor_Quantidade.resources
+C:\Users\Usuario\Documents\Visual Studio 2015\Projects\CryBits v0.0.2\Editores\obj\Debug\Seleção.resources
+C:\Users\Usuario\Documents\Visual Studio 2015\Projects\CryBits v0.0.2\Editores\obj\Debug\Editores.Properties.Resources.resources
+C:\Users\Usuario\Documents\Visual Studio 2015\Projects\CryBits v0.0.2\Editores\obj\Debug\Editores.csproj.GenerateResource.Cache
+C:\Users\Usuario\Documents\Visual Studio 2015\Projects\CryBits v0.0.2\Editores\obj\Debug\Editores.TrustInfo.xml
+C:\Users\Usuario\Documents\Visual Studio 2015\Projects\CryBits v0.0.2\Editores\obj\Debug\Editores.exe.manifest
+C:\Users\Usuario\Documents\Visual Studio 2015\Projects\CryBits v0.0.2\Editores\obj\Debug\Editores.application
+C:\Users\Usuario\Documents\Visual Studio 2015\Projects\CryBits v0.0.1\Editores\obj\Debug\Editor_Azulejos.resources
+C:\Users\Usuario\Desktop\CryBits v0.0.2\Editores\bin\Debug\Editores.exe.config
+C:\Users\Usuario\Desktop\CryBits v0.0.2\Editores\obj\Debug\Editores.exe
+C:\Users\Usuario\Desktop\CryBits v0.0.2\Editores\obj\Debug\Editores.pdb
+C:\Users\Usuario\Desktop\CryBits v0.0.2\Editores\bin\Debug\Editores.exe.manifest
+C:\Users\Usuario\Desktop\CryBits v0.0.2\Editores\bin\Debug\Editores.application
+C:\Users\Usuario\Desktop\CryBits v0.0.2\Editores\bin\Debug\Editores.exe
+C:\Users\Usuario\Desktop\CryBits v0.0.2\Editores\bin\Debug\Editores.pdb
+C:\Users\Usuario\Desktop\CryBits v0.0.2\Editores\bin\Debug\Microsoft.DirectX.AudioVideoPlayback.dll
+C:\Users\Usuario\Desktop\CryBits v0.0.2\Editores\bin\Debug\Microsoft.DirectX.Direct3D.dll
+C:\Users\Usuario\Desktop\CryBits v0.0.2\Editores\bin\Debug\Microsoft.DirectX.Direct3DX.dll
+C:\Users\Usuario\Desktop\CryBits v0.0.2\Editores\bin\Debug\Microsoft.DirectX.DirectSound.dll
+C:\Users\Usuario\Desktop\CryBits v0.0.2\Editores\bin\Debug\Microsoft.DirectX.dll
+C:\Users\Usuario\Desktop\CryBits v0.0.2\Editores\obj\Debug\Editores.csprojResolveAssemblyReference.cache
+C:\Users\Usuario\Desktop\CryBits v0.0.2\Editores\obj\Debug\Editor_Azulejos.resources
+C:\Users\Usuario\Desktop\CryBits v0.0.2\Editores\obj\Debug\Editor_Classes.resources
+C:\Users\Usuario\Desktop\CryBits v0.0.2\Editores\obj\Debug\Editor_Dados.resources
+C:\Users\Usuario\Desktop\CryBits v0.0.2\Editores\obj\Debug\Editor_Ferramentas.resources
+C:\Users\Usuario\Desktop\CryBits v0.0.2\Editores\obj\Debug\Editor_Mapas.resources
+C:\Users\Usuario\Desktop\CryBits v0.0.2\Editores\obj\Debug\Editor_Mapas_Propriedades.resources
+C:\Users\Usuario\Desktop\CryBits v0.0.2\Editores\obj\Debug\Editor_Quantidade.resources
+C:\Users\Usuario\Desktop\CryBits v0.0.2\Editores\obj\Debug\Seleção.resources
+C:\Users\Usuario\Desktop\CryBits v0.0.2\Editores\obj\Debug\Editores.Properties.Resources.resources
+C:\Users\Usuario\Desktop\CryBits v0.0.2\Editores\obj\Debug\Editores.csproj.GenerateResource.Cache
+C:\Users\Usuario\Desktop\CryBits v0.0.2\Editores\obj\Debug\Editores.TrustInfo.xml
+C:\Users\Usuario\Desktop\CryBits v0.0.2\Editores\obj\Debug\Editores.exe.manifest
+C:\Users\Usuario\Desktop\CryBits v0.0.2\Editores\obj\Debug\Editores.application
+C:\Users\ricar\Desktop\CryBits\Editores\bin\Debug\Editores.exe.config
+C:\Users\ricar\Desktop\CryBits\Editores\obj\Debug\Editores.exe
+C:\Users\ricar\Desktop\CryBits\Editores\obj\Debug\Editores.pdb
+C:\Users\ricar\Desktop\CryBits\Editores\bin\Debug\Editores.exe.manifest
+C:\Users\ricar\Desktop\CryBits\Editores\bin\Debug\Editores.application
+C:\Users\ricar\Desktop\CryBits\Editores\bin\Debug\Editores.exe
+C:\Users\ricar\Desktop\CryBits\Editores\bin\Debug\Editores.pdb
+C:\Users\ricar\Desktop\CryBits\Editores\bin\Debug\Microsoft.DirectX.AudioVideoPlayback.dll
+C:\Users\ricar\Desktop\CryBits\Editores\bin\Debug\Microsoft.DirectX.Direct3D.dll
+C:\Users\ricar\Desktop\CryBits\Editores\bin\Debug\Microsoft.DirectX.Direct3DX.dll
+C:\Users\ricar\Desktop\CryBits\Editores\bin\Debug\Microsoft.DirectX.DirectSound.dll
+C:\Users\ricar\Desktop\CryBits\Editores\bin\Debug\Microsoft.DirectX.dll
+C:\Users\ricar\Desktop\CryBits\Editores\obj\Debug\Editores.csprojResolveAssemblyReference.cache
+C:\Users\ricar\Desktop\CryBits\Editores\obj\Debug\Editor_Azulejos.resources
+C:\Users\ricar\Desktop\CryBits\Editores\obj\Debug\Editor_Classes.resources
+C:\Users\ricar\Desktop\CryBits\Editores\obj\Debug\Editor_Dados.resources
+C:\Users\ricar\Desktop\CryBits\Editores\obj\Debug\Editor_Ferramentas.resources
+C:\Users\ricar\Desktop\CryBits\Editores\obj\Debug\Editor_Mapas.resources
+C:\Users\ricar\Desktop\CryBits\Editores\obj\Debug\Editor_Mapas_Propriedades.resources
+C:\Users\ricar\Desktop\CryBits\Editores\obj\Debug\Editor_Quantidade.resources
+C:\Users\ricar\Desktop\CryBits\Editores\obj\Debug\Seleção.resources
+C:\Users\ricar\Desktop\CryBits\Editores\obj\Debug\Editores.Properties.Resources.resources
+C:\Users\ricar\Desktop\CryBits\Editores\obj\Debug\Editores.csproj.GenerateResource.Cache
+C:\Users\ricar\Desktop\CryBits\Editores\obj\Debug\Editores.TrustInfo.xml
+C:\Users\ricar\Desktop\CryBits\Editores\obj\Debug\Editores.exe.manifest
+C:\Users\ricar\Desktop\CryBits\Editores\obj\Debug\Editores.application
+C:\Users\ricar\OneDrive\Documentos\Engines\CryBits\Editores\obj\Debug\Editores.exe
+C:\Users\ricar\OneDrive\Documentos\Engines\CryBits\Editores\obj\Debug\Editores.pdb
+C:\Users\ricar\OneDrive\Documentos\Engines\CryBits\Editores\bin\Debug\Editores.exe.manifest
+C:\Users\ricar\OneDrive\Documentos\Engines\CryBits\Editores\bin\Debug\Editores.application
+C:\Users\ricar\OneDrive\Documentos\Engines\CryBits\Editores\bin\Debug\Editores.exe
+C:\Users\ricar\OneDrive\Documentos\Engines\CryBits\Editores\bin\Debug\Editores.pdb
+C:\Users\ricar\OneDrive\Documentos\Engines\CryBits\Editores\obj\Debug\Editor_Azulejos.resources
+C:\Users\ricar\OneDrive\Documentos\Engines\CryBits\Editores\obj\Debug\Editor_Classes.resources
+C:\Users\ricar\OneDrive\Documentos\Engines\CryBits\Editores\obj\Debug\Editor_Dados.resources
+C:\Users\ricar\OneDrive\Documentos\Engines\CryBits\Editores\obj\Debug\Editor_Ferramentas.resources
+C:\Users\ricar\OneDrive\Documentos\Engines\CryBits\Editores\obj\Debug\Editor_Mapas.resources
+C:\Users\ricar\OneDrive\Documentos\Engines\CryBits\Editores\obj\Debug\Editor_Mapas_Propriedades.resources
+C:\Users\ricar\OneDrive\Documentos\Engines\CryBits\Editores\obj\Debug\Editor_Quantidade.resources
+C:\Users\ricar\OneDrive\Documentos\Engines\CryBits\Editores\obj\Debug\Seleção.resources
+C:\Users\ricar\OneDrive\Documentos\Engines\CryBits\Editores\obj\Debug\Editores.Properties.Resources.resources
+C:\Users\ricar\OneDrive\Documentos\Engines\CryBits\Editores\obj\Debug\Editores.csproj.GenerateResource.Cache
+C:\Users\ricar\OneDrive\Documentos\Engines\CryBits\Editores\obj\Debug\Editores.TrustInfo.xml
+C:\Users\ricar\OneDrive\Documentos\Engines\CryBits\Editores\obj\Debug\Editores.exe.manifest
+C:\Users\ricar\OneDrive\Documentos\Engines\CryBits\Editores\obj\Debug\Editores.application
+C:\Users\ricar\OneDrive\Documentos\Engines\CryBits\Editores\bin\Debug\Editores.exe.config
+C:\Users\ricar\OneDrive\Documentos\Engines\CryBits\Editores\obj\Debug\Editores.csprojResolveAssemblyReference.cache
+C:\Users\ricar\OneDrive\Documentos\Engines\CryBits\Editores\obj\Debug\PréVisualizar.resources
+C:\Users\ricar\OneDrive\Documentos\Engines\CryBits\Editores\bin\Debug\sfmlnet-audio-2.dll
+C:\Users\ricar\OneDrive\Documentos\Engines\CryBits\Editores\bin\Debug\sfmlnet-graphics-2.dll
+C:\Users\ricar\OneDrive\Documentos\Engines\CryBits\Editores\bin\Debug\sfmlnet-window-2.dll
+C:\Users\ricar\OneDrive\Documentos\Engines\CryBits\Editores\obj\Debug\Editor_NPCs.resources
+C:\Users\ricar\Desktop\CryBits v0.0.3\Editores\bin\Debug\Editores.exe.config
+C:\Users\ricar\Desktop\CryBits v0.0.3\Editores\obj\Debug\Editores.exe
+C:\Users\ricar\Desktop\CryBits v0.0.3\Editores\obj\Debug\Editores.pdb
+C:\Users\ricar\Desktop\CryBits v0.0.3\Editores\bin\Debug\Editores.exe.manifest
+C:\Users\ricar\Desktop\CryBits v0.0.3\Editores\bin\Debug\Editores.application
+C:\Users\ricar\Desktop\CryBits v0.0.3\Editores\bin\Debug\Editores.exe
+C:\Users\ricar\Desktop\CryBits v0.0.3\Editores\bin\Debug\Editores.pdb
+C:\Users\ricar\Desktop\CryBits v0.0.3\Editores\bin\Debug\sfmlnet-audio-2.dll
+C:\Users\ricar\Desktop\CryBits v0.0.3\Editores\bin\Debug\sfmlnet-graphics-2.dll
+C:\Users\ricar\Desktop\CryBits v0.0.3\Editores\bin\Debug\sfmlnet-window-2.dll
+C:\Users\ricar\Desktop\CryBits v0.0.3\Editores\obj\Debug\Editores.csprojResolveAssemblyReference.cache
+C:\Users\ricar\Desktop\CryBits v0.0.3\Editores\obj\Debug\Editor_Azulejos.resources
+C:\Users\ricar\Desktop\CryBits v0.0.3\Editores\obj\Debug\Editor_Classes.resources
+C:\Users\ricar\Desktop\CryBits v0.0.3\Editores\obj\Debug\Editor_Dados.resources
+C:\Users\ricar\Desktop\CryBits v0.0.3\Editores\obj\Debug\Editor_Ferramentas.resources
+C:\Users\ricar\Desktop\CryBits v0.0.3\Editores\obj\Debug\Editor_Mapas.resources
+C:\Users\ricar\Desktop\CryBits v0.0.3\Editores\obj\Debug\Editor_Mapas_Propriedades.resources
+C:\Users\ricar\Desktop\CryBits v0.0.3\Editores\obj\Debug\Editor_NPCs.resources
+C:\Users\ricar\Desktop\CryBits v0.0.3\Editores\obj\Debug\PréVisualizar.resources
+C:\Users\ricar\Desktop\CryBits v0.0.3\Editores\obj\Debug\Editor_Quantidade.resources
+C:\Users\ricar\Desktop\CryBits v0.0.3\Editores\obj\Debug\Seleção.resources
+C:\Users\ricar\Desktop\CryBits v0.0.3\Editores\obj\Debug\Editores.Properties.Resources.resources
+C:\Users\ricar\Desktop\CryBits v0.0.3\Editores\obj\Debug\Editores.csproj.GenerateResource.Cache
+C:\Users\ricar\Desktop\CryBits v0.0.3\Editores\obj\Debug\Editores.TrustInfo.xml
+C:\Users\ricar\Desktop\CryBits v0.0.3\Editores\obj\Debug\Editores.exe.manifest
+C:\Users\ricar\Desktop\CryBits v0.0.3\Editores\obj\Debug\Editores.application
+C:\Users\ricar\OneDrive\Documentos\Engines\CryBits\Editores\obj\Debug\Editor_Itens.resources
+C:\Users\mducharme.USINAGENADO\Desktop\CryBits v0.4.0\Editores\bin\Debug\Editores.exe.config
+C:\Users\mducharme.USINAGENADO\Desktop\CryBits v0.4.0\Editores\bin\Debug\Editores.exe.manifest
+C:\Users\mducharme.USINAGENADO\Desktop\CryBits v0.4.0\Editores\bin\Debug\Editores.application
+C:\Users\mducharme.USINAGENADO\Desktop\CryBits v0.4.0\Editores\bin\Debug\Editores.exe
+C:\Users\mducharme.USINAGENADO\Desktop\CryBits v0.4.0\Editores\bin\Debug\Editores.pdb
+C:\Users\mducharme.USINAGENADO\Desktop\CryBits v0.4.0\Editores\obj\Debug\Editores.csprojAssemblyReference.cache
+C:\Users\mducharme.USINAGENADO\Desktop\CryBits v0.4.0\Editores\obj\Debug\Editor_Azulejos.resources
+C:\Users\mducharme.USINAGENADO\Desktop\CryBits v0.4.0\Editores\obj\Debug\Editor_Itens.resources
+C:\Users\mducharme.USINAGENADO\Desktop\CryBits v0.4.0\Editores\obj\Debug\Editor_Classes.resources
+C:\Users\mducharme.USINAGENADO\Desktop\CryBits v0.4.0\Editores\obj\Debug\Editor_Dados.resources
+C:\Users\mducharme.USINAGENADO\Desktop\CryBits v0.4.0\Editores\obj\Debug\Editor_Ferramentas.resources
+C:\Users\mducharme.USINAGENADO\Desktop\CryBits v0.4.0\Editores\obj\Debug\Editor_Mapas.resources
+C:\Users\mducharme.USINAGENADO\Desktop\CryBits v0.4.0\Editores\obj\Debug\Editor_Mapas_Propriedades.resources
+C:\Users\mducharme.USINAGENADO\Desktop\CryBits v0.4.0\Editores\obj\Debug\Editor_NPCs.resources
+C:\Users\mducharme.USINAGENADO\Desktop\CryBits v0.4.0\Editores\obj\Debug\PréVisualizar.resources
+C:\Users\mducharme.USINAGENADO\Desktop\CryBits v0.4.0\Editores\obj\Debug\Editor_Quantidade.resources
+C:\Users\mducharme.USINAGENADO\Desktop\CryBits v0.4.0\Editores\obj\Debug\Seleção.resources
+C:\Users\mducharme.USINAGENADO\Desktop\CryBits v0.4.0\Editores\obj\Debug\Editores.Properties.Resources.resources
+C:\Users\mducharme.USINAGENADO\Desktop\CryBits v0.4.0\Editores\obj\Debug\Editores.csproj.GenerateResource.cache
+C:\Users\mducharme.USINAGENADO\Desktop\CryBits v0.4.0\Editores\obj\Debug\Editores.csproj.CoreCompileInputs.cache
+C:\Users\mducharme.USINAGENADO\Desktop\CryBits v0.4.0\Editores\obj\Debug\Editores.TrustInfo.xml
+C:\Users\mducharme.USINAGENADO\Desktop\CryBits v0.4.0\Editores\obj\Debug\Editores.exe.manifest
+C:\Users\mducharme.USINAGENADO\Desktop\CryBits v0.4.0\Editores\obj\Debug\Editores.application
+C:\Users\mducharme.USINAGENADO\Desktop\CryBits v0.4.0\Editores\obj\Debug\Editores.csproj.CopyComplete
+C:\Users\mducharme.USINAGENADO\Desktop\CryBits v0.4.0\Editores\obj\Debug\Editores.exe
+C:\Users\mducharme.USINAGENADO\Desktop\CryBits v0.4.0\Editores\obj\Debug\Editores.pdb

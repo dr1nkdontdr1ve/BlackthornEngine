@@ -1,0 +1,64 @@
+C:\Users\Usuario\documents\visual studio 2013\Projects\CryBits\Servidor\bin\Debug\Servidor.exe
+C:\Users\Usuario\documents\visual studio 2013\Projects\CryBits\Servidor\bin\Debug\Servidor.pdb
+C:\Users\Usuario\documents\visual studio 2013\Projects\CryBits\Servidor\bin\Debug\Lidgren.Network.dll
+C:\Users\Usuario\documents\visual studio 2013\Projects\CryBits\Servidor\obj\Debug\Servidor.Properties.Resources.resources
+C:\Users\Usuario\documents\visual studio 2013\Projects\CryBits\Servidor\obj\Debug\Servidor.csproj.GenerateResource.Cache
+C:\Users\Usuario\documents\visual studio 2013\Projects\CryBits\Servidor\obj\Debug\Servidor.exe
+C:\Users\Usuario\documents\visual studio 2013\Projects\CryBits\Servidor\obj\Debug\Servidor.pdb
+C:\Users\Usuario\Documents\Visual Studio 2013\Projects\CryBits\Servidor\obj\Debug\Servidor.csprojResolveAssemblyReference.cache
+C:\Users\Usuario\Documents\Visual Studio 2015\Projects\CryBits\Servidor\obj\Debug\Servidor.exe
+C:\Users\Usuario\Documents\Visual Studio 2015\Projects\CryBits\Servidor\obj\Debug\Servidor.pdb
+C:\Users\Usuario\Documents\Visual Studio 2015\Projects\CryBits\Servidor\bin\Debug\Servidor.exe
+C:\Users\Usuario\Documents\Visual Studio 2015\Projects\CryBits\Servidor\bin\Debug\Servidor.pdb
+C:\Users\Usuario\Documents\Visual Studio 2015\Projects\CryBits\Servidor\bin\Debug\Lidgren.Network.dll
+C:\Users\Usuario\Documents\Visual Studio 2015\Projects\CryBits\Servidor\obj\Debug\Servidor.csprojResolveAssemblyReference.cache
+C:\Users\Usuario\Documents\Visual Studio 2015\Projects\CryBits\Servidor\obj\Debug\Servidor.Properties.Resources.resources
+C:\Users\Usuario\Documents\Visual Studio 2015\Projects\CryBits\Servidor\obj\Debug\Servidor.csproj.GenerateResource.Cache
+C:\Users\Usuario\Documents\Visual Studio 2015\Projects\CryBits v0.0.1\Servidor\obj\Debug\Servidor.exe
+C:\Users\Usuario\Documents\Visual Studio 2015\Projects\CryBits v0.0.1\Servidor\obj\Debug\Servidor.pdb
+C:\Users\Usuario\Documents\Visual Studio 2015\Projects\CryBits v0.0.1\Servidor\bin\Debug\Servidor.exe
+C:\Users\Usuario\Documents\Visual Studio 2015\Projects\CryBits v0.0.1\Servidor\bin\Debug\Servidor.pdb
+C:\Users\Usuario\Documents\Visual Studio 2015\Projects\CryBits v0.0.1\Servidor\obj\Debug\Servidor.csprojResolveAssemblyReference.cache
+C:\Users\Usuario\Documents\Visual Studio 2015\Projects\CryBits v0.0.1\Servidor\bin\Debug\Servidor.exe.config
+C:\Users\Usuario\Desktop\CryBits v0.0.1\Servidor\bin\Debug\Servidor.exe.config
+C:\Users\Usuario\Desktop\CryBits v0.0.1\Servidor\obj\Debug\Servidor.exe
+C:\Users\Usuario\Desktop\CryBits v0.0.1\Servidor\obj\Debug\Servidor.pdb
+C:\Users\Usuario\Documents\Visual Studio 2015\Projects\CryBits v0.0.2\Servidor\bin\Debug\Servidor.exe.config
+C:\Users\Usuario\Documents\Visual Studio 2015\Projects\CryBits v0.0.2\Servidor\obj\Debug\Servidor.exe
+C:\Users\Usuario\Documents\Visual Studio 2015\Projects\CryBits v0.0.2\Servidor\obj\Debug\Servidor.pdb
+C:\Users\Usuario\Documents\Visual Studio 2015\Projects\CryBits v0.0.2\Servidor\bin\Debug\Servidor.exe
+C:\Users\Usuario\Documents\Visual Studio 2015\Projects\CryBits v0.0.2\Servidor\bin\Debug\Servidor.pdb
+C:\Users\Usuario\Documents\Visual Studio 2015\Projects\CryBits v0.0.2\Servidor\obj\Debug\Servidor.csprojResolveAssemblyReference.cache
+C:\Users\ricar\Desktop\CryBits\Servidor\bin\Debug\Servidor.exe.config
+C:\Users\ricar\Desktop\CryBits\Servidor\obj\Debug\Servidor.exe
+C:\Users\ricar\Desktop\CryBits\Servidor\obj\Debug\Servidor.pdb
+C:\Users\ricar\Desktop\CryBits\Servidor\bin\Debug\Servidor.exe
+C:\Users\ricar\Desktop\CryBits\Servidor\bin\Debug\Servidor.pdb
+C:\Users\ricar\Desktop\CryBits\Servidor\obj\Debug\Servidor.csprojResolveAssemblyReference.cache
+C:\Users\ricar\OneDrive\Documentos\Engines\CryBits\Servidor\bin\Debug\Servidor.exe.config
+C:\Users\ricar\OneDrive\Documentos\Engines\CryBits\Servidor\obj\Debug\Servidor.exe
+C:\Users\ricar\OneDrive\Documentos\Engines\CryBits\Servidor\obj\Debug\Servidor.pdb
+C:\Users\ricar\OneDrive\Documentos\Engines\CryBits\Servidor\bin\Debug\Servidor.exe
+C:\Users\ricar\OneDrive\Documentos\Engines\CryBits\Servidor\bin\Debug\Servidor.pdb
+C:\Users\ricar\OneDrive\Documentos\Engines\CryBits\Servidor\obj\Debug\Servidor.csprojResolveAssemblyReference.cache
+C:\Users\ricar\Desktop\CryBits v0.0.3\Servidor\bin\Debug\Servidor.exe.config
+C:\Users\ricar\Desktop\CryBits v0.0.3\Servidor\obj\Debug\Servidor.exe
+C:\Users\ricar\Desktop\CryBits v0.0.3\Servidor\obj\Debug\Servidor.pdb
+C:\Users\ricar\Desktop\CryBits v0.0.3\Servidor\bin\Debug\Servidor.exe
+C:\Users\ricar\Desktop\CryBits v0.0.3\Servidor\bin\Debug\Servidor.pdb
+C:\Users\ricar\Desktop\CryBits v0.0.3\Servidor\obj\Debug\Servidor.csprojResolveAssemblyReference.cache
+C:\Users\ricar\Desktop\CryBits v0.0.3\Servidor\bin\Debug\Lidgren.Network.dll
+C:\Users\ricar\OneDrive\Documentos\Engines\CryBits v0.3.0\Servidor\bin\Debug\Servidor.exe.config
+C:\Users\ricar\OneDrive\Documentos\Engines\CryBits v0.3.0\Servidor\obj\Debug\Servidor.exe
+C:\Users\ricar\OneDrive\Documentos\Engines\CryBits v0.3.0\Servidor\obj\Debug\Servidor.pdb
+C:\Users\ricar\OneDrive\Documentos\Engines\CryBits v0.3.0\Servidor\bin\Debug\Servidor.exe
+C:\Users\ricar\OneDrive\Documentos\Engines\CryBits v0.3.0\Servidor\bin\Debug\Servidor.pdb
+C:\Users\ricar\OneDrive\Documentos\Engines\CryBits v0.3.0\Servidor\obj\Debug\Servidor.csprojResolveAssemblyReference.cache
+C:\Users\mducharme.USINAGENADO\Desktop\CryBits v0.4.0\Servidor\bin\Debug\Servidor.exe.config
+C:\Users\mducharme.USINAGENADO\Desktop\CryBits v0.4.0\Servidor\bin\Debug\Servidor.exe
+C:\Users\mducharme.USINAGENADO\Desktop\CryBits v0.4.0\Servidor\bin\Debug\Servidor.pdb
+C:\Users\mducharme.USINAGENADO\Desktop\CryBits v0.4.0\Servidor\obj\Debug\Servidor.csprojAssemblyReference.cache
+C:\Users\mducharme.USINAGENADO\Desktop\CryBits v0.4.0\Servidor\obj\Debug\Servidor.csproj.CoreCompileInputs.cache
+C:\Users\mducharme.USINAGENADO\Desktop\CryBits v0.4.0\Servidor\obj\Debug\Servidor.csproj.CopyComplete
+C:\Users\mducharme.USINAGENADO\Desktop\CryBits v0.4.0\Servidor\obj\Debug\Servidor.exe
+C:\Users\mducharme.USINAGENADO\Desktop\CryBits v0.4.0\Servidor\obj\Debug\Servidor.pdb
