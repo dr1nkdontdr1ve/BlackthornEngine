@@ -1,18 +1,18 @@
 ﻿using System.Collections.Generic;
 
-class Listas
+class Lists
 {
-    // Armazenamento de dados
-    public static Estruturas.Servidor_Dados Servidor_Dados = new Estruturas.Servidor_Dados();
-    public static Estruturas.Jogador[] Jogador;
-    public static Estruturas.TempJogador[] TempJogador;
-    public static Estruturas.Classes[] Classe;
-    public static Estruturas.Mapas[] Mapa;
-    public static Estruturas.NPCs[] NPC;
-    public static Estruturas.Itens[] Item;
+    // Data storage
+    public static Structures.Servidor_Dados Server_Data = new Structures.Server_Data();
+    public static Structures.Player[] Player;
+    public static Structures.TempPlayer[] TempJogador;
+    public static Structures.Classes[] Classe;
+    public static Structures.Mapas[] Mapa;
+    public static Structures.NPCs[] NPC;
+    public static Structures.Items[] Item;
 
-    // Estrutura dos itens em gerais
-    public class Estruturas
+    // Structure of the items in general
+    public class Structures
     {
         public struct Servidor_Dados
         {
@@ -28,15 +28,15 @@ class Listas
             public short Num_Itens;
         }
 
-        public struct Jogador
+        public struct Player
         {
             public string Usuário;
             public string Senha;
             public Game.Acessos Acesso;
-            public global::Jogador.Personagem_Estrutura[] Personagem;
+            public global::Player.Personagem_Estrutura[] Personagem;
         }
 
-        public struct TempJogador
+        public struct TempPlayer
         {
             public bool Jogando;
             public byte Utilizado;
@@ -59,20 +59,20 @@ class Listas
         public struct Mapas
         {
             public short Revisão;
-            public Azulejo[,] Azulejo;
-            public string Nome;
-            public byte Largura;
-            public byte Altura;
+            public Tile[,] Tile;
+            public string Name;
+            public byte Width;
+            public byte Height;
             public byte Moral;
             public byte Panorama;
-            public byte Música;
+            public byte Music;
             public int Coloração;
-            public Mapa_Clima Clima;
-            public Mapa_Fumaça Fumaça;
+            public Map_Climate Clima;
+            public Map_Smoke Fumaça;
             public short[] Ligação;
-            public byte LuzGlobal;
+            public byte LightGlobal;
             public byte Iluminação;
-            public Luz[] Luz;
+            public Light[] Light;
             public Mapa_NPC[] NPC;
 
             // Temporário
@@ -82,112 +82,112 @@ class Listas
 
         public struct Mapa_NPC
         {
-            public short Índice;
-            public byte Zona;
+            public short Index;
+            public byte Zone;
             public bool Aparecer;
             public byte X;
             public byte Y;
         }
 
-        public struct Azulejo
+        public struct Tile
         {
-            public byte Zona;
-            public byte Atributo;
+            public byte Zone;
+            public byte Attribute;
             public short Dado_1;
             public short Dado_2;
             public short Dado_3;
             public short Dado_4;
-            public bool[] Bloqueio;
-            public Azulejo_Dados[,] Dados;
+            public bool[] Block;
+            public Tile_Data[,] Data;
         }
 
-        public struct Azulejo_Dados
+        public struct Tile_Data
         {
             public byte x;
             public byte y;
-            public byte Azulejo;
-            public bool Automático;
+            public byte Tile;
+            public bool Automatic;
         }
 
-        public class Luz
+        public class Light
         {
             public byte X;
             public byte Y;
-            public byte Largura;
-            public byte Altura;
+            public byte Width;
+            public byte Height;
         }
 
-        public struct Mapa_Clima
+        public struct Map_Climate
         {
-            public byte Tipo;
-            public byte Intensidade;
+            public byte Type;
+            public byte Intensity;
         }
 
-        public struct Mapa_Fumaça
+        public struct Map_Smoke
         {
-            public byte Textura;
-            public sbyte VelocidadeX;
-            public sbyte VelocidadeY;
-            public byte Transparência;
+            public byte Texture;
+            public sbyte VelocityX;
+            public sbyte VelocityY;
+            public byte Transparency;
         }
 
         public struct NPCs
         {
-            public string Nome;
-            public short Textura;
-            public byte Agressividade;
-            public byte Aparecimento;
-            public byte Visão;
-            public byte Experiência;
+            public string Name;
+            public short Texture;
+            public byte Aggressiveness;
+            public byte Appearance;
+            public byte View;
+            public byte Experience;
             public short[] Vital;
-            public short[] Atributo;
+            public short[] Attribute;
             public NPC_Queda[] Queda;
         }
 
         public struct Mapa_NPCs
         {
-            public short Índice;
+            public short Index;
             public byte X;
             public byte Y;
             public Game.Direções Direção;
-            public byte Alvo_Tipo;
-            public byte Alvo_Índice;
+            public byte Target_Type;
+            public byte Target_Index;
             public short[] Vital;
-            public int Aparecimento_Tempo;
-            public int Ataque_Tempo;
+            public int Appearance_Time;
+            public int Attack_Time;
         }
 
         public struct Mapa_Itens
         {
-            public short Índice;
+            public short Index;
             public byte X;
             public byte Y;
             public short Quantidade;
         }
 
-        public struct Itens
+        public struct Items
         {
-            // Geral
-            public string Nome;
-            public string Descrição;
-            public short Textura;
-            public byte Tipo;
-            public short Preço;
+            // General
+            public string Name;
+            public string Description;
+            public short Texture;
+            public byte Type;
+            public short Price;
             public bool Empilhável;
             public bool NãoDropável;
-            // Requerimentos
+            // Requirements
             public short Req_Level;
             public byte Req_Classe;
-            // Poção
+            // Potion
             public short Poção_Experiência;
             public short[] Poção_Vital;
-            // Equipamento
+            // Equipment
             public byte Equip_Tipo;
             public short[] Equip_Atributo;
             public short Arma_Dano;
         }
 
-        public struct Inventário
+        public struct Inventory
         {
             public short Item_Num;
             public short Quantidade;
@@ -202,7 +202,7 @@ class Listas
 
         public struct Hotbar
         {
-            public byte Tipo;
+            public byte Type;
             public byte Slot;
         }
     }

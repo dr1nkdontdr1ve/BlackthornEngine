@@ -2,10 +2,10 @@
 using System.Drawing;
 using Lidgren.Network;
 
-partial class Enviar
+partial class Submit
 {
-    // Pacotes do servidor
-    public enum Pacotes
+    // Server Packages
+    public enum Packages
     {
         Alerta,
         Conectar,
@@ -15,17 +15,17 @@ partial class Enviar
         Personagens,
         Entrar,
         MaiorÍndice,
-        Jogador_Dados,
-        Jogador_Posição,
-        Jogador_Vitais,
-        Jogador_Saiu,
-        Jogador_Atacar,
-        Jogador_Mover,
-        Jogador_Direção,
-        Jogador_Experiência,
-        Jogador_Inventário,
-        Jogador_Equipamentos,
-        Jogador_Hotbar,
+        Player_Data,
+        Player_Posição,
+        Player_Vitais,
+        Player_Saiu,
+        Player_Atacar,
+        Player_Mover,
+        Player_Direção,
+        Player_Experiência,
+        Player_Inventário,
+        Player_Equipamentos,
+        Player_Hotbar,
         EntrarNoMapa,
         Mapa_Revisão,
         Mapa,
@@ -43,449 +43,449 @@ partial class Enviar
         Mapa_Itens,
     }
 
-    public static void Para(byte Índice, NetOutgoingMessage Dados)
+    public static void Para(byte Índice, NetOutgoingMessage Data)
     {
         // Previni sobrecarga
         if (!Rede.EstáConectado(Índice)) return;
 
         // Recria o pacote e o envia
-        NetOutgoingMessage Dados_Enviar = Rede.Dispositivo.CreateMessage(Dados.LengthBytes);
-        Dados_Enviar.Write(Dados);
-        Rede.Dispositivo.SendMessage(Dados_Enviar, Rede.Conexão[Índice], NetDeliveryMethod.ReliableOrdered);
+        NetOutgoingMessage Data_Enviar = Rede.Dispositivo.CreateMessage(Data.LengthBytes);
+        Data_Enviar.Write(Data);
+        Rede.Dispositivo.SendMessage(Data_Enviar, Rede.Conexão[Índice], NetDeliveryMethod.ReliableOrdered);
     }
 
-    public static void ParaTodos(NetOutgoingMessage Dados)
+    public static void ParaTodos(NetOutgoingMessage Data)
     {
-        // Envia os dados para todos conectados
+        // Envia os Data para todos conectados
         for (byte i = 1; i <= Game.MaiorÍndice; i++)
-            if (Jogador.EstáJogando(i))
-                Para(i, Dados);
+            if (Player.EstáJogando(i))
+                Para(i, Data);
     }
 
-    public static void ParaTodosMenos(byte Índice, NetOutgoingMessage Dados)
+    public static void ParaTodosMenos(byte Índice, NetOutgoingMessage Data)
     {
-        // Envia os dados para todos conectados, com excessão do índice
+        // Envia os Data para todos conectados, com excessão do índice
         for (byte i = 1; i <= Game.MaiorÍndice; i++)
-            if (Jogador.EstáJogando(i))
+            if (Player.EstáJogando(i))
                 if (Índice != i)
-                    Para(i, Dados);
+                    Para(i, Data);
     }
 
-    public static void ParaMapa(short Mapa, NetOutgoingMessage Dados)
+    public static void ParaMapa(short Mapa, NetOutgoingMessage Data)
     {
-        // Envia os dados para todos conectados, com excessão do índice
+        // Envia os Data para todos conectados, com excessão do índice
         for (byte i = 1; i <= Game.MaiorÍndice; i++)
-            if (Jogador.EstáJogando(i))
-                if (Jogador.Personagem(i).Mapa == Mapa)
-                    Para(i, Dados);
+            if (Player.EstáJogando(i))
+                if (Player.Personagem(i).Mapa == Mapa)
+                    Para(i, Data);
     }
 
-    public static void ParaMapaMenos(short Mapa, byte Índice, NetOutgoingMessage Dados)
+    public static void ParaMapaMenos(short Mapa, byte Índice, NetOutgoingMessage Data)
     {
-        // Envia os dados para todos conectados, com excessão do índice
+        // Envia os Data para todos conectados, com excessão do índice
         for (byte i = 1; i <= Game.MaiorÍndice; i++)
-            if (Jogador.EstáJogando(i))
-                if (Jogador.Personagem(i).Mapa == Mapa)
+            if (Player.EstáJogando(i))
+                if (Player.Personagem(i).Mapa == Mapa)
                     if (Índice != i)
-                        Para(i, Dados);
+                        Para(i, Data);
     }
 
     public static void Alerta(byte Índice, string Mensagem, bool Desconectar = true)
     {
-        NetOutgoingMessage Dados = Rede.Dispositivo.CreateMessage();
+        NetOutgoingMessage Data = Rede.Dispositivo.CreateMessage();
 
-        // Envia os dados
-        Dados.Write((byte)Pacotes.Alerta);
-        Dados.Write(Mensagem);
-        Para(Índice, Dados);
+        // Envia os Data
+        Data.Write((byte)Packages.Alerta);
+        Data.Write(Mensagem);
+        Para(Índice, Data);
 
-        // Desconecta o jogador
+        // Desconecta o Player
         if (Desconectar)
             Rede.Conexão[Índice].Disconnect(string.Empty);
     }
 
-    public static void Mensagem(string Texto)
+    public static void Mensagem(string Text)
     {
         // Envia o alerta para todos
         for (byte i = 1; i <= Game.MaiorÍndice; i++)
             if (Rede.Conexão[i] != null)
                 if (Rede.Conexão[i].Status == NetConnectionStatus.Connected)
-                    Alerta(i, Texto);
+                    Alerta(i, Text);
     }
 
     public static void Conectar(byte Índice)
     {
-        NetOutgoingMessage Dados = Rede.Dispositivo.CreateMessage();
+        NetOutgoingMessage Data = Rede.Dispositivo.CreateMessage();
 
-        // Envia os dados
-        Dados.Write((byte)Pacotes.Conectar);
-        Dados.Write(Índice);
-        Para(Índice, Dados);
+        // Envia os Data
+        Data.Write((byte)Packages.Conectar);
+        Data.Write(Índice);
+        Para(Índice, Data);
     }
 
     public static void CriarPersonagem(byte Índice)
     {
-        NetOutgoingMessage Dados = Rede.Dispositivo.CreateMessage();
+        NetOutgoingMessage Data = Rede.Dispositivo.CreateMessage();
 
-        // Envia os dados
-        Dados.Write((byte)Pacotes.CriarPersonagem);
-        Para(Índice, Dados);
+        // Envia os Data
+        Data.Write((byte)Packages.CriarPersonagem);
+        Para(Índice, Data);
     }
 
     public static void Entrada(byte Índice)
     {
-        NetOutgoingMessage Dados = Rede.Dispositivo.CreateMessage();
+        NetOutgoingMessage Data = Rede.Dispositivo.CreateMessage();
 
-        // Envia os dados
-        Dados.Write((byte)Pacotes.Entrada);
-        Dados.Write(Índice);
-        Dados.Write(Game.MaiorÍndice);
-        Dados.Write(Listas.Servidor_Dados.Máx_Jogadores);
-        Para(Índice, Dados);
+        // Envia os Data
+        Data.Write((byte)Packages.Entrada);
+        Data.Write(Índice);
+        Data.Write(Game.MaiorÍndice);
+        Data.Write(Lists.Server_Data.Max_Playeres);
+        Para(Índice, Data);
     }
 
     public static void Personagens(byte Índice)
     {
-        NetOutgoingMessage Dados = Rede.Dispositivo.CreateMessage();
+        NetOutgoingMessage Data = Network.Dispositivo.CreateMessage();
 
-        // Envia os dados
-        Dados.Write((byte)Pacotes.Personagens);
-        Dados.Write(Listas.Servidor_Dados.Máx_Personagens);
+        // Envia os Data
+        Data.Write((byte)Packages.Personagens);
+        Data.Write(Lists.Server_Data.Máx_Personagens);
 
-        for (byte i = 1; i <= Listas.Servidor_Dados.Máx_Personagens; i++)
+        for (byte i = 1; i <= Lists.Server_Data.Máx_Personagens; i++)
         {
-            Dados.Write(Listas.Jogador[Índice].Personagem[i].Nome);
-            Dados.Write(Listas.Jogador[Índice].Personagem[i].Classe);
-            Dados.Write(Listas.Jogador[Índice].Personagem[i].Gênero);
-            Dados.Write(Listas.Jogador[Índice].Personagem[i].Level);
+            Data.Write(Lists.Player[Índice].Personagem[i].Nome);
+            Data.Write(Lists.Player[Índice].Personagem[i].Classe);
+            Data.Write(Lists.Player[Índice].Personagem[i].Gênero);
+            Data.Write(Lists.Player[Índice].Personagem[i].Level);
         }
 
-        Para(Índice, Dados);
+        Para(Índice, Data);
     }
 
     public static void Classes(byte Índice)
     {
-        NetOutgoingMessage Dados = Rede.Dispositivo.CreateMessage();
+        NetOutgoingMessage Data = Rede.Dispositivo.CreateMessage();
 
-        // Envia os dados
-        Dados.Write((byte)Pacotes.Classes);
-        Dados.Write(Listas.Servidor_Dados.Num_Classes);
+        // Send the data
+        Data.Write((byte)Packages.Classes);
+        Data.Write(Lists.Server_Data.Num_Classes);
 
-        for (byte i = 1; i <= Listas.Classe.GetUpperBound(0); i++)
+        for (byte i = 1; i <= Lists.Classe.GetUpperBound(0); i++)
         {
-            Dados.Write(Listas.Classe[i].Nome);
-            Dados.Write(Listas.Classe[i].Textura_Masculina);
-            Dados.Write(Listas.Classe[i].Textura_Feminina);
+            Data.Write(Lists.Classe[i].Nome);
+            Data.Write(Lists.Classe[i].Textura_Masculina);
+            Data.Write(Lists.Classe[i].Textura_Feminina);
         }
 
-        // Envia os dados
-        Para(Índice, Dados);
+        // Envia os Data
+        Para(Índice, Data);
     }
 
     public static void Entrar(byte Índice)
     {
-        NetOutgoingMessage Dados = Rede.Dispositivo.CreateMessage();
+        NetOutgoingMessage Data = Rede.Dispositivo.CreateMessage();
 
-        // Envia os dados
-        Dados.Write((byte)Pacotes.Entrar);
-        Para(Índice, Dados);
+        // Envia os Data
+        Data.Write((byte)Packages.Entrar);
+        Para(Índice, Data);
     }
 
-    public static NetOutgoingMessage Jogador_Dados_Cache(byte Índice)
+    public static NetOutgoingMessage Player_Data_Cache(byte Índice)
     {
-        NetOutgoingMessage Dados = Rede.Dispositivo.CreateMessage();
+        NetOutgoingMessage Data = Rede.Dispositivo.CreateMessage();
 
-        // Escreve os dados
-        Dados.Write((byte)Pacotes.Jogador_Dados);
-        Dados.Write(Índice);
-        Dados.Write(Jogador.Personagem(Índice).Nome);
-        Dados.Write(Jogador.Personagem(Índice).Classe);
-        Dados.Write(Jogador.Personagem(Índice).Gênero);
-        Dados.Write(Jogador.Personagem(Índice).Level);
-        Dados.Write(Jogador.Personagem(Índice).Mapa);
-        Dados.Write(Jogador.Personagem(Índice).X);
-        Dados.Write(Jogador.Personagem(Índice).Y);
-        Dados.Write((byte)Jogador.Personagem(Índice).Direção);
+        // Escreve os Data
+        Data.Write((byte)Packages.Player_Data);
+        Data.Write(Índice);
+        Data.Write(Player.Personagem(Índice).Nome);
+        Data.Write(Player.Personagem(Índice).Classe);
+        Data.Write(Player.Personagem(Índice).Gênero);
+        Data.Write(Player.Personagem(Índice).Level);
+        Data.Write(Player.Personagem(Índice).Mapa);
+        Data.Write(Player.Personagem(Índice).X);
+        Data.Write(Player.Personagem(Índice).Y);
+        Data.Write((byte)Player.Personagem(Índice).Direção);
         for (byte n = 0; n <= (byte)Game.Vitais.Quantidade - 1; n++)
         {
-            Dados.Write(Jogador.Personagem(Índice).Vital[n]);
-            Dados.Write(Jogador.Personagem(Índice).MáxVital(n));
+            Data.Write(Player.Personagem(Índice).Vital[n]);
+            Data.Write(Player.Personagem(Índice).MáxVital(n));
         }
-        for (byte n = 0; n <= (byte)Game.Atributos.Quantidade - 1; n++) Dados.Write(Jogador.Personagem(Índice).Atributo[n]);
-        for (byte n = 0; n <= (byte)Game.Equipamentos.Quantidade - 1; n++) Dados.Write(Jogador.Personagem(Índice).Equipamento[n]);
+        for (byte n = 0; n <= (byte)Game.Atributos.Quantidade - 1; n++) Data.Write(Player.Personagem(Índice).Atributo[n]);
+        for (byte n = 0; n <= (byte)Game.Equipamentos.Quantidade - 1; n++) Data.Write(Player.Personagem(Índice).Equipamento[n]);
 
-        return Dados;
+        return Data;
     }
 
-    public static void Jogador_Posição(byte Índice)
+    public static void Player_Posição(byte Índice)
     {
-        NetOutgoingMessage Dados = Rede.Dispositivo.CreateMessage();
+        NetOutgoingMessage Data = Rede.Dispositivo.CreateMessage();
 
-        // Envia os dados
-        Dados.Write((byte)Pacotes.Jogador_Posição);
-        Dados.Write(Índice);
-        Dados.Write(Jogador.Personagem(Índice).X);
-        Dados.Write(Jogador.Personagem(Índice).Y);
-        Dados.Write((byte)Jogador.Personagem(Índice).Direção);
-        ParaMapa(Jogador.Personagem(Índice).Mapa, Dados);
+        // Envia os Data
+        Data.Write((byte)Packages.Player_Posição);
+        Data.Write(Índice);
+        Data.Write(Player.Personagem(Índice).X);
+        Data.Write(Player.Personagem(Índice).Y);
+        Data.Write((byte)Player.Personagem(Índice).Direção);
+        ParaMapa(Player.Personagem(Índice).Mapa, Data);
     }
 
-    public static void Jogador_Vitais(byte Índice)
+    public static void Player_Vitais(byte Índice)
     {
-        NetOutgoingMessage Dados = Rede.Dispositivo.CreateMessage();
+        NetOutgoingMessage Data = Rede.Dispositivo.CreateMessage();
 
-        // Envia os dados
-        Dados.Write((byte)Pacotes.Jogador_Vitais);
-        Dados.Write(Índice);
+        // Envia os Data
+        Data.Write((byte)Packages.Player_Vitais);
+        Data.Write(Índice);
         for (byte i = 0; i <= (byte)Game.Vitais.Quantidade - 1; i++)
         {
-            Dados.Write(Jogador.Personagem(Índice).Vital[i]);
-            Dados.Write(Jogador.Personagem(Índice).MáxVital(i));
+            Data.Write(Player.Personagem(Índice).Vital[i]);
+            Data.Write(Player.Personagem(Índice).MáxVital(i));
         }
 
-        ParaMapa(Jogador.Personagem(Índice).Mapa, Dados);
+        ParaMapa(Player.Personagem(Índice).Mapa, Data);
     }
 
-    public static void Jogador_Saiu(byte Índice)
+    public static void Player_Saiu(byte Índice)
     {
-        NetOutgoingMessage Dados = Rede.Dispositivo.CreateMessage();
+        NetOutgoingMessage Data = Rede.Dispositivo.CreateMessage();
 
-        // Envia os dados
-        Dados.Write((byte)Pacotes.Jogador_Saiu);
-        Dados.Write(Índice);
-        ParaTodosMenos(Índice, Dados);
+        // Envia os Data
+        Data.Write((byte)Packages.Player_Saiu);
+        Data.Write(Índice);
+        ParaTodosMenos(Índice, Data);
     }
 
     public static void MaiorÍndice()
     {
-        NetOutgoingMessage Dados = Rede.Dispositivo.CreateMessage();
+        NetOutgoingMessage Data = Rede.Dispositivo.CreateMessage();
 
-        // Envia os dados
-        Dados.Write((byte)Pacotes.MaiorÍndice);
-        Dados.Write(Game.MaiorÍndice);
-        ParaTodos(Dados);
+        // Envia os Data
+        Data.Write((byte)Packages.MaiorÍndice);
+        Data.Write(Game.MaiorÍndice);
+        ParaTodos(Data);
     }
 
-    public static void Jogador_Mover(byte Índice, byte Movimento)
+    public static void Player_Mover(byte Índice, byte Movimento)
     {
-        NetOutgoingMessage Dados = Rede.Dispositivo.CreateMessage();
+        NetOutgoingMessage Data = Rede.Dispositivo.CreateMessage();
 
-        // Envia os dados
-        Dados.Write((byte)Pacotes.Jogador_Mover);
-        Dados.Write(Índice);
-        Dados.Write(Jogador.Personagem(Índice).X);
-        Dados.Write(Jogador.Personagem(Índice).Y);
-        Dados.Write((byte)Jogador.Personagem(Índice).Direção);
-        Dados.Write(Movimento);
-        ParaMapaMenos(Jogador.Personagem(Índice).Mapa, Índice, Dados);
+        // Envia os Data
+        Data.Write((byte)Packages.Player_Mover);
+        Data.Write(Índice);
+        Data.Write(Player.Personagem(Índice).X);
+        Data.Write(Player.Personagem(Índice).Y);
+        Data.Write((byte)Player.Personagem(Índice).Direção);
+        Data.Write(Movimento);
+        ParaMapaMenos(Player.Personagem(Índice).Mapa, Índice, Data);
     }
 
-    public static void Jogador_Direção(byte Índice)
+    public static void Player_Direção(byte Índice)
     {
-        NetOutgoingMessage Dados = Rede.Dispositivo.CreateMessage();
+        NetOutgoingMessage Data = Rede.Dispositivo.CreateMessage();
 
-        // Envia os dados
-        Dados.Write((byte)Pacotes.Jogador_Direção);
-        Dados.Write(Índice);
-        Dados.Write((byte)Jogador.Personagem(Índice).Direção);
-        ParaMapaMenos(Jogador.Personagem(Índice).Mapa, Índice, Dados);
+        // Envia os Data
+        Data.Write((byte)Packages.Player_Direção);
+        Data.Write(Índice);
+        Data.Write((byte)Player.Personagem(Índice).Direção);
+        ParaMapaMenos(Player.Personagem(Índice).Mapa, Índice, Data);
     }
 
-    public static void Jogador_Experiência(byte Índice)
+    public static void Player_Experiência(byte Índice)
     {
-        NetOutgoingMessage Dados = Rede.Dispositivo.CreateMessage();
+        NetOutgoingMessage Data = Rede.Dispositivo.CreateMessage();
 
-        // Envia os dados
-        Dados.Write((byte)Pacotes.Jogador_Experiência);
-        Dados.Write(Jogador.Personagem(Índice).Experiência);
-        Dados.Write(Jogador.Personagem(Índice).ExpNecessária);
-        Dados.Write(Jogador.Personagem(Índice).Pontos);
-        Para(Índice, Dados);
+        // Envia os Data
+        Data.Write((byte)Packages.Player_Experiência);
+        Data.Write(Player.Personagem(Índice).Experiência);
+        Data.Write(Player.Personagem(Índice).ExpNecessária);
+        Data.Write(Player.Personagem(Índice).Pontos);
+        Para(Índice, Data);
     }
 
-    public static void Jogador_Equipamentos(byte Índice)
+    public static void Player_Equipamentos(byte Índice)
     {
-        NetOutgoingMessage Dados = Rede.Dispositivo.CreateMessage();
+        NetOutgoingMessage Data = Rede.Dispositivo.CreateMessage();
 
-        // Envia os dados
-        Dados.Write((byte)Pacotes.Jogador_Equipamentos);
-        Dados.Write(Índice);
-        for (byte i = 0; i <= (byte)Game.Equipamentos.Quantidade - 1; i++) Dados.Write(Jogador.Personagem(Índice).Equipamento[i]);
-        ParaMapa(Jogador.Personagem(Índice).Mapa, Dados);
+        // Envia os Data
+        Data.Write((byte)Packages.Player_Equipamentos);
+        Data.Write(Índice);
+        for (byte i = 0; i <= (byte)Game.Equipamentos.Quantidade - 1; i++) Data.Write(Player.Personagem(Índice).Equipamento[i]);
+        ParaMapa(Player.Personagem(Índice).Mapa, Data);
     }
 
-    public static void Jogadores_Dados_Mapa(byte Índice)
+    public static void Playeres_Data_Mapa(byte Índice)
     {
-        // Envia os dados dos outros jogadores 
+        // Envia os Data dos outros Playeres 
         for (byte i = 1; i <= Game.MaiorÍndice; i++)
-            if (Jogador.EstáJogando(i))
+            if (Player.EstáJogando(i))
                 if (Índice != i)
-                    if (Jogador.Personagem(i).Mapa == Jogador.Personagem(Índice).Mapa)
-                        Para(Índice, Jogador_Dados_Cache(i));
+                    if (Player.Personagem(i).Mapa == Player.Personagem(Índice).Mapa)
+                        Para(Índice, Player_Data_Cache(i));
 
-        // Envia os dados do jogador
-        ParaMapa(Jogador.Personagem(Índice).Mapa, Jogador_Dados_Cache(Índice));
+        // Envia os Data do Player
+        ParaMapa(Player.Personagem(Índice).Mapa, Player_Data_Cache(Índice));
     }
 
     public static void EntrarNoMapa(byte Índice)
     {
-        NetOutgoingMessage Dados = Rede.Dispositivo.CreateMessage();
+        NetOutgoingMessage Data = Rede.Dispositivo.CreateMessage();
 
-        // Envia os dados
-        Dados.Write((byte)Pacotes.EntrarNoMapa);
-        Para(Índice, Dados);
+        // Envia os Data
+        Data.Write((byte)Packages.EntrarNoMapa);
+        Para(Índice, Data);
     }
 
     public static void SairDoMapa(byte Índice, short Mapa)
     {
-        NetOutgoingMessage Dados = Rede.Dispositivo.CreateMessage();
+        NetOutgoingMessage Data = Rede.Dispositivo.CreateMessage();
 
-        // Envia os dados
-        Dados.Write((byte)Pacotes.Jogador_Saiu);
-        Dados.Write(Índice);
-        ParaMapaMenos(Mapa, Índice, Dados);
+        // Envia os Data
+        Data.Write((byte)Packages.Player_Saiu);
+        Data.Write(Índice);
+        ParaMapaMenos(Mapa, Índice, Data);
     }
 
     public static void Mapa_Revisão(byte Índice, short Mapa)
     {
-        NetOutgoingMessage Dados = Rede.Dispositivo.CreateMessage();
+        NetOutgoingMessage Data = Rede.Dispositivo.CreateMessage();
 
-        // Envia os dados
-        Dados.Write((byte)Pacotes.Mapa_Revisão);
-        Dados.Write(Mapa);
-        Dados.Write(Listas.Mapa[Mapa].Revisão);
-        Para(Índice, Dados);
+        // Envia os Data
+        Data.Write((byte)Packages.Mapa_Revisão);
+        Data.Write(Mapa);
+        Data.Write(Lists.Mapa[Mapa].Revisão);
+        Para(Índice, Data);
     }
 
     public static void Mapa(byte Índice, short Mapa)
     {
-        NetOutgoingMessage Dados = Rede.Dispositivo.CreateMessage();
+        NetOutgoingMessage Data = Rede.Dispositivo.CreateMessage();
 
-        // Envia os dados
-        Dados.Write((byte)Pacotes.Mapa);
-        Dados.Write(Mapa);
-        Dados.Write(Listas.Mapa[Mapa].Revisão);
-        Dados.Write(Listas.Mapa[Mapa].Nome);
-        Dados.Write(Listas.Mapa[Mapa].Largura);
-        Dados.Write(Listas.Mapa[Mapa].Altura);
-        Dados.Write(Listas.Mapa[Mapa].Moral);
-        Dados.Write(Listas.Mapa[Mapa].Panorama);
-        Dados.Write(Listas.Mapa[Mapa].Música);
-        Dados.Write(Listas.Mapa[Mapa].Coloração);
-        Dados.Write(Listas.Mapa[Mapa].Clima.Tipo);
-        Dados.Write(Listas.Mapa[Mapa].Clima.Intensidade);
-        Dados.Write(Listas.Mapa[Mapa].Fumaça.Textura);
-        Dados.Write(Listas.Mapa[Mapa].Fumaça.VelocidadeX);
-        Dados.Write(Listas.Mapa[Mapa].Fumaça.VelocidadeY);
-        Dados.Write(Listas.Mapa[Mapa].Fumaça.Transparência);
+        // Envia os Data
+        Data.Write((byte)Packages.Mapa);
+        Data.Write(Mapa);
+        Data.Write(Lists.Mapa[Mapa].Revisão);
+        Data.Write(Lists.Mapa[Mapa].Name);
+        Data.Write(Lists.Mapa[Mapa].Width);
+        Data.Write(Lists.Mapa[Mapa].Height);
+        Data.Write(Lists.Mapa[Mapa].Moral);
+        Data.Write(Lists.Mapa[Mapa].Panorama);
+        Data.Write(Lists.Mapa[Mapa].Music);
+        Data.Write(Lists.Mapa[Mapa].Coloração);
+        Data.Write(Lists.Mapa[Mapa].Clima.Type);
+        Data.Write(Lists.Mapa[Mapa].Clima.Intensidade);
+        Data.Write(Lists.Mapa[Mapa].Fumaça.Texture);
+        Data.Write(Lists.Mapa[Mapa].Fumaça.VelocidadeX);
+        Data.Write(Lists.Mapa[Mapa].Fumaça.VelocidadeY);
+        Data.Write(Lists.Mapa[Mapa].Fumaça.Transparency);
 
         // Ligações
         for (short i = 0; i <= (short)Game.Direções.Quantidade - 1; i++)
-            Dados.Write(Listas.Mapa[Mapa].Ligação[i]);
+            Data.Write(Lists.Mapa[Mapa].Ligação[i]);
 
         // Azulejos
-        Dados.Write((byte)Listas.Mapa[Mapa].Azulejo[0, 0].Dados.GetUpperBound(1));
-        for (byte x = 0; x <= Listas.Mapa[Mapa].Largura; x++)
-            for (byte y = 0; y <= Listas.Mapa[Mapa].Altura; y++)
-                for (byte c = 0; c <= (byte)global::Mapa.Camadas.Quantidade - 1; c++)
-                    for (byte q = 0; q <= Listas.Mapa[Mapa].Azulejo[x, y].Dados.GetUpperBound(1); q++)
+        Data.Write((byte)Lists.Mapa[Mapa].Azulejo[0, 0].Data.GetUpperBound(1));
+        for (byte x = 0; x <= Lists.Mapa[Mapa].Width; x++)
+            for (byte y = 0; y <= Lists.Mapa[Mapa].Height; y++)
+                for (byte c = 0; c <= (byte)global::Map.Camadas.Quantidade - 1; c++)
+                    for (byte q = 0; q <= Lists.Mapa[Mapa].Azulejo[x, y].Data.GetUpperBound(1); q++)
                     {
-                        Dados.Write(Listas.Mapa[Mapa].Azulejo[x, y].Dados[c, q].x);
-                        Dados.Write(Listas.Mapa[Mapa].Azulejo[x, y].Dados[c, q].y);
-                        Dados.Write(Listas.Mapa[Mapa].Azulejo[x, y].Dados[c, q].Azulejo);
-                        Dados.Write(Listas.Mapa[Mapa].Azulejo[x, y].Dados[c, q].Automático);
+                        Data.Write(Lists.Mapa[Mapa].Azulejo[x, y].Data[c, q].x);
+                        Data.Write(Lists.Mapa[Mapa].Azulejo[x, y].Data[c, q].y);
+                        Data.Write(Lists.Mapa[Mapa].Azulejo[x, y].Data[c, q].Azulejo);
+                        Data.Write(Lists.Mapa[Mapa].Azulejo[x, y].Data[c, q].Automático);
                     }
 
-        // Dados específicos dos azulejos
-        for (byte x = 0; x <= Listas.Mapa[Mapa].Largura; x++)
-            for (byte y = 0; y <= Listas.Mapa[Mapa].Altura; y++)
+        // Data específicos dos azulejos
+        for (byte x = 0; x <= Lists.Mapa[Mapa].Width; x++)
+            for (byte y = 0; y <= Lists.Mapa[Mapa].Height; y++)
             {
-                Dados.Write(Listas.Mapa[Mapa].Azulejo[x, y].Atributo);
+                Data.Write(Lists.Mapa[Mapa].Tile[x, y].Attribute);
                 for (byte i = 0; i <= (byte)Game.Direções.Quantidade - 1; i++)
-                    Dados.Write(Listas.Mapa[Mapa].Azulejo[x, y].Bloqueio[i]);
+                    Data.Write(Lists.Mapa[Mapa].Tile[x, y].Block[i]);
             }
 
         // Luzes
-        Dados.Write(Listas.Mapa[Mapa].Luz.GetUpperBound(0));
-        if (Listas.Mapa[Mapa].Luz.GetUpperBound(0) > 0)
-            for (byte i = 0; i <= Listas.Mapa[Mapa].Luz.GetUpperBound(0); i++)
+        Data.Write(Lists.Mapa[Mapa].Light.GetUpperBound(0));
+        if (Lists.Mapa[Mapa].Light.GetUpperBound(0) > 0)
+            for (byte i = 0; i <= Lists.Mapa[Mapa].Light.GetUpperBound(0); i++)
             {
-                Dados.Write(Listas.Mapa[Mapa].Luz[i].X);
-                Dados.Write(Listas.Mapa[Mapa].Luz[i].Y);
-                Dados.Write(Listas.Mapa[Mapa].Luz[i].Largura);
-                Dados.Write(Listas.Mapa[Mapa].Luz[i].Altura);
+                Data.Write(Lists.Mapa[Mapa].Light[i].X);
+                Data.Write(Lists.Mapa[Mapa].Light[i].Y);
+                Data.Write(Lists.Mapa[Mapa].Light[i].Width);
+                Data.Write(Lists.Mapa[Mapa].Light[i].Height);
             }
 
         // NPCs
-        Dados.Write((short)Listas.Mapa[Mapa].NPC.GetUpperBound(0));
+        Data.Write((short)Lists.Mapa[Mapa].NPC.GetUpperBound(0));
         if (Listas.Mapa[Mapa].NPC.GetUpperBound(0) > 0)
-            for (byte i = 1; i <= Listas.Mapa[Mapa].NPC.GetUpperBound(0); i++)
-                Dados.Write(Listas.Mapa[Mapa].NPC[i].Índice);
+            for (byte i = 1; i <= Lists.Mapa[Mapa].NPC.GetUpperBound(0); i++)
+                Data.Write(Lists.Mapa[Mapa].NPC[i].Index);
 
-        Para(Índice, Dados);
+        Para(Índice, Data);
     }
 
     public static void Latência(byte Índice)
     {
-        NetOutgoingMessage Dados = Rede.Dispositivo.CreateMessage();
+        NetOutgoingMessage Data = Rede.Dispositivo.CreateMessage();
 
-        // Envia os dados
-        Dados.Write((byte)Pacotes.Latência);
-        Para(Índice, Dados);
+        // Envia os Data
+        Data.Write((byte)Packages.Latência);
+        Para(Índice, Data);
     }
 
     public static void Mensagem(byte Índice, string Mensagem, Color Cor)
     {
-        NetOutgoingMessage Dados = Rede.Dispositivo.CreateMessage();
+        NetOutgoingMessage Data = Rede.Dispositivo.CreateMessage();
 
-        // Envia os dados
-        Dados.Write((byte)Pacotes.Mensagem);
-        Dados.Write(Mensagem);
-        Dados.Write(Cor.ToArgb());
-        Para(Índice, Dados);
+        // Envia os Data
+        Data.Write((byte)Packages.Mensagem);
+        Data.Write(Mensagem);
+        Data.Write(Cor.ToArgb());
+        Para(Índice, Data);
     }
 
     public static void Mensagem_Mapa(byte Índice, string Texto)
     {
-        NetOutgoingMessage Dados = Rede.Dispositivo.CreateMessage();
-        string Mensagem = "[Mapa] " + Jogador.Personagem(Índice).Nome + ": " + Texto;
+        NetOutgoingMessage Data = Rede.Dispositivo.CreateMessage();
+        string Mensagem = "[Mapa] " + Player.Personagem(Índice).Nome + ": " + Texto;
 
-        // Envia os dados
-        Dados.Write((byte)Pacotes.Mensagem);
-        Dados.Write(Mensagem);
-        Dados.Write(Color.White.ToArgb());
-        ParaMapa(Jogador.Personagem(Índice).Mapa, Dados);
+        // Envia os Data
+        Data.Write((byte)Packages.Mensagem);
+        Data.Write(Mensagem);
+        Data.Write(Color.White.ToArgb());
+        ParaMapa(Player.Personagem(Índice).Mapa, Data);
     }
 
     public static void Mensagem_Global(byte Índice, string Texto)
     {
-        NetOutgoingMessage Dados = Rede.Dispositivo.CreateMessage();
-        string Mensagem = "[Global] " + Jogador.Personagem(Índice).Nome + ": " + Texto;
+        NetOutgoingMessage Data = Rede.Dispositivo.CreateMessage();
+        string Mensagem = "[Global] " + Player.Personagem(Índice).Nome + ": " + Texto;
 
-        // Envia os dados
-        Dados.Write((byte)Pacotes.Mensagem);
-        Dados.Write(Mensagem);
-        Dados.Write(Color.Yellow.ToArgb());
-        ParaTodos(Dados);
+        // Envia os Data
+        Data.Write((byte)Packages.Mensagem);
+        Data.Write(Mensagem);
+        Data.Write(Color.Yellow.ToArgb());
+        ParaTodos(Data);
     }
 
     public static void Mensagem_Global(string Mensagem)
     {
-        NetOutgoingMessage Dados = Rede.Dispositivo.CreateMessage();
+        NetOutgoingMessage Data = Rede.Dispositivo.CreateMessage();
 
-        // Envia os dados
-        Dados.Write((byte)Pacotes.Mensagem);
-        Dados.Write(Mensagem);
-        Dados.Write(Color.Yellow.ToArgb());
-        ParaTodos(Dados);
+        // Envia os Data
+        Data.Write((byte)Packages.Mensagem);
+        Data.Write(Mensagem);
+        Data.Write(Color.Yellow.ToArgb());
+        ParaTodos(Data);
     }
 
     public static void Mensagem_Particular(byte Índice, string Destinatário_Nome, string Texto)
     {
-        NetOutgoingMessage Dados = Rede.Dispositivo.CreateMessage();
-        byte Destinatário = Jogador.Encontrar(Destinatário_Nome);
+        NetOutgoingMessage Data = Rede.Dispositivo.CreateMessage();
+        byte Destinatário = Player.Encontrar(Destinatário_Nome);
 
-        // Verifica se o jogador está conectado
+        // Verifica se o Player está conectado
         if (Destinatário == 0)
         {
             Mensagem(Índice, Destinatário_Nome + " não está conectado no momento.", Color.Blue);
@@ -494,110 +494,110 @@ partial class Enviar
 
         // Envia as mensagens
         Mensagem(Índice, "[Para] " + Destinatário_Nome + ": " + Texto, Color.Pink);
-        Mensagem(Destinatário, "[De] " + Jogador.Personagem(Índice).Nome + ": " + Texto, Color.Pink);
+        Mensagem(Destinatário, "[De] " + Player.Personagem(Índice).Nome + ": " + Texto, Color.Pink);
     }
 
-    public static void Jogador_Atacar(byte Índice, byte Vítima, byte Vítima_Tipo)
+    public static void Player_Atacar(byte Índice, byte Vítima, byte Vítima_Tipo)
     {
-        NetOutgoingMessage Dados = Rede.Dispositivo.CreateMessage();
+        NetOutgoingMessage Data = Rede.Dispositivo.CreateMessage();
 
-        // Envia os dados
-        Dados.Write((byte)Pacotes.Jogador_Atacar);
-        Dados.Write(Índice);
-        Dados.Write(Vítima);
-        Dados.Write(Vítima_Tipo);
-        ParaMapa(Jogador.Personagem(Índice).Mapa, Dados);
+        // Envia os Data
+        Data.Write((byte)Packages.Player_Atacar);
+        Data.Write(Índice);
+        Data.Write(Vítima);
+        Data.Write(Vítima_Tipo);
+        ParaMapa(Player.Personagem(Índice).Mapa, Data);
     }
 
     public static void Itens(byte Índice)
     {
-        NetOutgoingMessage Dados = Rede.Dispositivo.CreateMessage();
+        NetOutgoingMessage Data = Rede.Dispositivo.CreateMessage();
 
-        // Envia os dados
-        Dados.Write((byte)Pacotes.Itens);
-        Dados.Write((byte)Listas.Item.GetUpperBound(0));
+        // Envia os Data
+        Data.Write((byte)Packages.Itens);
+        Data.Write((byte)Lists.Item.GetUpperBound(0));
 
-        for (byte i = 1; i <= Listas.Item.GetUpperBound(0); i++)
+        for (byte i = 1; i <= Lists.Item.GetUpperBound(0); i++)
         {
             // Geral
-            Dados.Write(Listas.Item[i].Nome);
-            Dados.Write(Listas.Item[i].Descrição);
-            Dados.Write(Listas.Item[i].Textura);
-            Dados.Write(Listas.Item[i].Tipo);
-            Dados.Write(Listas.Item[i].Req_Level);
-            Dados.Write(Listas.Item[i].Req_Classe);
-            Dados.Write(Listas.Item[i].Poção_Experiência);
-            for (byte n = 0;n<= (byte)Game.Vitais.Quantidade - 1; n++) Dados.Write(Listas.Item[i].Poção_Vital[n]);
-            Dados.Write(Listas.Item[i].Equip_Tipo );
-            for (byte n = 0; n <= (byte)Game.Atributos.Quantidade - 1; n++) Dados.Write(Listas.Item[i].Equip_Atributo[n]);
-            Dados.Write(Listas.Item[i].Arma_Dano);
+            Data.Write(Lists.Item[i].Name);
+            Data.Write(Lists.Item[i].Descrição);
+            Data.Write(Lists.Item[i].Texture);
+            Data.Write(Lists.Item[i].Type);
+            Data.Write(Lists.Item[i].Req_Level);
+            Data.Write(Lists.Item[i].Req_Classe);
+            Data.Write(Lists.Item[i].Poção_Experiência);
+            for (byte n = 0;n<= (byte)Game.Vitais.Quantidade - 1; n++) Data.Write(Lists.Item[i].Poção_Vital[n]);
+            Data.Write(Lists.Item[i].Equip_Tipo );
+            for (byte n = 0; n <= (byte)Game.Atributos.Quantidade - 1; n++) Data.Write(Lists.Item[i].Equip_Atributo[n]);
+            Data.Write(Lists.Item[i].Arma_Dano);
         }
 
-        // Envia os dados
-        Para(Índice, Dados);
+        // Envia os Data
+        Para(Índice, Data);
     }
 
     public static void Mapa_Itens(byte Índice, short Mapa_Num)
     {
-        NetOutgoingMessage Dados = Rede.Dispositivo.CreateMessage();
+        NetOutgoingMessage Data = Rede.Dispositivo.CreateMessage();
 
-        // Envia os dados
-        Dados.Write((byte)Pacotes.Mapa_Itens);
-        Dados.Write((short)(Listas.Mapa[Mapa_Num].Temp_Item.Count - 1));
+        // Envia os Data
+        Data.Write((byte)Packages.Mapa_Itens);
+        Data.Write((short)(Lists.Mapa[Mapa_Num].Temp_Item.Count - 1));
 
-        for (byte i = 1; i <= Listas.Mapa[Mapa_Num].Temp_Item.Count - 1; i++)
+        for (byte i = 1; i <= Lists.Mapa[Mapa_Num].Temp_Item.Count - 1; i++)
         {
             // Geral
-            Dados.Write(Listas.Mapa[Mapa_Num].Temp_Item[i].Índice);
-            Dados.Write(Listas.Mapa[Mapa_Num].Temp_Item[i].X);
-            Dados.Write(Listas.Mapa[Mapa_Num].Temp_Item[i].Y);
+            Data.Write(Lists.Mapa[Mapa_Num].Temp_Item[i].Index);
+            Data.Write(Lists.Mapa[Mapa_Num].Temp_Item[i].X);
+            Data.Write(Lists.Mapa[Mapa_Num].Temp_Item[i].Y);
         }
 
-        // Envia os dados
-        Para(Índice, Dados);
+        // Envia os Data
+        Para(Índice, Data);
     }
 
     public static void Mapa_Itens(short Mapa_Num)
     {
-        NetOutgoingMessage Dados = Rede.Dispositivo.CreateMessage();
+        NetOutgoingMessage Data = Rede.Dispositivo.CreateMessage();
 
-        // Envia os dados
-        Dados.Write((byte)Pacotes.Mapa_Itens);
-        Dados.Write((short)(Listas.Mapa[Mapa_Num].Temp_Item.Count - 1));
-        for (byte i = 1; i <= Listas.Mapa[Mapa_Num].Temp_Item.Count - 1; i++)
+        // Envia os Data
+        Data.Write((byte)Packages.Mapa_Itens);
+        Data.Write((short)(Lists.Mapa[Mapa_Num].Temp_Item.Count - 1));
+        for (byte i = 1; i <= Lists.Mapa[Mapa_Num].Temp_Item.Count - 1; i++)
         {
-            Dados.Write(Listas.Mapa[Mapa_Num].Temp_Item[i].Índice);
-            Dados.Write(Listas.Mapa[Mapa_Num].Temp_Item[i].X);
-            Dados.Write(Listas.Mapa[Mapa_Num].Temp_Item[i].Y);
+            Data.Write(Lists.Mapa[Mapa_Num].Temp_Item[i].Index);
+            Data.Write(Lists.Mapa[Mapa_Num].Temp_Item[i].X);
+            Data.Write(Lists.Mapa[Mapa_Num].Temp_Item[i].Y);
         }
-        ParaMapa(Mapa_Num, Dados);
+        ParaMapa(Mapa_Num, Data);
     }
 
-    public static void Jogador_Inventário(byte Índice)
+    public static void Player_Inventário(byte Índice)
     {
-        NetOutgoingMessage Dados = Rede.Dispositivo.CreateMessage();
+        NetOutgoingMessage Data = Rede.Dispositivo.CreateMessage();
 
-        // Envia os dados
-        Dados.Write((byte)Pacotes.Jogador_Inventário);
-        for (byte i = 1; i <= Game.Máx_Inventário; i++)
+        // Envia os Data
+        Data.Write((byte)Packages.Player_Inventário);
+        for (byte i = 1; i <= Game.Max_Inventário; i++)
         {
-            Dados.Write(Jogador.Personagem(Índice).Inventário[i].Item_Num);
-            Dados.Write(Jogador.Personagem(Índice).Inventário[i].Quantidade);
+            Data.Write(Player.Personagem(Índice).Inventário[i].Item_Num);
+            Data.Write(Player.Personagem(Índice).Inventário[i].Quantidade);
         }
-        Para(Índice, Dados);
+        Para(Índice, Data);
     }
 
-    public static void Jogador_Hotbar(byte Índice)
+    public static void Player_Hotbar(byte Índice)
     {
-        NetOutgoingMessage Dados = Rede.Dispositivo.CreateMessage();
+        NetOutgoingMessage Data = Rede.Dispositivo.CreateMessage();
 
-        // Envia os dados
-        Dados.Write((byte)Pacotes.Jogador_Hotbar);
-        for (byte i = 1; i <= Game.Máx_Hotbar; i++)
+        // Envia os Data
+        Data.Write((byte)Packages.Player_Hotbar);
+        for (byte i = 1; i <= Game.Max_Hotbar; i++)
         {
-            Dados.Write(Jogador.Personagem(Índice).Hotbar[i].Tipo);
-            Dados.Write(Jogador.Personagem(Índice).Hotbar[i].Slot);
+            Data.Write(Player.Personagem(Índice).Hotbar[i].Tipo);
+            Data.Write(Player.Personagem(Índice).Hotbar[i].Slot);
         }
-        Para(Índice, Dados);
+        Para(Índice, Data);
     }
 }
