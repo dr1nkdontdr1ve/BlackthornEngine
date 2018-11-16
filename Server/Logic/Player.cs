@@ -329,9 +329,9 @@ class Player
         if (Listas.TempJogador[Vítima].ObtendoMapa) return;
         if (Personagem(Índice).Mapa != Personagem(Vítima).Mapa) return;
         if (Personagem(Vítima).X != x || Personagem(Vítima).Y != y) return;
-        if (Listas.Mapa[Personagem(Índice).Mapa].Moral == (byte)Map.Morais.Pacífico)
+        if (Listas.Mapa[Personagem(Índice).Mapa].Moral == (byte)Map.Morais.Pacific)
         {
-            Enviar.Mensagem(Índice, "Essa é uma área pacífica.", Color.White);
+            Enviar.Mensagem(Índice, "This is a peaceful area.", Color.White);
             return;
         }
 
@@ -531,13 +531,13 @@ class Player
         // Requerimentos
         if (Personagem(Índice).Level < Listas.Item[Item_Num].Req_Level)
         {
-            Enviar.Mensagem(Índice, "Você não tem o level necessário para utilizar esse item.", Color.White);
+            Enviar.Mensagem(Índice, "You do not have the level required to use this item.", Color.White);
             return;
         }
         if (Listas.Item[Item_Num].Req_Classe > 0)
             if (Personagem(Índice).Classe != Listas.Item[Item_Num].Req_Classe)
             {
-                Enviar.Mensagem(Índice, "Você não pode utilizar esse item.", Color.White);
+                Enviar.Mensagem(Índice, "You can not use this item.", Color.White);
                 return;
             }
 

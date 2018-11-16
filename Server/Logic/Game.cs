@@ -12,8 +12,8 @@ class Game
     public static int CPS;
     public static bool CPS_Travado;
 
-    // Bloqueio direcional
-    public const byte Max_BloqDirecional = 3;
+    // Directional lock
+    public const byte Max_LockDirectional = 3;
 
     // Maximum and minimum characters allowed in some text
     public const byte Max_Character = 12;

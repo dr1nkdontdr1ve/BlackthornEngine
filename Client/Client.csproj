@@ -74,7 +74,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Program.cs" />
-    <Compile Include="Logic\Jogador.cs" />
+    <Compile Include="Logic\Player.cs" />
     <Compile Include="Library\Diretórios.cs" />
     <Compile Include="Library\Escrever.cs" />
     <Compile Include="Library\Ler.cs" />
@@ -83,13 +83,13 @@
     <Compile Include="Communication\Enviar.cs" />
     <Compile Include="Communication\Receber.cs" />
     <Compile Include="Communication\Rede.cs" />
-    <Compile Include="Interface\Botões.cs" />
+    <Compile Include="Interface\Buttons.cs" />
     <Compile Include="Interface\Digitalizadores.cs" />
     <Compile Include="Interface\Marcadores.cs" />
-    <Compile Include="Interface\Paineis.cs" />
-    <Compile Include="Interface\Ferramentas.cs" />
+    <Compile Include="Interface\Panels.cs" />
+    <Compile Include="Interface\Tools.cs" />
     <Compile Include="Logic\Laço.cs" />
-    <Compile Include="Logic\Jogo.cs" />
+    <Compile Include="Logic\Game.cs" />
     <Compile Include="Logic\Map.cs" />
     <Compile Include="Logic\NPC.cs" />
     <Compile Include="Media\Gráfica.cs" />

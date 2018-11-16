@@ -4,13 +4,13 @@ using System.Windows.Forms;
 class Diretórios
 {
     // Formato de todos os arquivos de dados
-    public const string Formato = ".dat";
+    public const string Format = ".dat";
 
     // Diretório dos arquivos
     public static DirectoryInfo Sons = new DirectoryInfo(Application.StartupPath + @"\Aúdio\Sons\");
     public static DirectoryInfo Músicas = new DirectoryInfo(Application.StartupPath + @"\Aúdio\Músicas\");
-    public static FileInfo Opções = new FileInfo(Application.StartupPath + @"\Dados\Opções" + Formato);
-    public static FileInfo Cliente_Dados = new FileInfo(Application.StartupPath + @"\Dados\Gerais" + Formato);
+    public static FileInfo Opções = new FileInfo(Application.StartupPath + @"\Dados\Opções" + Format);
+    public static FileInfo Cliente_Dados = new FileInfo(Application.StartupPath + @"\Dados\Gerais" + Format);
     public static DirectoryInfo Mapas_Dados = new DirectoryInfo(Application.StartupPath + @"\Dados\Mapas\");
     public static DirectoryInfo Botões_Dados = new DirectoryInfo(Application.StartupPath + @"\Dados\Ferramentas\Botões\");
     public static DirectoryInfo Digitalizadores_Dados = new DirectoryInfo(Application.StartupPath + @"\Dados\Ferramentas\Digitalizadores\");

@@ -3,7 +3,7 @@ using System.Drawing;
 using SFML.Graphics;
 using Lidgren.Network;
 
-public class Jogador
+public class Player
 {
     // O maior índice dos jogadores conectados
     public static byte MaiorÍndice;
@@ -57,7 +57,7 @@ public class Jogador
         VerificarAtaque();
 
         // Lógica dos jogadores
-        for (byte i = 1; i <= Jogador.MaiorÍndice; i++)
+        for (byte i = 1; i <= Player.MaiorÍndice; i++)
         {
             // Dano
             if (Listas.Jogador[i].Sofrendo + 325 < Environment.TickCount) Listas.Jogador[i].Sofrendo = 0;
@@ -109,7 +109,7 @@ public class Jogador
         }
 
         // Verifica se o azulejo seguinte está livre
-        if (Mapa.Azulejo_Bloqueado(Listas.Jogador[MeuÍndice].Mapa, Listas.Jogador[MeuÍndice].X, Listas.Jogador[MeuÍndice].Y, Direção)) return;
+        if (Map.Azulejo_Bloqueado(Listas.Jogador[MeuÍndice].Mapa, Listas.Jogador[MeuÍndice].X, Listas.Jogador[MeuÍndice].Y, Direção)) return;
 
         // Define a velocidade que o jogador se move
         if (Game.Pressionado_Shift)
@@ -205,7 +205,7 @@ public class Jogador
         bool TemItem = false, TemEspaço = false;
 
         // Previni erros
-        if (Ferramentas.JanelaAtual != Ferramentas.Janelas.Game) return;
+        if (Tools.JanelaAtual != Tools.Janelas.Game) return;
 
         // Verifica se tem algum item nas coordenadas 
         for (byte i = 1; i <= Listas.Mapa.Temp_Item.GetUpperBound(0); i++)
@@ -221,7 +221,7 @@ public class Jogador
         if (!TemItem) return;
         if (!TemEspaço) return;
         if (Environment.TickCount <= Eu.Coletar_Tempo + 250) return;
-        if (Paineis.Encontrar("Chat").Geral.Visível) return;
+        if (Panels.Encontrar("Chat").General.Visível) return;
 
         // Coleta o item
         Enviar.ColetarItem();
@@ -237,7 +237,7 @@ partial class Enviar
 
         // Envia os dados
         Dados.Write((byte)Pacotes.Jogador_Direção);
-        Dados.Write((byte)Jogador.Eu.Direção);
+        Dados.Write((byte)Player.Eu.Direção);
         Pacote(Dados);
     }
 
@@ -247,9 +247,9 @@ partial class Enviar
 
         // Envia os dados
         Dados.Write((byte)Pacotes.Jogador_Mover);
-        Dados.Write(Jogador.Eu.X);
-        Dados.Write(Jogador.Eu.Y);
-        Dados.Write((byte)Jogador.Eu.Movimento);
+        Dados.Write(Player.Eu.X);
+        Dados.Write(Player.Eu.Y);
+        Dados.Write((byte)Player.Eu.Movimento);
         Pacote(Dados);
     }
 
@@ -375,9 +375,9 @@ partial class Receber
     public static void Jogador_Experiência(NetIncomingMessage Dados)
     {
         // Define os dados
-        Jogador.Eu.Experiência = Dados.ReadInt16();
-        Jogador.Eu.ExpNecessária = Dados.ReadInt16();
-        Jogador.Eu.Pontos = Dados.ReadByte();
+        Player.Eu.Experiência = Dados.ReadInt16();
+        Player.Eu.ExpNecessária = Dados.ReadInt16();
+        Player.Eu.Pontos = Dados.ReadByte();
     }
 
     private static void Jogador_Inventário(NetIncomingMessage Dados)
@@ -385,8 +385,8 @@ partial class Receber
         // Define os dados
         for (byte i = 1; i <= Game.Máx_Inventário; i++)
         {
-            Jogador.Inventário[i].Item_Num = Dados.ReadInt16();
-            Jogador.Inventário[i].Quantidade = Dados.ReadInt16();
+            Player.Inventário[i].Item_Num = Dados.ReadInt16();
+            Player.Inventário[i].Quantidade = Dados.ReadInt16();
         }
     }
 
@@ -395,8 +395,8 @@ partial class Receber
         // Define os dados
         for (byte i = 1; i <= Game.Máx_Hotbar; i++)
         {
-            Jogador.Hotbar[i].Tipo = Dados.ReadByte();
-            Jogador.Hotbar[i].Slot = Dados.ReadByte();
+            Player.Hotbar[i].Tipo = Dados.ReadByte();
+            Player.Hotbar[i].Slot = Dados.ReadByte();
         }
     }
 }
@@ -409,7 +409,7 @@ partial class Gráficos
         int x, y;
         short x2 = Listas.Jogador[Índice].X2, y2 = Listas.Jogador[Índice].Y2;
         bool Sofrendo = false;
-        short Textura = Jogador.Personagem_Textura(Índice);
+        short Textura = Player.Personagem_Textura(Índice);
 
         // Previni sobrecargas
         if (Textura <= 0 || Textura > Tex_Personagem.GetUpperBound(0)) return;
@@ -438,7 +438,7 @@ partial class Gráficos
 
     public static void Jogador_Barras(byte Índice, int x, int y)
     {
-        Size Personagem_Tamanho = TTamanho(Tex_Personagem[Jogador.Personagem_Textura(Índice)]);
+        Size Personagem_Tamanho = TTamanho(Tex_Personagem[Player.Personagem_Textura(Índice)]);
         Point Posição = new Point(Game.ConverterX(x), Game.ConverterY(y) + Personagem_Tamanho.Height / Game.Animação_Quantidade + 4);
         int Largura_Completa = Personagem_Tamanho.Width / Game.Animação_Quantidade;
         short Contagem = Listas.Jogador[Índice].Vital[(byte)Game.Vitais.Vida];
@@ -456,8 +456,8 @@ partial class Gráficos
 
     public static void Jogador_Nome(byte Índice, int x, int y)
     {
-        Texture Textura = Tex_Personagem[Jogador.Personagem_Textura(Índice)];
-        int Nome_Tamanho = Ferramentas.MedirTexto_Largura(Listas.Jogador[Índice].Nome);
+        Texture Textura = Tex_Personagem[Player.Personagem_Textura(Índice)];
+        int Nome_Tamanho = Tools.MedirTexto_Largura(Listas.Jogador[Índice].Nome);
 
         // Posição do texto
         Point Posição = new Point();
@@ -466,7 +466,7 @@ partial class Gráficos
 
         // Cor do texto
         SFML.Graphics.Color Cor;
-        if (Índice == Jogador.MeuÍndice)
+        if (Índice == Player.MeuÍndice)
             Cor = SFML.Graphics.Color.Yellow;
         else
             Cor = SFML.Graphics.Color.White;

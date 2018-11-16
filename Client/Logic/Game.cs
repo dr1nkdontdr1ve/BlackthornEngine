@@ -7,20 +7,20 @@ public class Game
     // Números aleatórios
     public static Random Aleatório = new Random();
 
-    // Dimensão das grades 
+    // Dimension of grids
     public const byte Grade = 32;
 
-    // Medida de calculo do atraso do Game
+    // Game Delay Calculation Measure
     public static short FPS;
 
     // Interface
     public static byte CriarPersonagem_Classe = 1;
     public static byte SelecionarPersonagem = 1;
 
-    // Jogador
+    // Player
     public const short Ataque_Velocidade = 750;
 
-    // Pressionamento das teclas
+    // Pressing the keys
     public static bool Pressionado_Acima;
     public static bool Pressionado_Abaixo;
     public static bool Pressionado_Esquerda;
@@ -28,36 +28,36 @@ public class Game
     public static bool Pressionado_Shift;
     public static bool Pressionado_Control;
 
-    // Animação
+    // Animation
     public const byte Animação_Quantidade = 4;
     public const byte Animação_Parada = 1;
     public const byte Animação_Direita = 0;
     public const byte Animação_Esquerda = 2;
     public const byte Animação_Ataque = 2;
 
-    // Movimentação
+    // Movement
     public const byte Movimentação_Acima = 3;
     public const byte Movimentação_Abaixo = 0;
     public const byte Movimentação_Esquerda = 1;
     public const byte Movimentação_Direita = 2;
 
-    // Visão do jogador
+    // Player view
     public static Rectangle Câmera;
     public static Rectangle Azulejos_Visão;
 
-    // Bloqueio direcional
+    // Directional lock
     public const byte Máx_BloqDirecional = 3;
 
-    // Tamanho da tela
-    public const short Tela_Largura = (Mapa.Min_Largura + 1) * Grade;
-    public const short Tela_Altura = (Mapa.Min_Altura + 1) * Grade;
+    // Screen size
+    public const short Tela_Largura = (Map.Min_Largura + 1) * Grade;
+    public const short Tela_Altura = (Map.Min_Altura + 1) * Grade;
 
-    // Limites em geral
+    // Limits in general
     public const byte Máx_Inventário = 30;
     public const byte Máx_Mapa_Itens = 100;
     public const byte Máx_Hotbar = 10;
 
-    // Latência
+    // Latency
     public static int Latência;
     public static int Latência_Envio;
 
@@ -163,7 +163,7 @@ public class Game
             Áudio.Música.Reproduzir(Áudio.Músicas.Menu);
 
         // Abre o menu
-        Ferramentas.JanelaAtual = Ferramentas.Janelas.Menu;
+        Tools.JanelaAtual = Tools.Janelas.Menu;
     }
 
     public static void Sair()
@@ -196,17 +196,17 @@ public class Game
     public static void Desconectar()
     {
         // Não fechar os paineis se não for necessário
-        if (Paineis.Encontrar("Opções").Geral.Visível || Paineis.Encontrar("Conectar").Geral.Visível || Paineis.Encontrar("Registrar").Geral.Visível)
+        if (Panels.Encontrar("Opções").General.Visível || Panels.Encontrar("Conectar").General.Visível || Panels.Encontrar("Registrar").General.Visível)
             return;
 
         // Limpa os valores
         Áudio.Som.Parar_Tudo();
-        Jogador.MeuÍndice = 0;
+        Player.MeuÍndice = 0;
 
         // Traz o jogador de volta ao menu
-        Ferramentas.JanelaAtual = Ferramentas.Janelas.Menu;
-        Paineis.Menu_Fechar();
-        Paineis.Encontrar("Conectar").Geral.Visível = true;
+        Tools.JanelaAtual = Tools.Janelas.Menu;
+        Panels.Menu_Fechar();
+        Panels.Encontrar("Conectar").General.Visível = true;
     }
 
     public static void Atualizar_Câmera()
@@ -214,18 +214,18 @@ public class Game
         Point Final = new Point(), Início = new Point(), Posição = new Point();
 
         // Centro da tela
-        Posição.X = Jogador.Eu.X2 + Grade;
-        Posição.Y = Jogador.Eu.Y2 + Grade;
+        Posição.X = Player.Eu.X2 + Grade;
+        Posição.Y = Player.Eu.Y2 + Grade;
 
         // Início da tela
-        Início.X = Jogador.Eu.X - ((Mapa.Min_Largura + 1) / 2) - 1;
-        Início.Y = Jogador.Eu.Y - ((Mapa.Min_Altura + 1) / 2) - 1;
+        Início.X = Player.Eu.X - ((Map.Min_Largura + 1) / 2) - 1;
+        Início.Y = Player.Eu.Y - ((Map.Min_Altura + 1) / 2) - 1;
 
         // Reajusta a posição horizontal da tela
         if (Início.X < 0)
         {
             Posição.X = 0;
-            if (Início.X == -1 && Jogador.Eu.X2 > 0) Posição.X = Jogador.Eu.X2;
+            if (Início.X == -1 && Player.Eu.X2 > 0) Posição.X = Player.Eu.X2;
             Início.X = 0;
         }
 
@@ -233,30 +233,30 @@ public class Game
         if (Início.Y < 0)
         {
             Posição.Y = 0;
-            if (Início.Y == -1 && Jogador.Eu.Y2 > 0) Posição.Y = Jogador.Eu.Y2;
+            if (Início.Y == -1 && Player.Eu.Y2 > 0) Posição.Y = Player.Eu.Y2;
             Início.Y = 0;
         }
 
         // Final da tela
-        Final.X = Início.X + (Mapa.Min_Largura + 1) + 1;
-        Final.Y = Início.Y + (Mapa.Min_Altura + 1) + 1;
+        Final.X = Início.X + (Map.Min_Largura + 1) + 1;
+        Final.Y = Início.Y + (Map.Min_Altura + 1) + 1;
 
         // Reajusta a posição horizontal da tela
         if (Final.X > Listas.Mapa.Largura)
         {
             Posição.X = Grade;
-            if (Final.X == Listas.Mapa.Largura + 1 && Jogador.Eu.X2 < 0) Posição.X = Jogador.Eu.X2 + Grade;
+            if (Final.X == Listas.Mapa.Largura + 1 && Player.Eu.X2 < 0) Posição.X = Player.Eu.X2 + Grade;
             Final.X = Listas.Mapa.Largura;
-            Início.X = Final.X - Mapa.Min_Largura - 1;
+            Início.X = Final.X - Map.Min_Largura - 1;
         }
 
         // Reajusta a posição vertical da tela
         if (Final.Y > Listas.Mapa.Altura)
         {
             Posição.Y = Grade;
-            if (Final.Y == Listas.Mapa.Altura + 1 && Jogador.Eu.Y2 < 0) Posição.Y = Jogador.Eu.Y2 + Grade;
+            if (Final.Y == Listas.Mapa.Altura + 1 && Player.Eu.Y2 < 0) Posição.Y = Player.Eu.Y2 + Grade;
             Final.Y = Listas.Mapa.Altura;
-            Início.Y = Final.Y - Mapa.Min_Altura - 1;
+            Início.Y = Final.Y - Map.Min_Altura - 1;
         }
 
         // Define a dimensão dos azulejos vistos

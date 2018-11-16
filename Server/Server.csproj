@@ -82,7 +82,7 @@
     <Compile Include="Library\Ler.cs" />
     <Compile Include="Library\Limpar.cs" />
     <Compile Include="Library\Listas.cs" />
-    <Compile Include="Logic\Jogador.cs" />
+    <Compile Include="Logic\Player.cs" />
     <Compile Include="Logic\Game.cs" />
     <Compile Include="Logic\Tie.cs" />
     <Compile Include="Communication\Enviar.cs" />

@@ -3,7 +3,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using System.Collections.Generic;
 
-public class Ferramentas
+public class Tools
 {
     // Habilitação das ferramentas
     public static bool Habilitação;
@@ -30,7 +30,7 @@ public class Ferramentas
         public Tipos Tipo;
     }
 
-    public class Geral
+    public class General
     {
         public string Nome;
         public bool Visível;
@@ -73,7 +73,7 @@ public class Ferramentas
     public static void DefinirHabilitação(string Painel, Janelas Janela)
     {
         // Define a habilitação
-        if (JanelaAtual != Janela || Painel != string.Empty && !Paineis.Encontrar(Painel).Geral.Visível)
+        if (JanelaAtual != Janela || Painel != string.Empty && !Panels.Encontrar(Painel).General.Visível)
             Habilitação = false;
         else
             Habilitação = true;
@@ -185,7 +185,7 @@ public class Ferramentas
 
     public static void Adicionar(string Mensagem, SFML.Graphics.Color Cor)
     {
-        int Mensagem_Largura, Caixa_Largura = Gráficos.TTamanho(Gráficos.Tex_Painel[Paineis.Encontrar("Chat").Textura]).Width - 16;
+        int Mensagem_Largura, Caixa_Largura = Gráficos.TTamanho(Gráficos.Tex_Painel[Panels.Encontrar("Chat").Texture]).Width - 16;
         string Temp_Mensagem; int Separação;
 
         // Remove os espaços
@@ -223,7 +223,7 @@ public class Ferramentas
     public static byte Inventário_Sobrepondo()
     {
         byte NumColunas = 5;
-        Point Painel_Posição = Paineis.Encontrar("Menu_Inventário").Geral.Posição;
+        Point Painel_Posição = Panels.Encontrar("Menu_Inventário").General.Posição;
 
         for (byte i = 1; i <= Game.Máx_Inventário; i++)
         {
@@ -246,7 +246,7 @@ public class Ferramentas
 
         // Somente se necessário
         if (Slot == 0) return;
-        if (Jogador.Inventário[Slot].Item_Num == 0) return;
+        if (Player.Inventário[Slot].Item_Num == 0) return;
 
         // Solta item
         if (e.Button == MouseButtons.Right)
@@ -257,14 +257,14 @@ public class Ferramentas
         // Seleciona o item
         else if (e.Button == MouseButtons.Left)
         {
-            Jogador.Inventário_Movendo = Slot;
+            Player.Inventário_Movendo = Slot;
             return;
         }
     }
 
     public static void Equipamento_MouseDown(MouseEventArgs e)
     {
-        Point Painel_Posição = Paineis.Encontrar("Menu_Personagem").Geral.Posição;
+        Point Painel_Posição = Panels.Encontrar("Menu_Personagem").General.Posição;
 
         for (byte i = 0; i <= (byte)Game.Equipamentos.Quantidade - 1; i++)
             if (EstáSobrepondo(new Rectangle(Painel_Posição.X + 7 + i * 36, Painel_Posição.Y + 247, 32, 32)))
@@ -278,7 +278,7 @@ public class Ferramentas
 
     public static byte Hotbar_Sobrepondo()
     {
-        Point Painel_Posição = Paineis.Encontrar("Hotbar").Geral.Posição;
+        Point Painel_Posição = Panels.Encontrar("Hotbar").General.Posição;
 
         for (byte i = 1; i <= Game.Máx_Hotbar; i++)
         {
@@ -299,7 +299,7 @@ public class Ferramentas
 
         // Somente se necessário
         if (Slot == 0) return;
-        if (Jogador.Hotbar[Slot].Slot == 0) return;
+        if (Player.Hotbar[Slot].Slot == 0) return;
 
         // Solta item
         if (e.Button == MouseButtons.Right)
@@ -310,7 +310,7 @@ public class Ferramentas
         // Seleciona o item
         else if (e.Button == MouseButtons.Left)
         {
-            Jogador.Hotbar_Movendo = Slot;
+            Player.Hotbar_Movendo = Slot;
             return;
         }
     }

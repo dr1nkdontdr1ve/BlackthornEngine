@@ -2,7 +2,7 @@
 using System.Drawing;
 using System.Windows.Forms;
 
-class Laço
+class Tie
 {
     // Contagens
     private static int Digitalizador_Contagem = 0;
@@ -15,36 +15,36 @@ class Laço
         int Contagem_30 = 0;
         short FPS = 0;
 
-        while (Aplicação.Funcionado)
+        while (Program.Funcionado)
         {
             Contagem = Environment.TickCount;
 
-            // Manuseia os dados recebidos
+            // Handles incoming data
             Rede.ReceberDados();
 
-            // Apresenta os gráficos à tela
+            // Displays graphics to screen
             Gráficos.Apresentar();
 
-            // Eventos
+            // Events
             Digitalizador();
-            Mapa.Lógica();
+            Map.Lógica();
 
             if (Jogador.MeuÍndice > 0 && Ferramentas.JanelaAtual == Ferramentas.Janelas.Game)
                 if (Contagem_30 < Environment.TickCount)
                 {
-                    // Lógicas
+                    // Logic
                     Jogador.Lógica();
                     NPC.Lógica();
 
-                    // Reinicia a contagem
+                    // Restarts the count
                     Contagem_30 = Environment.TickCount + 30;
                 }
 
-            // Faz com que a aplicação se mantenha estável
+            // Causes the application to remain stable
             Application.DoEvents();
             while (Environment.TickCount < Contagem + 15) System.Threading.Thread.Sleep(1);
 
-            // Cálcula o FPS
+            // Calculate the FPS
             if (Contagem_1000 < Environment.TickCount)
             {
                 Enviar.Latência();
@@ -56,8 +56,8 @@ class Laço
                 FPS += 1;
         }
 
-        // Fecha o Game
-        Aplicação.Sair();
+        // Close the game
+        Program.Leave();
     }
 
     private static void Digitalizador()

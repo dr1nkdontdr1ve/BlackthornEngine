@@ -8,9 +8,9 @@ class Map
     ////////////////
     public enum Morais
     {
-        Pacífico,
-        Perigoso,
-        Quantidade
+        Pacific,
+        Dangerous,
+        Amount
     }
 
     public enum Camadas

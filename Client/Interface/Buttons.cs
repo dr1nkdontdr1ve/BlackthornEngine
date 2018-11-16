@@ -1,20 +1,20 @@
 ﻿using System.Drawing;
 using System.Windows.Forms;
 
-public class Botões
+public class Buttons
 {
     // Aramazenamento de dados da ferramenta
-    public static Estrutura[] Lista = new Estrutura[1];
+    public static Structure[] List = new Structure[1];
 
     // Estrutura das ferramentas
-    public class Estrutura
+    public class Structure
     {
         public byte Textura;
         public Estados Estado;
-        public Ferramentas.Geral Geral;
+        public Tools.General Geral;
     }
 
-    // Estados dos botões
+    // Button states
     public enum Estados
     {
         Normal,
@@ -25,19 +25,19 @@ public class Botões
     public static byte EncontrarÍndice(string Nome)
     {
         // Lista os nomes das ferramentas
-        for (byte i = 1; i <= Lista.GetUpperBound(0); i++)
-            if (Lista[i].Geral.Nome == Nome)
+        for (byte i = 1; i <= List.GetUpperBound(0); i++)
+            if (List[i].Geral.Nome == Nome)
                 return i;
 
         return 0;
     }
 
-    public static Estrutura Encontrar(string Nome)
+    public static Structure Encontrar(string Nome)
     {
         // Lista os nomes das ferramentas
-        for (byte i = 1; i <= Lista.GetUpperBound(0); i++)
-            if (Lista[i].Geral.Nome == Nome)
-                return Lista[i];
+        for (byte i = 1; i <= List.GetUpperBound(0); i++)
+            if (List[i].Geral.Nome == Nome)
+                return List[i];
 
         return null;
     }
@@ -46,57 +46,57 @@ public class Botões
     {
         public static void MouseUp(MouseEventArgs e, byte Índice)
         {
-            SFML.Graphics.Texture Textura = Gráficos.Tex_Botão[Lista[Índice].Textura];
+            SFML.Graphics.Texture Textura = Gráficos.Tex_Botão[List[Índice].Textura];
 
             // Somente se necessário
-            if (!Lista[Índice].Geral.Habilitado) return;
-            if (!Ferramentas.EstáSobrepondo(new Rectangle(Lista[Índice].Geral.Posição, Gráficos.TTamanho(Textura)))) return;
+            if (!List[Índice].Geral.Habilitado) return;
+            if (!Tools.EstáSobrepondo(new Rectangle(List[Índice].Geral.Posição, Gráficos.TTamanho(Textura)))) return;
 
             // Altera o estado do botão
             Áudio.Som.Reproduzir(Áudio.Sons.Clique);
-            Lista[Índice].Estado = Estados.Sobrepor;
+            List[Índice].Estado = Estados.Sobrepor;
 
             // Executa o evento
-            Executar(Lista[Índice].Geral.Nome);
+            Executar(List[Índice].Geral.Nome);
         }
 
         public static void MouseDown(MouseEventArgs e, byte Índice)
         {
-            SFML.Graphics.Texture Textura = Gráficos.Tex_Botão[Lista[Índice].Textura];
+            SFML.Graphics.Texture Textura = Gráficos.Tex_Botão[List[Índice].Textura];
 
             // Somente se necessário
             if (e.Button == MouseButtons.Right) return;
-            if (!Lista[Índice].Geral.Habilitado) return;
+            if (!List[Índice].Geral.Habilitado) return;
 
             // Se o mouse não estiver sobre a ferramenta, então não executar o evento
-            if (!Ferramentas.EstáSobrepondo(new Rectangle(Lista[Índice].Geral.Posição, Gráficos.TTamanho(Textura))))
+            if (!Tools.EstáSobrepondo(new Rectangle(List[Índice].Geral.Posição, Gráficos.TTamanho(Textura))))
                 return;
 
             // Altera o estado do botão
-            Lista[Índice].Estado = Estados.Clique;
+            List[Índice].Estado = Estados.Clique;
         }
 
         public static void MouseMove(MouseEventArgs e, byte i)
         {
-            SFML.Graphics.Texture Textura = Gráficos.Tex_Botão[Lista[i].Textura];
+            SFML.Graphics.Texture Textura = Gráficos.Tex_Botão[List[i].Textura];
 
             // Somente se necessário
             if (e.Button == MouseButtons.Right) return;
-            if (!Lista[i].Geral.Habilitado) return;
+            if (!List[i].Geral.Habilitado) return;
 
             // Se o mouse não estiver sobre a ferramenta, então não executar o evento
-            if (!Ferramentas.EstáSobrepondo(new Rectangle(Lista[i].Geral.Posição, Gráficos.TTamanho(Textura))))
+            if (!Tools.EstáSobrepondo(new Rectangle(List[i].Geral.Posição, Gráficos.TTamanho(Textura))))
             {
-                Lista[i].Estado = Estados.Normal;
+                List[i].Estado = Estados.Normal;
                 return;
             }
 
             // Se o botão já estiver no estado normal, isso não é necessário
-            if (Lista[i].Estado != Estados.Normal)
+            if (List[i].Estado != Estados.Normal)
                 return;
 
             // Altera o estado do botão
-            Lista[i].Estado = Estados.Sobrepor;
+            List[i].Estado = Estados.Sobrepor;
             Áudio.Som.Reproduzir(Áudio.Sons.Sobrepor);
         }
 
@@ -137,7 +137,7 @@ public class Botões
             bool Visibilidade = false;
 
             // Verifica apenas se o painel for visível
-            if (!Paineis.Encontrar("SelecionarPersonagem").Geral.Visível)
+            if (!Panels.Encontrar("SelecionarPersonagem").General.Visível)
                 return;
 
             if (Listas.Personagens[Game.SelecionarPersonagem].Classe != 0)
@@ -155,8 +155,8 @@ public class Botões
             Rede.Desconectar();
 
             // Abre o painel
-            Paineis.Menu_Fechar();
-            Paineis.Encontrar("Conectar").Geral.Visível = true;
+            Panels.Menu_Fechar();
+            Panels.Encontrar("Conectar").General.Visível = true;
         }
 
         public static void Registrar()
@@ -165,8 +165,8 @@ public class Botões
             Rede.Desconectar();
 
             // Abre o painel
-            Paineis.Menu_Fechar();
-            Paineis.Encontrar("Registrar").Geral.Visível = true;
+            Panels.Menu_Fechar();
+            Panels.Encontrar("Registrar").General.Visível = true;
         }
 
         public static void Opções()
@@ -175,8 +175,8 @@ public class Botões
             Rede.Desconectar();
 
             // Abre o painel
-            Paineis.Menu_Fechar();
-            Paineis.Encontrar("Opções").Geral.Visível = true;
+            Panels.Menu_Fechar();
+            Panels.Encontrar("Opções").General.Visível = true;
         }
 
         public static void Menu_Retornar()
@@ -185,8 +185,8 @@ public class Botões
             Rede.Desconectar();
 
             // Abre o painel
-            Paineis.Menu_Fechar();
-            Paineis.Encontrar("Conectar").Geral.Visível = true;
+            Panels.Menu_Fechar();
+            Panels.Encontrar("Conectar").General.Visível = true;
         }
 
         public static void Conectar_Pronto()
@@ -239,8 +239,8 @@ public class Botões
         public static void CriarPersonagem_Retornar()
         {
             // Abre o painel de personagens
-            Paineis.Menu_Fechar();
-            Paineis.Encontrar("SelecionarPersonagem").Geral.Visível = true;
+            Panels.Menu_Fechar();
+            Panels.Encontrar("SelecionarPersonagem").General.Visível = true;
         }
 
         public static void Personagem_Usar()
@@ -282,22 +282,22 @@ public class Botões
         public static void Chat_Subir()
         {
             // Sobe as linhas do chat
-            if (Ferramentas.Linha > 0)
-                Ferramentas.Linha -= 1;
+            if (Tools.Linha > 0)
+                Tools.Linha -= 1;
         }
 
         public static void Chat_Descer()
         {
             // Sobe as linhas do chat
-            if (Ferramentas.Chat.Count - 1 - Ferramentas.Linha - Ferramentas.Linhas_Visíveis > 0)
-                Ferramentas.Linha += 1;
+            if (Tools.Chat.Count - 1 - Tools.Linha - Tools.Linhas_Visíveis > 0)
+                Tools.Linha += 1;
         }
 
         public static void Menu_Personagem()
         {
             // Altera a visibilidade do painel e fecha os outros
-            Paineis.Encontrar("Menu_Personagem").Geral.Visível = !Paineis.Encontrar("Menu_Personagem").Geral.Visível;
-            Paineis.Encontrar("Menu_Inventário").Geral.Visível = false;
+            Panels.Encontrar("Menu_Personagem").General.Visível = !Panels.Encontrar("Menu_Personagem").General.Visível;
+            Panels.Encontrar("Menu_Inventário").General.Visível = false;
         }
 
         public static void Atributos_Força()
@@ -328,8 +328,8 @@ public class Botões
         public static void Menu_Inventário()
         {
             // Altera a visibilidade do painel e fecha os outros
-            Paineis.Encontrar("Menu_Inventário").Geral.Visível = !Paineis.Encontrar("Menu_Inventário").Geral.Visível;
-            Paineis.Encontrar("Menu_Personagem").Geral.Visível = false;
+            Panels.Encontrar("Menu_Inventário").General.Visível = !Panels.Encontrar("Menu_Inventário").General.Visível;
+            Panels.Encontrar("Menu_Personagem").General.Visível = false;
         }
     }
 }

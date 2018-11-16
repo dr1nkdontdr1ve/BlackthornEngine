@@ -26,10 +26,10 @@ class Program
         Game.AbrirMenu();
 
         // Inicia a aplicação
-        Laço.Principal();
+        Tie.Principal();
     }
 
-    public static void Sair()
+    public static void Leave()
     {
         int Espera = Environment.TickCount;
 
