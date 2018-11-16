@@ -1,3 +1,0 @@
-C:\Users\mducharme.USINAGENADO\Desktop\BlackthornEngine\Client\obj\Debug\Client.csprojAssemblyReference.cache
-C:\Users\mducharme.USINAGENADO\Desktop\BlackthornEngine\Client\obj\Debug\Cliente.exe
-C:\Users\mducharme.USINAGENADO\Desktop\BlackthornEngine\Client\obj\Debug\Cliente.pdb
