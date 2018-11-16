@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-class Mapa
+class Map
 {
     ////////////////
     // Numerações //
@@ -256,7 +256,7 @@ partial class Ler
         // Itens
         Listas.Mapa[Índice].Temp_Item = new System.Collections.Generic.List<Listas.Estruturas.Mapa_Itens>();
         Listas.Mapa[Índice].Temp_Item.Add(new Listas.Estruturas.Mapa_Itens()); // Nulo
-        global::Mapa.Aparecer_Itens(Índice);
+        global::Map.Aparecer_Itens(Índice);
 
         // Fecha o sistema
         Binário.Dispose();
@@ -270,7 +270,7 @@ partial class Ler
         Listas.Mapa[Índice].Azulejo = new Listas.Estruturas.Azulejo[Listas.Mapa[Índice].Largura + 1, Listas.Mapa[Índice].Altura + 1];
         for (byte x = 0; x <= Listas.Mapa[Índice].Largura; x++)
             for (byte y = 0; y <= Listas.Mapa[Índice].Altura; y++)
-                Listas.Mapa[Índice].Azulejo[x, y].Dados = new Listas.Estruturas.Azulejo_Dados[(byte)global::Mapa.Camadas.Quantidade, Num_Camadas + 1];
+                Listas.Mapa[Índice].Azulejo[x, y].Dados = new Listas.Estruturas.Azulejo_Dados[(byte)global::Map.Camadas.Quantidade, Num_Camadas + 1];
 
         // Lê os azulejos
         for (byte i = 0; i <= Num_Camadas; i++)

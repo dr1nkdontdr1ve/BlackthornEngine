@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Drawing;
 
-class Mapa
+class Map
 {
     // Limitações dos mapas
     public const byte Min_Largura = 24;
@@ -594,7 +594,7 @@ partial class Gráficos
         // Desenha todas as camadas dos azulejos
         for (short x = (short)Jogo.Azulejos_Visão.X; x <= Jogo.Azulejos_Visão.Width; x++)
             for (short y = (short)Jogo.Azulejos_Visão.Y; y <= Jogo.Azulejos_Visão.Height; y++)
-                if (!Mapa.ForaDoLimite(x, y))
+                if (!Map.ForaDoLimite(x, y))
                     for (byte q = 0; q <= Listas.Mapa.Azulejo[x, y].Dados.GetUpperBound(1); q++)
                         if (Listas.Mapa.Azulejo[x, y].Dados[c, q].Azulejo > 0)
                         {
@@ -647,7 +647,7 @@ partial class Gráficos
         // Desenha a fumaça
         for (int x = -1; x <= Listas.Mapa.Largura * Jogo.Grade / Textura_Tamanho.Width + 1; x++)
             for (int y = -1; y <= Listas.Mapa.Altura * Jogo.Grade / Textura_Tamanho.Height + 1; y++)
-                Desenhar(Tex_Fumaça[Dados.Textura], new Point(x * Textura_Tamanho.Width + Mapa.Fumaça_X, y * Textura_Tamanho.Height + Mapa.Fumaça_Y), new SFML.Graphics.Color(255, 255, 255, Dados.Transparência));
+                Desenhar(Tex_Fumaça[Dados.Textura], new Point(x * Textura_Tamanho.Width + Map.Fumaça_X, y * Textura_Tamanho.Height + Map.Fumaça_Y), new SFML.Graphics.Color(255, 255, 255, Dados.Transparência));
     }
 
     public static void Mapa_Clima()
@@ -658,9 +658,9 @@ partial class Gráficos
         if (Listas.Mapa.Clima.Tipo == 0) return;
 
         // Textura
-        switch ((Mapa.Climas)Listas.Mapa.Clima.Tipo)
+        switch ((Map.Climas)Listas.Mapa.Clima.Tipo)
         {
-            case Mapa.Climas.Nevando: x = 32; break;
+            case Map.Climas.Nevando: x = 32; break;
         }
 
         // Desenha as partículas
@@ -669,7 +669,7 @@ partial class Gráficos
                 Desenhar(Tex_Clima, new Rectangle(x, 0, 32, 32), new Rectangle(Listas.Clima_Partículas[i].x, Listas.Clima_Partículas[i].y, 32, 32), CCor(255, 255, 255, 150));
 
         // Trovoadas
-        Desenhar(Tex_Preenchido, 0, 0, 0, 0, Jogo.Tela_Largura, Jogo.Tela_Altura, new SFML.Graphics.Color(255, 255, 255, Mapa.Relâmpago));
+        Desenhar(Tex_Preenchido, 0, 0, 0, 0, Jogo.Tela_Largura, Jogo.Tela_Altura, new SFML.Graphics.Color(255, 255, 255, Map.Relâmpago));
     }
 
     public static void Mapa_Nome()
@@ -682,7 +682,7 @@ partial class Gráficos
         // A cor do texto vária de acordo com a moral do mapa
         switch (Listas.Mapa.Moral)
         {
-            case (byte)Mapa.Morais.Perigoso: Cor = SFML.Graphics.Color.Red; break;
+            case (byte)Map.Morais.Perigoso: Cor = SFML.Graphics.Color.Red; break;
             default: Cor = SFML.Graphics.Color.White; break;
         }
 

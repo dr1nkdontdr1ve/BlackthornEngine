@@ -88,7 +88,7 @@
     <Compile Include="Communication\Enviar.cs" />
     <Compile Include="Communication\Receber.cs" />
     <Compile Include="Communication\Rede.cs" />
-    <Compile Include="Logic\Mapa.cs" />
+    <Compile Include="Logic\Map.cs" />
     <Compile Include="Logic\NPC.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

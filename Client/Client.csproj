@@ -90,7 +90,7 @@
     <Compile Include="Interface\Ferramentas.cs" />
     <Compile Include="Logic\Laço.cs" />
     <Compile Include="Logic\Jogo.cs" />
-    <Compile Include="Logic\Mapa.cs" />
+    <Compile Include="Logic\Map.cs" />
     <Compile Include="Logic\NPC.cs" />
     <Compile Include="Media\Gráfica.cs" />
     <Compile Include="Media\Sonora.cs" />
