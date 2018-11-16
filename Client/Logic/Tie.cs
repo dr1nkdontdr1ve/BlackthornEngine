@@ -29,11 +29,11 @@ class Tie
             Digitalizador();
             Map.Lógica();
 
-            if (Jogador.MeuÍndice > 0 && Ferramentas.JanelaAtual == Ferramentas.Janelas.Game)
+            if (Player.MeuÍndice > 0 && Tools.JanelaAtual == Tools.Janelas.Game)
                 if (Contagem_30 < Environment.TickCount)
                 {
                     // Logic
-                    Jogador.Lógica();
+                    Player.Lógica();
                     NPC.Lógica();
 
                     // Restarts the count
@@ -66,17 +66,17 @@ class Tie
         if (Digitalizador_Contagem < Environment.TickCount)
         {
             Digitalizador_Contagem = Environment.TickCount + 500;
-            Digitalizadores.Sinal = !Digitalizadores.Sinal;
+            Scanners.Sinal = !Scanners.Sinal;
 
             // Se necessário foca o digitalizador de novo
-            Digitalizadores.Focalizar();
+            Scanners.Focalizar();
         }
 
         // Chat
-        if (Ferramentas.Linhas_Visível && !Paineis.Encontrar("Chat").Geral.Visível)
+        if (Tools.Linhas_Visível && !Panels.Encontrar("Chat").General.Visível)
         {
             if (Chat_Contagem < Environment.TickCount)
-                Ferramentas.Linhas_Visível = false;
+                Tools.Linhas_Visível = false;
         }
         else
             Chat_Contagem = Chat_Contagem = Environment.TickCount + 10000;

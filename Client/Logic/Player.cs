@@ -191,11 +191,11 @@ public class Player
             Eu.Atacando = false;
         }
 
-        // Somente se estiver pressionando a tecla de ataque e não estiver atacando
+        // Only if you are pressing the attack key and are not attacking
         if (!Game.Pressionado_Control) return;
         if (Eu.Ataque_Tempo > 0) return;
 
-        // Envia os dados para o servidor
+        //Sends the data to the server
         Eu.Ataque_Tempo = Environment.TickCount;
         Enviar.Jogador_Atacar();
     }
@@ -207,7 +207,7 @@ public class Player
         // Previni erros
         if (Tools.JanelaAtual != Tools.Janelas.Game) return;
 
-        // Verifica se tem algum item nas coordenadas 
+        // Check if you have any items in the coordinates
         for (byte i = 1; i <= Listas.Mapa.Temp_Item.GetUpperBound(0); i++)
             if (Listas.Mapa.Temp_Item[i].X == Eu.X && Listas.Mapa.Temp_Item[i].Y == Eu.Y)
                 TemItem = true;

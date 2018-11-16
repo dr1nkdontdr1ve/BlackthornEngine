@@ -42,7 +42,7 @@ public class Buttons
         return null;
     }
 
-    public class Eventos
+    public class Events
     {
         public static void MouseUp(MouseEventArgs e, byte Índice)
         {
@@ -191,20 +191,20 @@ public class Buttons
 
         public static void Conectar_Pronto()
         {
-            // Salva o nome do usuário
-            Listas.Opções.Usuário = Digitalizadores.Encontrar("Conectar_Usuário").Texto;
+            // Saves the user name
+            Listas.Opções.Usuário = Scanners.Encontrar("Conectar_Usuário").Texto;
             Escrever.Opções();
 
-            // Conecta-se ao Game
+            // Connect with Game
             Game.DefinirSituação(Game.Situações.Conectar);
         }
 
         public static void Registrar_Pronto()
         {
             // Regras de segurança
-            if (Digitalizadores.Encontrar("Registrar_Senha").Texto != Digitalizadores.Encontrar("Registrar_RepetirSenha").Texto)
+            if (Scanners.Encontrar("Registrar_Senha").Texto != Scanners.Encontrar("Registrar_RepetirSenha").Texto)
             {
-                MessageBox.Show("As senhas digitadas não são iquais.");
+                MessageBox.Show("The passwords you entered are not the same.");
                 return;
             }
 

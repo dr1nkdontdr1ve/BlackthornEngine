@@ -180,7 +180,7 @@ public class Game
         // Verifica se é possível se conectar ao servidor
         if (!Rede.TentarConectar())
         {
-            MessageBox.Show("O servidor não está disponível no momento.");
+            MessageBox.Show("The server is currently unavailable.");
             return;
         }
 

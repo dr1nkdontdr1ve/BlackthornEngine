@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-class Ler
+class Read
 {
     public static void Dados()
     {
@@ -35,10 +35,10 @@ class Ler
         }
 
         // Adiciona os dados ao cache
-        Marcadores.Encontrar("Sons").Estado = Listas.Opções.Sons;
-        Marcadores.Encontrar("Músicas").Estado = Listas.Opções.Músicas;
-        Marcadores.Encontrar("SalvarUsuário").Estado = Listas.Opções.SalvarUsuário;
-        if (Listas.Opções.SalvarUsuário) Digitalizadores.Encontrar("Conectar_Usuário").Texto = Listas.Opções.Usuário;
+        Markers.Encontrar("Sons").State = Listas.Opções.Sons;
+        Markers.Encontrar("Músicas").State = Listas.Opções.Músicas;
+        Markers.Encontrar("SalvarUsuário").State = Listas.Opções.SalvarUsuário;
+        if (Listas.Opções.SalvarUsuário) Scanners.Encontrar("Conectar_Usuário").Texto = Listas.Opções.Usuário;
     }
 
     public static void Cliente_Dados()
@@ -58,10 +58,10 @@ class Ler
 
     public static void Botões_Dados()
     {
-        Botões.Lista = new Botões.Estrutura[Listas.Cliente_Dados.Num_Botões + 1];
+        Buttons.List = new Buttons.Structure[Listas.Cliente_Dados.Num_Botões + 1];
 
         // Lê os dados
-        for (byte i = 1; i <= Botões.Lista.GetUpperBound(0); i++)
+        for (byte i = 1; i <= Buttons.List.GetUpperBound(0); i++)
             Botão_Dados(i);
     }
 
@@ -71,15 +71,15 @@ class Ler
         Limpar.Botão(Índice);
 
         // Cria um sistema binário para a manipulação dos dados
-        FileInfo Arquivo = new FileInfo(Diretórios.Botões_Dados.FullName + Índice + Diretórios.Formato);
+        FileInfo Arquivo = new FileInfo(Diretórios.Botões_Dados.FullName + Índice + Diretórios.Format);
         BinaryReader Binário = new BinaryReader(Arquivo.OpenRead());
 
         // Lê os dados
-        Botões.Lista[Índice].Geral.Nome = Binário.ReadString();
-        Botões.Lista[Índice].Geral.Posição.X = Binário.ReadInt32();
-        Botões.Lista[Índice].Geral.Posição.Y = Binário.ReadInt32();
-        Botões.Lista[Índice].Geral.Visível = Binário.ReadBoolean();
-        Botões.Lista[Índice].Textura = Binário.ReadByte();
+        Buttons.List[Índice].Geral.Nome = Binário.ReadString();
+        Buttons.List[Índice].Geral.Posição.X = Binário.ReadInt32();
+        Buttons.List[Índice].Geral.Posição.Y = Binário.ReadInt32();
+        Buttons.List[Índice].Geral.Visível = Binário.ReadBoolean();
+        Buttons.List[Índice].Textura = Binário.ReadByte();
 
         // Fecha o sistema
         Binário.Dispose();
@@ -87,10 +87,10 @@ class Ler
 
     public static void Digitalizadores_Dados()
     {
-        Digitalizadores.Lista = new Digitalizadores.Estrutura[Listas.Cliente_Dados.Num_Digitalizadores + 1];
+        Scanners.List = new Scanners.Structure[Listas.Cliente_Dados.Num_Digitalizadores + 1];
 
         // Lê os dados
-        for (byte i = 1; i <= Digitalizadores.Lista.GetUpperBound(0); i++)
+        for (byte i = 1; i <= Scanners.List.GetUpperBound(0); i++)
             Digitalizador_Dados(i);
     }
 
@@ -100,17 +100,17 @@ class Ler
         Limpar.Digitalizador(Índice);
 
         // Cria um sistema binário para a manipulação dos dados
-        FileInfo Arquivo = new FileInfo(Diretórios.Digitalizadores_Dados.FullName + Índice + Diretórios.Formato);
+        FileInfo Arquivo = new FileInfo(Diretórios.Digitalizadores_Dados.FullName + Índice + Diretórios.Format);
         BinaryReader Binário = new BinaryReader(Arquivo.OpenRead());
 
         // Lê os dados
-        Digitalizadores.Lista[Índice].Geral.Nome = Binário.ReadString();
-        Digitalizadores.Lista[Índice].Geral.Posição.X = Binário.ReadInt32();
-        Digitalizadores.Lista[Índice].Geral.Posição.Y = Binário.ReadInt32();
-        Digitalizadores.Lista[Índice].Geral.Visível = Binário.ReadBoolean();
-        Digitalizadores.Lista[Índice].Máx_Carácteres = Binário.ReadInt16();
-        Digitalizadores.Lista[Índice].Largura = Binário.ReadInt16();
-        Digitalizadores.Lista[Índice].Senha = Binário.ReadBoolean();
+        Scanners.List[Índice].General.Nome = Binário.ReadString();
+        Scanners.List[Índice].General.Posição.X = Binário.ReadInt32();
+        Scanners.List[Índice].General.Posição.Y = Binário.ReadInt32();
+        Scanners.List[Índice].General.Visível = Binário.ReadBoolean();
+        Scanners.List[Índice].Máx_Carácteres = Binário.ReadInt16();
+        Scanners.List[Índice].Largura = Binário.ReadInt16();
+        Scanners.List[Índice].Senha = Binário.ReadBoolean();
 
         // Fecha o sistema
         Binário.Dispose();
@@ -118,10 +118,10 @@ class Ler
 
     public static void Paineis_Dados()
     {
-        Paineis.Lista = new Paineis.Estrutura[Listas.Cliente_Dados.Num_Paineis + 1];
+        Panels.List = new Panels.Structure[Listas.Cliente_Dados.Num_Paineis + 1];
 
         // Lê os dados
-        for (byte i = 1; i <= Paineis.Lista.GetUpperBound(0); i++)
+        for (byte i = 1; i <= Panels.List.GetUpperBound(0); i++)
             Painel_Dados(i);
     }
 
@@ -131,15 +131,15 @@ class Ler
         Limpar.Painel(Índice);
 
         // Cria um sistema binário para a manipulação dos dados
-        FileInfo Arquivo = new FileInfo(Diretórios.Paineis_Dados.FullName + Índice + Diretórios.Formato);
+        FileInfo Arquivo = new FileInfo(Diretórios.Paineis_Dados.FullName + Índice + Diretórios.Format);
         BinaryReader Binário = new BinaryReader(Arquivo.OpenRead());
 
         // Carrega os dados
-        Paineis.Lista[Índice].Geral.Nome = Binário.ReadString();
-        Paineis.Lista[Índice].Geral.Posição.X = Binário.ReadInt32();
-        Paineis.Lista[Índice].Geral.Posição.Y = Binário.ReadInt32();
-        Paineis.Lista[Índice].Geral.Visível = Binário.ReadBoolean();
-        Paineis.Lista[Índice].Textura = Binário.ReadByte();
+        Panels.List[Índice].General.Nome = Binário.ReadString();
+        Panels.List[Índice].General.Posição.X = Binário.ReadInt32();
+        Panels.List[Índice].General.Posição.Y = Binário.ReadInt32();
+        Panels.List[Índice].General.Visível = Binário.ReadBoolean();
+        Panels.List[Índice].Texture = Binário.ReadByte();
 
         // Fecha o sistema
         Binário.Dispose();
@@ -147,10 +147,10 @@ class Ler
 
     public static void Marcadores_Dados()
     {
-        Marcadores.Lista = new Marcadores.Estrutura[Listas.Cliente_Dados.Num_Marcadores + 1];
+        Markers.List = new Markers.Structure[Listas.Cliente_Dados.Num_Marcadores + 1];
 
         // Lê os dados
-        for (byte i = 1; i <= Marcadores.Lista.GetUpperBound(0); i++)
+        for (byte i = 1; i <= Markers.List.GetUpperBound(0); i++)
             Marcador_Dados(i);
     }
 
@@ -160,16 +160,16 @@ class Ler
         Limpar.Marcador(Índice);
 
         // Cria um sistema binário para a manipulação dos dados
-        FileInfo Arquivo = new FileInfo(Diretórios.Marcadores_Dados.FullName + Índice + Diretórios.Formato);
+        FileInfo Arquivo = new FileInfo(Diretórios.Marcadores_Dados.FullName + Índice + Diretórios.Format);
         BinaryReader Binário = new BinaryReader(Arquivo.OpenRead());
 
         // Carrega os dados
-        Marcadores.Lista[Índice].Geral.Nome = Binário.ReadString();
-        Marcadores.Lista[Índice].Geral.Posição.X = Binário.ReadInt32();
-        Marcadores.Lista[Índice].Geral.Posição.Y = Binário.ReadInt32();
-        Marcadores.Lista[Índice].Geral.Visível = Binário.ReadBoolean();
-        Marcadores.Lista[Índice].Texto = Binário.ReadString();
-        Marcadores.Lista[Índice].Estado = Binário.ReadBoolean();
+        Markers.List[Índice].General.Nome = Binário.ReadString();
+        Markers.List[Índice].General.Posição.X = Binário.ReadInt32();
+        Markers.List[Índice].General.Posição.Y = Binário.ReadInt32();
+        Markers.List[Índice].General.Visível = Binário.ReadBoolean();
+        Markers.List[Índice].Text = Binário.ReadString();
+        Markers.List[Índice].State = Binário.ReadBoolean();
 
         // Fecha o sistema
         Binário.Dispose();
@@ -178,7 +178,7 @@ class Ler
     public static void Mapa(int Índice)
     {
         // Cria um sistema binário para a manipulação dos dados
-        FileInfo Arquivo = new FileInfo(Diretórios.Mapas_Dados.FullName + Índice + Diretórios.Formato);
+        FileInfo Arquivo = new FileInfo(Diretórios.Mapas_Dados.FullName + Índice + Diretórios.Format);
         BinaryReader Binário = new BinaryReader(Arquivo.OpenRead());
 
         // Lê os dados
@@ -211,9 +211,9 @@ class Ler
             for (byte y = 0; y <= Listas.Mapa.Altura; y++)
             {
                 // Redimensiona os dados dos azulejos
-                Listas.Mapa.Azulejo[x, y].Dados = new Listas.Estruturas.Azulejo_Dados[(byte)global::Mapa.Camadas.Quantidade, NumCamadas + 1];
+                Listas.Mapa.Azulejo[x, y].Dados = new Listas.Estruturas.Azulejo_Dados[(byte)global::Map.Camadas.Quantidade, NumCamadas + 1];
 
-                for (byte c = 0; c <= (byte)global::Mapa.Camadas.Quantidade - 1; c++)
+                for (byte c = 0; c <= (byte)global::Map.Camadas.Quantidade - 1; c++)
                     for (byte q = 0; q <= NumCamadas; q++)
                     {
                         Listas.Mapa.Azulejo[x, y].Dados[c, q].x = Binário.ReadByte();
@@ -259,7 +259,7 @@ class Ler
         Binário.Dispose();
 
         // Redimensiona as partículas do clima
-        global::Mapa.Clima_Ajustar();
-        global::Mapa.AutoCriação.Atualizar();
+        global::Map.Clima_Ajustar();
+        global::Map.AutoCriação.Atualizar();
     }
 }

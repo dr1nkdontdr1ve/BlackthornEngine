@@ -2,41 +2,41 @@
 using System.Drawing;
 using System.Windows.Forms;
 
-public class Digitalizadores
+public class Scanners
 {
     // Armazenamento de dados da ferramenta
-    public static Estrutura[] Lista = new Estrutura[1];
+    public static Structure[] List = new Structure[1];
 
-    // Digitalizador focado
+    // Focused Scanner
     public static byte Foco;
     public static bool Sinal;
 
     // Estrutura da ferramenta
-    public class Estrutura
+    public class Structure
     {
         public string Texto;
         public short Máx_Carácteres;
         public short Largura;
         public bool Senha;
-        public Ferramentas.Geral Geral;
+        public Tools.General General;
     }
 
     public static byte EncontrarÍndice(string Nome)
     {
         // Lista os nomes das ferramentas
-        for (byte i = 1; i <= Lista.GetUpperBound(0); i++)
-            if (Lista[i].Geral.Nome == Nome)
+        for (byte i = 1; i <= List.GetUpperBound(0); i++)
+            if (List[i].General.Nome == Nome)
                 return i;
 
         return 0;
     }
 
-    public static Estrutura Encontrar(string Nome)
+    public static Structure Encontrar(string Nome)
     {
         // Lista os nomes das ferramentas
-        for (byte i = 1; i <= Lista.GetUpperBound(0); i++)
-            if (Lista[i].Geral.Nome == Nome)
-                return Lista[i];
+        for (byte i = 1; i <= List.GetUpperBound(0); i++)
+            if (List[i].General.Nome == Nome)
+                return List[i];
 
         return null;
     }
@@ -44,18 +44,18 @@ public class Digitalizadores
     public static void Focalizar()
     {
         // Se o digitalizador não estiver habilitado então isso não é necessário 
-        if (Lista[Foco] != null && Lista[Foco].Geral.Habilitado) return;
+        if (List[Foco] != null && List[Foco].General.Habilitado) return;
 
         // Altera o digitalizador focado para o mais próximo
-        for (byte i = 1; i <= Ferramentas.Ordem.GetUpperBound(0); i++)
+        for (byte i = 1; i <= Tools.Ordem.GetUpperBound(0); i++)
         {
-            if (Ferramentas.Ordem[i].Tipo != Ferramentas.Tipos.Digitalizador)
+            if (Tools.Ordem[i].Tipo != Tools.Tipos.Digitalizador)
                 continue;
-            else if (!Lista[Ferramentas.Ordem[i].Índice].Geral.Habilitado)
+            else if (!List[Tools.Ordem[i].Índice].General.Habilitado)
                 continue;
             else if (i == EncontrarÍndice("Chat"))
 
-                Foco = Ferramentas.Ordem[i].Índice;
+                Foco = Tools.Ordem[i].Índice;
             return;
         }
     }
@@ -63,16 +63,16 @@ public class Digitalizadores
     public static void TrocarFoco()
     {
         // Altera o digitalizador focado para o próximo
-        for (byte i = 1; i <= Ferramentas.Ordem.GetUpperBound(0); i++)
+        for (byte i = 1; i <= Tools.Ordem.GetUpperBound(0); i++)
         {
-            if (Ferramentas.Ordem[i].Tipo != Ferramentas.Tipos.Digitalizador)
+            if (Tools.Ordem[i].Tipo != Tools.Tipos.Digitalizador)
                 continue;
-            else if (!Lista[Ferramentas.Ordem[i].Índice].Geral.Habilitado)
+            else if (!List[Tools.Ordem[i].Índice].General.Habilitado)
                 continue;
-            if (Foco != Último() && i <= Ferramentas.Encontrar(Ferramentas.Tipos.Digitalizador, Foco))
+            if (Foco != Último() && i <= Tools.Encontrar(Tools.Tipos.Digitalizador, Foco))
                 continue;
 
-            Foco = Ferramentas.Ordem[i].Índice;
+            Foco = Tools.Ordem[i].Índice;
             return;
         }
     }
@@ -82,10 +82,10 @@ public class Digitalizadores
         byte Índice = 0;
 
         // Retorna o último digitalizador habilitado
-        for (byte i = 1; i <= Ferramentas.Ordem.GetUpperBound(0); i++)
-            if (Ferramentas.Ordem[i].Tipo == Ferramentas.Tipos.Digitalizador)
-                if (Lista[Ferramentas.Ordem[i].Índice].Geral.Habilitado)
-                    Índice = Ferramentas.Ordem[i].Índice;
+        for (byte i = 1; i <= Tools.Ordem.GetUpperBound(0); i++)
+            if (Tools.Ordem[i].Tipo == Tools.Tipos.Digitalizador)
+                if (List[Tools.Ordem[i].Índice].General.Habilitado)
+                    Índice = Tools.Ordem[i].Índice;
 
         return Índice;
     }
@@ -95,15 +95,15 @@ public class Digitalizadores
         byte Índice = EncontrarÍndice("Chat");
 
         // Somente se necessário
-        if (!Jogador.EstáJogando(Jogador.MeuÍndice)) return;
+        if (!Player.EstáJogando(Player.MeuÍndice)) return;
 
         // Altera a visiblidade da caixa
-        Paineis.Encontrar("Chat").Geral.Visível = !Paineis.Encontrar("Chat").Geral.Visível;
+        Panels.Encontrar("Chat").General.Visível = !Panels.Encontrar("Chat").General.Visível;
 
         // Altera o foco do digitalizador
-        if (Paineis.Encontrar("Chat").Geral.Visível)
+        if (Panels.Encontrar("Chat").General.Visível)
         {
-            Ferramentas.Linhas_Visível = true;
+            Tools.Linhas_Visível = true;
             Foco = Índice;
             return;
         }
@@ -111,13 +111,13 @@ public class Digitalizadores
             Foco = 0;
 
         // Dados
-        string Mensagem = Lista[Índice].Texto;
-        string Jogador_Nome = Jogador.Eu.Nome;
+        string Mensagem = List[Índice].Texto;
+        string Jogador_Nome = Player.Eu.Nome;
 
         // Somente se necessário
         if (Mensagem.Length < 3)
         {
-            Lista[Índice].Texto = string.Empty;
+            List[Índice].Texto = string.Empty;
             return;
         }
 
@@ -132,7 +132,7 @@ public class Digitalizadores
         {
             // Previni erros 
             if (Partes.GetUpperBound(0) < 1)
-                Ferramentas.Adicionar("Utilize: '!' + Destinatário + 'Mensagem'", SFML.Graphics.Color.White);
+                Tools.Adicionar("Use: '!' + Destination + 'Message'", SFML.Graphics.Color.White);
             else
             {
                 // Dados
@@ -148,7 +148,7 @@ public class Digitalizadores
             Enviar.Mensagem(Mensagem, Game.Mensagens.Mapa);
 
         // Limpa a caixa de texto
-        Lista[Índice].Texto = string.Empty;
+        List[Índice].Texto = string.Empty;
     }
 
     public class Eventos
@@ -156,8 +156,8 @@ public class Digitalizadores
         public static void MouseUp(MouseEventArgs e, byte Índice)
         {
             // Somente se necessário
-            if (!Lista[Índice].Geral.Habilitado) return;
-            if (!Ferramentas.EstáSobrepondo(new Rectangle(Lista[Índice].Geral.Posição, new Size(Lista[Índice].Largura, Gráficos.TTamanho(Gráficos.Tex_Digitalizador).Height)))) return;
+            if (!List[Índice].General.Habilitado) return;
+            if (!Tools.EstáSobrepondo(new Rectangle(List[Índice].General.Posição, new Size(List[Índice].Largura, Gráficos.TTamanho(Gráficos.Tex_Digitalizador).Height)))) return;
 
             // Define o foco no Digitalizador
             Foco = Índice;
@@ -176,25 +176,25 @@ public class Digitalizadores
             }
 
             // Texto
-            string Texto = Lista[Foco].Texto;
+            string Texto = List[Foco].Texto;
 
             // Apaga a última letra do texto
             if (!string.IsNullOrEmpty(Texto))
             {
                 if (e.KeyChar == '\b' && Texto.Length > 0)
                 {
-                    Lista[Foco].Texto = Texto.Remove(Texto.Length - 1);
+                    List[Foco].Texto = Texto.Remove(Texto.Length - 1);
                     return;
                 }
 
                 // Não adicionar se já estiver no máximo de caracteres
-                if (Lista[Foco].Máx_Carácteres > 0)
-                    if (Texto.Length >= Lista[Foco].Máx_Carácteres)
+                if (List[Foco].Máx_Carácteres > 0)
+                    if (Texto.Length >= List[Foco].Máx_Carácteres)
                         return;
             }
 
             // Adiciona apenas os caractres válidos ao digitalizador
-            if (e.KeyChar >= 32 && e.KeyChar <= 126) Lista[Foco].Texto += e.KeyChar.ToString();
+            if (e.KeyChar >= 32 && e.KeyChar <= 126) List[Foco].Texto += e.KeyChar.ToString();
         }
     }
 }
