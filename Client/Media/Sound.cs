@@ -1,7 +1,7 @@
 ﻿using System;
 using SFML.Audio;
 
-class Áudio
+class Sound
 {
     // Lista dos sons
     public enum Sons

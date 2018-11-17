@@ -4,7 +4,7 @@ using System.Drawing;
 using SFML.Graphics;
 using SFML.Window;
 
-partial class Gráficos
+partial class Graphics
 {
     // Locais de renderização
     public static RenderWindow Dispositivo;

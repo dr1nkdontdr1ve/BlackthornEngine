@@ -75,14 +75,14 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Logic\Player.cs" />
-    <Compile Include="Library\Diretórios.cs" />
-    <Compile Include="Library\Escrever.cs" />
+    <Compile Include="Library\Directories.cs" />
+    <Compile Include="Library\Write.cs" />
     <Compile Include="Library\Read.cs" />
-    <Compile Include="Library\Limpar.cs" />
-    <Compile Include="Library\Listas.cs" />
-    <Compile Include="Communication\Enviar.cs" />
-    <Compile Include="Communication\Receber.cs" />
-    <Compile Include="Communication\Rede.cs" />
+    <Compile Include="Library\Clean.cs" />
+    <Compile Include="Library\Lists.cs" />
+    <Compile Include="Communication\Sending.cs" />
+    <Compile Include="Communication\Receiving.cs" />
+    <Compile Include="Communication\Network.cs" />
     <Compile Include="Interface\Buttons.cs" />
     <Compile Include="Interface\Scanners.cs" />
     <Compile Include="Interface\Markers.cs" />
@@ -92,8 +92,8 @@
     <Compile Include="Logic\Game.cs" />
     <Compile Include="Logic\Map.cs" />
     <Compile Include="Logic\NPC.cs" />
-    <Compile Include="Media\Gráfica.cs" />
-    <Compile Include="Media\Sonora.cs" />
+    <Compile Include="Media\Graphics.cs" />
+    <Compile Include="Media\Sound.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Window.cs">
       <SubType>Form</SubType>

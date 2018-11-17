@@ -3,7 +3,7 @@ using System.Windows.Forms;
 using System.Drawing;
 using Lidgren.Network;
 
-partial class Receber
+partial class Receiving
 {
     // Pacotes do servidor
     public enum Pacotes

@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-class Escrever
+class Write
 {
     public static void Dados()
     {

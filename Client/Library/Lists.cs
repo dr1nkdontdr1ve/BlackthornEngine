@@ -1,21 +1,21 @@
-﻿public class Listas
+﻿public class Lists
 {
     // Armazenamento de dados
-    public static Estruturas.Opções Opções = new Estruturas.Opções();
-    public static Estruturas.Cliente_Dados Cliente_Dados = new Estruturas.Cliente_Dados();
-    public static Estruturas.Servidor_Dados Servidor_Dados = new Estruturas.Servidor_Dados();
-    public static Estruturas.Jogador[] Jogador;
-    public static Estruturas.Classe[] Classe;
-    public static Estruturas.Personagem[] Personagens;
-    public static Estruturas.Mapas Mapa;
-    public static Estruturas.Clima[] Clima_Partículas;
-    public static Estruturas.NPCs[] NPC;
-    public static Estruturas.Itens[] Item;
+    public static Structures.Options Options = new Structures.Options();
+    public static Structures.Cliente_Dados Cliente_Dados = new Structures.Client_Data();
+    public static Structures.Servidor_Dados Servidor_Dados = new Structures.Server_Data();
+    public static Structures.Player[] Player;
+    public static Structures.Classe[] Classe;
+    public static Structures.Character[] Characters;
+    public static Structures.Maps Map;
+    public static Structures.Climate[] Climate_Particles;
+    public static Structures.NPCs[] NPC;
+    public static Structures.Items[] Item;
 
     // Estrutura dos itens em gerais
-    public class Estruturas
+    public class Structures
     {
-        public struct Opções
+        public struct Options
         {
             public string Game_Nome;
             public bool SalvarUsuário;
@@ -24,7 +24,7 @@
             public string Usuário;
         }
 
-        public struct Cliente_Dados
+        public struct Client_Data
         {
             public byte Num_Botões;
             public byte Num_Paineis;
@@ -32,7 +32,7 @@
             public byte Num_Digitalizadores;
         }
 
-        public struct Servidor_Dados
+        public struct Server_Data
         {
             public byte Máx_Jogadores;
             public byte Máx_Personagens;
@@ -41,7 +41,7 @@
             public short Num_Mapas;
         }
 
-        public class Jogador
+        public class Player
         {
             // Apenas na parte do cliente
             public short X2;
@@ -70,7 +70,7 @@
             public short[] Equipamento;
         }
 
-        public class Personagem
+        public class Character
         {
             public string Nome;
             public byte Classe;
@@ -80,7 +80,7 @@
 
         public class Classe
         {
-            public string Nome;
+            public string Name;
             public short Textura_Masculina;
             public short Textura_Feminina;
             public short Aparecer_Mapa;
@@ -89,7 +89,7 @@
             public byte Aparecer_Y;
         }
         
-        public struct Mapas
+        public struct Maps
         {
             public short Revisão;
             public string Nome;
@@ -111,13 +111,13 @@
             public Mapa_Itens[] Temp_Item;
         }
 
-        public struct Mapa_Clima
+        public struct Map_Climate
         {
             public byte Tipo;
             public byte Intensidade;
         }
 
-        public struct Mapa_Fumaça
+        public struct Map_Smoke
         {
             public byte Textura;
             public sbyte VelocidadeX;
@@ -125,14 +125,14 @@
             public byte Transparência;
         }
 
-        public struct Azulejo
+        public struct Tile
         {
             public byte Atributo;
             public bool[] Bloqueio;
             public Azulejo_Dados[,] Dados;
         }
 
-        public struct Azulejo_Dados
+        public struct Tile_Data
         {
             public byte x;
             public byte y;
@@ -141,7 +141,7 @@
             public System.Drawing.Point[] Mini;
         }
 
-        public struct Clima
+        public struct Climate
         {
             public bool Visível;
             public int x;
@@ -151,7 +151,7 @@
             public bool Voltar;
         }
 
-        public class Luz
+        public class Light
         {
             public byte X;
             public byte Y;
@@ -167,7 +167,7 @@
             public short[] Vital;
         }
 
-        public struct Mapa_NPCs
+        public struct Map_NPCs
         {
             // Apenas na parte do cliente
             public short X2;
@@ -185,41 +185,41 @@
             public short[] Vital;
         }
 
-        public struct Mapa_Itens
+        public struct Map_Items
         {
             public short Índice;
             public byte X;
             public byte Y;
         }
 
-        public struct Itens
+        public struct Items
         {
-            // Geral
-            public string Nome;
+            // General
+            public string Name;
             public string Descrição;
             public short Textura;
             public byte Tipo;
-            // Requerimentos
+            // Requirements
             public short Req_Level;
             public byte Req_Classe;
-            // Poção
+            // Potion
             public short Poção_Experiência;
             public short[] Poção_Vital;
-            // Equipamento
-            public byte Equip_Tipo;
-            public short[] Equip_Atributo;
-            public short Arma_Dano;
+            // Equipment
+            public byte Equip_Type;
+            public short[] Equip_Attribute;
+            public short Weapon_Damage;
         }
 
-        public struct Inventário
+        public struct Inventory
         {
             public short Item_Num;
-            public short Quantidade;
+            public short Amount;
         }
 
         public struct Hotbar
         {
-            public byte Tipo;
+            public byte Type;
             public byte Slot;
         }
     }

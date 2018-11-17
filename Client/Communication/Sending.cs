@@ -1,7 +1,7 @@
 ﻿using System;
 using Lidgren.Network;
 
-partial class Enviar
+partial class Sending
 {
     // Pacotes do cliente
     public enum Pacotes

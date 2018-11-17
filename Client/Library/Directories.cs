@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Windows.Forms;
 
-class Diretórios
+class Directories
 {
     // Formato de todos os arquivos de dados
     public const string Format = ".dat";

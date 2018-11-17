@@ -4,16 +4,16 @@ using System.Windows.Forms;
 class Program
 {
     // Usado para manter a aplicação aberta
-    public static bool Funcionado = true;
+    public static bool Functional = true;
     [STAThread]
 
     public static void Main()
     {
         // Verifica se todos os diretórios existem, se não existirem então criá-los
-        Diretórios.Criar();
+        Directories.Create();
 
         // Carrega todos os dados
-        Ler.Dados();
+        Read.Data();
 
         // Inicializa todos os dispositivos
         Gráficos.LerTexturas();
@@ -21,8 +21,8 @@ class Program
         Rede.Iniciar();
 
         // Abre a janela
-        Janela.Objetos.Text = Listas.Opções.Game_Nome;
-        Janela.Objetos.Visible = true;
+        Window.Objects.Text = Lists.Opções.Game_Name;
+        Window.Objects.Visible = true;
         Game.AbrirMenu();
 
         // Inicia a aplicação

@@ -1,4 +1,4 @@
-﻿class Limpar
+﻿class Clean
 {
     public static void Opções()
     {

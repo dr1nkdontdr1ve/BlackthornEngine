@@ -1,11 +1,11 @@
 ﻿using System.Windows.Forms;
 
-public partial class Janela : Form
+public partial class Window : Form
 {
     // Usado para acessar os dados da janela
-    public static Janela Objetos = new Janela();
+    public static Window Objects = new Window();
 
-    public Janela()
+    public Window()
     {
         InitializeComponent();
     }

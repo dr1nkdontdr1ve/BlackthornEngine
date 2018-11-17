@@ -1,7 +1,7 @@
 ﻿using System;
 using Lidgren.Network;
 
-class Rede
+class Network
 {
     // Protocolo do controle de transmissão
     public static NetClient Dispositivo;
