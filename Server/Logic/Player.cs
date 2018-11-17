@@ -3,445 +3,445 @@ using System.Drawing;
 
 class Player
 {
-    public static Personagem_Estrutura Personagem(byte Índice)
+    public static Character_Structure Character(byte Index)
     {
-        // Retorna com os valores do personagem atual
-        return Listas.Jogador[Índice].Personagem[Listas.TempJogador[Índice].Utilizado];
+        // Retorna com os valores do Character atual
+        return Lists.Player[Index].Character[Lists.TempPlayer[Index].Used];
     }
 
-    public class Personagem_Estrutura
+    public class Character_Structure
     {
-        // Dados básicos
-        public byte Índice;
-        public string Nome = string.Empty;
+        // Basic data
+        public byte Index;
+        public string Name = string.Empty;
         public byte Classe;
-        public bool Gênero;
+        public bool Genre;
         public short Level;
-        private short experiência;
-        public byte Pontos;
-        public short[] Vital = new short[(byte)Game.Vitais.Quantidade];
-        public short[] Atributo = new short[(byte)Game.Atributos.Quantidade];
-        public short Mapa;
+        private short experience;
+        public byte Points;
+        public short[] Vital = new short[(byte)Game.Vital.Amount];
+        public short[] Attribute = new short[(byte)Game.Attributes.Amount];
+        public short Map;
         public byte X;
         public byte Y;
-        public Game.Direções Direção;
-        public int Ataque_Tempo;
-        public Listas.Estruturas.Inventário[] Inventário;
-        public short[] Equipamento;
-        public Listas.Estruturas.Hotbar[] Hotbar;
+        public Game.Location Direction;
+        public int Attack_Time;
+        public Lists.Structures.Inventory[] Inventory;
+        public short[] Equipment;
+        public Lists.Structures.Hotbar[] Hotbar;
 
-        public short Experiência
+        public short Experience
         {
             get
             {
-                return experiência;
+                return experience;
             }
             set
             {
-                experiência = value;
-                VerificarLevel(Índice);
+                experience = value;
+                CheckLevel(Index);
             }
         }
 
-        // Cálcula o dano do jogador
-        public short Dano
+        // Calculates the player's damage
+        public short Damage
         {
             get
             {
-                return (short)(Atributo[(byte)Game.Atributos.Força] + Listas.Item[Equipamento[(byte)Game.Equipamentos.Arma]].Arma_Dano);
+                return (short)(Attribute[(byte)Game.Attributes.Force] + Lists.Item[Equipment[(byte)Game.Equipment.Weapon]].Weapon_Damage);
             }
         }
 
-        // Cálcula o dano do jogador
-        public short Jogador_Defesa
+        // Calculates the player's defense
+        public short Player_Defense
         {
             get
             {
-                return Atributo[(byte)Game.Atributos.Resistência];
+                return Attribute[(byte)Game.Attributes.Resistance];
             }
         }
 
-        public short MáxVital(byte Vital)
+        public short MaxVital(byte Vital)
         {
-            short[] Base = Listas.Classe[Classe].Vital;
+            short[] Base = Lists.Classe[Classe].Vital;
 
-            // Cálcula o máximo de vital que um jogador possui
-            switch ((Game.Vitais)Vital)
+            // Calculate the most vital amount a player has
+            switch ((Game.Vital)Vital)
             {
-                case Game.Vitais.Vida:
-                    return (short)(Base[Vital] + (Atributo[(byte)Game.Atributos.Vitalidade] * 1.50 * (Level * 0.75)));
-                case Game.Vitais.Mana:
-                    return (short)(Base[Vital] + (Atributo[(byte)Game.Atributos.Inteligência] * 1.25 * (Level * 0.5)));
+                case Game.Vital.Life:
+                    return (short)(Base[Vital] + (Attribute[(byte)Game.Attributes.Vitality] * 1.50 * (Level * 0.75)));
+                case Game.Vital.Mana:
+                    return (short)(Base[Vital] + (Attribute[(byte)Game.Attributes.Intelligence] * 1.25 * (Level * 0.5)));
             }
 
             return 0;
         }
 
-        public short Regeneração(byte Vital)
+        public short Regeneration(byte Vital)
         {
-            // Cálcula o máximo de vital que um jogador possui
-            switch ((Game.Vitais)Vital)
+            // Calculate the most vital amount a player has
+            switch ((Game.Vital)Vital)
             {
-                case Game.Vitais.Vida:
-                    return (short)(MáxVital(Vital) * 0.05 + Atributo[(byte)Game.Atributos.Vitalidade] * 0.3);
-                case Game.Vitais.Mana:
-                    return (short)(MáxVital(Vital) * 0.05 + Atributo[(byte)Game.Atributos.Inteligência] * 0.1);
+                case Game.Vital.Life:
+                    return (short)(MaxVital(Vital) * 0.05 + Attribute[(byte)Game.Attributes.Vitality] * 0.3);
+                case Game.Vital.Mana:
+                    return (short)(MaxVital(Vital) * 0.05 + Attribute[(byte)Game.Attributes.Intelligence] * 0.1);
             }
 
             return 0;
         }
 
-        public short ExpNecessária
+        public short ExpRequired
         {
             get
             {
-                short Soma = 0;
-                // Quantidade de experiência para passar para o próximo level
-                for (byte i = 0; i <= (byte)(Game.Atributos.Quantidade - 1); i++) Soma += Atributo[i];
-                return (short)((Level + 1) * 2.5 + (Soma + Pontos) / 2);
+                short Sum = 0;
+                // Amount of experience to move to the next level
+                for (byte i = 0; i <= (byte)(Game.Attributes.Amount - 1); i++) Sum += Attribute[i];
+                return (short)((Level + 1) * 2.5 + (Sum + Points) / 2);
             }
         }
     }
 
-    public static void Entrar(byte Índice)
+    public static void Entrar(byte Index)
     {
         // Previni que alguém que já está online de logar
-        if (EstáJogando(Índice))
+        if (IsPlaying(Index))
             return;
 
-        // Define que o jogador está dentro do Game
-        Listas.TempJogador[Índice].Jogando = true;
+        // Defines that the player is inside the Game
+        Lists.TempPlayer[Index].Playing = true;
 
         // Envia todos os dados necessários
-        Enviar.Entrada(Índice);
-        Enviar.Jogadores_Dados_Mapa(Índice);
-        Enviar.Jogador_Experiência(Índice);
-        Enviar.Jogador_Inventário(Índice);
-        Enviar.Jogador_Hotbar(Índice);
-        Enviar.Itens(Índice);
-        Enviar.NPCs(Índice);
-        Enviar.Mapa_Itens(Índice, Personagem(Índice).Mapa);
+        Sending.Entrada(Index);
+        Sending.Players_Data_Map(Index);
+        Sending.Player_Experience(Index);
+        Sending.Player_Inventory(Index);
+        Sending.Player_Hotbar(Index);
+        Sending.Items(Index);
+        Sending.NPCs(Index);
+        Sending.Map_Items(Index, Character(Index).Map);
 
-        // Transporta o jogador para a sua determinada Posição
-        Transportar(Índice, Personagem(Índice).Mapa, Personagem(Índice).X, Personagem(Índice).Y);
+        // Transports the player to his determined position
+        Transportar(Index, Character(Index).Map, Character(Index).X, Character(Index).Y);
 
-        // Entra no Game
-        Enviar.Entrar(Índice);
-        Enviar.Mensagem(Índice, Listas.Servidor_Dados.Mensagem, Color.Blue);
+        // Enter the Game
+        Sending.Entrar(Index);
+        Sending.Message(Index, Lists.Server_Data.Message, Color.Blue);
     }
 
-    public static void Sair(byte Índice)
+    public static void Leave(byte Index)
     {
         // Salva os dados do jogador
-        Escrever.Jogador(Índice);
-        Limpar.Jogador(Índice);
+        Write.Player(Index);
+        Clean.Player(Index);
 
-        // Envia a  todos a desconexão do jogador
-        Enviar.Jogador_Saiu(Índice);
+        // Sends everyone the player disconnect
+        Sending.Player_Exited(Index);
     }
 
-    public static bool EstáJogando(byte Índice)
+    public static bool IsPlaying(byte Index)
     {
         // Verifica se o jogador está dentro do Game
-        if (Rede.EstáConectado(Índice))
-            if (Listas.TempJogador[Índice].Jogando)
+        if (Network.IsConnected(Index))
+            if (Lists.TempPlayer[Index].Playing)
                 return true;
 
         return false;
     }
 
-    public static byte Encontrar(string Nome)
+    public static byte Encontrar(string Name)
     {
         // Encontra o usuário
-        for (byte i = 1; i <= Listas.Jogador.GetUpperBound(0); i++)
-            if (Personagem(i).Nome == Nome)
+        for (byte i = 1; i <= Lists.Player.GetUpperBound(0); i++)
+            if (Character(i).Name == Name)
                 return i;
 
         return 0;
     }
 
-    public static byte EncontrarPersonagem(byte Índice, string Nome)
+    public static byte EncontrarCharacter(byte Index, string Name)
     {
-        // Encontra o personagem
-        for (byte i = 1; i <= Listas.Servidor_Dados.Máx_Personagens; i++)
-            if (Listas.Jogador[Índice].Personagem[i].Nome == Nome)
+        // Encontra o Character
+        for (byte i = 1; i <= Lists.Server_Data.Max_Characters; i++)
+            if (Lists.Player[Index].Character[i].Name == Name)
                 return i;
 
         return 0;
     }
 
-    public static bool PossuiPersonagens(byte Índice)
+    public static bool PossuiCharacters(byte Index)
     {
-        // Verifica se o jogador tem algum personagem
-        for (byte i = 1; i <= Listas.Servidor_Dados.Máx_Personagens; i++)
-            if (Listas.Jogador[Índice].Personagem[i].Nome != string.Empty)
+        // Verifica se o jogador tem algum Character
+        for (byte i = 1; i <= Lists.Server_Data.Max_Characters; i++)
+            if (Lists.Player[Index].Character[i].Name != string.Empty)
                 return true;
 
         return false;
     }
 
-    public static bool MúltiplasContas(string Usuário)
+    public static bool MultipleAccounts(string User)
     {
         // Verifica se já há alguém conectado com essa conta
-        for (byte i = 1; i <= Game.MaiorÍndice; i++)
-            if (Rede.EstáConectado(i))
-                if (Listas.Jogador[i].Usuário == Usuário)
+        for (byte i = 1; i <= Game.BiggerIndex; i++)
+            if (Network.IsConnected(i))
+                if (Lists.Player[i].User == User)
                     return true;
 
         return false;
     }
 
-    public static void Mover(byte Índice, byte Movimento)
+    public static void Move(byte Index, byte Movement)
     {
-        byte x = Personagem(Índice).X, y = Personagem(Índice).Y;
-        short Mapa_Num = Personagem(Índice).Mapa;
-        short Próximo_X = x, Próximo_Y = y;
-        short Ligação = Listas.Mapa[Mapa_Num].Ligação[(byte)Personagem(Índice).Direção];
+        byte x = Character(Index).X, y = Character(Index).Y;
+        short Map_Num = Character(Index).Map;
+        short Next_X = x, Next_Y = y;
+        short Ligação = Lists.Map[Map_Num].Ligação[(byte)Character(Index).Direction];
         bool OutroMovimento = false;
 
         // Previni erros
-        if (Movimento < 1 || Movimento > 2) return;
-        if (Listas.TempJogador[Índice].ObtendoMapa) return;
+        if (Movement < 1 || Movement > 2) return;
+        if (Lists.TempPlayer[Index].GettingMap) return;
 
-        // Próximo azulejo
-        Map.PróximoAzulejo(Personagem(Índice).Direção, ref Próximo_X, ref Próximo_Y);
+        // Próximo Tile
+        Map.NextTile(Character(Index).Direction, ref Next_X, ref Next_Y);
 
         // Ponto de ligação
-        if (Map.ForaDoLimite(Mapa_Num, Próximo_X, Próximo_Y))
+        if (Map.ForaDoLimite(Map_Num, Next_X, Next_Y))
         {
             if (Ligação > 0)
-                switch (Personagem(Índice).Direção)
+                switch (Character(Index).Direction)
                 {
-                    case Game.Direções.Acima: Transportar(Índice, Ligação, x, Listas.Mapa[Mapa_Num].Altura); break;
-                    case Game.Direções.Abaixo: Transportar(Índice, Ligação, x, 0); break;
-                    case Game.Direções.Direita: Transportar(Índice, Ligação, 0, y); break;
-                    case Game.Direções.Esquerda: Transportar(Índice, Ligação, Listas.Mapa[Mapa_Num].Largura, y); break;
+                    case Game.Location.Above: Transportar(Index, Ligação, x, Lists.Map[Map_Num].Height); break;
+                    case Game.Location.Below: Transportar(Index, Ligação, x, 0); break;
+                    case Game.Location.Right: Transportar(Index, Ligação, 0, y); break;
+                    case Game.Location.Left: Transportar(Index, Ligação, Lists.Map[Map_Num].Width, y); break;
                 }
             else
             {
-                Enviar.Jogador_Posição(Índice);
+                Sending.Player_Position(Index);
                 return;
             }
         }
         // Bloqueio
-        else if (!Map.Azulejo_Bloqueado(Mapa_Num, x, y, Personagem(Índice).Direção))
+        else if (!Map.Tile_Blocked(Map_Num, x, y, Character(Index).Direction))
         {
-            Personagem(Índice).X = (byte)Próximo_X;
-            Personagem(Índice).Y = (byte)Próximo_Y;
+            Character(Index).X = (byte)Next_X;
+            Character(Index).Y = (byte)Next_Y;
         }
 
-        // Atributos
-        Listas.Estruturas.Azulejo Azulejo = Listas.Mapa[Mapa_Num].Azulejo[Próximo_X, Próximo_Y];
+        // Attributes
+        Lists.Structures.Tile Tile = Lists.Map[Map_Num].Tile[Next_X, Next_Y];
 
-        switch ((Map.Atributos)Azulejo.Atributo)
+        switch ((Map.Attributes)Tile.Attribute)
         {
-            // Teletransporte
-            case Map.Atributos.Teletransporte:
-                if (Azulejo.Dado_4 > 0) Personagem(Índice).Direção = (Game.Direções)Azulejo.Dado_4 - 1;
-                Transportar(Índice, Azulejo.Dado_1, (byte)Azulejo.Dado_2, (byte)Azulejo.Dado_3);
+            // Teleportation
+            case Map.Attributes.Teleportation:
+                if (Tile.Dado_4 > 0) Character(Index).Direction = (Game.Location)Tile.Dado_4 - 1;
+                Transportar(Index, Tile.Dado_1, (byte)Tile.Dado_2, (byte)Tile.Dado_3);
                 OutroMovimento = true;
                 break;
         }
 
         // Envia os dados
-        if (!OutroMovimento && (x != Personagem(Índice).X || y != Personagem(Índice).Y))
-            Enviar.Jogador_Mover(Índice, Movimento);
+        if (!OutroMovimento && (x != Character(Index).X || y != Character(Index).Y))
+            Sending.Player_Move(Index, Movement);
         else
-            Enviar.Jogador_Posição(Índice);
+            Sending.Player_Position(Index);
     }
 
-    public static void Transportar(byte Índice, short Mapa, byte x, byte y)
+    public static void Transportar(byte Index, short Map, byte x, byte y)
     {
-        short Mapa_Antigo = Personagem(Índice).Mapa;
+        short Map_Antigo = Character(Index).Map;
 
-        // Evita que o jogador seja transportado para fora do limite
-        if (Mapa == 0) return;
-        if (x > Listas.Mapa[Mapa].Largura) x = Listas.Mapa[Mapa].Largura;
-        if (y > Listas.Mapa[Mapa].Altura) y = Listas.Mapa[Mapa].Altura;
+        // Prevents the player from being transported out of bounds
+        if (Map == 0) return;
+        if (x > Lists.Map[Map].Width) x = Lists.Map[Map].Width;
+        if (y > Lists.Map[Map].Height) y = Lists.Map[Map].Height;
         if (x < 0) x = 0;
         if (y < 0) y = 0;
 
-        // Define a Posição do jogador
-        Personagem(Índice).Mapa = Mapa;
-        Personagem(Índice).X = x;
-        Personagem(Índice).Y = y;
+        // Defines the position of the player
+        Character(Index).Map = Map;
+        Character(Index).X = x;
+        Character(Index).Y = y;
 
-        // Envia os dados dos NPCs
-        Enviar.Mapa_NPCs(Índice, Mapa);
+        // Sends the NPC data
+        Sending.Map_NPCs(Index, Map);
 
         // Envia os dados para os outros jogadores
-        if (Mapa_Antigo != Mapa)
-            Enviar.SairDoMapa(Índice, Mapa_Antigo);
+        if (Map_Antigo != Map)
+            Sending.Leave_Map(Index, Map_Antigo);
 
-        Enviar.Jogador_Posição(Índice);
+        Sending.Player_Position(Index);
 
         // Atualiza os valores
-        Listas.TempJogador[Índice].ObtendoMapa = true;
+        Lists.TempPlayer[Index].GettingMap = true;
 
-        // Verifica se será necessário enviar os dados do mapa para o jogador
-        Enviar.Mapa_Revisão(Índice, Mapa);
+        // Checks if it will be necessary Sending map data to the player
+        Sending.Map_Revisão(Index, Map);
     }
 
-    public static void Atacar(byte Índice)
+    public static void Attack(byte Index)
     {
-        short Próx_X = Personagem(Índice).X, Próx_Y = Personagem(Índice).Y;
-        byte Vítima_Índice;
+        short Next_X = Character(Index).X, Next_Y = Character(Index).Y;
+        byte Victim_Index;
 
-        // Próximo azulejo
-        Map.PróximoAzulejo(Personagem(Índice).Direção, ref Próx_X, ref Próx_Y);
+        // Next Tile
+        Map.NextTile(Character(Index).Direction, ref Next_X, ref Next_Y);
 
         // Apenas se necessário
-        if (Environment.TickCount < Personagem(Índice).Ataque_Tempo + 750) return;
-        if (Map.Azulejo_Bloqueado(Personagem(Índice).Mapa, Personagem(Índice).X, Personagem(Índice).Y, Personagem(Índice).Direção, false)) goto continuar;
+        if (Environment.TickCount < Character(Index).Attack_Time + 750) return;
+        if (Map.Tile_Blocked(Character(Index).Map, Character(Index).X, Character(Index).Y, Character(Index).Direction, false)) goto continuar;
 
         // Ataca um jogador
-        Vítima_Índice = Map.HáJogador(Personagem(Índice).Mapa, Próx_X, Próx_Y);
-        if (Vítima_Índice > 0)
+        Victim_Index = Map.ThereIsPlayer(Character(Index).Map, Next_X, Next_Y);
+        if (Victim_Index > 0)
         {
-            Atacar_Jogador(Índice, Vítima_Índice);
+            Attack_Player(Index, Victim_Index);
             return;
         }
 
         // Ataca um NPC
-        Vítima_Índice = Map.HáNPC(Personagem(Índice).Mapa, Próx_X, Próx_Y);
-        if (Vítima_Índice > 0)
+        Victim_Index = Map.ThereIsNPC(Character(Index).Map, Next_X, Next_Y);
+        if (Victim_Index > 0)
         {
-            Atacar_NPC(Índice, Vítima_Índice);
+            Attack_NPC(Index, Victim_Index);
             return;
         }
 
         continuar:
         // Demonstra que aos outros jogadores o ataque
-        Enviar.Jogador_Atacar(Índice, 0, 0);
-        Personagem(Índice).Ataque_Tempo = Environment.TickCount;
+        Sending.Player_Attack(Index, 0, 0);
+        Character(Index).Attack_Time = Environment.TickCount;
     }
 
-    public static void Atacar_Jogador(byte Índice, byte Vítima)
+    public static void Attack_Player(byte Index, byte Victim)
     {
         short Dano;
-        short x = Personagem(Índice).X, y = Personagem(Índice).Y;
+        short x = Character(Index).X, y = Character(Index).Y;
 
         // Define o azujelo a frente do jogador
-        Map.PróximoAzulejo(Personagem(Índice).Direção, ref x, ref y);
+        Map.NextTile(Character(Index).Direction, ref x, ref y);
 
-        // Verifica se a vítima pode ser atacada
-        if (!EstáJogando(Vítima)) return;
-        if (Listas.TempJogador[Vítima].ObtendoMapa) return;
-        if (Personagem(Índice).Mapa != Personagem(Vítima).Mapa) return;
-        if (Personagem(Vítima).X != x || Personagem(Vítima).Y != y) return;
-        if (Listas.Mapa[Personagem(Índice).Mapa].Moral == (byte)Map.Morais.Pacific)
+        // Verifica se a Victim pode ser atacada
+        if (!IsPlaying(Victim)) return;
+        if (Lists.TempPlayer[Victim].GettingMap) return;
+        if (Character(Index).Map != Character(Victim).Map) return;
+        if (Character(Victim).X != x || Character(Victim).Y != y) return;
+        if (Lists.Map[Character(Index).Map].Moral == (byte)Map.Morais.Pacific)
         {
-            Enviar.Mensagem(Índice, "This is a peaceful area.", Color.White);
+            Sending.Message(Index, "This is a peaceful area.", Color.White);
             return;
         }
 
         // Demonstra o ataque aos outros jogadores
-        Enviar.Jogador_Atacar(Índice, Vítima, (byte)Game.Alvo.Jogador);
+        Sending.Player_Attack(Index, Victim, (byte)Game.Target.Player);
 
         // Tempo de ataque 
-        Personagem(Índice).Ataque_Tempo = Environment.TickCount;
+        Character(Index).Attack_Time = Environment.TickCount;
 
         // Cálculo de dano
-        Dano = (short)(Personagem(Índice).Dano - Personagem(Vítima).Jogador_Defesa);
+        Dano = (short)(Character(Index).Damage - Character(Victim).Player_Defense);
 
         // Dano não fatal
-        if (Dano <= Personagem(Vítima).MáxVital((byte)Game.Vitais.Vida))
+        if (Dano <= Character(Victim).MaxVital((byte)Game.Vital.Life))
         {
-            Personagem(Vítima).Vital[(byte)Game.Vitais.Vida] -= Dano;
-            Enviar.Jogador_Vitais(Vítima);
+            Character(Victim).Vital[(byte)Game.Vital.Life] -= Dano;
+            Sending.Player_Vital(Victim);
         }
         // FATALITY
         else
         {
-            // Dá 10% da experiência da vítima ao atacante
-            Personagem(Índice).Experiência += (short)(Personagem(Vítima).Experiência / 10);
+            // Dá 10% da experiência da Victim ao atacante
+            Character(Index).Experience+= (short)(Character(Victim).Experience / 10);
 
-            // Mata a vítima
-            Morreu(Vítima);
+            // Mata a Victim
+            Died(Victim);
         }
     }
 
-    public static void Atacar_NPC(byte Índice, byte Vítima)
+    public static void Attack_NPC(byte Index, byte Victim)
     {
-        short Dano;
-        short x = Personagem(Índice).X, y = Personagem(Índice).Y;
-        Listas.Estruturas.Mapa_NPCs NPC = Listas.Mapa[Personagem(Índice).Mapa].Temp_NPC[Vítima];
+        short Damage;
+        short x = Character(Index).X, y = Character(Index).Y;
+        Lists.Structures.Map_NPCs NPC = Lists.Map[Character(Index).Map].Temp_NPC[Victim];
 
         // Define o azujelo a frente do jogador
-        Map.PróximoAzulejo(Personagem(Índice).Direção, ref x, ref y);
+        Map.NextTile(Character(Index).Direction, ref x, ref y);
 
-        // Verifica se a vítima pode ser atacada
+        // Verifica se a Victim pode ser atacada
         if (NPC.X != x || NPC.Y != y) return;
-        if (Listas.NPC[NPC.Índice].Agressividade == (byte)global::NPC.Aggressiveness.Passive) return;
+        if (Lists.NPC[NPC.Index].Aggressiveness == (byte)global::NPC.Aggressiveness.Passive) return;
 
         // Define o alvo do NPC
-        Listas.Mapa[Personagem(Índice).Mapa].Temp_NPC[Vítima].Alvo_Índice = Índice;
-        Listas.Mapa[Personagem(Índice).Mapa].Temp_NPC[Vítima].Alvo_Tipo = (byte)Game.Alvo.Jogador;
+        Lists.Map[Character(Index).Map].Temp_NPC[Victim].Target_Index = Index;
+        Lists.Map[Character(Index).Map].Temp_NPC[Victim].Target_Type = (byte)Game.Target.Player;
 
         // Demonstra o ataque aos outros jogadores
-        Enviar.Jogador_Atacar(Índice, Vítima, (byte)Game.Alvo.NPC);
+        Sending.Player_Attack(Index, Victim, (byte)Game.Target.NPC);
 
         // Tempo de ataque 
-        Personagem(Índice).Ataque_Tempo = Environment.TickCount;
+        Character(Index).Attack_Time = Environment.TickCount;
 
         // Cálculo de dano
-        Dano = (short)(Personagem(Índice).Dano - Listas.NPC[NPC.Índice].Atributo[(byte)Game.Atributos.Resistência]);
+        Damage = (short)(Character(Index).Damage - Lists.NPC[NPC.Index].Attribute[(byte)Game.Attributes.Resistance]);
 
         // Dano não fatal
-        if (Dano < Listas.Mapa[Personagem(Índice).Mapa].Temp_NPC[Vítima].Vital[(byte)Game.Vitais.Vida])
+        if (Damage < Lists.Map[Character(Index).Map].Temp_NPC[Victim].Vital[(byte)Game.Vital.Life])
         {
-            Listas.Mapa[Personagem(Índice).Mapa].Temp_NPC[Vítima].Vital[(byte)Game.Vitais.Vida] -= Dano;
-            Enviar.Mapa_NPC_Vitais(Personagem(Índice).Mapa, Vítima);
+            Lists.Map[Character(Index).Map].Temp_NPC[Victim].Vital[(byte)Game.Vital.Life] -= Damage;
+            Sending.Map_NPC_Vital(Character(Index).Map, Victim);
         }
         // FATALITY
         else
         {
-            // Experiência ganhada
-            Personagem(Índice).Experiência += Listas.NPC[NPC.Índice].Experiência;
+            // Experience gained
+            Character(Index).Experience += Lists.NPC[NPC.Index].Experience;
 
-            // Reseta os dados do NPC 
-            global::NPC.Morreu(Personagem(Índice).Mapa, Vítima);
+            // Reset the NPC data 
+            global::NPC.Died(Character(Index).Map, Victim);
         }
     }
 
-    public static void Morreu(byte Índice)
+    public static void Died(byte Index)
     {
-        Listas.Estruturas.Classes Dados = Listas.Classe[Personagem(Índice).Classe];
+        Lists.Structures.Classes Data = Lists.Classe[Character(Index).Classe];
 
-        // Recupera os vitais
-        for (byte n = 0; n <= (byte)Game.Vitais.Quantidade - 1; n++)
-            Personagem(Índice).Vital[n] = Personagem(Índice).MáxVital(n);
+        // Get back the vital
+        for (byte n = 0; n <= (byte)Game.Vital.Amount - 1; n++)
+            Character(Index).Vital[n] = Character(Index).MaxVital(n);
 
-        // Perde 10% da experiência
-        Personagem(Índice).Experiência /= 10;
-        Enviar.Jogador_Experiência(Índice);
+        //You lose 10% of the experience
+        Character(Index).Experience /= 10;
+        Sending.Player_Experience(Index);
 
-        // Retorna para o ínicio
-        Personagem(Índice).Direção = (Game.Direções)Dados.Aparecer_Direção;
-        Transportar(Índice, Dados.Aparecer_Mapa, Dados.Aparecer_X, Dados.Aparecer_Y);
+        //Back to top
+        Character(Index).Direction = (Game.Location)Data.Appearance_Direction;
+        Transportar(Index, Data.Appearance_Map, Data.Appearance_X, Data.Appearance_Y);
     }
 
-    public static void Lógica()
+    public static void Logic()
     {
         // Lógica dos NPCs
-        for (byte i = 1; i <= Game.MaiorÍndice; i++)
+        for (byte i = 1; i <= Game.BiggerIndex; i++)
         {
             // Não é necessário
-            if (!EstáJogando(i)) continue;
+            if (!IsPlaying(i)) continue;
 
             ///////////////
             // Reneração // 
             ///////////////
             if (Environment.TickCount > Tie.Score_Player_Reneration + 5000)
-                for (byte v = 0; v <= (byte)Game.Vitais.Quantidade - 1; v++)
-                    if (Personagem(i).Vital[v] < Personagem(i).MáxVital(v))
+                for (byte v = 0; v <= (byte)Game.Vital.Amount - 1; v++)
+                    if (Character(i).Vital[v] < Character(i).MaxVital(v))
                     {
                         // Renera a vida do jogador
-                        Personagem(i).Vital[v] += Personagem(i).Regeneração(v);
-                        if (Personagem(i).Vital[v] > Personagem(i).MáxVital(v)) Personagem(i).Vital[v] = Personagem(i).MáxVital(v);
+                        Character(i).Vital[v] += Character(i).Regeneration(v);
+                        if (Character(i).Vital[v] > Character(i).MaxVital(v)) Character(i).Vital[v] = Character(i).MaxVital(v);
 
                         // Envia os dados aos jogadores
-                        Enviar.Jogador_Vitais(i);
+                        Sending.Player_Vital(i);
                     }
         }
 
@@ -449,169 +449,169 @@ class Player
         if (Environment.TickCount > Tie.Score_Player_Reneration + 5000) Tie.Score_Player_Reneration = Environment.TickCount;
     }
 
-    public static void VerificarLevel(byte Índice)
+    public static void CheckLevel(byte Index)
     {
         byte NumLevel = 0; short ExpSobrando;
 
         // Previni erros
-        if (!EstáJogando(Índice)) return;
+        if (!IsPlaying(Index)) return;
 
-        while (Personagem(Índice).Experiência >= Personagem(Índice).ExpNecessária)
+        while (Character(Index).Experience >= Character(Index).ExpRequired)
         {
             NumLevel += 1;
-            ExpSobrando = (short)(Personagem(Índice).Experiência - Personagem(Índice).ExpNecessária);
+            ExpSobrando = (short)(Character(Index).Experience - Character(Index).ExpRequired);
 
             // Define os dados
-            Personagem(Índice).Level += 1;
-            Personagem(Índice).Pontos += 3;
-            Personagem(Índice).Experiência = ExpSobrando;
+            Character(Index).Level += 1;
+            Character(Index).Points += 3;
+            Character(Index).Experience = ExpSobrando;
         }
 
         // Envia os dados
-        Enviar.Jogador_Experiência(Índice);
-        if (NumLevel > 0) Enviar.Jogadores_Dados_Mapa(Índice);
+        Sending.Player_Experience(Index);
+        if (NumLevel > 0) Sending.Players_Data_Map(Index);
     }
 
-    public static bool DarItem(byte Índice, short Item_Num, short Quantidade)
+    public static bool GiveItem(byte Index, short Item_Num, short Amount)
     {
-        byte Slot_Item = EncontrarInventário(Índice, Item_Num);
-        byte Slot_Vazio = EncontrarInventário(Índice, 0);
+        byte Slot_Item = EncontrarInventory(Index, Item_Num);
+        byte Slot_Vazio = EncontrarInventory(Index, 0);
 
         // Somente se necessário
         if (Item_Num == 0) return false;
         if (Slot_Vazio == 0) return false;
-        if (Quantidade == 0) Quantidade = 1;
+        if (Amount == 0) Amount = 1;
 
-        // Empilhável
-        if (Slot_Item > 0 && Listas.Item[Item_Num].Empilhável)
-            Personagem(Índice).Inventário[Slot_Item].Quantidade += Quantidade;
-        // Não empilhável
+        // Stackable
+        if (Slot_Item > 0 && Lists.Item[Item_Num].Empilhável)
+            Character(Index).Inventory[Slot_Item].Amount += Amount;
+        //Non-stackable
         else
         {
-            Personagem(Índice).Inventário[Slot_Vazio].Item_Num = Item_Num;
-            Personagem(Índice).Inventário[Slot_Vazio].Quantidade = Quantidade;
+            Character(Index).Inventory[Slot_Vazio].Item_Num = Item_Num;
+            Character(Index).Inventory[Slot_Vazio].Amount = Amount;
         }
 
-        // Envia os dados ao jogador
-        Enviar.Jogador_Inventário(Índice);
+        //Sends the data to the player
+        Sending.Player_Inventory(Index);
         return true;
     }
 
-    public static void SoltarItem(byte Índice, byte Slot)
+    public static void SoltarItem(byte Index, byte Slot)
     {
-        short Mapa_Num = Personagem(Índice).Mapa;
-        Listas.Estruturas.Mapa_Itens Mapa_Item = new Listas.Estruturas.Mapa_Itens();
+        short Map_Num = Character(Index).Map;
+        Lists.Structures.Map_Items Map_Item = new Lists.Structures.Map_Items();
 
         // Somente se necessário
-        if (Listas.Mapa[Mapa_Num].Temp_Item.Count == Game.Max_Mapa_Itens) return;
-        if (Personagem(Índice).Inventário[Slot].Item_Num == 0) return;
-        if (Listas.Item[Personagem(Índice).Inventário[Slot].Item_Num].NãoDropável) return;
+        if (Lists.Map[Map_Num].Temp_Item.Count == Game.Max_Map_Items) return;
+        if (Character(Index).Inventory[Slot].Item_Num == 0) return;
+        if (Lists.Item[Character(Index).Inventory[Slot].Item_Num].NãoDropável) return;
 
         // Solta o item no chão
-        Mapa_Item.Índice = Personagem(Índice).Inventário[Slot].Item_Num;
-        Mapa_Item.Quantidade = Personagem(Índice).Inventário[Slot].Quantidade;
-        Mapa_Item.X = Personagem(Índice).X;
-        Mapa_Item.Y = Personagem(Índice).Y;
-        Listas.Mapa[Mapa_Num].Temp_Item.Add(Mapa_Item);
-        Enviar.Mapa_Itens(Mapa_Num);
+        Map_Item.Index = Character(Index).Inventory[Slot].Item_Num;
+        Map_Item.Amount = Character(Index).Inventory[Slot].Amount;
+        Map_Item.X = Character(Index).X;
+        Map_Item.Y = Character(Index).Y;
+        Lists.Map[Map_Num].Temp_Item.Add(Map_Item);
+        Sending.Map_Items(Map_Num);
 
-        // Retira o item do inventário do jogador 
-        Personagem(Índice).Inventário[Slot].Item_Num = 0;
-        Personagem(Índice).Inventário[Slot].Quantidade = 0;
-        Enviar.Jogador_Inventário(Índice);
+        // Retira o item do Inventory do jogador 
+        Character(Index).Inventory[Slot].Item_Num = 0;
+        Character(Index).Inventory[Slot].Amount = 0;
+        Sending.Player_Inventory(Index);
     }
 
-    public static void UsarItem(byte Índice, byte Slot)
+    public static void UseItem(byte Index, byte Slot)
     {
-        short Item_Num = Personagem(Índice).Inventário[Slot].Item_Num;
+        short Item_Num = Character(Index).Inventory[Slot].Item_Num;
 
         // Somente se necessário
         if (Item_Num == 0) return;
 
         // Requerimentos
-        if (Personagem(Índice).Level < Listas.Item[Item_Num].Req_Level)
+        if (Character(Index).Level < Lists.Item[Item_Num].Req_Level)
         {
-            Enviar.Mensagem(Índice, "You do not have the level required to use this item.", Color.White);
+            Sending.Message(Index, "You do not have the level required to use this item.", Color.White);
             return;
         }
-        if (Listas.Item[Item_Num].Req_Classe > 0)
-            if (Personagem(Índice).Classe != Listas.Item[Item_Num].Req_Classe)
+        if (Lists.Item[Item_Num].Req_Classe > 0)
+            if (Character(Index).Classe != Lists.Item[Item_Num].Req_Classe)
             {
-                Enviar.Mensagem(Índice, "You can not use this item.", Color.White);
+                Sending.Message(Index, "You can not use this item.", Color.White);
                 return;
             }
 
-        if (Listas.Item[Item_Num].Tipo == (byte)Game.Itens.Equipamento)
+        if (Lists.Item[Item_Num].Type == (byte)Game.Items.Equipment)
         {
             // Retira o item da hotbar
-            byte HotbarSlot = EncontrarHotbar(Índice, (byte)Game.Hotbar.Item, Slot);
-            Personagem(Índice).Hotbar[HotbarSlot].Tipo = 0;
-            Personagem(Índice).Hotbar[HotbarSlot].Slot = 0;
+            byte HotbarSlot = EncontrarHotbar(Index, (byte)Game.Hotbar.Item, Slot);
+            Character(Index).Hotbar[HotbarSlot].Type = 0;
+            Character(Index).Hotbar[HotbarSlot].Slot = 0;
 
-            // Retira o item do inventário
-            Personagem(Índice).Inventário[Slot].Item_Num = 0;
-            Personagem(Índice).Inventário[Slot].Quantidade = 0;
+            // Retira o item do Inventory
+            Character(Index).Inventory[Slot].Item_Num = 0;
+            Character(Index).Inventory[Slot].Amount = 0;
 
             // Caso já estiver com algum equipamento, desequipa ele
-            if (Personagem(Índice).Equipamento[Listas.Item[Item_Num].Equip_Tipo] > 0) DarItem(Índice, Item_Num, 1);
+            if (Character(Index).Equipment[Lists.Item[Item_Num].Equip_Type] > 0) GiveItem(Index, Item_Num, 1);
 
             // Equipa o item
-            Personagem(Índice).Equipamento[Listas.Item[Item_Num].Equip_Tipo] = Item_Num;
-            for (byte i = 0; i <= (byte)Game.Atributos.Quantidade - 1; i++) Personagem(Índice).Atributo[i] += Listas.Item[Item_Num].Equip_Atributo[i];
+            Character(Index).Equipment[Lists.Item[Item_Num].Equip_Type] = Item_Num;
+            for (byte i = 0; i <= (byte)Game.Attributes.Amount - 1; i++) Character(Index).Attribute[i] += Lists.Item[Item_Num].Equip_Attribute[i];
 
             // Envia os dados
-            Enviar.Jogador_Inventário(Índice);
-            Enviar.Jogador_Equipamentos(Índice);
-            Enviar.Jogador_Hotbar(Índice);
+            Sending.Player_Inventory(Index);
+            Sending.Player_Equipment(Index);
+            Sending.Player_Hotbar(Index);
         }
-        else if (Listas.Item[Item_Num].Tipo == (byte)Game.Itens.Poção)
+        else if (Lists.Item[Item_Num].Type == (byte)Game.Items.Potion)
         {
             // Efeitos
             bool TeveEfeito = false;
-            Personagem(Índice).Experiência += Listas.Item[Item_Num].Poção_Experiência;
-            if (Personagem(Índice).Experiência < 0) Personagem(Índice).Experiência = 0;
-            for (byte i = 0; i <= (byte)Game.Vitais.Quantidade - 1; i++)
+            Character(Index).Experience += Lists.Item[Item_Num].Potion_Experience;
+            if (Character(Index).Experience < 0) Character(Index).Experience = 0;
+            for (byte i = 0; i <= (byte)Game.Vital.Amount - 1; i++)
             {
                 // Verifica se o item causou algum efeito 
-                if (Personagem(Índice).Vital[i] < Personagem(Índice).MáxVital(i) && Listas.Item[Item_Num].Poção_Vital[i] != 0) TeveEfeito = true;
+                if (Character(Index).Vital[i] < Character(Index).MaxVital(i) && Lists.Item[Item_Num].Potion_Vital[i] != 0) TeveEfeito = true;
 
                 // Efeito
-                Personagem(Índice).Vital[i] += Listas.Item[Item_Num].Poção_Vital[i];
+                Character(Index).Vital[i] += Lists.Item[Item_Num].Potion_Vital[i];
 
                 // Impede que passe dos limites
-                if (Personagem(Índice).Vital[i] < 0) Personagem(Índice).Vital[i] = 0;
-                if (Personagem(Índice).Vital[i] > Personagem(Índice).MáxVital(i)) Personagem(Índice).Vital[i] = Personagem(Índice).MáxVital(i);
+                if (Character(Index).Vital[i] < 0) Character(Index).Vital[i] = 0;
+                if (Character(Index).Vital[i] > Character(Index).MaxVital(i)) Character(Index).Vital[i] = Character(Index).MaxVital(i);
             }
 
             // Foi fatal
-            if (Personagem(Índice).Vital[(byte)Game.Vitais.Vida] == 0) Morreu(Índice);
+            if (Character(Index).Vital[(byte)Game.Vital.Life] == 0) Died(Index);
 
             // Remove o item caso tenha tido algum efeito
-            if (Listas.Item[Item_Num].Poção_Experiência > 0 || TeveEfeito)
+            if (Lists.Item[Item_Num].Potion_Experience > 0 || TeveEfeito)
             {
-                Personagem(Índice).Inventário[Slot].Item_Num = 0;
-                Personagem(Índice).Inventário[Slot].Quantidade = 0;
-                Enviar.Jogador_Inventário(Índice);
-                Enviar.Jogador_Vitais(Índice);
+                Character(Index).Inventory[Slot].Item_Num = 0;
+                Character(Index).Inventory[Slot].Amount = 0;
+                Sending.Player_Inventory(Index);
+                Sending.Player_Vital(Index);
             }
         }
     }
 
-    public static byte EncontrarHotbar(byte Índice, byte Tipo, byte Slot)
+    public static byte EncontrarHotbar(byte Index, byte Type, byte Slot)
     {
         // Encontra algo especifico na hotbar
         for (byte i = 1; i <= Game.Max_Hotbar; i++)
-            if (Personagem(Índice).Hotbar[i].Tipo == Tipo && Personagem(Índice).Hotbar[i].Slot == Slot)
+            if (Character(Index).Hotbar[i].Type == Type && Character(Index).Hotbar[i].Slot == Slot)
                 return i;
 
         return 0;
     }
 
-    public static byte EncontrarInventário(byte Índice, short Item_Num)
+    public static byte EncontrarInventory(byte Index, short Item_Num)
     {
-        // Encontra algo especifico na hotbar
-        for (byte i = 1; i <= Game.Max_Inventário; i++)
-            if (Personagem(Índice).Inventário[i].Item_Num == Item_Num)
+        // Find something specific in hotbar
+        for (byte i = 1; i <= Game.Max_Inventory; i++)
+            if (Character(Index).Inventory[i].Item_Num == Item_Num)
                 return i;
 
         return 0;

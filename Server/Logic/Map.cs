@@ -13,38 +13,38 @@ class Map
         Amount
     }
 
-    public enum Camadas
+    public enum Layers
     {
-        Chão,
-        Telhado,
-        Quantidade
+        Floor,
+        Roof,
+        Amount
     }
 
-    public enum Atributos
+    public enum Attributes
     {
         Nenhum,
-        Bloqueio,
-        Teletransporte,
+        Block,
+        Teleportation,
         Item,
-        Quantidade
+        Amount
     }
 
-    public static void Lógica()
+    public static void Logic()
     {
-        for (byte i = 1; i <= Listas.Mapa.GetUpperBound(0); i++)
+        for (byte i = 1; i <= Lists.Map.GetUpperBound(0); i++)
         {
-            // Não é necessário fazer todos os cálculos se não houver nenhum jogador no mapa
-            if (!HáJogadores(i)) continue;
+            // Não é necessário fazer todos os cálculos se não houver nenhum jogador no Map
+            if (!ThereIsPlayers(i)) continue;
 
             // Lógica dos NPCs
-            NPC.Lógica(i);
+            NPC.Logic(i);
 
-            // Faz reaparecer todos os itens do mapa
+            // Faz reaparecer todos os itens do Map
             if (Environment.TickCount > Tie.Score_Map_Items + 300000)
             {
-                Listas.Mapa[i].Temp_Item = new System.Collections.Generic.List<Listas.Estruturas.Mapa_Itens>();
-                Aparecer_Itens(i);
-                Enviar.Mapa_Itens(i);
+                Lists.Map[i].Temp_Item = new System.Collections.Generic.List<Lists.Structures.Map_Items>();
+                Appearance_Items(i);
+                Sending.Map_Items(i);
             }
         }
 
@@ -53,240 +53,240 @@ class Map
         if (Environment.TickCount > Tie.Score_Map_Items + 300000) Tie.Score_Map_Items = Environment.TickCount;
     }
 
-    public static byte HáNPC(short Mapa_Num, short X, short Y)
+    public static byte ThereIsNPC(short Map_Num, short X, short Y)
     {
         // Verifica se há algum npc na cordenada
-        for (byte i = 1; i <= Listas.Mapa[Mapa_Num].Temp_NPC.GetUpperBound(0); i++)
-            if (Listas.Mapa[Mapa_Num].Temp_NPC[i].Índice > 0)
-                if (Listas.Mapa[Mapa_Num].Temp_NPC[i].X == X && Listas.Mapa[Mapa_Num].Temp_NPC[i].Y == Y)
+        for (byte i = 1; i <= Lists.Map[Map_Num].Temp_NPC.GetUpperBound(0); i++)
+            if (Lists.Map[Map_Num].Temp_NPC[i].Index > 0)
+                if (Lists.Map[Map_Num].Temp_NPC[i].X == X && Lists.Map[Map_Num].Temp_NPC[i].Y == Y)
                     return i;
 
         return 0;
     }
 
-    public static byte HáJogador(short Mapa_Num, short X, short Y)
+    public static byte ThereIsPlayer(short Map_Num, short X, short Y)
     {
         // Verifica se há algum Jogador na cordenada
-        for (byte i = 1; i <= Game.MaiorÍndice; i++)
-            if (Player.EstáJogando(i))
-                if (Player.Personagem(i).X == X && Player.Personagem(i).Y == Y && Player.Personagem(i).Mapa == Mapa_Num)
+        for (byte i = 1; i <= Game.BiggerIndex; i++)
+            if (Player.IsPlaying(i))
+                if (Player.Character(i).X == X && Player.Character(i).Y == Y && Player.Character(i).Map == Map_Num)
                     return i;
 
         return 0;
     }
 
-    public static bool HáJogadores(short Mapa_Num)
+    public static bool ThereIsPlayers(short Map_Num)
     {
-        // Verifica se tem algum jogador no mapa
-        for (byte i = 1; i <= Game.MaiorÍndice; i++)
-            if (Player.EstáJogando(i))
-                if (Player.Personagem(i).Mapa == Mapa_Num)
+        // Verifica se tem algum jogador no Map
+        for (byte i = 1; i <= Game.BiggerIndex; i++)
+            if (Player.IsPlaying(i))
+                if (Player.Character(i).Map == Map_Num)
                     return true;
 
         return false;
     }
 
-    public static byte HáItem(short Mapa_Num, byte X, byte Y)
+    public static byte ThereIsItem(short Map_Num, byte X, byte Y)
     {
         // Verifica se tem algum item nas coordenadas 
-        for (byte i = (byte)(Listas.Mapa[Mapa_Num].Temp_Item.Count - 1); i >= 1; i--)
-            if (Listas.Mapa[Mapa_Num].Temp_Item[i].X == X && Listas.Mapa[Mapa_Num].Temp_Item[i].Y == Y)
+        for (byte i = (byte)(Lists.Map[Map_Num].Temp_Item.Count - 1); i >= 1; i--)
+            if (Lists.Map[Map_Num].Temp_Item[i].X == X && Lists.Map[Map_Num].Temp_Item[i].Y == Y)
                 return i;
 
         return 0;
     }
 
-    public static bool ForaDoLimite(short Mapa_Num, short X, short Y)
+    public static bool ForaDoLimite(short Map_Num, short X, short Y)
     {
-        // Verifica se as coordenas estão no limite do mapa
-        if (X > Listas.Mapa[Mapa_Num].Largura || Y > Listas.Mapa[Mapa_Num].Altura || X < 0 || Y < 0)
+        // Verifica se as coordenas estão no limite do Map
+        if (X > Lists.Map[Map_Num].Width || Y > Lists.Map[Map_Num].Height || X < 0 || Y < 0)
             return true;
         else
             return false;
     }
 
-    public static void PróximoAzulejo(Game.Direções Direção, ref short X, ref short Y)
+    public static void NextTile(Game.Location Direction, ref short X, ref short Y)
     {
-        // Próximo azulejo
-        switch (Direção)
+        // Next Tile
+        switch (Direction)
         {
-            case Game.Direções.Acima: Y -= 1; break;
-            case Game.Direções.Abaixo: Y += 1; break;
-            case Game.Direções.Direita: X += 1; break;
-            case Game.Direções.Esquerda: X -= 1; break;
+            case Game.Location.Above: Y -= 1; break;
+            case Game.Location.Below: Y += 1; break;
+            case Game.Location.Right: X += 1; break;
+            case Game.Location.Left: X -= 1; break;
         }
     }
 
-    public static bool Azulejo_Bloqueado(short Mapa_Num, short X, short Y)
+    public static bool Tile_Blocked(short Map_Num, short X, short Y)
     {
-        // Verifica se o azulejo está bloqueado
-        if (ForaDoLimite(Mapa_Num, X, Y))
+        // Verifica se o Tile está bloqueado
+        if (ForaDoLimite(Map_Num, X, Y))
             return true;
-        else if (Listas.Mapa[Mapa_Num].Azulejo[X, Y].Atributo == (byte)Atributos.Bloqueio)
+        else if (Lists.Map[Map_Num].Tile[X, Y].Attribute == (byte)Attributes.Block)
             return true;
 
         return false;
     }
 
-    public static bool Azulejo_Bloqueado(short Mapa_Num, short X, short Y, Game.Direções Direção, bool ContarPersonagens = true)
+    public static bool Tile_Blocked(short Map_Num, short X, short Y, Game.Location Direction, bool ContarPersonagens = true)
     {
-        short Próximo_X = X, Próximo_Y = Y;
+        short Next_X = X, Next_Y = Y;
 
-        // Próximo azulejo
-        PróximoAzulejo(Direção, ref Próximo_X, ref Próximo_Y);
+        // Next Tile
+        NextTile(Direction, ref Next_X, ref Next_Y);
 
-        // Verifica se o azulejo está bloqueado
-        if (Azulejo_Bloqueado(Mapa_Num, (byte)Próximo_X, (byte)Próximo_Y))
+        // Verifica se o Tile está bloqueado
+        if (Tile_Blocked(Map_Num, (byte)Next_X, (byte)Next_Y))
             return true;
-        else if (Listas.Mapa[Mapa_Num].Azulejo[Próximo_X, Próximo_Y].Bloqueio[(byte)Game.DireçãoInversa(Direção)])
+        else if (Lists.Map[Map_Num].Tile[Next_X, Next_Y].Block[(byte)Game.InverseDirection(Direction)])
             return true;
-        else if (Listas.Mapa[Mapa_Num].Azulejo[X, Y].Bloqueio[(byte)Direção])
+        else if (Lists.Map[Map_Num].Tile[X, Y].Block[(byte)Direction])
             return true;
-        else if (ContarPersonagens && (HáJogador(Mapa_Num, Próximo_X, Próximo_Y) > 0 || HáNPC(Mapa_Num, Próximo_X, Próximo_Y) > 0))
+        else if (ContarPersonagens && (ThereIsPlayer(Map_Num, Next_X, Next_Y) > 0 || ThereIsNPC(Map_Num, Next_X, Next_Y) > 0))
             return true;
 
         return false;
     }
 
-    public static void Aparecer_Itens(short Mapa_Num)
+    public static void Appearance_Items(short Map_Num)
     {
-        Listas.Estruturas.Mapas Dados = Listas.Mapa[Mapa_Num];
-        Listas.Estruturas.Mapa_Itens Item = new Listas.Estruturas.Mapa_Itens();
+        Lists.Structures.Maps Data = Lists.Map[Map_Num];
+        Lists.Structures.Map_Items Item = new Lists.Structures.Map_Items();
 
-        // Verifica se tem algum atributo de item no mapa
-        for (byte x = 0; x <= Dados.Largura; x++)
-            for (byte y = 0; y <= Dados.Altura; y++)
-                if (Dados.Azulejo[x, y].Atributo == (byte)Atributos.Item)
+        // Verifica se tem algum atributo de item no Map
+        for (byte x = 0; x <= Data.Width; x++)
+            for (byte y = 0; y <= Data.Height; y++)
+                if (Data.Tile[x, y].Attribute == (byte)Attributes.Item)
                 {
                     // Faz o item aparecer
-                    Item.Índice = Dados.Azulejo[x, y].Dado_1;
-                    Item.Quantidade = Dados.Azulejo[x, y].Dado_2;
+                    Item.Index = Data.Tile[x, y].Dado_1;
+                    Item.Amount = Data.Tile[x, y].Dado_2;
                     Item.X = x;
                     Item.Y = y;
-                    Listas.Mapa[Mapa_Num].Temp_Item.Add(Item);
+                    Lists.Map[Map_Num].Temp_Item.Add(Item);
                 }
     }
 }
 
-partial class Ler
+partial class Read
 {
-    public static void Mapas()
+    public static void Maps()
     {
-        Listas.Mapa = new Listas.Estruturas.Mapas[Listas.Servidor_Dados.Num_Mapas + 1];
+        Lists.Map = new Lists.Structures.Maps[Lists.Server_Data.Num_Maps + 1];
 
-        // Lê os dados
-        for (short i = 1; i <= Listas.Mapa.GetUpperBound(0); i++)
-            Mapa(i);
+        // Lê os Data
+        for (short i = 1; i <= Lists.Map.GetUpperBound(0); i++)
+            Map(i);
     }
 
-    public static void Mapa(short Índice)
+    public static void Map(short Index)
     {
-        // Cria um sistema binário para a manipulação dos dados
-        FileInfo Arquivo = new FileInfo(Diretórios.Mapas.FullName + Índice + Diretórios.Formato);
-        BinaryReader Binário = new BinaryReader(Arquivo.OpenRead());
+        // Cria um sistema Binary para a manipulação dos Data
+        FileInfo Archive = new FileInfo(Directories.Maps.FullName + Index + Directories.Format);
+        BinaryReader Binary = new BinaryReader(Archive.OpenRead());
 
-        // Lê os dados
-        Listas.Mapa[Índice].Revisão = Binário.ReadInt16();
-        Listas.Mapa[Índice].Nome = Binário.ReadString();
-        Listas.Mapa[Índice].Largura = Binário.ReadByte();
-        Listas.Mapa[Índice].Altura = Binário.ReadByte();
-        Listas.Mapa[Índice].Moral = Binário.ReadByte();
-        Listas.Mapa[Índice].Panorama = Binário.ReadByte();
-        Listas.Mapa[Índice].Música = Binário.ReadByte();
-        Listas.Mapa[Índice].Coloração = Binário.ReadInt32();
-        Listas.Mapa[Índice].Clima.Tipo = Binário.ReadByte();
-        Listas.Mapa[Índice].Clima.Intensidade = Binário.ReadByte();
-        Listas.Mapa[Índice].Fumaça.Textura = Binário.ReadByte();
-        Listas.Mapa[Índice].Fumaça.VelocidadeX = Binário.ReadSByte();
-        Listas.Mapa[Índice].Fumaça.VelocidadeY = Binário.ReadSByte();
-        Listas.Mapa[Índice].Fumaça.Transparência = Binário.ReadByte();
-        Listas.Mapa[Índice].LuzGlobal = Binário.ReadByte();
-        Listas.Mapa[Índice].Iluminação = Binário.ReadByte();
+        // Lê os Data
+        Lists.Map[Index].Revisão = Binary.ReadInt16();
+        Lists.Map[Index].Name = Binary.ReadString();
+        Lists.Map[Index].Width = Binary.ReadByte();
+        Lists.Map[Index].Height = Binary.ReadByte();
+        Lists.Map[Index].Moral = Binary.ReadByte();
+        Lists.Map[Index].Panorama = Binary.ReadByte();
+        Lists.Map[Index].Music = Binary.ReadByte();
+        Lists.Map[Index].Coloração = Binary.ReadInt32();
+        Lists.Map[Index].Climate.Type = Binary.ReadByte();
+        Lists.Map[Index].Climate.Intensity = Binary.ReadByte();
+        Lists.Map[Index].Smoke.Texture = Binary.ReadByte();
+        Lists.Map[Index].Smoke.VelocityX = Binary.ReadSByte();
+        Lists.Map[Index].Smoke.VelocityY = Binary.ReadSByte();
+        Lists.Map[Index].Smoke.Transparency = Binary.ReadByte();
+        Lists.Map[Index].LightGlobal = Binary.ReadByte();
+        Lists.Map[Index].Iluminação = Binary.ReadByte();
 
         // Ligações
-        Listas.Mapa[Índice].Ligação = new short[(byte)Game.Direções.Quantidade];
-        for (short i = 0; i <= (short)Game.Direções.Quantidade - 1; i++)
-            Listas.Mapa[Índice].Ligação[i] = Binário.ReadInt16();
+        Lists.Map[Index].Ligação = new short[(byte)Game.Location.Amount];
+        for (short i = 0; i <= (short)Game.Location.Amount - 1; i++)
+            Lists.Map[Index].Ligação[i] = Binary.ReadInt16();
 
-        // Azulejos
-        Mapa_Azulejos(Índice, Binário);
+        // Tiles
+        Map_Tiles(Index, Binary);
 
-        // Dados específicos dos azulejos
-        for (byte x = 0; x <= Listas.Mapa[Índice].Largura; x++)
-            for (byte y = 0; y <= Listas.Mapa[Índice].Altura; y++)
+        // Tiles specific data
+        for (byte x = 0; x <= Lists.Map[Index].Width; x++)
+            for (byte y = 0; y <= Lists.Map[Index].Height; y++)
             {
-                Listas.Mapa[Índice].Azulejo[x, y].Atributo = Binário.ReadByte();
-                Listas.Mapa[Índice].Azulejo[x, y].Dado_1 = Binário.ReadInt16();
-                Listas.Mapa[Índice].Azulejo[x, y].Dado_2 = Binário.ReadInt16();
-                Listas.Mapa[Índice].Azulejo[x, y].Dado_3 = Binário.ReadInt16();
-                Listas.Mapa[Índice].Azulejo[x, y].Dado_4 = Binário.ReadInt16();
-                Listas.Mapa[Índice].Azulejo[x, y].Zona = Binário.ReadByte();
+                Lists.Map[Index].Tile[x, y].Attribute = Binary.ReadByte();
+                Lists.Map[Index].Tile[x, y].Dado_1 = Binary.ReadInt16();
+                Lists.Map[Index].Tile[x, y].Dado_2 = Binary.ReadInt16();
+                Lists.Map[Index].Tile[x, y].Dado_3 = Binary.ReadInt16();
+                Lists.Map[Index].Tile[x, y].Dado_4 = Binary.ReadInt16();
+                Lists.Map[Index].Tile[x, y].Zone = Binary.ReadByte();
 
-                // Bloqueio direcional
-                Listas.Mapa[Índice].Azulejo[x, y].Bloqueio = new bool[(byte)Game.Direções.Quantidade];
-                for (byte i = 0; i <= (byte)Game.Direções.Quantidade - 1; i++)
-                    Listas.Mapa[Índice].Azulejo[x, y].Bloqueio[i] = Binário.ReadBoolean();
+                // Directional lock
+                Lists.Map[Index].Tile[x, y].Block = new bool[(byte)Game.Location.Amount];
+                for (byte i = 0; i <= (byte)Game.Location.Amount - 1; i++)
+                    Lists.Map[Index].Tile[x, y].Block[i] = Binary.ReadBoolean();
             }
 
-        // Luzes
-        Listas.Mapa[Índice].Luz = new Listas.Estruturas.Luz[Binário.ReadByte()];
-        if (Listas.Mapa[Índice].Luz.GetUpperBound(0) > 0)
-            for (byte i = 0; i <= Listas.Mapa[Índice].Luz.GetUpperBound(0); i++)
+        // Lights
+        Lists.Map[Index].Light = new Lists.Structures.Light[Binary.ReadByte()];
+        if (Lists.Map[Index].Light.GetUpperBound(0) > 0)
+            for (byte i = 0; i <= Lists.Map[Index].Light.GetUpperBound(0); i++)
             {
-                Listas.Mapa[Índice].Luz[i].X = Binário.ReadByte();
-                Listas.Mapa[Índice].Luz[i].Y = Binário.ReadByte();
-                Listas.Mapa[Índice].Luz[i].Largura = Binário.ReadByte();
-                Listas.Mapa[Índice].Luz[i].Altura = Binário.ReadByte();
+                Lists.Map[Index].Light[i].X = Binary.ReadByte();
+                Lists.Map[Index].Light[i].Y = Binary.ReadByte();
+                Lists.Map[Index].Light[i].Width = Binary.ReadByte();
+                Lists.Map[Index].Light[i].Height = Binary.ReadByte();
             }
 
         // NPCs
-        Listas.Mapa[Índice].NPC = new Listas.Estruturas.Mapa_NPC[Binário.ReadByte() + 1];
-        Listas.Mapa[Índice].Temp_NPC = new Listas.Estruturas.Mapa_NPCs[Listas.Mapa[Índice].NPC.GetUpperBound(0) + 1];
-        if (Listas.Mapa[Índice].NPC.GetUpperBound(0) > 0)
-            for (byte i = 1; i <= Listas.Mapa[Índice].NPC.GetUpperBound(0); i++)
+        Lists.Map[Index].NPC = new Lists.Structures.Map_NPC[Binary.ReadByte() + 1];
+        Lists.Map[Index].Temp_NPC = new Lists.Structures.Map_NPCs[Lists.Map[Index].NPC.GetUpperBound(0) + 1];
+        if (Lists.Map[Index].NPC.GetUpperBound(0) > 0)
+            for (byte i = 1; i <= Lists.Map[Index].NPC.GetUpperBound(0); i++)
             {
-                Listas.Mapa[Índice].NPC[i].Índice = Binário.ReadInt16();
-                Listas.Mapa[Índice].NPC[i].Zona = Binário.ReadByte();
-                Listas.Mapa[Índice].NPC[i].Aparecer = Binário.ReadBoolean();
-                Listas.Mapa[Índice].NPC[i].X = Binário.ReadByte();
-                Listas.Mapa[Índice].NPC[i].Y = Binário.ReadByte();
-                global::NPC.Aparecer(i, Índice);
+                Lists.Map[Index].NPC[i].Index = Binary.ReadInt16();
+                Lists.Map[Index].NPC[i].Zone = Binary.ReadByte();
+                Lists.Map[Index].NPC[i].Aparecer = Binary.ReadBoolean();
+                Lists.Map[Index].NPC[i].X = Binary.ReadByte();
+                Lists.Map[Index].NPC[i].Y = Binary.ReadByte();
+                global::NPC.Appearance(i, Index);
             }
 
-        // Itens
-        Listas.Mapa[Índice].Temp_Item = new System.Collections.Generic.List<Listas.Estruturas.Mapa_Itens>();
-        Listas.Mapa[Índice].Temp_Item.Add(new Listas.Estruturas.Mapa_Itens()); // Nulo
-        global::Map.Aparecer_Itens(Índice);
+        // Items
+        Lists.Map[Index].Temp_Item = new System.Collections.Generic.List<Lists.Structures.Map_Items>();
+        Lists.Map[Index].Temp_Item.Add(new Lists.Structures.Map_Items()); // Nulo
+        global::Map.Appearance_Items(Index);
 
         // Fecha o sistema
-        Binário.Dispose();
+        Binary.Dispose();
     }
 
-    public static void Mapa_Azulejos(short Índice, BinaryReader Binário)
+    public static void Map_Tiles(short Index, BinaryReader Binary)
     {
-        byte Num_Camadas = Binário.ReadByte();
+        byte Num_Layers = Binary.ReadByte();
 
-        // Redimensiona os dados
-        Listas.Mapa[Índice].Azulejo = new Listas.Estruturas.Azulejo[Listas.Mapa[Índice].Largura + 1, Listas.Mapa[Índice].Altura + 1];
-        for (byte x = 0; x <= Listas.Mapa[Índice].Largura; x++)
-            for (byte y = 0; y <= Listas.Mapa[Índice].Altura; y++)
-                Listas.Mapa[Índice].Azulejo[x, y].Dados = new Listas.Estruturas.Azulejo_Dados[(byte)global::Map.Camadas.Quantidade, Num_Camadas + 1];
+        // Redimensiona os Data
+        Lists.Map[Index].Tile = new Lists.Structures.Tile[Lists.Map[Index].Width + 1, Lists.Map[Index].Height + 1];
+        for (byte x = 0; x <= Lists.Map[Index].Width; x++)
+            for (byte y = 0; y <= Lists.Map[Index].Height; y++)
+                Lists.Map[Index].Tile[x, y].Data = new Lists.Structures.Tile_Data[(byte)global::Map.Layers.Amount, Num_Layers + 1];
 
-        // Lê os azulejos
-        for (byte i = 0; i <= Num_Camadas; i++)
+        // Read the Tiles
+        for (byte i = 0; i <= Num_Layers; i++)
         {
-            // Dados básicos
-            Binário.ReadString(); // Nome
-            byte t = Binário.ReadByte(); // Tipo
+            // Basic data
+            Binary.ReadString(); // Nome
+            byte t = Binary.ReadByte(); // Tipo
 
-            // Azulejos
-            for (byte x = 0; x <= Listas.Mapa[Índice].Largura; x++)
-                for (byte y = 0; y <= Listas.Mapa[Índice].Altura; y++)
+            // Tiles
+            for (byte x = 0; x <= Lists.Map[Index].Width; x++)
+                for (byte y = 0; y <= Lists.Map[Index].Height; y++)
                 {
-                    Listas.Mapa[Índice].Azulejo[x, y].Dados[t, i].x = Binário.ReadByte();
-                    Listas.Mapa[Índice].Azulejo[x, y].Dados[t, i].y = Binário.ReadByte();
-                    Listas.Mapa[Índice].Azulejo[x, y].Dados[t, i].Azulejo = Binário.ReadByte();
-                    Listas.Mapa[Índice].Azulejo[x, y].Dados[t, i].Automático = Binário.ReadBoolean();
+                    Lists.Map[Index].Tile[x, y].Data[t, i].x = Binary.ReadByte();
+                    Lists.Map[Index].Tile[x, y].Data[t, i].y = Binary.ReadByte();
+                    Lists.Map[Index].Tile[x, y].Data[t, i].Tile = Binary.ReadByte();
+                    Lists.Map[Index].Tile[x, y].Data[t, i].Automatic = Binary.ReadBoolean();
                 }
         }
     }

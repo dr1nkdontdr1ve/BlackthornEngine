@@ -48,7 +48,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>Aplicação</StartupObject>
+    <StartupObject>Program</StartupObject>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>server.ico</ApplicationIcon>
@@ -77,17 +77,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Program.cs" />
-    <Compile Include="Library\Diretórios.cs" />
-    <Compile Include="Library\Escrever.cs" />
-    <Compile Include="Library\Ler.cs" />
-    <Compile Include="Library\Limpar.cs" />
+    <Compile Include="Library\Directories.cs" />
+    <Compile Include="Library\Write.cs" />
+    <Compile Include="Library\Read.cs" />
+    <Compile Include="Library\Clean.cs" />
     <Compile Include="Library\Lists.cs" />
     <Compile Include="Logic\Player.cs" />
     <Compile Include="Logic\Game.cs" />
     <Compile Include="Logic\Tie.cs" />
-    <Compile Include="Communication\Enviar.cs" />
-    <Compile Include="Communication\Receber.cs" />
-    <Compile Include="Communication\Rede.cs" />
+    <Compile Include="Communication\Sending.cs" />
+    <Compile Include="Communication\Receiving.cs" />
+    <Compile Include="Communication\Network.cs" />
     <Compile Include="Logic\Map.cs" />
     <Compile Include="Logic\NPC.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

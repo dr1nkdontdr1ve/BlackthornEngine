@@ -2,13 +2,13 @@
 
 class Game
 {
-    // Números aleatórios
+    // Random numbers
     public static Random Aleatório = new Random();
 
-    // O maior índice dos jogadores conectados
-    public static byte MaiorÍndice;
+    // The highest index of connected players
+    public static byte BiggerIndex;
 
-    // CPS do servidor
+    // Server CPS
     public static int CPS;
     public static bool CPS_Travado;
 
@@ -21,115 +21,115 @@ class Game
 
     // Limits in general
     public const byte Max_NPC_Queda = 4;
-    public const byte Max_Inventário = 30;
-    public const byte Max_Mapa_Itens = 100;
+    public const byte Max_Inventory = 30;
+    public const byte Max_Map_Items = 100;
     public const byte Max_Hotbar = 10;
 
-    #region Númerações
-    public enum Direções
+    #region Numbers
+    public enum Location
     {
-        Acima,
-        Abaixo,
-        Esquerda,
-        Direita,
-        Quantidade
+        Above,
+        Below,
+        Left,
+        Right,
+        Amount
     }
 
-    public enum Acessos
+    public enum Rank
     {
-        Nenhum,
-        Moderador,
+        Normal,
+        Moderator,
         Editor,
-        Administrador
+        Administrator
     }
 
-    public enum Gêneros
+    public enum Genre
     {
-        Masculino,
-        Feminino
+        Male,
+        Female
     }
 
-    public enum Vitais
+    public enum Vital
     {
-        Vida,
+        Life,
         Mana,
-        Quantidade
+        Amount
     }
 
-    public enum Atributos
+    public enum Attributes
     {
-        Força,
-        Resistência,
-        Inteligência,
-        Agilidade,
-        Vitalidade,
-        Quantidade
+        Force,
+        Resistance,
+        Intelligence,
+        Agility,
+        Vitality,
+        Amount
     }
 
     public enum Mensagens
     {
         Game,
-        Mapa,
+        Map,
         Global,
-        Particular
+        Private
     }
 
-    public enum Alvo
+    public enum Target
     {
-        Jogador = 1,
+        Player = 1,
         NPC
     }
 
-    public enum Itens
+    public enum Items
     {
-        Nenhum,
-        Equipamento,
-        Poção
+        Normal,
+        Equipment,
+        Potion
     }
 
-    public enum Equipamentos
+    public enum Equipment
     {
-        Arma,
-        Armadura,
-        Capacete,
-        Escudo,
-        Amuleto,
-        Quantidade
+        Weapon,
+        Armor,
+        Helmet,
+        Shield,
+        Amulet,
+        Amount
     }
 
     public enum Hotbar
     {
-        Nenhum,
+        Normal,
         Item
     }
     #endregion
 
-    public static void RedefinirMaiorÍndice()
+    public static void ResetBiggerIndex()
     {
-        // Redefine o índice máximo de jogadores
-        MaiorÍndice = 0;
+        // Redefine the maximum number of players
+        BiggerIndex = 0;
 
-        for (byte i = (byte)Listas.Jogador.GetUpperBound(0); i >= 1; i -= 1)
-            if (Rede.EstáConectado(i))
+        for (byte i = (byte)Lists.Player.GetUpperBound(0); i >= 1; i -= 1)
+            if (Network.IsConnected(i))
             {
-                MaiorÍndice = i;
+                BiggerIndex = i;
                 break;
             }
 
-        // Envia os dados para os jogadores
-        Enviar.MaiorÍndice();
+        // Send data to players
+        Sending.BiggerIndex();
     }
 
-    public static Direções DireçãoInversa(Direções Direção)
+    public static Location InverseDirection(Location Direction)
     {
-        // Retorna a direção inversa
-        switch (Direção)
+        // Returns the inverse direction
+        switch (Direction)
         {
-            case Direções.Acima: return Direções.Abaixo;
-            case Direções.Abaixo: return Direções.Acima;
-            case Direções.Esquerda: return Direções.Direita;
-            case Direções.Direita: return Direções.Esquerda;
-            default: return Direções.Quantidade;
+            case Location.Above: return Location.Below;
+            case Location.Below: return Location.Above;
+            case Location.Left: return Location.Right;
+            case Location.Right: return Location.Left;
+            default: return Location.Amount;
         }
     }
 }

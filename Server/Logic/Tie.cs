@@ -20,13 +20,13 @@ class Tie
         while (Working)
         {
             // Handles incoming data
-            Rede.ReceberDados();
+            Network.ReceivingData();
 
             if (Score_500 < Environment.TickCount)
             {
                 //Map Logics
-                Map.Lógica();
-                Player.Lógica();
+                Map.Logic();
+                Player.Logic();
 
                 //Restarts the count
                 Score_500 = Environment.TickCount + 500;
@@ -57,7 +57,7 @@ class Tie
         while (Working)
         {
             Console.Write("Execute: ");
-            Program.ExecutarComando(Console.ReadLine());
+            Program.RunCommand(Console.ReadLine());
         }
     }
 }
