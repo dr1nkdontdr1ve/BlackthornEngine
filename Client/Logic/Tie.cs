@@ -20,7 +20,7 @@ class Tie
             Contagem = Environment.TickCount;
 
             // Handles incoming data
-            Rede.ReceberDados();
+            Rede.ReceberData();
 
             // Displays graphics to screen
             Gráficos.Apresentar();

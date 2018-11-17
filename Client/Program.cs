@@ -12,7 +12,7 @@ class Program
         // Verifica se todos os diretórios existem, se não existirem então criá-los
         Directories.Create();
 
-        // Carrega todos os dados
+        // Carrega todos os Data
         Read.Data();
 
         // Inicializa todos os dispositivos

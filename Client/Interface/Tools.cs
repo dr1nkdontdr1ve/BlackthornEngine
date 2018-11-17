@@ -32,7 +32,7 @@ public class Tools
 
     public class General
     {
-        public string Nome;
+        public string Name;
         public bool Visível;
         public Point Posição;
         public bool Habilitado;
@@ -118,7 +118,7 @@ public class Tools
 
     public static int Encontrar(Tipos Tipo, byte Índice)
     {
-        // Lista os nomes dos botões
+        // Lista os Names dos botões
         for (byte i = 1; i <= Ordem.GetUpperBound(0); i++)
             if (Ordem[i].Tipo == Tipo && Ordem[i].Índice == Índice)
                 return i;
@@ -128,7 +128,7 @@ public class Tools
 
     public static int MedirTexto_Largura(string Texto)
     {
-        // Dados do texto
+        // Data do texto
         SFML.Graphics.Text TempTexto = new SFML.Graphics.Text(Texto, Gráficos.Fonte);
         TempTexto.CharacterSize = 10;
         return (int)TempTexto.GetLocalBounds().Width;

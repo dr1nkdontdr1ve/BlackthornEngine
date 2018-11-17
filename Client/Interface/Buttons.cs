@@ -3,7 +3,7 @@ using System.Windows.Forms;
 
 public class Buttons
 {
-    // Aramazenamento de dados da ferramenta
+    // Aramazenamento de Data da ferramenta
     public static Structure[] List = new Structure[1];
 
     // Estrutura das ferramentas
@@ -22,21 +22,21 @@ public class Buttons
         Sobrepor,
     }
 
-    public static byte EncontrarÍndice(string Nome)
+    public static byte EncontrarÍndice(string Name)
     {
-        // Lista os nomes das ferramentas
+        // Lista os Names das ferramentas
         for (byte i = 1; i <= List.GetUpperBound(0); i++)
-            if (List[i].Geral.Nome == Nome)
+            if (List[i].Geral.Name == Name)
                 return i;
 
         return 0;
     }
 
-    public static Structure Encontrar(string Nome)
+    public static Structure Encontrar(string Name)
     {
-        // Lista os nomes das ferramentas
+        // Lista os Names das ferramentas
         for (byte i = 1; i <= List.GetUpperBound(0); i++)
-            if (List[i].Geral.Nome == Nome)
+            if (List[i].Geral.Name == Name)
                 return List[i];
 
         return null;
@@ -57,7 +57,7 @@ public class Buttons
             List[Índice].Estado = Estados.Sobrepor;
 
             // Executa o evento
-            Executar(List[Índice].Geral.Nome);
+            Executar(List[Índice].Geral.Name);
         }
 
         public static void MouseDown(MouseEventArgs e, byte Índice)
@@ -100,10 +100,10 @@ public class Buttons
             Áudio.Som.Reproduzir(Áudio.Sons.Sobrepor);
         }
 
-        public static void Executar(string Nome)
+        public static void Executar(string Name)
         {
             // Executa o evento do botão
-            switch (Nome)
+            switch (Name)
             {
                 case "Conectar": Conectar(); break;
                 case "Registrar": Registrar(); break;
@@ -140,7 +140,7 @@ public class Buttons
             if (!Panels.Encontrar("SelecionarPersonagem").General.Visível)
                 return;
 
-            if (Listas.Personagens[Game.SelecionarPersonagem].Classe != 0)
+            if (Lists.Personagens[Game.SelecionarPersonagem].Classe != 0)
                 Visibilidade = true;
 
             // Altera os botões visíveis
@@ -192,7 +192,7 @@ public class Buttons
         public static void Conectar_Pronto()
         {
             // Saves the user name
-            Listas.Opções.Usuário = Scanners.Encontrar("Conectar_Usuário").Texto;
+            Lists.Opções.Usuário = Scanners.Encontrar("Conectar_Usuário").Texto;
             Escrever.Opções();
 
             // Connect with Game
@@ -221,7 +221,7 @@ public class Buttons
         public static void CriarPersonagem_TrocarDireita()
         {
             // Altera a classe selecionada pelo jogador
-            if (Game.CriarPersonagem_Classe == Listas.Classe.GetUpperBound(0))
+            if (Game.CriarPersonagem_Classe == Lists.Classe.GetUpperBound(0))
                 Game.CriarPersonagem_Classe = 1;
             else
                 Game.CriarPersonagem_Classe += 1;
@@ -231,7 +231,7 @@ public class Buttons
         {
             // Altera a classe selecionada pelo jogador
             if (Game.CriarPersonagem_Classe == 1)
-                Game.CriarPersonagem_Classe = (byte)Listas.Classe.GetUpperBound(0);
+                Game.CriarPersonagem_Classe = (byte)Lists.Classe.GetUpperBound(0);
             else
                 Game.CriarPersonagem_Classe -= 1;
         }
@@ -264,7 +264,7 @@ public class Buttons
         public static void Personagem_TrocarDireita()
         {
             // Altera o personagem selecionado pelo jogador
-            if (Game.SelecionarPersonagem == Listas.Servidor_Dados.Máx_Personagens)
+            if (Game.SelecionarPersonagem == Lists.Servidor_Data.Máx_Personagens)
                 Game.SelecionarPersonagem = 1;
             else
                 Game.SelecionarPersonagem += 1;
@@ -274,7 +274,7 @@ public class Buttons
         {
             // Altera o personagem selecionado pelo jogador
             if (Game.SelecionarPersonagem == 1)
-                Game.SelecionarPersonagem = Listas.Servidor_Dados.Máx_Personagens;
+                Game.SelecionarPersonagem = Lists.Servidor_Data.Máx_Personagens;
             else
                 Game.SelecionarPersonagem -= 1;
         }

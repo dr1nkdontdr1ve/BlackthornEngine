@@ -17,21 +17,21 @@ public class Markers
         public Tools.General General;
     }
 
-    public static byte EncontrarÍndice(string Nome)
+    public static byte EncontrarÍndice(string Name)
     {
         // List the names of the tools
         for (byte i = 1; i <= List.GetUpperBound(0); i++)
-            if (List[i].General.Nome == Nome)
+            if (List[i].General.Name == Name)
                 return i;
 
         return 0;
     }
 
-    public static Structure Encontrar(string Nome)
+    public static Structure Encontrar(string Name)
     {
         // List the names of the tools
         for (byte i = 1; i <= List.GetUpperBound(0); i++)
-            if (List[i].General.Nome == Nome)
+            if (List[i].General.Name == Name)
                 return List[i];
 
         return null;
@@ -58,7 +58,7 @@ public class Markers
             List[Índice].State = !List[Índice].State;
 
             // Executa o evento
-            Executar(List[Índice].General.Nome);
+            Executar(List[Índice].General.Name);
             Áudio.Som.Reproduzir(Áudio.Sons.Clique);
         }
 
@@ -77,19 +77,19 @@ public class Markers
 
         public static void Sons()
         {
-            // Salva os dados
-            Listas.Opções.Sons = Encontrar("Sons").State;
+            // Salva os Data
+            Lists.Opções.Sons = Encontrar("Sons").State;
             Escrever.Opções();
         }
 
         public static void Músicas()
         {
-            // Salva os dados
-            Listas.Opções.Músicas = Encontrar("Músicas").State;
+            // Salva os Data
+            Lists.Opções.Músicas = Encontrar("Músicas").State;
             Escrever.Opções();
 
             // Para ou reproduz a música dependendo do estado do marcador
-            if (!Listas.Opções.Músicas)
+            if (!Lists.Opções.Músicas)
                 Áudio.Música.Parar();
             else
                 Áudio.Música.Reproduzir(Áudio.Músicas.Menu);
@@ -97,8 +97,8 @@ public class Markers
 
         public static void SaveUser()
         {
-            // Salva os dados
-            Listas.Opções.SalvarUsuário = Encontrar("SaveUser").State;
+            // Salva os Data
+            Lists.Opções.SalvarUsuário = Encontrar("SaveUser").State;
             Escrever.Opções();
         }
 

@@ -6,10 +6,10 @@ class Network
     // Protocolo do controle de transmissão
     public static NetClient Dispositivo;
 
-    // Manuseamento dos dados
-    public static NetIncomingMessage Dados;
+    // Manuseamento dos Data
+    public static NetIncomingMessage Data;
 
-    // Dados para a conexão com o servidor
+    // Data para a conexão com o servidor
     public const string IP = "localhost";
     public const short Porta = 7001;
 
@@ -29,26 +29,26 @@ class Network
             Dispositivo.Disconnect(string.Empty);
     }
 
-    public static void ReceberDados()
+    public static void ReceberData()
     {
-        // Lê e direciona todos os dados recebidos
-        while ((Dados = Dispositivo.ReadMessage()) != null)
+        // Lê e direciona todos os Data recebidos
+        while ((Data = Dispositivo.ReadMessage()) != null)
         {
-            switch (Dados.MessageType)
+            switch (Data.MessageType)
             {
-                // Recebe e manuseia os dados
+                // Recebe e manuseia os Data
                 case NetIncomingMessageType.Data:
-                    Receber.Dados(Dados);
+                    Receber.Data(Data);
                     break;
                 // Desconectar o jogador caso o servidor seja desligado
                 case NetIncomingMessageType.StatusChanged:
-                    if ((NetConnectionStatus)Dados.ReadByte() == NetConnectionStatus.Disconnected)
+                    if ((NetConnectionStatus)Data.ReadByte() == NetConnectionStatus.Disconnected)
                         Game.Desconectar();
 
                     break;
             }
 
-            Dispositivo.Recycle(Dados);
+            Dispositivo.Recycle(Data);
         }
     }
 
@@ -73,7 +73,7 @@ class Network
 
         // Espere até que o jogador se conecte
         while (!EstáConectado() && Environment.TickCount <= Espera + 1000)
-            ReceberDados();
+            ReceberData();
 
         return EstáConectado();
     }

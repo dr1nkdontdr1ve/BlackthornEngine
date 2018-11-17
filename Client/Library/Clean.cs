@@ -2,12 +2,12 @@
 {
     public static void Opções()
     {
-        // Defini os dados das opções
-        Listas.Opções.Game_Nome = "CryBits";
-        Listas.Opções.SalvarUsuário = true;
-        Listas.Opções.Músicas = true;
-        Listas.Opções.Sons = true;
-        Listas.Opções.Usuário = string.Empty;
+        // Defini os Data das opções
+        Lists.Opções.Game_Name = "CryBits";
+        Lists.Opções.SalvarUsuário = true;
+        Lists.Opções.Músicas = true;
+        Lists.Opções.Sons = true;
+        Lists.Opções.Usuário = string.Empty;
 
         // Salva o que foi modificado
         Escrever.Opções();
@@ -44,13 +44,13 @@
     public static void Jogador(byte Índice)
     {
         // Limpa a estrutura
-        Listas.Jogador[Índice] = new Listas.Estruturas.Jogador();
-        Listas.Jogador[Índice].Vital = new short[(byte)Game.Vitais.Quantidade];
-        Listas.Jogador[Índice].Máx_Vital = new short[(byte)Game.Vitais.Quantidade];
-        Listas.Jogador[Índice].Atributo = new short[(byte)Game.Atributos.Quantidade];
-        Listas.Jogador[Índice].Equipamento = new short[(byte)Game.Equipamentos.Quantidade];
+        Lists.Jogador[Índice] = new Lists.Estruturas.Jogador();
+        Lists.Jogador[Índice].Vital = new short[(byte)Game.Vitais.Quantidade];
+        Lists.Jogador[Índice].Máx_Vital = new short[(byte)Game.Vitais.Quantidade];
+        Lists.Jogador[Índice].Atributo = new short[(byte)Game.Atributos.Quantidade];
+        Lists.Jogador[Índice].Equipamento = new short[(byte)Game.Equipamentos.Quantidade];
 
         // Reseta os valores
-        Listas.Jogador[Índice].Nome = string.Empty;
+        Lists.Jogador[Índice].Name = string.Empty;
     }
 }

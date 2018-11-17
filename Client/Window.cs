@@ -2,7 +2,7 @@
 
 public partial class Window : Form
 {
-    // Usado para acessar os dados da janela
+    // Usado para acessar os Data da janela
     public static Window Objects = new Window();
 
     public Window()

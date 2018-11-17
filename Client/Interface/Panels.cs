@@ -1,6 +1,6 @@
 ﻿public class Panels
 {
-    // Armazenamento dos dados da ferramenta
+    // Armazenamento dos Data da ferramenta
     public static Structure[] List = new Structure[1];
 
     // Tool structure
@@ -10,21 +10,21 @@
         public Tools.General General;
     }
 
-    public static byte EncontrarÍndice(string Nome)
+    public static byte EncontrarÍndice(string Name)
     {
-        // Lista os nomes das ferramentas
+        // Lista os Names das ferramentas
         for (byte i = 1; i <= List.GetUpperBound(0); i++)
-            if (List[i].General.Nome == Nome)
+            if (List[i].General.Name == Name)
                 return i;
 
         return 0;
     }
 
-    public static Structure Encontrar(string Nome)
+    public static Structure Encontrar(string Name)
     {
-        // Lista os nomes das ferramentas
+        // Lista os Names das ferramentas
         for (byte i = 1; i <= List.GetUpperBound(0); i++)
-            if (List[i].General.Nome == Nome)
+            if (List[i].General.Name == Name)
                 return List[i];
 
         return null;

@@ -3,19 +3,19 @@ using System.Windows.Forms;
 
 class Directories
 {
-    // Formato de todos os arquivos de dados
+    // Formato de todos os arquivos de Data
     public const string Format = ".dat";
 
     // Diretório dos arquivos
     public static DirectoryInfo Sons = new DirectoryInfo(Application.StartupPath + @"\Aúdio\Sons\");
     public static DirectoryInfo Músicas = new DirectoryInfo(Application.StartupPath + @"\Aúdio\Músicas\");
-    public static FileInfo Opções = new FileInfo(Application.StartupPath + @"\Dados\Opções" + Format);
-    public static FileInfo Cliente_Dados = new FileInfo(Application.StartupPath + @"\Dados\Gerais" + Format);
-    public static DirectoryInfo Mapas_Dados = new DirectoryInfo(Application.StartupPath + @"\Dados\Mapas\");
-    public static DirectoryInfo Botões_Dados = new DirectoryInfo(Application.StartupPath + @"\Dados\Ferramentas\Botões\");
-    public static DirectoryInfo Digitalizadores_Dados = new DirectoryInfo(Application.StartupPath + @"\Dados\Ferramentas\Digitalizadores\");
-    public static DirectoryInfo Paineis_Dados = new DirectoryInfo(Application.StartupPath + @"\Dados\Ferramentas\Paineis\");
-    public static DirectoryInfo Marcadores_Dados = new DirectoryInfo(Application.StartupPath + @"\Dados\Ferramentas\Marcadores\");
+    public static FileInfo Opções = new FileInfo(Application.StartupPath + @"\Data\Opções" + Format);
+    public static FileInfo Cliente_Data = new FileInfo(Application.StartupPath + @"\Data\Gerais" + Format);
+    public static DirectoryInfo Mapas_Data = new DirectoryInfo(Application.StartupPath + @"\Data\Mapas\");
+    public static DirectoryInfo Botões_Data = new DirectoryInfo(Application.StartupPath + @"\Data\Ferramentas\Botões\");
+    public static DirectoryInfo Digitalizadores_Data = new DirectoryInfo(Application.StartupPath + @"\Data\Ferramentas\Digitalizadores\");
+    public static DirectoryInfo Paineis_Data = new DirectoryInfo(Application.StartupPath + @"\Data\Ferramentas\Paineis\");
+    public static DirectoryInfo Marcadores_Data = new DirectoryInfo(Application.StartupPath + @"\Data\Ferramentas\Marcadores\");
     public static DirectoryInfo Tex_Paineis = new DirectoryInfo(Application.StartupPath + @"\Gráficos\Interface\Ferramentas\Paineis\");
     public static DirectoryInfo Tex_Botões = new DirectoryInfo(Application.StartupPath + @"\Gráficos\Interface\Ferramentas\Botões\");
     public static FileInfo Tex_Marcador = new FileInfo(Application.StartupPath + @"\Gráficos\Interface\Ferramentas\Marcador");
@@ -45,11 +45,11 @@ class Directories
         Fontes.Create();
         Sons.Create();
         Músicas.Create();
-        Cliente_Dados.Directory.Create();
-        Botões_Dados.Create();
-        Digitalizadores_Dados.Create();
-        Paineis_Dados.Create();
-        Marcadores_Dados.Create();
+        Cliente_Data.Directory.Create();
+        Botões_Data.Create();
+        Digitalizadores_Data.Create();
+        Paineis_Data.Create();
+        Marcadores_Data.Create();
         Tex_Panoramas.Create();
         Tex_Fumaças.Create();
         Tex_Personagens.Create();

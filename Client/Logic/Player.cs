@@ -9,31 +9,31 @@ public class Player
     public static byte MaiorÍndice;
 
     // Inventário
-    public static Listas.Estruturas.Inventário[] Inventário = new Listas.Estruturas.Inventário[Game.Máx_Inventário + 1];
+    public static Lists.Estruturas.Inventário[] Inventário = new Lists.Estruturas.Inventário[Game.Máx_Inventário + 1];
     public static byte Inventário_Movendo;
 
     // Hotbar
-    public static Listas.Estruturas.Hotbar[] Hotbar = new Listas.Estruturas.Hotbar[Game.Máx_Hotbar+1];
+    public static Lists.Estruturas.Hotbar[] Hotbar = new Lists.Estruturas.Hotbar[Game.Máx_Hotbar+1];
     public static byte Hotbar_Movendo;
 
     // O próprio jogador
     public static byte MeuÍndice;
-    public static Listas.Estruturas.Jogador Eu
+    public static Lists.Estruturas.Jogador Eu
     {
         get
         {
-            return Listas.Jogador[MeuÍndice];
+            return Lists.Jogador[MeuÍndice];
         }
         set
         {
-            Listas.Jogador[MeuÍndice] = value;
+            Lists.Jogador[MeuÍndice] = value;
         }
     }
 
     public static bool EstáJogando(byte Índice)
     {
         // Verifica se o jogador está dentro do Game
-        if (MeuÍndice > 0 && !string.IsNullOrEmpty(Listas.Jogador[Índice].Nome))
+        if (MeuÍndice > 0 && !string.IsNullOrEmpty(Lists.Jogador[Índice].Name))
             return true;
         else
             return false;
@@ -41,13 +41,13 @@ public class Player
 
     public static short Personagem_Textura(byte Índice)
     {
-        byte Classe = Listas.Jogador[Índice].Classe;
+        byte Classe = Lists.Jogador[Índice].Classe;
 
         // Retorna com o valor da textura
-        if (Listas.Jogador[Índice].Gênero)
-            return Listas.Classe[Classe].Textura_Masculina;
+        if (Lists.Jogador[Índice].Gênero)
+            return Lists.Classe[Classe].Textura_Masculina;
         else
-            return Listas.Classe[Classe].Textura_Feminina;
+            return Lists.Classe[Classe].Textura_Feminina;
     }
 
     public static void Lógica()
@@ -60,7 +60,7 @@ public class Player
         for (byte i = 1; i <= Player.MaiorÍndice; i++)
         {
             // Dano
-            if (Listas.Jogador[i].Sofrendo + 325 < Environment.TickCount) Listas.Jogador[i].Sofrendo = 0;
+            if (Lists.Jogador[i].Sofrendo + 325 < Environment.TickCount) Lists.Jogador[i].Sofrendo = 0;
 
             // Movimentaçãp
             ProcessarMovimento(i);
@@ -79,7 +79,7 @@ public class Player
     public static bool PodeMover()
     {
         // Não mover se já estiver tentando movimentar-se
-        if (Listas.Jogador[MeuÍndice].Movimento != Game.Movimentos.Parado)
+        if (Lists.Jogador[MeuÍndice].Movimento != Game.Movimentos.Parado)
             return false;
 
         return true;
@@ -102,20 +102,20 @@ public class Player
         if (!PodeMover()) return;
 
         // Define a direção do jogador
-        if (Listas.Jogador[MeuÍndice].Direção != Direção)
+        if (Lists.Jogador[MeuÍndice].Direção != Direção)
         {
-            Listas.Jogador[MeuÍndice].Direção = Direção;
+            Lists.Jogador[MeuÍndice].Direção = Direção;
             Enviar.Jogador_Direção();
         }
 
         // Verifica se o azulejo seguinte está livre
-        if (Map.Azulejo_Bloqueado(Listas.Jogador[MeuÍndice].Mapa, Listas.Jogador[MeuÍndice].X, Listas.Jogador[MeuÍndice].Y, Direção)) return;
+        if (Map.Azulejo_Bloqueado(Lists.Jogador[MeuÍndice].Mapa, Lists.Jogador[MeuÍndice].X, Lists.Jogador[MeuÍndice].Y, Direção)) return;
 
         // Define a velocidade que o jogador se move
         if (Game.Pressionado_Shift)
-            Listas.Jogador[MeuÍndice].Movimento = Game.Movimentos.Correndo;
+            Lists.Jogador[MeuÍndice].Movimento = Game.Movimentos.Correndo;
         else
-            Listas.Jogador[MeuÍndice].Movimento = Game.Movimentos.Andando;
+            Lists.Jogador[MeuÍndice].Movimento = Game.Movimentos.Andando;
 
         // Movimento o jogador
         Enviar.Jogador_Mover();
@@ -123,63 +123,63 @@ public class Player
         // Define a Posição exata do jogador
         switch (Direção)
         {
-            case Game.Direções.Acima: Listas.Jogador[MeuÍndice].Y2 = Game.Grade; Listas.Jogador[MeuÍndice].Y -= 1; break;
-            case Game.Direções.Abaixo: Listas.Jogador[MeuÍndice].Y2 = Game.Grade * -1; Listas.Jogador[MeuÍndice].Y += 1; break;
-            case Game.Direções.Direita: Listas.Jogador[MeuÍndice].X2 = Game.Grade * -1; Listas.Jogador[MeuÍndice].X += 1; break;
-            case Game.Direções.Esquerda: Listas.Jogador[MeuÍndice].X2 = Game.Grade; Listas.Jogador[MeuÍndice].X -= 1; break;
+            case Game.Direções.Acima: Lists.Jogador[MeuÍndice].Y2 = Game.Grade; Lists.Jogador[MeuÍndice].Y -= 1; break;
+            case Game.Direções.Abaixo: Lists.Jogador[MeuÍndice].Y2 = Game.Grade * -1; Lists.Jogador[MeuÍndice].Y += 1; break;
+            case Game.Direções.Direita: Lists.Jogador[MeuÍndice].X2 = Game.Grade * -1; Lists.Jogador[MeuÍndice].X += 1; break;
+            case Game.Direções.Esquerda: Lists.Jogador[MeuÍndice].X2 = Game.Grade; Lists.Jogador[MeuÍndice].X -= 1; break;
         }
     }
 
     public static void ProcessarMovimento(byte Índice)
     {
         byte Velocidade = 0;
-        short x = Listas.Jogador[Índice].X2, y = Listas.Jogador[Índice].Y2;
+        short x = Lists.Jogador[Índice].X2, y = Lists.Jogador[Índice].Y2;
 
         // Reseta a animação se necessário
-        if (Listas.Jogador[Índice].Animação == Game.Animação_Parada) Listas.Jogador[Índice].Animação = Game.Animação_Direita;
+        if (Lists.Jogador[Índice].Animação == Game.Animação_Parada) Lists.Jogador[Índice].Animação = Game.Animação_Direita;
 
         // Define a velocidade que o jogador se move
-        switch (Listas.Jogador[Índice].Movimento)
+        switch (Lists.Jogador[Índice].Movimento)
         {
             case Game.Movimentos.Andando: Velocidade = 2; break;
             case Game.Movimentos.Correndo: Velocidade = 3; break;
             case Game.Movimentos.Parado:
-                // Reseta os dados
-                Listas.Jogador[Índice].X2 = 0;
-                Listas.Jogador[Índice].Y2 = 0;
+                // Reseta os Data
+                Lists.Jogador[Índice].X2 = 0;
+                Lists.Jogador[Índice].Y2 = 0;
                 return;
         }
 
         // Define a Posição exata do jogador
-        switch (Listas.Jogador[Índice].Direção)
+        switch (Lists.Jogador[Índice].Direção)
         {
-            case Game.Direções.Acima: Listas.Jogador[Índice].Y2 -= Velocidade; break;
-            case Game.Direções.Abaixo: Listas.Jogador[Índice].Y2 += Velocidade; break;
-            case Game.Direções.Direita: Listas.Jogador[Índice].X2 += Velocidade; break;
-            case Game.Direções.Esquerda: Listas.Jogador[Índice].X2 -= Velocidade; break;
+            case Game.Direções.Acima: Lists.Jogador[Índice].Y2 -= Velocidade; break;
+            case Game.Direções.Abaixo: Lists.Jogador[Índice].Y2 += Velocidade; break;
+            case Game.Direções.Direita: Lists.Jogador[Índice].X2 += Velocidade; break;
+            case Game.Direções.Esquerda: Lists.Jogador[Índice].X2 -= Velocidade; break;
         }
 
         // Verifica se não passou do limite
-        if (x > 0 && Listas.Jogador[Índice].X2 < 0) Listas.Jogador[Índice].X2 = 0;
-        if (x < 0 && Listas.Jogador[Índice].X2 > 0) Listas.Jogador[Índice].X2 = 0;
-        if (y > 0 && Listas.Jogador[Índice].Y2 < 0) Listas.Jogador[Índice].Y2 = 0;
-        if (y < 0 && Listas.Jogador[Índice].Y2 > 0) Listas.Jogador[Índice].Y2 = 0;
+        if (x > 0 && Lists.Jogador[Índice].X2 < 0) Lists.Jogador[Índice].X2 = 0;
+        if (x < 0 && Lists.Jogador[Índice].X2 > 0) Lists.Jogador[Índice].X2 = 0;
+        if (y > 0 && Lists.Jogador[Índice].Y2 < 0) Lists.Jogador[Índice].Y2 = 0;
+        if (y < 0 && Lists.Jogador[Índice].Y2 > 0) Lists.Jogador[Índice].Y2 = 0;
 
         // Alterar as animações somente quando necessário
-        if (Listas.Jogador[Índice].Direção == Game.Direções.Direita || Listas.Jogador[Índice].Direção == Game.Direções.Abaixo)
+        if (Lists.Jogador[Índice].Direção == Game.Direções.Direita || Lists.Jogador[Índice].Direção == Game.Direções.Abaixo)
         {
-            if (Listas.Jogador[Índice].X2 < 0 || Listas.Jogador[Índice].Y2 < 0)
+            if (Lists.Jogador[Índice].X2 < 0 || Lists.Jogador[Índice].Y2 < 0)
                 return;
         }
-        else if (Listas.Jogador[Índice].X2 > 0 || Listas.Jogador[Índice].Y2 > 0)
+        else if (Lists.Jogador[Índice].X2 > 0 || Lists.Jogador[Índice].Y2 > 0)
             return;
 
         // Define as animações
-        Listas.Jogador[Índice].Movimento = Game.Movimentos.Parado;
-        if (Listas.Jogador[Índice].Animação == Game.Animação_Esquerda)
-            Listas.Jogador[Índice].Animação = Game.Animação_Direita;
+        Lists.Jogador[Índice].Movimento = Game.Movimentos.Parado;
+        if (Lists.Jogador[Índice].Animação == Game.Animação_Esquerda)
+            Lists.Jogador[Índice].Animação = Game.Animação_Direita;
         else
-            Listas.Jogador[Índice].Animação = Game.Animação_Esquerda;
+            Lists.Jogador[Índice].Animação = Game.Animação_Esquerda;
     }
 
     public static void VerificarAtaque()
@@ -208,8 +208,8 @@ public class Player
         if (Tools.JanelaAtual != Tools.Janelas.Game) return;
 
         // Check if you have any items in the coordinates
-        for (byte i = 1; i <= Listas.Mapa.Temp_Item.GetUpperBound(0); i++)
-            if (Listas.Mapa.Temp_Item[i].X == Eu.X && Listas.Mapa.Temp_Item[i].Y == Eu.Y)
+        for (byte i = 1; i <= Lists.Mapa.Temp_Item.GetUpperBound(0); i++)
+            if (Lists.Mapa.Temp_Item[i].X == Eu.X && Lists.Mapa.Temp_Item[i].Y == Eu.Y)
                 TemItem = true;
 
         // Verifica se tem algum espaço vazio no inventário
@@ -233,170 +233,170 @@ partial class Enviar
 {
     public static void Jogador_Direção()
     {
-        NetOutgoingMessage Dados = Rede.Dispositivo.CreateMessage();
+        NetOutgoingMessage Data = Rede.Dispositivo.CreateMessage();
 
-        // Envia os dados
-        Dados.Write((byte)Pacotes.Jogador_Direção);
-        Dados.Write((byte)Player.Eu.Direção);
-        Pacote(Dados);
+        // Envia os Data
+        Data.Write((byte)Pacotes.Jogador_Direção);
+        Data.Write((byte)Player.Eu.Direção);
+        Pacote(Data);
     }
 
     public static void Jogador_Mover()
     {
-        NetOutgoingMessage Dados = Rede.Dispositivo.CreateMessage();
+        NetOutgoingMessage Data = Rede.Dispositivo.CreateMessage();
 
-        // Envia os dados
-        Dados.Write((byte)Pacotes.Jogador_Mover);
-        Dados.Write(Player.Eu.X);
-        Dados.Write(Player.Eu.Y);
-        Dados.Write((byte)Player.Eu.Movimento);
-        Pacote(Dados);
+        // Envia os Data
+        Data.Write((byte)Pacotes.Jogador_Mover);
+        Data.Write(Player.Eu.X);
+        Data.Write(Player.Eu.Y);
+        Data.Write((byte)Player.Eu.Movimento);
+        Pacote(Data);
     }
 
     public static void Jogador_Atacar()
     {
-        NetOutgoingMessage Dados = Rede.Dispositivo.CreateMessage();
+        NetOutgoingMessage Data = Rede.Dispositivo.CreateMessage();
 
-        // Envia os dados
-        Dados.Write((byte)Pacotes.Jogador_Atacar);
-        Pacote(Dados);
+        // Envia os Data
+        Data.Write((byte)Pacotes.Jogador_Atacar);
+        Pacote(Data);
     }
 }
 
 partial class Receber
 {
-    private static void Jogador_Dados(NetIncomingMessage Dados)
+    private static void Jogador_Data(NetIncomingMessage Data)
     {
-        byte Índice = Dados.ReadByte();
+        byte Índice = Data.ReadByte();
 
-        // Defini os dados do jogador
-        Listas.Jogador[Índice].Nome = Dados.ReadString();
-        Listas.Jogador[Índice].Classe = Dados.ReadByte();
-        Listas.Jogador[Índice].Gênero = Dados.ReadBoolean();
-        Listas.Jogador[Índice].Level = Dados.ReadInt16();
-        Listas.Jogador[Índice].Mapa = Dados.ReadInt16();
-        Listas.Jogador[Índice].X = Dados.ReadByte();
-        Listas.Jogador[Índice].Y = Dados.ReadByte();
-        Listas.Jogador[Índice].Direção = (Game.Direções)Dados.ReadByte();
+        // Defini os Data do jogador
+        Lists.Jogador[Índice].Name = Data.ReadString();
+        Lists.Jogador[Índice].Classe = Data.ReadByte();
+        Lists.Jogador[Índice].Gênero = Data.ReadBoolean();
+        Lists.Jogador[Índice].Level = Data.ReadInt16();
+        Lists.Jogador[Índice].Mapa = Data.ReadInt16();
+        Lists.Jogador[Índice].X = Data.ReadByte();
+        Lists.Jogador[Índice].Y = Data.ReadByte();
+        Lists.Jogador[Índice].Direção = (Game.Direções)Data.ReadByte();
         for (byte n = 0; n <= (byte)Game.Vitais.Quantidade - 1; n++)
         {
-            Listas.Jogador[Índice].Vital[n] = Dados.ReadInt16();
-            Listas.Jogador[Índice].Máx_Vital[n] = Dados.ReadInt16();
+            Lists.Jogador[Índice].Vital[n] = Data.ReadInt16();
+            Lists.Jogador[Índice].Máx_Vital[n] = Data.ReadInt16();
         }
-        for (byte n = 0; n <= (byte)Game.Atributos.Quantidade - 1; n++) Listas.Jogador[Índice].Atributo[n] = Dados.ReadInt16();
-        for (byte n = 0; n <= (byte)Game.Equipamentos.Quantidade - 1; n++) Listas.Jogador[Índice].Equipamento[n] = Dados.ReadInt16();
+        for (byte n = 0; n <= (byte)Game.Atributos.Quantidade - 1; n++) Lists.Jogador[Índice].Atributo[n] = Data.ReadInt16();
+        for (byte n = 0; n <= (byte)Game.Equipamentos.Quantidade - 1; n++) Lists.Jogador[Índice].Equipamento[n] = Data.ReadInt16();
     }
 
-    private static void Jogador_Posição(NetIncomingMessage Dados)
+    private static void Jogador_Posição(NetIncomingMessage Data)
     {
-        byte Índice = Dados.ReadByte();
+        byte Índice = Data.ReadByte();
 
-        // Defini os dados do jogador
-        Listas.Jogador[Índice].X = Dados.ReadByte();
-        Listas.Jogador[Índice].Y = Dados.ReadByte();
-        Listas.Jogador[Índice].Direção = (Game.Direções)Dados.ReadByte();
+        // Defini os Data do jogador
+        Lists.Jogador[Índice].X = Data.ReadByte();
+        Lists.Jogador[Índice].Y = Data.ReadByte();
+        Lists.Jogador[Índice].Direção = (Game.Direções)Data.ReadByte();
 
         // Para a movimentação
-        Listas.Jogador[Índice].X2 = 0;
-        Listas.Jogador[Índice].Y2 = 0;
-        Listas.Jogador[Índice].Movimento = Game.Movimentos.Parado;
+        Lists.Jogador[Índice].X2 = 0;
+        Lists.Jogador[Índice].Y2 = 0;
+        Lists.Jogador[Índice].Movimento = Game.Movimentos.Parado;
     }
 
-    private static void Jogador_Vitais(NetIncomingMessage Dados)
+    private static void Jogador_Vitais(NetIncomingMessage Data)
     {
-        byte Índice = Dados.ReadByte();
+        byte Índice = Data.ReadByte();
 
-        // Define os dados
+        // Define os Data
         for (byte i = 0; i <= (byte)Game.Vitais.Quantidade - 1; i++)
         {
-            Listas.Jogador[Índice].Vital[i] = Dados.ReadInt16();
-            Listas.Jogador[Índice].Máx_Vital[i] = Dados.ReadInt16();
+            Lists.Jogador[Índice].Vital[i] = Data.ReadInt16();
+            Lists.Jogador[Índice].Máx_Vital[i] = Data.ReadInt16();
         }
     }
 
-    private static void Jogador_Equipamentos(NetIncomingMessage Dados)
+    private static void Jogador_Equipamentos(NetIncomingMessage Data)
     {
-        byte Índice = Dados.ReadByte();
+        byte Índice = Data.ReadByte();
 
-        // Define os dados
-        for (byte i = 0; i <= (byte)Game.Equipamentos.Quantidade - 1; i++)  Listas.Jogador[Índice].Equipamento[i] = Dados.ReadInt16();
+        // Define os Data
+        for (byte i = 0; i <= (byte)Game.Equipamentos.Quantidade - 1; i++)  Lists.Jogador[Índice].Equipamento[i] = Data.ReadInt16();
     }
 
-    private static void Jogador_Saiu(NetIncomingMessage Dados)
+    private static void Jogador_Saiu(NetIncomingMessage Data)
     {
-        // Limpa os dados do jogador
-        Limpar.Jogador(Dados.ReadByte());
+        // Limpa os Data do jogador
+        Limpar.Jogador(Data.ReadByte());
     }
 
-    public static void Jogador_Mover(NetIncomingMessage Dados)
+    public static void Jogador_Mover(NetIncomingMessage Data)
     {
-        byte Índice = Dados.ReadByte();
+        byte Índice = Data.ReadByte();
 
         // Move o jogador
-        Listas.Jogador[Índice].X = Dados.ReadByte();
-        Listas.Jogador[Índice].Y = Dados.ReadByte();
-        Listas.Jogador[Índice].Direção = (Game.Direções)Dados.ReadByte();
-        Listas.Jogador[Índice].Movimento = (Game.Movimentos)Dados.ReadByte();
-        Listas.Jogador[Índice].X2 = 0;
-        Listas.Jogador[Índice].Y2 = 0;
+        Lists.Jogador[Índice].X = Data.ReadByte();
+        Lists.Jogador[Índice].Y = Data.ReadByte();
+        Lists.Jogador[Índice].Direção = (Game.Direções)Data.ReadByte();
+        Lists.Jogador[Índice].Movimento = (Game.Movimentos)Data.ReadByte();
+        Lists.Jogador[Índice].X2 = 0;
+        Lists.Jogador[Índice].Y2 = 0;
 
         // Posição exata do jogador
-        switch (Listas.Jogador[Índice].Direção)
+        switch (Lists.Jogador[Índice].Direção)
         {
-            case Game.Direções.Acima: Listas.Jogador[Índice].Y2 = Game.Grade; break;
-            case Game.Direções.Abaixo: Listas.Jogador[Índice].Y2 = Game.Grade * -1; break;
-            case Game.Direções.Direita: Listas.Jogador[Índice].X2 = Game.Grade * -1; break;
-            case Game.Direções.Esquerda: Listas.Jogador[Índice].X2 = Game.Grade; break;
+            case Game.Direções.Acima: Lists.Jogador[Índice].Y2 = Game.Grade; break;
+            case Game.Direções.Abaixo: Lists.Jogador[Índice].Y2 = Game.Grade * -1; break;
+            case Game.Direções.Direita: Lists.Jogador[Índice].X2 = Game.Grade * -1; break;
+            case Game.Direções.Esquerda: Lists.Jogador[Índice].X2 = Game.Grade; break;
         }
     }
 
-    public static void Jogador_Direção(NetIncomingMessage Dados)
+    public static void Jogador_Direção(NetIncomingMessage Data)
     {
         // Define a direção de determinado jogador
-        Listas.Jogador[Dados.ReadByte()].Direção = (Game.Direções)Dados.ReadByte();
+        Lists.Jogador[Data.ReadByte()].Direção = (Game.Direções)Data.ReadByte();
     }
 
-    public static void Jogador_Atacar(NetIncomingMessage Dados)
+    public static void Jogador_Atacar(NetIncomingMessage Data)
     {
-        byte Índice = Dados.ReadByte(), Vítima = Dados.ReadByte(), Vítima_Tipo = Dados.ReadByte();
+        byte Índice = Data.ReadByte(), Vítima = Data.ReadByte(), Vítima_Tipo = Data.ReadByte();
 
         // Inicia o ataque
-        Listas.Jogador[Índice].Atacando = true;
-        Listas.Jogador[Índice].Ataque_Tempo = Environment.TickCount;
+        Lists.Jogador[Índice].Atacando = true;
+        Lists.Jogador[Índice].Ataque_Tempo = Environment.TickCount;
 
         // Sofrendo dano
         if (Vítima > 0)
             if (Vítima_Tipo == (byte)Game.Alvo.Jogador)
-                Listas.Jogador[Vítima].Sofrendo = Environment.TickCount;
+                Lists.Jogador[Vítima].Sofrendo = Environment.TickCount;
             else if (Vítima_Tipo == (byte)Game.Alvo.NPC)
-                Listas.Mapa.Temp_NPC[Vítima].Sofrendo = Environment.TickCount;
+                Lists.Mapa.Temp_NPC[Vítima].Sofrendo = Environment.TickCount;
     }
 
-    public static void Jogador_Experiência(NetIncomingMessage Dados)
+    public static void Jogador_Experiência(NetIncomingMessage Data)
     {
-        // Define os dados
-        Player.Eu.Experiência = Dados.ReadInt16();
-        Player.Eu.ExpNecessária = Dados.ReadInt16();
-        Player.Eu.Pontos = Dados.ReadByte();
+        // Define os Data
+        Player.Eu.Experiência = Data.ReadInt16();
+        Player.Eu.ExpNecessária = Data.ReadInt16();
+        Player.Eu.Pontos = Data.ReadByte();
     }
 
-    private static void Jogador_Inventário(NetIncomingMessage Dados)
+    private static void Jogador_Inventário(NetIncomingMessage Data)
     {
-        // Define os dados
+        // Define os Data
         for (byte i = 1; i <= Game.Máx_Inventário; i++)
         {
-            Player.Inventário[i].Item_Num = Dados.ReadInt16();
-            Player.Inventário[i].Quantidade = Dados.ReadInt16();
+            Player.Inventário[i].Item_Num = Data.ReadInt16();
+            Player.Inventário[i].Quantidade = Data.ReadInt16();
         }
     }
 
-    private static void Jogador_Hotbar(NetIncomingMessage Dados)
+    private static void Jogador_Hotbar(NetIncomingMessage Data)
     {
-        // Define os dados
+        // Define os Data
         for (byte i = 1; i <= Game.Máx_Hotbar; i++)
         {
-            Player.Hotbar[i].Tipo = Dados.ReadByte();
-            Player.Hotbar[i].Slot = Dados.ReadByte();
+            Player.Hotbar[i].Tipo = Data.ReadByte();
+            Player.Hotbar[i].Slot = Data.ReadByte();
         }
     }
 }
@@ -407,7 +407,7 @@ partial class Gráficos
     {
         byte Coluna = Game.Animação_Parada;
         int x, y;
-        short x2 = Listas.Jogador[Índice].X2, y2 = Listas.Jogador[Índice].Y2;
+        short x2 = Lists.Jogador[Índice].X2, y2 = Lists.Jogador[Índice].Y2;
         bool Sofrendo = false;
         short Textura = Player.Personagem_Textura(Índice);
 
@@ -415,24 +415,24 @@ partial class Gráficos
         if (Textura <= 0 || Textura > Tex_Personagem.GetUpperBound(0)) return;
 
         // Define a animação
-        if (Listas.Jogador[Índice].Atacando && Listas.Jogador[Índice].Ataque_Tempo + Game.Ataque_Velocidade / 2 > Environment.TickCount)
+        if (Lists.Jogador[Índice].Atacando && Lists.Jogador[Índice].Ataque_Tempo + Game.Ataque_Velocidade / 2 > Environment.TickCount)
             Coluna = Game.Animação_Ataque;
         else
         {
-            if (x2 > 8 && x2 < Game.Grade) Coluna = Listas.Jogador[Índice].Animação;
-            if (x2 < -8 && x2 > Game.Grade * -1) Coluna = Listas.Jogador[Índice].Animação;
-            if (y2 > 8 && y2 < Game.Grade) Coluna = Listas.Jogador[Índice].Animação;
-            if (y2 < -8 && y2 > Game.Grade * -1) Coluna = Listas.Jogador[Índice].Animação;
+            if (x2 > 8 && x2 < Game.Grade) Coluna = Lists.Jogador[Índice].Animação;
+            if (x2 < -8 && x2 > Game.Grade * -1) Coluna = Lists.Jogador[Índice].Animação;
+            if (y2 > 8 && y2 < Game.Grade) Coluna = Lists.Jogador[Índice].Animação;
+            if (y2 < -8 && y2 > Game.Grade * -1) Coluna = Lists.Jogador[Índice].Animação;
         }
 
         // Demonstra que o personagem está sofrendo dano
-        if (Listas.Jogador[Índice].Sofrendo > 0) Sofrendo = true;
+        if (Lists.Jogador[Índice].Sofrendo > 0) Sofrendo = true;
 
         // Desenha o jogador
-        x = Listas.Jogador[Índice].X * Game.Grade + Listas.Jogador[Índice].X2;
-        y = Listas.Jogador[Índice].Y * Game.Grade + Listas.Jogador[Índice].Y2;
-        Personagem(Textura, new Point(Game.ConverterX(x), Game.ConverterY(y)), Listas.Jogador[Índice].Direção, Coluna, Sofrendo);
-        Jogador_Nome(Índice, x, y);
+        x = Lists.Jogador[Índice].X * Game.Grade + Lists.Jogador[Índice].X2;
+        y = Lists.Jogador[Índice].Y * Game.Grade + Lists.Jogador[Índice].Y2;
+        Personagem(Textura, new Point(Game.ConverterX(x), Game.ConverterY(y)), Lists.Jogador[Índice].Direção, Coluna, Sofrendo);
+        Jogador_Name(Índice, x, y);
         Jogador_Barras(Índice, x, y);
     }
 
@@ -441,27 +441,27 @@ partial class Gráficos
         Size Personagem_Tamanho = TTamanho(Tex_Personagem[Player.Personagem_Textura(Índice)]);
         Point Posição = new Point(Game.ConverterX(x), Game.ConverterY(y) + Personagem_Tamanho.Height / Game.Animação_Quantidade + 4);
         int Largura_Completa = Personagem_Tamanho.Width / Game.Animação_Quantidade;
-        short Contagem = Listas.Jogador[Índice].Vital[(byte)Game.Vitais.Vida];
+        short Contagem = Lists.Jogador[Índice].Vital[(byte)Game.Vitais.Vida];
 
         // Apenas se necessário
-        if (Contagem <= 0 || Contagem >= Listas.Jogador[Índice].Máx_Vital[(byte)Game.Vitais.Vida]) return;
+        if (Contagem <= 0 || Contagem >= Lists.Jogador[Índice].Máx_Vital[(byte)Game.Vitais.Vida]) return;
 
         // Cálcula a largura da barra
-        int Largura = (Contagem * Largura_Completa) / Listas.Jogador[Índice].Máx_Vital[(byte)Game.Vitais.Vida];
+        int Largura = (Contagem * Largura_Completa) / Lists.Jogador[Índice].Máx_Vital[(byte)Game.Vitais.Vida];
 
         // Desenha as barras 
         Desenhar(Tex_Barras, Posição.X, Posição.Y, 0, 4, Largura_Completa, 4);
         Desenhar(Tex_Barras, Posição.X, Posição.Y, 0, 0, Largura, 4);
     }
 
-    public static void Jogador_Nome(byte Índice, int x, int y)
+    public static void Jogador_Name(byte Índice, int x, int y)
     {
         Texture Textura = Tex_Personagem[Player.Personagem_Textura(Índice)];
-        int Nome_Tamanho = Tools.MedirTexto_Largura(Listas.Jogador[Índice].Nome);
+        int Name_Tamanho = Tools.MedirTexto_Largura(Lists.Jogador[Índice].Name);
 
         // Posição do texto
         Point Posição = new Point();
-        Posição.X = x + TTamanho(Textura).Width / Game.Animação_Quantidade / 2 - Nome_Tamanho / 2;
+        Posição.X = x + TTamanho(Textura).Width / Game.Animação_Quantidade / 2 - Name_Tamanho / 2;
         Posição.Y = y - TTamanho(Textura).Height / Game.Animação_Quantidade / 2;
 
         // Cor do texto
@@ -472,6 +472,6 @@ partial class Gráficos
             Cor = SFML.Graphics.Color.White;
 
         // Desenha o texto
-        Desenhar(Listas.Jogador[Índice].Nome, Game.ConverterX(Posição.X), Game.ConverterY(Posição.Y), Cor);
+        Desenhar(Lists.Jogador[Índice].Name, Game.ConverterX(Posição.X), Game.ConverterY(Posição.Y), Cor);
     }
 }

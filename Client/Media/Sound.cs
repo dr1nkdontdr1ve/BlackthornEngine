@@ -16,7 +16,7 @@ class Sound
         Quantidade
     }
 
-    // Listas das músicas
+    // Lists das músicas
     public enum Músicas
     {
         Menu = 1,
@@ -44,7 +44,7 @@ class Sound
         public static void Reproduzir(Sons Índice, bool Laço = false)
         {
             // Apenas se necessário
-            if (!Listas.Opções.Sons) return;
+            if (!Lists.Opções.Sons) return;
 
             // Reproduz o áudio
             Lista[(byte)Índice].Volume = 20;
@@ -80,7 +80,7 @@ class Sound
 
             // Apenas se necessário
             if (Reprodutor != null) return;
-            if (!Listas.Opções.Músicas) return;
+            if (!Lists.Opções.Músicas) return;
 
             // Carrega o áudio
             Reprodutor = new Music(Diretórios.Músicas.FullName + (byte)Índice + Formato);

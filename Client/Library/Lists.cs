@@ -1,9 +1,9 @@
 ﻿public class Lists
 {
-    // Armazenamento de dados
+    // Armazenamento de Data
     public static Structures.Options Options = new Structures.Options();
-    public static Structures.Cliente_Dados Cliente_Dados = new Structures.Client_Data();
-    public static Structures.Servidor_Dados Servidor_Dados = new Structures.Server_Data();
+    public static Structures.Cliente_Data Cliente_Data = new Structures.Client_Data();
+    public static Structures.Servidor_Data Servidor_Data = new Structures.Server_Data();
     public static Structures.Player[] Player;
     public static Structures.Classe[] Classe;
     public static Structures.Character[] Characters;
@@ -17,7 +17,7 @@
     {
         public struct Options
         {
-            public string Game_Nome;
+            public string Game_Name;
             public bool SalvarUsuário;
             public bool Sons;
             public bool Músicas;
@@ -53,7 +53,7 @@
             public short[] Máx_Vital;
             public int Coletar_Tempo;
             // Geral
-            public string Nome;
+            public string Name;
             public byte Classe;
             public bool Gênero;
             public short Level;
@@ -72,7 +72,7 @@
 
         public class Character
         {
-            public string Nome;
+            public string Name;
             public byte Classe;
             public bool Gênero;
             public short Level;
@@ -92,7 +92,7 @@
         public struct Maps
         {
             public short Revisão;
-            public string Nome;
+            public string Name;
             public byte Largura;
             public byte Altura;
             public byte Moral;
@@ -129,7 +129,7 @@
         {
             public byte Atributo;
             public bool[] Bloqueio;
-            public Azulejo_Dados[,] Dados;
+            public Azulejo_Data[,] Data;
         }
 
         public struct Tile_Data
@@ -161,7 +161,7 @@
 
         public struct NPCs
         {
-            public string Nome;
+            public string Name;
             public short Textura;
             public byte Tipo;
             public short[] Vital;

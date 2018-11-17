@@ -159,7 +159,7 @@ public class Game
     public static void AbrirMenu()
     {
         // Reproduz a música de fundo
-        if (Listas.Opções.Músicas)
+        if (Lists.Opções.Músicas)
             Áudio.Música.Reproduzir(Áudio.Músicas.Menu);
 
         // Abre o menu
@@ -184,7 +184,7 @@ public class Game
             return;
         }
 
-        // Envia os dados
+        // Envia os Data
         switch (Situação)
         {
             case Situações.Conectar: Enviar.Conectar(); break;
@@ -242,20 +242,20 @@ public class Game
         Final.Y = Início.Y + (Map.Min_Altura + 1) + 1;
 
         // Reajusta a posição horizontal da tela
-        if (Final.X > Listas.Mapa.Largura)
+        if (Final.X > Lists.Mapa.Largura)
         {
             Posição.X = Grade;
-            if (Final.X == Listas.Mapa.Largura + 1 && Player.Eu.X2 < 0) Posição.X = Player.Eu.X2 + Grade;
-            Final.X = Listas.Mapa.Largura;
+            if (Final.X == Lists.Mapa.Largura + 1 && Player.Eu.X2 < 0) Posição.X = Player.Eu.X2 + Grade;
+            Final.X = Lists.Mapa.Largura;
             Início.X = Final.X - Map.Min_Largura - 1;
         }
 
         // Reajusta a posição vertical da tela
-        if (Final.Y > Listas.Mapa.Altura)
+        if (Final.Y > Lists.Mapa.Altura)
         {
             Posição.Y = Grade;
-            if (Final.Y == Listas.Mapa.Altura + 1 && Player.Eu.Y2 < 0) Posição.Y = Player.Eu.Y2 + Grade;
-            Final.Y = Listas.Mapa.Altura;
+            if (Final.Y == Lists.Mapa.Altura + 1 && Player.Eu.Y2 < 0) Posição.Y = Player.Eu.Y2 + Grade;
+            Final.Y = Lists.Mapa.Altura;
             Início.Y = Final.Y - Map.Min_Altura - 1;
         }
 
