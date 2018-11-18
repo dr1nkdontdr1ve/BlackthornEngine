@@ -10,7 +10,7 @@
         public Tools.General General;
     }
 
-    public static byte EncontrarÍndice(string Name)
+    public static byte EncontrarIndex(string Name)
     {
         // Lista os Names das ferramentas
         for (byte i = 1; i <= List.GetUpperBound(0); i++)
@@ -36,7 +36,7 @@
         Encontrar("Conectar").General.Visível = false;
         Encontrar("Registrar").General.Visível = false;
         Encontrar("Opções").General.Visível = false;
-        Encontrar("SelecionarPersonagem").General.Visível = false;
-        Encontrar("CriarPersonagem").General.Visível = false;
+        Encontrar("SelecionarCharacter").General.Visível = false;
+        Encontrar("CriarCharacter").General.Visível = false;
     }
 }

@@ -17,7 +17,7 @@ public class Tools
     // Chat
     public static bool Linhas_Visível;
     public const byte Linhas_Visíveis = 9;
-    public const byte Máx_Linhas = 50;
+    public const byte Max_Linhas = 50;
     public static byte Linha;
 
     // Ordem da renderização das ferramentas
@@ -26,8 +26,8 @@ public class Tools
 
     public struct Identificação
     {
-        public byte Índice;
-        public Tipos Tipo;
+        public byte Index;
+        public Types Type;
     }
 
     public class General
@@ -61,8 +61,8 @@ public class Tools
         Game
     }
 
-    // Tipos de ferramentas
-    public enum Tipos
+    // Types de ferramentas
+    public enum Types
     {
         Botão,
         Painel,
@@ -79,27 +79,27 @@ public class Tools
             Habilitação = true;
     }
 
-    public static void Listar(Tipos Tipo, byte Índice)
+    public static void Listar(Types Type, byte Index)
     {
-        int Quantidade = Ordem.GetUpperBound(0) + 1;
+        int Amount = Ordem.GetUpperBound(0) + 1;
 
         // Se já estiver listado não é necessário listar de novo
-        if (EstáListado(Tipo, Índice))
+        if (EstáListado(Type, Index))
             return;
 
         // Altera o tamanho da caixa
-        Array.Resize(ref Ordem, Quantidade + 1);
+        Array.Resize(ref Ordem, Amount + 1);
 
         // Adiciona à lista
-        Ordem[Quantidade].Tipo = Tipo;
-        Ordem[Quantidade].Índice = Índice;
+        Ordem[Amount].Type = Type;
+        Ordem[Amount].Index = Index;
     }
 
-    private static bool EstáListado(Tipos Tipo, byte Índice)
+    private static bool EstáListado(Types Type, byte Index)
     {
         // Verifica se a ferramenta já está listada
         for (short i = 1; i <= Ordem.GetUpperBound(0); i++)
-            if (Ordem[i].Tipo == Tipo && Ordem[i].Índice == Índice)
+            if (Ordem[i].Type == Type && Ordem[i].Index == Index)
                 return true;
 
         return false;
@@ -116,11 +116,11 @@ public class Tools
         return false;
     }
 
-    public static int Encontrar(Tipos Tipo, byte Índice)
+    public static int Encontrar(Types Type, byte Index)
     {
         // Lista os Names dos botões
         for (byte i = 1; i <= Ordem.GetUpperBound(0); i++)
-            if (Ordem[i].Tipo == Tipo && Ordem[i].Índice == Índice)
+            if (Ordem[i].Type == Type && Ordem[i].Index == Index)
                 return i;
 
         return 0;
@@ -158,7 +158,7 @@ public class Tools
     public static byte EcontrarLinhaVazia()
     {
         // Encontra uma linha vazia
-        for (byte i = 0; i <= Máx_Linhas; i++)
+        for (byte i = 0; i <= Max_Linhas; i++)
             if (Chat[i].Texto == string.Empty)
                 return i;
 
@@ -175,7 +175,7 @@ public class Tools
         Chat[i].Cor = Cor;
 
         // Remove uma linha se necessário
-        if (Chat.Count > Máx_Linhas) Chat.Remove(Chat[0]);
+        if (Chat.Count > Max_Linhas) Chat.Remove(Chat[0]);
         if (i + Linha > Linhas_Visíveis + Linha)
             Linha = (byte)(i - Linhas_Visíveis);
 
@@ -220,12 +220,12 @@ public class Tools
         }
     }
 
-    public static byte Inventário_Sobrepondo()
+    public static byte Inventory_Sobrepondo()
     {
         byte NumColunas = 5;
-        Point Painel_Posição = Panels.Encontrar("Menu_Inventário").General.Posição;
+        Point Painel_Posição = Panels.Encontrar("Menu_Inventory").General.Posição;
 
-        for (byte i = 1; i <= Game.Máx_Inventário; i++)
+        for (byte i = 1; i <= Game.Max_Inventory; i++)
         {
             // Posição do item
             byte Linha = (byte)((i - 1) / NumColunas);
@@ -240,38 +240,38 @@ public class Tools
         return 0;
     }
 
-    public static void Inventário_MouseDown(MouseEventArgs e)
+    public static void Inventory_MouseDown(MouseEventArgs e)
     {
-        byte Slot = Inventário_Sobrepondo();
+        byte Slot = Inventory_Sobrepondo();
 
         // Somente se necessário
         if (Slot == 0) return;
-        if (Player.Inventário[Slot].Item_Num == 0) return;
+        if (Player.Inventory[Slot].Item_Num == 0) return;
 
         // Solta item
         if (e.Button == MouseButtons.Right)
         {
-            Enviar.SoltarItem(Slot);
+            Sending.SoltarItem(Slot);
             return;
         }
         // Seleciona o item
         else if (e.Button == MouseButtons.Left)
         {
-            Player.Inventário_Movendo = Slot;
+            Player.Inventory_Movendo = Slot;
             return;
         }
     }
 
     public static void Equipamento_MouseDown(MouseEventArgs e)
     {
-        Point Painel_Posição = Panels.Encontrar("Menu_Personagem").General.Posição;
+        Point Painel_Posição = Panels.Encontrar("Menu_Character").General.Posição;
 
-        for (byte i = 0; i <= (byte)Game.Equipamentos.Quantidade - 1; i++)
+        for (byte i = 0; i <= (byte)Game.Equipamentos.Amount - 1; i++)
             if (EstáSobrepondo(new Rectangle(Painel_Posição.X + 7 + i * 36, Painel_Posição.Y + 247, 32, 32)))
                 // Remove o equipamento
                 if (e.Button == MouseButtons.Right)
                 {
-                    Enviar.Equipamento_Remover(i);
+                    Sending.Equipamento_Remover(i);
                     return;
                 }
     }
@@ -280,7 +280,7 @@ public class Tools
     {
         Point Painel_Posição = Panels.Encontrar("Hotbar").General.Posição;
 
-        for (byte i = 1; i <= Game.Máx_Hotbar; i++)
+        for (byte i = 1; i <= Game.Max_Hotbar; i++)
         {
             // Posição do slot
             Point Posição = new Point(Painel_Posição.X + 8 + (i - 1) * 36, Painel_Posição.Y + 6);
@@ -304,7 +304,7 @@ public class Tools
         // Solta item
         if (e.Button == MouseButtons.Right)
         {
-            Enviar.Hotbar_Adicionar(Slot, 0, 0);
+            Sending.Hotbar_Adicionar(Slot, 0, 0);
             return;
         }
         // Seleciona o item

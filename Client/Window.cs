@@ -26,15 +26,15 @@ public partial class Window : Form
     {
         // Executa o evento de acordo a sobreposição do ponteiro
         for (byte i = 0; i <= Ferramentas.Ordem.GetUpperBound(0); i++)
-            switch (Ferramentas.Ordem[i].Tipo)
+            switch (Ferramentas.Ordem[i].Type)
             {
-                case Ferramentas.Tipos.Botão: Botões.Eventos.MouseDown(e, Ferramentas.Ordem[i].Índice); break;
+                case Ferramentas.Types.Botão: Botões.Eventos.MouseDown(e, Ferramentas.Ordem[i].Index); break;
             }
 
         // Eventos em Game
         if (Ferramentas.JanelaAtual == Ferramentas.Janelas.Game)
         {
-            Ferramentas.Inventário_MouseDown(e);
+            Ferramentas.Inventory_MouseDown(e);
             Ferramentas.Equipamento_MouseDown(e);
             Ferramentas.Hotbar_MouseDown(e);
         }
@@ -48,9 +48,9 @@ public partial class Window : Form
 
         // Executa o evento de acordo a sobreposição do ponteiro
         for (byte i = 0; i <= Ferramentas.Ordem.GetUpperBound(0); i++)
-            switch (Ferramentas.Ordem[i].Tipo)
+            switch (Ferramentas.Ordem[i].Type)
             {
-                case Ferramentas.Tipos.Botão: Botões.Eventos.MouseMove(e, Ferramentas.Ordem[i].Índice); break;
+                case Ferramentas.Types.Botão: Botões.Eventos.MouseMove(e, Ferramentas.Ordem[i].Index); break;
             }
     }
 
@@ -58,31 +58,31 @@ public partial class Window : Form
     {
         // Executa o evento de acordo a sobreposição do ponteiro
         for (byte i = 0; i <= Ferramentas.Ordem.GetUpperBound(0); i++)
-            switch (Ferramentas.Ordem[i].Tipo)
+            switch (Ferramentas.Ordem[i].Type)
             {
-                case Ferramentas.Tipos.Botão: Botões.Eventos.MouseUp(e, Ferramentas.Ordem[i].Índice); break;
-                case Ferramentas.Tipos.Marcador: Marcadores.Eventos.MouseUp(e, Ferramentas.Ordem[i].Índice); break;
-                case Ferramentas.Tipos.Digitalizador: Digitalizadores.Eventos.MouseUp(e, Ferramentas.Ordem[i].Índice); break;
+                case Ferramentas.Types.Botão: Botões.Eventos.MouseUp(e, Ferramentas.Ordem[i].Index); break;
+                case Ferramentas.Types.Marcador: Marcadores.Eventos.MouseUp(e, Ferramentas.Ordem[i].Index); break;
+                case Ferramentas.Types.Digitalizador: Digitalizadores.Eventos.MouseUp(e, Ferramentas.Ordem[i].Index); break;
             }
 
         // Eventos em Game
         if (Ferramentas.JanelaAtual == Ferramentas.Janelas.Game)
         {
             // Muda o slot do item
-            if (Jogador.Inventário_Movendo > 0)
-                if (Ferramentas.Inventário_Sobrepondo() > 0)
-                    Enviar.Inventário_Mudar(Jogador.Inventário_Movendo, Ferramentas.Inventário_Sobrepondo());
+            if (Player.Inventory_Movendo > 0)
+                if (Ferramentas.Inventory_Sobrepondo() > 0)
+                    Sending.Inventory_Mudar(Player.Inventory_Movendo, Ferramentas.Inventory_Sobrepondo());
 
             // Muda o slot da hotbar
             if (Ferramentas.Hotbar_Sobrepondo() > 0)
             {
-                if (Jogador.Hotbar_Movendo > 0) Enviar.Hotbar_Mudar(Jogador.Hotbar_Movendo, Ferramentas.Hotbar_Sobrepondo());
-                if (Jogador.Inventário_Movendo > 0) Enviar.Hotbar_Adicionar(Ferramentas.Hotbar_Sobrepondo(), (byte)Game.Hotbar.Item, Jogador.Inventário_Movendo);
+                if (Player.Hotbar_Movendo > 0) Sending.Hotbar_Mudar(Player.Hotbar_Movendo, Ferramentas.Hotbar_Sobrepondo());
+                if (Player.Inventory_Movendo > 0) Sending.Hotbar_Adicionar(Ferramentas.Hotbar_Sobrepondo(), (byte)Game.Hotbar.Item, Player.Inventory_Movendo);
             }
 
             // Reseta a movimentação
-            Jogador.Inventário_Movendo = 0;
-            Jogador.Hotbar_Movendo = 0;
+            Player.Inventory_Movendo = 0;
+            Player.Hotbar_Movendo = 0;
         }
     }
 
@@ -112,17 +112,17 @@ public partial class Window : Form
             {
                 switch (e.KeyCode)
                 {
-                    case Keys.Space: Jogador.ColetarItem(); break;
-                    case Keys.D1: Enviar.Hotbar_Usar(1); break;
-                    case Keys.D2: Enviar.Hotbar_Usar(2); break;
-                    case Keys.D3: Enviar.Hotbar_Usar(3); break;
-                    case Keys.D4: Enviar.Hotbar_Usar(4); break;
-                    case Keys.D5: Enviar.Hotbar_Usar(5); break;
-                    case Keys.D6: Enviar.Hotbar_Usar(6); break;
-                    case Keys.D7: Enviar.Hotbar_Usar(7); break;
-                    case Keys.D8: Enviar.Hotbar_Usar(8); break;
-                    case Keys.D9: Enviar.Hotbar_Usar(9); break;
-                    case Keys.D0: Enviar.Hotbar_Usar(0); break;
+                    case Keys.Space: Player.ColetarItem(); break;
+                    case Keys.D1: Sending.Hotbar_Usar(1); break;
+                    case Keys.D2: Sending.Hotbar_Usar(2); break;
+                    case Keys.D3: Sending.Hotbar_Usar(3); break;
+                    case Keys.D4: Sending.Hotbar_Usar(4); break;
+                    case Keys.D5: Sending.Hotbar_Usar(5); break;
+                    case Keys.D6: Sending.Hotbar_Usar(6); break;
+                    case Keys.D7: Sending.Hotbar_Usar(7); break;
+                    case Keys.D8: Sending.Hotbar_Usar(8); break;
+                    case Keys.D9: Sending.Hotbar_Usar(9); break;
+                    case Keys.D0: Sending.Hotbar_Usar(0); break;
                 }
             }
     }
@@ -153,16 +153,16 @@ public partial class Window : Form
         if (Ferramentas.JanelaAtual == Ferramentas.Janelas.Game)
         {
             // Usar item
-            byte Slot = Ferramentas.Inventário_Sobrepondo();
+            byte Slot = Ferramentas.Inventory_Sobrepondo();
             if (Slot > 0)
-                if (Jogador.Inventário[Slot].Item_Num > 0)
-                    Enviar.Inventário_Usar(Slot);
+                if (Player.Inventory[Slot].Item_Num > 0)
+                    Sending.Inventory_Usar(Slot);
 
             // Usar o que estiver na hotbar
             Slot = Ferramentas.Hotbar_Sobrepondo();
             if (Slot > 0)
-                if (Jogador.Hotbar[Slot].Slot > 0)
-                    Enviar.Hotbar_Usar(Slot);
+                if (Player.Hotbar[Slot].Slot > 0)
+                    Sending.Hotbar_Usar(Slot);
         }
     }
 }

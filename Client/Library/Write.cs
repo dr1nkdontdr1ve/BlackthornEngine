@@ -24,70 +24,70 @@ class Write
         Arquivo.Dispose();
     }
 
-    public static void Mapa(short Índice)
+    public static void Map(short Index)
     {
         // Cria um arquivo temporário
-        FileInfo Arquivo = new FileInfo(Diretórios.Mapas_Data.FullName + Índice + Diretórios.Formato);
+        FileInfo Arquivo = new FileInfo(Diretórios.Maps_Data.FullName + Index + Diretórios.Formato);
         BinaryWriter Binário = new BinaryWriter(Arquivo.OpenWrite());
 
         // Escreve os Data
-        Binário.Write(Lists.Mapa.Revisão);
-        Binário.Write(Lists.Mapa.Name);
-        Binário.Write(Lists.Mapa.Largura);
-        Binário.Write(Lists.Mapa.Altura);
-        Binário.Write(Lists.Mapa.Moral);
-        Binário.Write(Lists.Mapa.Panorama);
-        Binário.Write(Lists.Mapa.Música);
-        Binário.Write(Lists.Mapa.Coloração);
-        Binário.Write(Lists.Mapa.Clima.Tipo);
-        Binário.Write(Lists.Mapa.Clima.Intensidade);
-        Binário.Write(Lists.Mapa.Fumaça.Textura);
-        Binário.Write(Lists.Mapa.Fumaça.VelocidadeX);
-        Binário.Write(Lists.Mapa.Fumaça.VelocidadeY);
-        Binário.Write(Lists.Mapa.Fumaça.Transparência);
+        Binário.Write(Lists.Map.Revisão);
+        Binário.Write(Lists.Map.Name);
+        Binário.Write(Lists.Map.Largura);
+        Binário.Write(Lists.Map.Altura);
+        Binário.Write(Lists.Map.Moral);
+        Binário.Write(Lists.Map.Panorama);
+        Binário.Write(Lists.Map.Música);
+        Binário.Write(Lists.Map.Coloração);
+        Binário.Write(Lists.Map.Clima.Type);
+        Binário.Write(Lists.Map.Clima.Intensidade);
+        Binário.Write(Lists.Map.Fumaça.Texture);
+        Binário.Write(Lists.Map.Fumaça.VelocidadeX);
+        Binário.Write(Lists.Map.Fumaça.VelocidadeY);
+        Binário.Write(Lists.Map.Fumaça.Transparência);
 
         // Ligação
-        for (short i = 0; i <= (short)Game.Direções.Quantidade - 1; i++)
-            Binário.Write(Lists.Mapa.Ligação[i]);
+        for (short i = 0; i <= (short)Game.Direções.Amount - 1; i++)
+            Binário.Write(Lists.Map.Ligação[i]);
 
         // Azulejos
-        Binário.Write((byte)Lists.Mapa.Azulejo[0, 0].Data.GetUpperBound(1));
-        for (byte x = 0; x <= Lists.Mapa.Largura; x++)
-            for (byte y = 0; y <= Lists.Mapa.Altura; y++)
-                for (byte c = 0; c <= (byte)global::Mapa.Camadas.Quantidade - 1; c++)
-                    for (byte q = 0; q <= Lists.Mapa.Azulejo[x, y].Data.GetUpperBound(1); q++)
+        Binário.Write((byte)Lists.Map.Azulejo[0, 0].Data.GetUpperBound(1));
+        for (byte x = 0; x <= Lists.Map.Largura; x++)
+            for (byte y = 0; y <= Lists.Map.Altura; y++)
+                for (byte c = 0; c <= (byte)global::Map.Camadas.Amount - 1; c++)
+                    for (byte q = 0; q <= Lists.Map.Azulejo[x, y].Data.GetUpperBound(1); q++)
                     {
-                        Binário.Write(Lists.Mapa.Azulejo[x, y].Data[c, q].x);
-                        Binário.Write(Lists.Mapa.Azulejo[x, y].Data[c, q].y);
-                        Binário.Write(Lists.Mapa.Azulejo[x, y].Data[c, q].Azulejo);
-                        Binário.Write(Lists.Mapa.Azulejo[x, y].Data[c, q].Automático);
+                        Binário.Write(Lists.Map.Azulejo[x, y].Data[c, q].x);
+                        Binário.Write(Lists.Map.Azulejo[x, y].Data[c, q].y);
+                        Binário.Write(Lists.Map.Azulejo[x, y].Data[c, q].Azulejo);
+                        Binário.Write(Lists.Map.Azulejo[x, y].Data[c, q].Automático);
                     }
 
         // Data específicos dos azulejos
-        for (byte x = 0; x <= Lists.Mapa.Largura; x++)
-            for (byte y = 0; y <= Lists.Mapa.Altura; y++)
+        for (byte x = 0; x <= Lists.Map.Largura; x++)
+            for (byte y = 0; y <= Lists.Map.Altura; y++)
             {
-                Binário.Write((byte)Lists.Mapa.Azulejo[x, y].Atributo);
-                for (byte i = 0; i <= (byte)Game.Direções.Quantidade - 1; i++)
-                    Binário.Write(Lists.Mapa.Azulejo[x, y].Bloqueio[i]);
+                Binário.Write((byte)Lists.Map.Azulejo[x, y].Atributo);
+                for (byte i = 0; i <= (byte)Game.Direções.Amount - 1; i++)
+                    Binário.Write(Lists.Map.Azulejo[x, y].Bloqueio[i]);
             }
 
         // Luzes
-        Binário.Write(Lists.Mapa.Luz.GetUpperBound(0));
-        if (Lists.Mapa.Luz.GetUpperBound(0) > 0)
-            for (byte i = 0; i <= Lists.Mapa.Luz.GetUpperBound(0); i++)
+        Binário.Write(Lists.Map.Luz.GetUpperBound(0));
+        if (Lists.Map.Luz.GetUpperBound(0) > 0)
+            for (byte i = 0; i <= Lists.Map.Luz.GetUpperBound(0); i++)
             {
-                Binário.Write(Lists.Mapa.Luz[i].X);
-                Binário.Write(Lists.Mapa.Luz[i].Y);
-                Binário.Write(Lists.Mapa.Luz[i].Largura);
-                Binário.Write(Lists.Mapa.Luz[i].Altura);
+                Binário.Write(Lists.Map.Luz[i].X);
+                Binário.Write(Lists.Map.Luz[i].Y);
+                Binário.Write(Lists.Map.Luz[i].Largura);
+                Binário.Write(Lists.Map.Luz[i].Altura);
             }
 
         // NPCs
-        Binário.Write(Lists.Mapa.NPC.GetUpperBound(0));
-        if (Lists.Mapa.NPC.GetUpperBound(0) > 0)
-            for (byte i = 1; i <= Lists.Mapa.NPC.GetUpperBound(0) ; i++)
-                Binário.Write(Lists.Mapa.NPC[i]);
+        Binário.Write(Lists.Map.NPC.GetUpperBound(0));
+        if (Lists.Map.NPC.GetUpperBound(0) > 0)
+            for (byte i = 1; i <= Lists.Map.NPC.GetUpperBound(0) ; i++)
+                Binário.Write(Lists.Map.NPC[i]);
 
         // Fecha o sistema
         Binário.Dispose();

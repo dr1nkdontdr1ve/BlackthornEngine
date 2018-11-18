@@ -13,43 +13,43 @@ class Sound
         Trovão_2,
         Trovão_3,
         Trovão_4,
-        Quantidade
+        Amount
     }
 
     // Lists das músicas
     public enum Músicas
     {
         Menu = 1,
-        Quantidade
+        Amount
     }
 
     public class Som
     {
-        // Formato em o dispositivo irá ler os sons
+        // Formato em o Device irá ler os sons
         public const string Formato = ".wav";
 
-        // Dispositivo sonoro
+        // Device sonoro
         public static Sound[] Lista;
 
         public static void Ler()
         {
             // Redimensiona a lista
-            Array.Resize(ref Lista, (byte)Sons.Quantidade);
+            Array.Resize(ref Lista, (byte)Sons.Amount);
 
             // Carrega todos os arquivos e os adiciona a lista
                for (int i = 1; i <= Lista.GetUpperBound(0); i++)
              Lista[i] = new Sound(new SoundBuffer(Diretórios.Sons.FullName + i + Formato));
         }
 
-        public static void Reproduzir(Sons Índice, bool Laço = false)
+        public static void Reproduzir(Sons Index, bool Laço = false)
         {
             // Apenas se necessário
             if (!Lists.Opções.Sons) return;
 
             // Reproduz o áudio
-            Lista[(byte)Índice].Volume = 20;
-            Lista[(byte)Índice].Loop = Laço;
-            Lista[(byte)Índice].Play();
+            Lista[(byte)Index].Volume = 20;
+            Lista[(byte)Index].Loop = Laço;
+            Lista[(byte)Index].Play();
         }
 
         public static void Parar_Tudo()
@@ -58,39 +58,39 @@ class Sound
             if (Lista == null) return;
 
             // Para todos os sons
-            for (byte i = 1; i <= (byte)Sons.Quantidade - 1; i++)
+            for (byte i = 1; i <= (byte)Sons.Amount - 1; i++)
                 Lista[i].Stop();
         }
     }
 
     public class Música
     {
-        // Formato em o dispositivo irá ler as músicas
+        // Formato em o Device irá ler as músicas
         public const string Formato = ".ogg";
 
         // Lista das músicas
         public static Music Reprodutor;
 
-        // Índice da música reproduzida atualmente
+        // Index da música reproduzida atualmente
         public static byte Atual;
 
-        public static void Reproduzir(Músicas Índice, bool Laço = false)
+        public static void Reproduzir(Músicas Index, bool Laço = false)
         {
-            string Diretório = Diretórios.Músicas.FullName + (byte)Índice + Formato;
+            string Diretório = Diretórios.Músicas.FullName + (byte)Index + Formato;
 
             // Apenas se necessário
             if (Reprodutor != null) return;
             if (!Lists.Opções.Músicas) return;
 
             // Carrega o áudio
-            Reprodutor = new Music(Diretórios.Músicas.FullName + (byte)Índice + Formato);
+            Reprodutor = new Music(Diretórios.Músicas.FullName + (byte)Index + Formato);
             Reprodutor.Loop = true;
             Reprodutor.Volume = 20;
             Reprodutor.Loop = Laço;
 
             // Reproduz
             Reprodutor.Play();
-            Atual = (byte)Índice;
+            Atual = (byte)Index;
         }
 
         public static void Parar()

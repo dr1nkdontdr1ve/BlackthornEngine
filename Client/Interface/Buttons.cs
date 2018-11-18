@@ -9,7 +9,7 @@ public class Buttons
     // Estrutura das ferramentas
     public class Structure
     {
-        public byte Textura;
+        public byte Texture;
         public Estados Estado;
         public Tools.General Geral;
     }
@@ -22,7 +22,7 @@ public class Buttons
         Sobrepor,
     }
 
-    public static byte EncontrarÍndice(string Name)
+    public static byte EncontrarIndex(string Name)
     {
         // Lista os Names das ferramentas
         for (byte i = 1; i <= List.GetUpperBound(0); i++)
@@ -44,48 +44,48 @@ public class Buttons
 
     public class Events
     {
-        public static void MouseUp(MouseEventArgs e, byte Índice)
+        public static void MouseUp(MouseEventArgs e, byte Index)
         {
-            SFML.Graphics.Texture Textura = Gráficos.Tex_Botão[List[Índice].Textura];
+            SFML.Graphics.Texture Texture = Gráficos.Tex_Botão[List[Index].Texture];
 
             // Somente se necessário
-            if (!List[Índice].Geral.Habilitado) return;
-            if (!Tools.EstáSobrepondo(new Rectangle(List[Índice].Geral.Posição, Gráficos.TTamanho(Textura)))) return;
+            if (!List[Index].Geral.Habilitado) return;
+            if (!Tools.EstáSobrepondo(new Rectangle(List[Index].Geral.Posição, Gráficos.TTamanho(Texture)))) return;
 
             // Altera o estado do botão
             Áudio.Som.Reproduzir(Áudio.Sons.Clique);
-            List[Índice].Estado = Estados.Sobrepor;
+            List[Index].Estado = Estados.Sobrepor;
 
             // Executa o evento
-            Executar(List[Índice].Geral.Name);
+            Executar(List[Index].Geral.Name);
         }
 
-        public static void MouseDown(MouseEventArgs e, byte Índice)
+        public static void MouseDown(MouseEventArgs e, byte Index)
         {
-            SFML.Graphics.Texture Textura = Gráficos.Tex_Botão[List[Índice].Textura];
+            SFML.Graphics.Texture Texture = Gráficos.Tex_Botão[List[Index].Texture];
 
             // Somente se necessário
             if (e.Button == MouseButtons.Right) return;
-            if (!List[Índice].Geral.Habilitado) return;
+            if (!List[Index].Geral.Habilitado) return;
 
             // Se o mouse não estiver sobre a ferramenta, então não executar o evento
-            if (!Tools.EstáSobrepondo(new Rectangle(List[Índice].Geral.Posição, Gráficos.TTamanho(Textura))))
+            if (!Tools.EstáSobrepondo(new Rectangle(List[Index].Geral.Posição, Gráficos.TTamanho(Texture))))
                 return;
 
             // Altera o estado do botão
-            List[Índice].Estado = Estados.Clique;
+            List[Index].Estado = Estados.Clique;
         }
 
         public static void MouseMove(MouseEventArgs e, byte i)
         {
-            SFML.Graphics.Texture Textura = Gráficos.Tex_Botão[List[i].Textura];
+            SFML.Graphics.Texture Texture = Gráficos.Tex_Botão[List[i].Texture];
 
             // Somente se necessário
             if (e.Button == MouseButtons.Right) return;
             if (!List[i].Geral.Habilitado) return;
 
             // Se o mouse não estiver sobre a ferramenta, então não executar o evento
-            if (!Tools.EstáSobrepondo(new Rectangle(List[i].Geral.Posição, Gráficos.TTamanho(Textura))))
+            if (!Tools.EstáSobrepondo(new Rectangle(List[i].Geral.Posição, Gráficos.TTamanho(Texture))))
             {
                 List[i].Estado = Estados.Normal;
                 return;
@@ -111,24 +111,24 @@ public class Buttons
                 case "Opções_Retornar": Menu_Retornar(); break;
                 case "Conectar_Pronto": Conectar_Pronto(); break;
                 case "Registrar_Pronto": Registrar_Pronto(); break;
-                case "CriarPersonagem": CriarPersonagem(); break;
-                case "CriarPersonagem_TrocarDireita": CriarPersonagem_TrocarDireita(); break;
-                case "CriarPersonagem_TrocarEsquerda": CriarPersonagem_TrocarEsquerda(); break;
-                case "CriarPersonagem_Retornar": CriarPersonagem_Retornar(); break;
-                case "Personagem_Usar": Personagem_Usar(); break;
-                case "Personagem_Criar": Personagem_Criar(); break;
-                case "Personagem_Deletar": Personagem_Deletar(); break;
-                case "Personagem_TrocarDireita": Personagem_TrocarDireita(); break;
-                case "Personagem_TrocarEsquerda": Personagem_TrocarEsquerda(); break;
+                case "CriarCharacter": CriarCharacter(); break;
+                case "CriarCharacter_TrocarDireita": CriarCharacter_TrocarDireita(); break;
+                case "CriarCharacter_TrocarEsquerda": CriarCharacter_TrocarEsquerda(); break;
+                case "CriarCharacter_Retornar": CriarCharacter_Retornar(); break;
+                case "Character_Usar": Character_Usar(); break;
+                case "Character_Criar": Character_Criar(); break;
+                case "Character_Deletar": Character_Deletar(); break;
+                case "Character_TrocarDireita": Character_TrocarDireita(); break;
+                case "Character_TrocarEsquerda": Character_TrocarEsquerda(); break;
                 case "Chat_Subir": Chat_Subir(); break;
                 case "Chat_Descer": Chat_Descer(); break;
-                case "Menu_Personagem": Menu_Personagem(); break;
+                case "Menu_Character": Menu_Character(); break;
                 case "Atributos_Força": Atributos_Força(); break;
                 case "Atributos_Resistência": Atributos_Resistência(); break;
                 case "Atributos_Inteligência": Atributos_Inteligência(); break;
                 case "Atributos_Agilidade": Atributos_Agilidade(); break;
                 case "Atributos_Vitalidade": Atributos_Vitalidade(); break;
-                case "Menu_Inventário": Menu_Inventário(); break;
+                case "Menu_Inventory": Menu_Inventory(); break;
             }
         }
 
@@ -137,22 +137,22 @@ public class Buttons
             bool Visibilidade = false;
 
             // Verifica apenas se o painel for visível
-            if (!Panels.Encontrar("SelecionarPersonagem").General.Visível)
+            if (!Panels.Encontrar("SelecionarCharacter").General.Visível)
                 return;
 
-            if (Lists.Personagens[Game.SelecionarPersonagem].Classe != 0)
+            if (Lists.Personagens[Game.SelecionarCharacter].Classe != 0)
                 Visibilidade = true;
 
             // Altera os botões visíveis
-            Encontrar("Personagem_Criar").Geral.Visível = !Visibilidade;
-            Encontrar("Personagem_Deletar").Geral.Visível = Visibilidade;
-            Encontrar("Personagem_Usar").Geral.Visível = Visibilidade;
+            Encontrar("Character_Criar").Geral.Visível = !Visibilidade;
+            Encontrar("Character_Deletar").Geral.Visível = Visibilidade;
+            Encontrar("Character_Usar").Geral.Visível = Visibilidade;
         }
 
         public static void Conectar()
         {
             // Termina a conexão
-            Rede.Desconectar();
+            Network.Desconectar();
 
             // Abre o painel
             Panels.Menu_Fechar();
@@ -162,7 +162,7 @@ public class Buttons
         public static void Registrar()
         {
             // Termina a conexão
-            Rede.Desconectar();
+            Network.Desconectar();
 
             // Abre o painel
             Panels.Menu_Fechar();
@@ -172,7 +172,7 @@ public class Buttons
         public static void Opções()
         {
             // Termina a conexão
-            Rede.Desconectar();
+            Network.Desconectar();
 
             // Abre o painel
             Panels.Menu_Fechar();
@@ -182,7 +182,7 @@ public class Buttons
         public static void Menu_Retornar()
         {
             // Termina a conexão
-            Rede.Desconectar();
+            Network.Desconectar();
 
             // Abre o painel
             Panels.Menu_Fechar();
@@ -208,75 +208,75 @@ public class Buttons
                 return;
             }
 
-            // Registra o jogador, se estiver tudo certo
+            // Registra o Player, se estiver tudo certo
             Game.DefinirSituação(Game.Situações.Registrar);
         }
 
-        public static void CriarPersonagem()
+        public static void CriarCharacter()
         {
-            // Abre a criação de personagem
-            Game.DefinirSituação(Game.Situações.CriarPersonagem);
+            // Abre a criação de Character
+            Game.DefinirSituação(Game.Situações.CriarCharacter);
         }
 
-        public static void CriarPersonagem_TrocarDireita()
+        public static void CriarCharacter_TrocarDireita()
         {
-            // Altera a classe selecionada pelo jogador
-            if (Game.CriarPersonagem_Classe == Lists.Classe.GetUpperBound(0))
-                Game.CriarPersonagem_Classe = 1;
+            // Altera a classe selecionada pelo Player
+            if (Game.CriarCharacter_Classe == Lists.Classe.GetUpperBound(0))
+                Game.CriarCharacter_Classe = 1;
             else
-                Game.CriarPersonagem_Classe += 1;
+                Game.CriarCharacter_Classe += 1;
         }
 
-        public static void CriarPersonagem_TrocarEsquerda()
+        public static void CriarCharacter_TrocarEsquerda()
         {
-            // Altera a classe selecionada pelo jogador
-            if (Game.CriarPersonagem_Classe == 1)
-                Game.CriarPersonagem_Classe = (byte)Lists.Classe.GetUpperBound(0);
+            // Altera a classe selecionada pelo Player
+            if (Game.CriarCharacter_Classe == 1)
+                Game.CriarCharacter_Classe = (byte)Lists.Classe.GetUpperBound(0);
             else
-                Game.CriarPersonagem_Classe -= 1;
+                Game.CriarCharacter_Classe -= 1;
         }
 
-        public static void CriarPersonagem_Retornar()
+        public static void CriarCharacter_Retornar()
         {
             // Abre o painel de personagens
             Panels.Menu_Fechar();
-            Panels.Encontrar("SelecionarPersonagem").General.Visível = true;
+            Panels.Encontrar("SelecionarCharacter").General.Visível = true;
         }
 
-        public static void Personagem_Usar()
+        public static void Character_Usar()
         {
-            // Usa o personagem selecionado
-            Enviar.Personagem_Usar();
+            // Usa o Character selecionado
+            Sending.Character_Usar();
         }
 
-        public static void Personagem_Deletar()
+        public static void Character_Deletar()
         {
-            // Deleta o personagem selecionado
-            Enviar.Personagem_Deletar();
+            // Deleta o Character selecionado
+            Sending.Character_Deletar();
         }
 
-        public static void Personagem_Criar()
+        public static void Character_Criar()
         {
-            // Abre a criação de personagem
-            Enviar.Personagem_Criar();
+            // Abre a criação de Character
+            Sending.Character_Criar();
         }
 
-        public static void Personagem_TrocarDireita()
+        public static void Character_TrocarDireita()
         {
-            // Altera o personagem selecionado pelo jogador
-            if (Game.SelecionarPersonagem == Lists.Servidor_Data.Máx_Personagens)
-                Game.SelecionarPersonagem = 1;
+            // Altera o Character selecionado pelo Player
+            if (Game.SelecionarCharacter == Lists.Servidor_Data.Max_Personagens)
+                Game.SelecionarCharacter = 1;
             else
-                Game.SelecionarPersonagem += 1;
+                Game.SelecionarCharacter += 1;
         }
 
-        public static void Personagem_TrocarEsquerda()
+        public static void Character_TrocarEsquerda()
         {
-            // Altera o personagem selecionado pelo jogador
-            if (Game.SelecionarPersonagem == 1)
-                Game.SelecionarPersonagem = Lists.Servidor_Data.Máx_Personagens;
+            // Altera o Character selecionado pelo Player
+            if (Game.SelecionarCharacter == 1)
+                Game.SelecionarCharacter = Lists.Servidor_Data.Max_Personagens;
             else
-                Game.SelecionarPersonagem -= 1;
+                Game.SelecionarCharacter -= 1;
         }
 
         public static void Chat_Subir()
@@ -293,43 +293,43 @@ public class Buttons
                 Tools.Linha += 1;
         }
 
-        public static void Menu_Personagem()
+        public static void Menu_Character()
         {
             // Altera a visibilidade do painel e fecha os outros
-            Panels.Encontrar("Menu_Personagem").General.Visível = !Panels.Encontrar("Menu_Personagem").General.Visível;
-            Panels.Encontrar("Menu_Inventário").General.Visível = false;
+            Panels.Encontrar("Menu_Character").General.Visível = !Panels.Encontrar("Menu_Character").General.Visível;
+            Panels.Encontrar("Menu_Inventory").General.Visível = false;
         }
 
         public static void Atributos_Força()
         {
-            Enviar.AdicionarPonto(Game.Atributos.Força);
+            Sending.AdicionarPonto(Game.Atributos.Força);
         }
 
         public static void Atributos_Resistência()
         {
-            Enviar.AdicionarPonto(Game.Atributos.Resistência);
+            Sending.AdicionarPonto(Game.Atributos.Resistência);
         }
 
         public static void Atributos_Inteligência()
         {
-            Enviar.AdicionarPonto(Game.Atributos.Inteligência);
+            Sending.AdicionarPonto(Game.Atributos.Inteligência);
         }
 
         public static void Atributos_Agilidade()
         {
-            Enviar.AdicionarPonto(Game.Atributos.Agilidade);
+            Sending.AdicionarPonto(Game.Atributos.Agilidade);
         }
 
         public static void Atributos_Vitalidade()
         {
-            Enviar.AdicionarPonto(Game.Atributos.Vitalidade);
+            Sending.AdicionarPonto(Game.Atributos.Vitalidade);
         }
 
-        public static void Menu_Inventário()
+        public static void Menu_Inventory()
         {
             // Altera a visibilidade do painel e fecha os outros
-            Panels.Encontrar("Menu_Inventário").General.Visível = !Panels.Encontrar("Menu_Inventário").General.Visível;
-            Panels.Encontrar("Menu_Personagem").General.Visível = false;
+            Panels.Encontrar("Menu_Inventory").General.Visível = !Panels.Encontrar("Menu_Inventory").General.Visível;
+            Panels.Encontrar("Menu_Character").General.Visível = false;
         }
     }
 }

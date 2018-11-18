@@ -15,10 +15,10 @@ class Program
         // Carrega todos os Data
         Read.Data();
 
-        // Inicializa todos os dispositivos
-        Gráficos.LerTexturas();
+        // Inicializa todos os Devices
+        Gráficos.LerTextures();
         Áudio.Som.Ler();
-        Rede.Iniciar();
+        Network.Iniciar();
 
         // Abre a janela
         Window.Objects.Text = Lists.Opções.Game_Name;
@@ -33,11 +33,11 @@ class Program
     {
         int Espera = Environment.TickCount;
 
-        // Elimina todos os dispositivos que estão sendo usados
-        Rede.Desconectar();
+        // Elimina todos os Devices que estão sendo usados
+        Network.Desconectar();
 
-        // Espera até que o jogador seja desconectado
-        while (Rede.EstáConectado())
+        // Espera até que o Player seja desconectado
+        while (Network.EstáConectado())
             Application.DoEvents();
 
         // Fecha a aplicação

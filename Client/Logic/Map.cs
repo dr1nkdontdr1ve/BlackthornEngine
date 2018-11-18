@@ -3,7 +3,7 @@ using System.Drawing;
 
 class Map
 {
-    // Limitações dos mapas
+    // Limitações dos Maps
     public const byte Min_Largura = 24;
     public const byte Min_Altura = 18;
 
@@ -14,9 +14,9 @@ class Map
     private static int FumaçaY_Tempo = 0;
 
     // Clima
-    public const byte Máx_Chuva_Partículas = 100;
-    public const short Máx_Neve_Partículas = 635;
-    public const byte Máx_Clima_Intensidade = 10;
+    public const byte Max_Chuva_Partículas = 100;
+    public const short Max_Neve_Partículas = 635;
+    public const byte Max_Clima_Intensidade = 10;
     public const byte Neve_Movimento = 10;
     public static byte Relâmpago;
     private static int Neve_Tempo = 0;
@@ -29,7 +29,7 @@ class Map
     {
         Chão,
         Telhado,
-        Quantidade
+        Amount
     }
 
     public enum Azulejo_Atributos
@@ -37,7 +37,7 @@ class Map
         Nenhum,
         Bloqueio,
         Teletransporte,
-        Quantidade
+        Amount
     }
 
     public enum Climas
@@ -46,27 +46,27 @@ class Map
         Chovendo,
         Trovoando,
         Nevando,
-        Quantidade
+        Amount
     }
 
     public enum Morais
     {
         Pacífico,
         Perigoso,
-        Quantidade
+        Amount
     }
 
     public static void Lógica()
     {
-        // Toda a lógica do mapa
+        // Toda a lógica do Map
         Fumaça();
         Clima();
     }
 
-    public static void PróximoAzulejo(Game.Direções Direção, ref short X, ref short Y)
+    public static void PróximoAzulejo(Game.Direções Direction, ref short X, ref short Y)
     {
         // Próximo azulejo
-        switch (Direção)
+        switch (Direction)
         {
             case Game.Direções.Acima: Y -= 1; break;
             case Game.Direções.Abaixo: Y += 1; break;
@@ -77,35 +77,35 @@ class Map
 
     public static bool ForaDoLimite(short x, short y)
     {
-        // Verifica se as coordenas estão no limite do mapa
-        if (x > Lists.Mapa.Largura || y > Lists.Mapa.Altura || x < 0 || y < 0)
+        // Verifica se as coordenas estão no limite do Map
+        if (x > Lists.Map.Largura || y > Lists.Map.Altura || x < 0 || y < 0)
             return true;
         else
             return false;
     }
 
-    public static bool Azulejo_Bloqueado(short Mapa, byte X, byte Y, Game.Direções Direção)
+    public static bool Azulejo_Bloqueado(short Map, byte X, byte Y, Game.Direções Direction)
     {
         short Próximo_X = X, Próximo_Y = Y;
 
         // Próximo azulejo
-        PróximoAzulejo(Direção, ref Próximo_X, ref Próximo_Y);
+        PróximoAzulejo(Direction, ref Próximo_X, ref Próximo_Y);
 
         // Verifica se está indo para uma ligação
         if (ForaDoLimite(Próximo_X, Próximo_Y))
-            if (Lists.Mapa.Ligação[(byte)Direção] == 0)
+            if (Lists.Map.Ligação[(byte)Direction] == 0)
                 return true;
             else
                 return false;
 
         // Verifica se o azulejo está bloqueado
-        if (Lists.Mapa.Azulejo[Próximo_X, Próximo_Y].Atributo == (byte)Azulejo_Atributos.Bloqueio)
+        if (Lists.Map.Azulejo[Próximo_X, Próximo_Y].Atributo == (byte)Azulejo_Atributos.Bloqueio)
             return true;
-        else if (Lists.Mapa.Azulejo[Próximo_X, Próximo_Y].Bloqueio[(byte)Game.DireçãoInversa(Direção)])
+        else if (Lists.Map.Azulejo[Próximo_X, Próximo_Y].Bloqueio[(byte)Game.DirectionInversa(Direction)])
             return true;
-        else if (Lists.Mapa.Azulejo[X, Y].Bloqueio[(byte)Direção])
+        else if (Lists.Map.Azulejo[X, Y].Bloqueio[(byte)Direction])
             return true;
-        else if (HáJogador(Mapa, Próximo_X, Próximo_Y) > 0 || HáNPC(Próximo_X, Próximo_Y) > 0)
+        else if (HáPlayer(Map, Próximo_X, Próximo_Y) > 0 || HáNPC(Próximo_X, Próximo_Y) > 0)
             return true;
 
         return false;
@@ -114,19 +114,19 @@ class Map
     public static byte HáNPC(short X, short Y)
     {
         // Verifica se há algum npc na cordenada
-        for (byte i = 1; i <= Lists.Mapa.Temp_NPC.GetUpperBound(0); i++)
-            if (Lists.Mapa.Temp_NPC[i].Índice > 0)
-                if (Lists.Mapa.Temp_NPC[i].X == X && Lists.Mapa.Temp_NPC[i].Y == Y)
+        for (byte i = 1; i <= Lists.Map.Temp_NPC.GetUpperBound(0); i++)
+            if (Lists.Map.Temp_NPC[i].Index > 0)
+                if (Lists.Map.Temp_NPC[i].X == X && Lists.Map.Temp_NPC[i].Y == Y)
                     return i;
 
         return 0;
     }
 
-    public static byte HáJogador(short Num, short X, short Y)
+    public static byte HáPlayer(short Num, short X, short Y)
     {
-        // Verifica se há algum Jogador na cordenada
-        for (byte i = 1; i <= Jogador.MaiorÍndice; i++)
-            if (Lists.Jogador[i].X == X && Lists.Jogador[i].Y == Y && Lists.Jogador[i].Mapa == Num)
+        // Verifica se há algum Player na cordenada
+        for (byte i = 1; i <= Player.MaiorIndex; i++)
+            if (Lists.Player[i].X == X && Lists.Player[i].Y == Y && Lists.Player[i].Map == Num)
                 return i;
 
         return 0;
@@ -135,7 +135,7 @@ class Map
     private static void Fumaça()
     {
         // Faz a movimentação
-        if (Jogador.EstáJogando(Jogador.MeuÍndice))
+        if (Player.EstáJogando(Player.MyIndex))
         {
             Cálcular_Fumaça_X();
             Cálcular_Fumaça_Y();
@@ -144,8 +144,8 @@ class Map
 
     private static void Cálcular_Fumaça_X()
     {
-        Size Tamanho = Gráficos.TTamanho(Gráficos.Tex_Fumaça[Lists.Mapa.Fumaça.Textura]);
-        int VelocidadeX = Lists.Mapa.Fumaça.VelocidadeX;
+        Size Tamanho = Gráficos.TTamanho(Gráficos.Tex_Fumaça[Lists.Map.Fumaça.Texture]);
+        int VelocidadeX = Lists.Map.Fumaça.VelocidadeX;
 
         // Apenas se necessário
         if (FumaçaX_Tempo >= Environment.TickCount) return;
@@ -171,8 +171,8 @@ class Map
 
     private static void Cálcular_Fumaça_Y()
     {
-        Size Tamanho = Gráficos.TTamanho(Gráficos.Tex_Fumaça[Lists.Mapa.Fumaça.Textura]);
-        int VelocidadeY = Lists.Mapa.Fumaça.VelocidadeY;
+        Size Tamanho = Gráficos.TTamanho(Gráficos.Tex_Fumaça[Lists.Map.Fumaça.Texture]);
+        int VelocidadeY = Lists.Map.Fumaça.VelocidadeY;
 
         // Apenas se necessário
         if (FumaçaY_Tempo >= Environment.TickCount) return;
@@ -203,8 +203,8 @@ class Map
         byte Último_Trovão = (byte)Áudio.Sons.Trovão_4;
 
         // Somente se necessário
-        if (!Jogador.EstáJogando(Jogador.MeuÍndice)) return;
-        if (Lists.Mapa.Clima.Tipo == 0) return;
+        if (!Player.EstáJogando(Player.MyIndex)) return;
+        if (Lists.Map.Clima.Type == 0) return;
 
         // Contagem da neve
         if (Neve_Tempo < Environment.TickCount)
@@ -227,15 +227,15 @@ class Map
         for (short i = 1; i <= Lists.Clima_Partículas.GetUpperBound(0); i++)
             if (!Lists.Clima_Partículas[i].Visível)
             {
-                if (Game.Aleatório.Next(0, Máx_Clima_Intensidade - Lists.Mapa.Clima.Intensidade) == 0)
+                if (Game.Aleatório.Next(0, Max_Clima_Intensidade - Lists.Map.Clima.Intensidade) == 0)
                 {
                     if (!Parar)
                     {
                         // Cria a partícula
                         Lists.Clima_Partículas[i].Visível = true;
 
-                        // Cria a partícula de acordo com o seu tipo
-                        switch ((Climas)Lists.Mapa.Clima.Tipo)
+                        // Cria a partícula de acordo com o seu Type
+                        switch ((Climas)Lists.Map.Clima.Type)
                         {
                             case Climas.Trovoando:
                             case Climas.Chovendo: Clima_Chuva_Criação(i); break;
@@ -248,8 +248,8 @@ class Map
             }
             else
             {
-                // Movimenta a partícula de acordo com o seu tipo
-                switch ((Climas)Lists.Mapa.Clima.Tipo)
+                // Movimenta a partícula de acordo com o seu Type
+                switch ((Climas)Lists.Map.Clima.Type)
                 {
                     case Climas.Trovoando:
                     case Climas.Chovendo: Clima_Chuva_Movimentação(i); break;
@@ -258,12 +258,12 @@ class Map
 
                 // Reseta a partícula
                 if (Lists.Clima_Partículas[i].x > Game.Tela_Largura || Lists.Clima_Partículas[i].y > Game.Tela_Altura)
-                    Lists.Clima_Partículas[i] = new Lists.Estruturas.Clima();
+                    Lists.Clima_Partículas[i] = new Lists.Structures.Clima();
             }
 
         // Trovoadas
-        if (Lists.Mapa.Clima.Tipo == (byte)Climas.Trovoando)
-            if (Game.Aleatório.Next(0, Máx_Clima_Intensidade * 10 - Lists.Mapa.Clima.Intensidade * 2) == 0)
+        if (Lists.Map.Clima.Type == (byte)Climas.Trovoando)
+            if (Game.Aleatório.Next(0, Max_Clima_Intensidade * 10 - Lists.Map.Clima.Intensidade * 2) == 0)
             {
                 // Som do trovão
                 int Trovão = Game.Aleatório.Next(Primerio_Trovão, Último_Trovão);
@@ -340,7 +340,7 @@ class Map
         Áudio.Som.Parar_Tudo();
 
         // Redimensiona a lista
-        switch ((Climas)Lists.Mapa.Clima.Tipo)
+        switch ((Climas)Lists.Map.Clima.Type)
         {
             case Climas.Trovoando:
             case Climas.Chovendo:
@@ -348,9 +348,9 @@ class Map
                 Áudio.Som.Reproduzir(Áudio.Sons.Chuva, true);
 
                 // Redimensiona a estrutura
-                Lists.Clima_Partículas = new Lists.Estruturas.Clima[Máx_Chuva_Partículas + 1];
+                Lists.Clima_Partículas = new Lists.Structures.Clima[Max_Chuva_Partículas + 1];
                 break;
-            case Climas.Nevando: Lists.Clima_Partículas = new Lists.Estruturas.Clima[Máx_Neve_Partículas + 1]; break;
+            case Climas.Nevando: Lists.Clima_Partículas = new Lists.Structures.Clima[Max_Neve_Partículas + 1]; break;
         }
     }
 
@@ -373,26 +373,26 @@ class Map
         public static void Atualizar()
         {
             // Atualiza os azulejos necessários
-            for (byte x = 0; x <= Lists.Mapa.Largura; x++)
-                for (byte y = 0; y <= Lists.Mapa.Altura; y++)
-                    for (byte c = 0; c <= (byte)Camadas.Quantidade - 1; c++)
-                        for (byte q = 0; q <= Lists.Mapa.Azulejo[x, y].Data.GetUpperBound(1); q++)
-                            if (Lists.Mapa.Azulejo[x, y].Data[c, q].Automático)
+            for (byte x = 0; x <= Lists.Map.Largura; x++)
+                for (byte y = 0; y <= Lists.Map.Altura; y++)
+                    for (byte c = 0; c <= (byte)Camadas.Amount - 1; c++)
+                        for (byte q = 0; q <= Lists.Map.Azulejo[x, y].Data.GetUpperBound(1); q++)
+                            if (Lists.Map.Azulejo[x, y].Data[c, q].Automático)
                                 // Faz os cálculos para a autocriação
                                 Calcular(x, y, c, q);
         }
 
-        public static void Atualizar(int x, int y, byte Camada_Num, byte Camada_Tipo)
+        public static void Atualizar(int x, int y, byte Camada_Num, byte Camada_Type)
         {
             // Atualiza os azulejos necessários
             for (int x2 = x - 2; x2 <= x + 2; x2++)
                 for (int y2 = y - 2; y2 <= y + 2; y2++)
-                    if (x2 >= 0 && x2 <= Lists.Mapa.Largura && y2 >= 0 && y2 <= Lists.Mapa.Altura)
+                    if (x2 >= 0 && x2 <= Lists.Map.Largura && y2 >= 0 && y2 <= Lists.Map.Altura)
                         // Faz os cálculos para a autocriação
-                        Calcular((byte)x2, (byte)y2, Camada_Num, Camada_Tipo);
+                        Calcular((byte)x2, (byte)y2, Camada_Num, Camada_Type);
         }
 
-        public static void Definir(byte x, byte y, byte Camada_Num, byte Camada_Tipo, byte Parte, string Letra)
+        public static void Definir(byte x, byte y, byte Camada_Num, byte Camada_Type, byte Parte, string Letra)
         {
             Point Posição = new Point(0);
 
@@ -431,21 +431,21 @@ class Map
             }
 
             // Define a posição do mini azulejo
-            Lists.Estruturas.Azulejo_Data Data = Lists.Mapa.Azulejo[x, y].Data[Camada_Tipo, Camada_Num];
-            Lists.Mapa.Azulejo[x, y].Data[Camada_Tipo, Camada_Num].Mini[Parte].X = Data.x * Game.Grade + Posição.X;
-            Lists.Mapa.Azulejo[x, y].Data[Camada_Tipo, Camada_Num].Mini[Parte].Y = Data.y * Game.Grade + Posição.Y;
+            Lists.Structures.Azulejo_Data Data = Lists.Map.Azulejo[x, y].Data[Camada_Type, Camada_Num];
+            Lists.Map.Azulejo[x, y].Data[Camada_Type, Camada_Num].Mini[Parte].X = Data.x * Game.Grade + Posição.X;
+            Lists.Map.Azulejo[x, y].Data[Camada_Type, Camada_Num].Mini[Parte].Y = Data.y * Game.Grade + Posição.Y;
         }
 
-        public static bool Verificar(int X1, int Y1, int X2, int Y2, byte Camada_Num, byte Camada_Tipo)
+        public static bool Verificar(int X1, int Y1, int X2, int Y2, byte Camada_Num, byte Camada_Type)
         {
-            Lists.Estruturas.Azulejo_Data Data1, Data2;
+            Lists.Structures.Azulejo_Data Data1, Data2;
 
             // Somente se necessário
-            if (X2 < 0 || X2 > Lists.Mapa.Largura || Y2 < 0 || Y2 > Lists.Mapa.Altura) return true;
+            if (X2 < 0 || X2 > Lists.Map.Largura || Y2 < 0 || Y2 > Lists.Map.Altura) return true;
 
             // Data
-            Data1 = Lists.Mapa.Azulejo[X1, Y1].Data[Camada_Tipo, Camada_Num];
-            Data2 = Lists.Mapa.Azulejo[X2, Y2].Data[Camada_Tipo, Camada_Num];
+            Data1 = Lists.Map.Azulejo[X1, Y1].Data[Camada_Type, Camada_Num];
+            Data2 = Lists.Map.Azulejo[X2, Y2].Data[Camada_Type, Camada_Num];
 
             // Verifica se são os mesmo azulejos
             if (!Data2.Automático) return false;
@@ -457,24 +457,24 @@ class Map
             return true;
         }
 
-        public static void Calcular(byte x, byte y, byte Camada_Num, byte Camada_Tipo)
+        public static void Calcular(byte x, byte y, byte Camada_Num, byte Camada_Type)
         {
             // Calcula as quatros partes do azulejo
-            Calcular_NO(x, y, Camada_Num, Camada_Tipo);
-            Calcular_NE(x, y, Camada_Num, Camada_Tipo);
-            Calcular_SO(x, y, Camada_Num, Camada_Tipo);
-            Calcular_SE(x, y, Camada_Num, Camada_Tipo);
+            Calcular_NO(x, y, Camada_Num, Camada_Type);
+            Calcular_NE(x, y, Camada_Num, Camada_Type);
+            Calcular_SO(x, y, Camada_Num, Camada_Type);
+            Calcular_SE(x, y, Camada_Num, Camada_Type);
         }
 
-        public static void Calcular_NO(byte x, byte y, byte Camada_Num, byte Camada_Tipo)
+        public static void Calcular_NO(byte x, byte y, byte Camada_Num, byte Camada_Type)
         {
             bool[] Azulejo = new bool[4];
             Adição Forma = Adição.Nenhum;
 
             // Verifica se existe algo para modificar nos azulejos em volta (Norte, Oeste, Noroeste)
-            if (Verificar(x, y, x - 1, y - 1, Camada_Num, Camada_Tipo)) Azulejo[1] = true;
-            if (Verificar(x, y, x, y - 1, Camada_Num, Camada_Tipo)) Azulejo[2] = true;
-            if (Verificar(x, y, x - 1, y, Camada_Num, Camada_Tipo)) Azulejo[3] = true;
+            if (Verificar(x, y, x - 1, y - 1, Camada_Num, Camada_Type)) Azulejo[1] = true;
+            if (Verificar(x, y, x, y - 1, Camada_Num, Camada_Type)) Azulejo[2] = true;
+            if (Verificar(x, y, x - 1, y, Camada_Num, Camada_Type)) Azulejo[3] = true;
 
             // Forma que será adicionado o mini azulejo
             if (!Azulejo[2] && !Azulejo[3]) Forma = Adição.Interior;
@@ -486,23 +486,23 @@ class Map
             // Define o mini azulejo
             switch (Forma)
             {
-                case Adição.Interior: Definir(x, y, Camada_Num, Camada_Tipo, 0, "e"); break;
-                case Adição.Exterior: Definir(x, y, Camada_Num, Camada_Tipo, 0, "a"); break;
-                case Adição.Horizontal: Definir(x, y, Camada_Num, Camada_Tipo, 0, "i"); break;
-                case Adição.Vertical: Definir(x, y, Camada_Num, Camada_Tipo, 0, "m"); break;
-                case Adição.Preencher: Definir(x, y, Camada_Num, Camada_Tipo, 0, "q"); break;
+                case Adição.Interior: Definir(x, y, Camada_Num, Camada_Type, 0, "e"); break;
+                case Adição.Exterior: Definir(x, y, Camada_Num, Camada_Type, 0, "a"); break;
+                case Adição.Horizontal: Definir(x, y, Camada_Num, Camada_Type, 0, "i"); break;
+                case Adição.Vertical: Definir(x, y, Camada_Num, Camada_Type, 0, "m"); break;
+                case Adição.Preencher: Definir(x, y, Camada_Num, Camada_Type, 0, "q"); break;
             }
         }
 
-        public static void Calcular_NE(byte x, byte y, byte Camada_Num, byte Camada_Tipo)
+        public static void Calcular_NE(byte x, byte y, byte Camada_Num, byte Camada_Type)
         {
             bool[] Azulejo = new bool[4];
             Adição Forma = Adição.Nenhum;
 
             // Verifica se existe algo para modificar nos azulejos em volta (Norte, Oeste, Noroeste)
-            if (Verificar(x, y, x, y - 1, Camada_Num, Camada_Tipo)) Azulejo[1] = true;
-            if (Verificar(x, y, x + 1, y - 1, Camada_Num, Camada_Tipo)) Azulejo[2] = true;
-            if (Verificar(x, y, x + 1, y, Camada_Num, Camada_Tipo)) Azulejo[3] = true;
+            if (Verificar(x, y, x, y - 1, Camada_Num, Camada_Type)) Azulejo[1] = true;
+            if (Verificar(x, y, x + 1, y - 1, Camada_Num, Camada_Type)) Azulejo[2] = true;
+            if (Verificar(x, y, x + 1, y, Camada_Num, Camada_Type)) Azulejo[3] = true;
 
             // Forma que será adicionado o mini azulejo
             if (!Azulejo[1] && !Azulejo[3]) Forma = Adição.Interior;
@@ -514,23 +514,23 @@ class Map
             // Define o mini azulejo
             switch (Forma)
             {
-                case Adição.Interior: Definir(x, y, Camada_Num, Camada_Tipo, 1, "j"); break;
-                case Adição.Exterior: Definir(x, y, Camada_Num, Camada_Tipo, 1, "b"); break;
-                case Adição.Horizontal: Definir(x, y, Camada_Num, Camada_Tipo, 1, "f"); break;
-                case Adição.Vertical: Definir(x, y, Camada_Num, Camada_Tipo, 1, "r"); break;
-                case Adição.Preencher: Definir(x, y, Camada_Num, Camada_Tipo, 1, "n"); break;
+                case Adição.Interior: Definir(x, y, Camada_Num, Camada_Type, 1, "j"); break;
+                case Adição.Exterior: Definir(x, y, Camada_Num, Camada_Type, 1, "b"); break;
+                case Adição.Horizontal: Definir(x, y, Camada_Num, Camada_Type, 1, "f"); break;
+                case Adição.Vertical: Definir(x, y, Camada_Num, Camada_Type, 1, "r"); break;
+                case Adição.Preencher: Definir(x, y, Camada_Num, Camada_Type, 1, "n"); break;
             }
         }
 
-        public static void Calcular_SO(byte x, byte y, byte Camada_Num, byte Camada_Tipo)
+        public static void Calcular_SO(byte x, byte y, byte Camada_Num, byte Camada_Type)
         {
             bool[] Azulejo = new bool[4];
             Adição Forma = Adição.Nenhum;
 
             // Verifica se existe algo para modificar nos azulejos em volta (Sul, Oeste, Sudoeste)
-            if (Verificar(x, y, x - 1, y, Camada_Num, Camada_Tipo)) Azulejo[1] = true;
-            if (Verificar(x, y, x - 1, y + 1, Camada_Num, Camada_Tipo)) Azulejo[2] = true;
-            if (Verificar(x, y, x, y + 1, Camada_Num, Camada_Tipo)) Azulejo[3] = true;
+            if (Verificar(x, y, x - 1, y, Camada_Num, Camada_Type)) Azulejo[1] = true;
+            if (Verificar(x, y, x - 1, y + 1, Camada_Num, Camada_Type)) Azulejo[2] = true;
+            if (Verificar(x, y, x, y + 1, Camada_Num, Camada_Type)) Azulejo[3] = true;
 
             // Forma que será adicionado o mini azulejo
             if (!Azulejo[1] && !Azulejo[3]) Forma = Adição.Interior;
@@ -542,23 +542,23 @@ class Map
             // Define o mini azulejo
             switch (Forma)
             {
-                case Adição.Interior: Definir(x, y, Camada_Num, Camada_Tipo, 2, "o"); break;
-                case Adição.Exterior: Definir(x, y, Camada_Num, Camada_Tipo, 2, "c"); break;
-                case Adição.Horizontal: Definir(x, y, Camada_Num, Camada_Tipo, 2, "s"); break;
-                case Adição.Vertical: Definir(x, y, Camada_Num, Camada_Tipo, 2, "g"); break;
-                case Adição.Preencher: Definir(x, y, Camada_Num, Camada_Tipo, 2, "k"); break;
+                case Adição.Interior: Definir(x, y, Camada_Num, Camada_Type, 2, "o"); break;
+                case Adição.Exterior: Definir(x, y, Camada_Num, Camada_Type, 2, "c"); break;
+                case Adição.Horizontal: Definir(x, y, Camada_Num, Camada_Type, 2, "s"); break;
+                case Adição.Vertical: Definir(x, y, Camada_Num, Camada_Type, 2, "g"); break;
+                case Adição.Preencher: Definir(x, y, Camada_Num, Camada_Type, 2, "k"); break;
             }
         }
 
-        public static void Calcular_SE(byte x, byte y, byte Camada_Num, byte Camada_Tipo)
+        public static void Calcular_SE(byte x, byte y, byte Camada_Num, byte Camada_Type)
         {
             bool[] Azulejo = new bool[4];
             Adição Forma = Adição.Nenhum;
 
             // Verifica se existe algo para modificar nos azulejos em volta (Sul, Oeste, Sudeste)
-            if (Verificar(x, y, x, y + 1, Camada_Num, Camada_Tipo)) Azulejo[1] = true;
-            if (Verificar(x, y, x + 1, y + 1, Camada_Num, Camada_Tipo)) Azulejo[2] = true;
-            if (Verificar(x, y, x + 1, y, Camada_Num, Camada_Tipo)) Azulejo[3] = true;
+            if (Verificar(x, y, x, y + 1, Camada_Num, Camada_Type)) Azulejo[1] = true;
+            if (Verificar(x, y, x + 1, y + 1, Camada_Num, Camada_Type)) Azulejo[2] = true;
+            if (Verificar(x, y, x + 1, y, Camada_Num, Camada_Type)) Azulejo[3] = true;
 
             // Forma que será adicionado o mini azulejo
             if (!Azulejo[1] && !Azulejo[3]) Forma = Adição.Interior;
@@ -570,11 +570,11 @@ class Map
             // Define o mini azulejo
             switch (Forma)
             {
-                case Adição.Interior: Definir(x, y, Camada_Num, Camada_Tipo, 3, "t"); break;
-                case Adição.Exterior: Definir(x, y, Camada_Num, Camada_Tipo, 3, "d"); break;
-                case Adição.Horizontal: Definir(x, y, Camada_Num, Camada_Tipo, 3, "p"); break;
-                case Adição.Vertical: Definir(x, y, Camada_Num, Camada_Tipo, 3, "l"); break;
-                case Adição.Preencher: Definir(x, y, Camada_Num, Camada_Tipo, 3, "h"); break;
+                case Adição.Interior: Definir(x, y, Camada_Num, Camada_Type, 3, "t"); break;
+                case Adição.Exterior: Definir(x, y, Camada_Num, Camada_Type, 3, "d"); break;
+                case Adição.Horizontal: Definir(x, y, Camada_Num, Camada_Type, 3, "p"); break;
+                case Adição.Vertical: Definir(x, y, Camada_Num, Camada_Type, 3, "l"); break;
+                case Adição.Preencher: Definir(x, y, Camada_Num, Camada_Type, 3, "h"); break;
             }
         }
     }
@@ -582,34 +582,34 @@ class Map
 
 partial class Gráficos
 {
-    public static void Mapa_Azulejos(byte c)
+    public static void Map_Azulejos(byte c)
     {
         // Previni erros
-        if (Lists.Mapa.Name == null) return;
+        if (Lists.Map.Name == null) return;
 
         // Data
-        System.Drawing.Color TempCor = System.Drawing.Color.FromArgb(Lists.Mapa.Coloração);
+        System.Drawing.Color TempCor = System.Drawing.Color.FromArgb(Lists.Map.Coloração);
         SFML.Graphics.Color Cor = CCor(TempCor.R, TempCor.G, TempCor.B);
 
         // Desenha todas as camadas dos azulejos
         for (short x = (short)Game.Azulejos_Visão.X; x <= Game.Azulejos_Visão.Width; x++)
             for (short y = (short)Game.Azulejos_Visão.Y; y <= Game.Azulejos_Visão.Height; y++)
                 if (!Map.ForaDoLimite(x, y))
-                    for (byte q = 0; q <= Lists.Mapa.Azulejo[x, y].Data.GetUpperBound(1); q++)
-                        if (Lists.Mapa.Azulejo[x, y].Data[c, q].Azulejo > 0)
+                    for (byte q = 0; q <= Lists.Map.Azulejo[x, y].Data.GetUpperBound(1); q++)
+                        if (Lists.Map.Azulejo[x, y].Data[c, q].Azulejo > 0)
                         {
-                            int x2 = Lists.Mapa.Azulejo[x, y].Data[c, q].x * Game.Grade;
-                            int y2 = Lists.Mapa.Azulejo[x, y].Data[c, q].y * Game.Grade;
+                            int x2 = Lists.Map.Azulejo[x, y].Data[c, q].x * Game.Grade;
+                            int y2 = Lists.Map.Azulejo[x, y].Data[c, q].y * Game.Grade;
 
                             // Desenha o azulejo
-                            if (!Lists.Mapa.Azulejo[x, y].Data[c, q].Automático)
-                                Desenhar(Tex_Azulejo[Lists.Mapa.Azulejo[x, y].Data[c, q].Azulejo], Game.ConverterX(x * Game.Grade), Game.ConverterY(y * Game.Grade), x2, y2, Game.Grade, Game.Grade, Cor);
+                            if (!Lists.Map.Azulejo[x, y].Data[c, q].Automático)
+                                Desenhar(Tex_Azulejo[Lists.Map.Azulejo[x, y].Data[c, q].Azulejo], Game.ConverterX(x * Game.Grade), Game.ConverterY(y * Game.Grade), x2, y2, Game.Grade, Game.Grade, Cor);
                             else
-                                Mapas_AutoCriação(new Point(Game.ConverterX(x * Game.Grade), Game.ConverterY(y * Game.Grade)), Lists.Mapa.Azulejo[x, y].Data[c, q], Cor);
+                                Maps_AutoCriação(new Point(Game.ConverterX(x * Game.Grade), Game.ConverterY(y * Game.Grade)), Lists.Map.Azulejo[x, y].Data[c, q], Cor);
                         }
     }
 
-    public static void Mapas_AutoCriação(Point Posição, Lists.Estruturas.Azulejo_Data Data, SFML.Graphics.Color Cor)
+    public static void Maps_AutoCriação(Point Posição, Lists.Structures.Azulejo_Data Data, SFML.Graphics.Color Cor)
     {
         // Desenha os 4 mini azulejos
         for (byte i = 0; i <= 3; i++)
@@ -629,36 +629,36 @@ partial class Gráficos
         }
     }
 
-    public static void Mapa_Panorama()
+    public static void Map_Panorama()
     {
         // Desenha o panorama
-        if (Lists.Mapa.Panorama > 0)
-            Desenhar(Tex_Panorama[Lists.Mapa.Panorama], new Point(0));
+        if (Lists.Map.Panorama > 0)
+            Desenhar(Tex_Panorama[Lists.Map.Panorama], new Point(0));
     }
 
-    public static void Mapa_Fumaça()
+    public static void Map_Fumaça()
     {
-        Lists.Estruturas.Mapa_Fumaça Data = Lists.Mapa.Fumaça;
-        Size Textura_Tamanho = TTamanho(Tex_Fumaça[Data.Textura]);
+        Lists.Structures.Map_Fumaça Data = Lists.Map.Fumaça;
+        Size Texture_Tamanho = TTamanho(Tex_Fumaça[Data.Texture]);
 
         // Previni erros
-        if (Data.Textura <= 0) return;
+        if (Data.Texture <= 0) return;
 
         // Desenha a fumaça
-        for (int x = -1; x <= Lists.Mapa.Largura * Game.Grade / Textura_Tamanho.Width + 1; x++)
-            for (int y = -1; y <= Lists.Mapa.Altura * Game.Grade / Textura_Tamanho.Height + 1; y++)
-                Desenhar(Tex_Fumaça[Data.Textura], new Point(x * Textura_Tamanho.Width + Map.Fumaça_X, y * Textura_Tamanho.Height + Map.Fumaça_Y), new SFML.Graphics.Color(255, 255, 255, Data.Transparência));
+        for (int x = -1; x <= Lists.Map.Largura * Game.Grade / Texture_Tamanho.Width + 1; x++)
+            for (int y = -1; y <= Lists.Map.Altura * Game.Grade / Texture_Tamanho.Height + 1; y++)
+                Desenhar(Tex_Fumaça[Data.Texture], new Point(x * Texture_Tamanho.Width + Map.Fumaça_X, y * Texture_Tamanho.Height + Map.Fumaça_Y), new SFML.Graphics.Color(255, 255, 255, Data.Transparência));
     }
 
-    public static void Mapa_Clima()
+    public static void Map_Clima()
     {
         byte x = 0;
 
         // Somente se necessário
-        if (Lists.Mapa.Clima.Tipo == 0) return;
+        if (Lists.Map.Clima.Type == 0) return;
 
-        // Textura
-        switch ((Map.Climas)Lists.Mapa.Clima.Tipo)
+        // Texture
+        switch ((Map.Climas)Lists.Map.Clima.Type)
         {
             case Map.Climas.Nevando: x = 32; break;
         }
@@ -672,37 +672,37 @@ partial class Gráficos
         Desenhar(Tex_Preenchido, 0, 0, 0, 0, Game.Tela_Largura, Game.Tela_Altura, new SFML.Graphics.Color(255, 255, 255, Map.Relâmpago));
     }
 
-    public static void Mapa_Name()
+    public static void Map_Name()
     {
         SFML.Graphics.Color Cor;
 
         // Somente se necessário
-        if (string.IsNullOrEmpty(Lists.Mapa.Name)) return;
+        if (string.IsNullOrEmpty(Lists.Map.Name)) return;
 
-        // A cor do texto vária de acordo com a moral do mapa
-        switch (Lists.Mapa.Moral)
+        // A cor do texto vária de acordo com a moral do Map
+        switch (Lists.Map.Moral)
         {
             case (byte)Map.Morais.Perigoso: Cor = SFML.Graphics.Color.Red; break;
             default: Cor = SFML.Graphics.Color.White; break;
         }
 
-        // Desenha o Name do mapa
-        Desenhar(Lists.Mapa.Name, 463, 48, Cor);
+        // Desenha o Name do Map
+        Desenhar(Lists.Map.Name, 463, 48, Cor);
     }
 
-    public static void Mapa_Itens()
+    public static void Map_Itens()
     {
         // Desenha todos os itens que estão no chão
-        for (byte i = 1; i <= Lists.Mapa.Temp_Item.GetUpperBound(0); i++)
+        for (byte i = 1; i <= Lists.Map.Temp_Item.GetUpperBound(0); i++)
         {
-            Lists.Estruturas.Mapa_Itens Data = Lists.Mapa.Temp_Item[i];
+            Lists.Structures.Map_Itens Data = Lists.Map.Temp_Item[i];
 
             // Somente se necessário
-            if (Data.Índice == 0) continue;
+            if (Data.Index == 0) continue;
 
             // Desenha o item
             Point Posição = new Point(Game.ConverterX(Data.X * Game.Grade), Game.ConverterY(Data.Y * Game.Grade));
-            Desenhar(Tex_Item[Lists.Item[Data.Índice].Textura], Posição);
+            Desenhar(Tex_Item[Lists.Item[Data.Index].Texture], Posição);
         }
     }
 }

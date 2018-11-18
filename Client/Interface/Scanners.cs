@@ -15,13 +15,13 @@ public class Scanners
     public class Structure
     {
         public string Texto;
-        public short Máx_Carácteres;
+        public short Max_Carácteres;
         public short Largura;
         public bool Senha;
         public Tools.General General;
     }
 
-    public static byte EncontrarÍndice(string Name)
+    public static byte EncontrarIndex(string Name)
     {
         // Lista os Names das ferramentas
         for (byte i = 1; i <= List.GetUpperBound(0); i++)
@@ -49,13 +49,13 @@ public class Scanners
         // Altera o digitalizador focado para o mais próximo
         for (byte i = 1; i <= Tools.Ordem.GetUpperBound(0); i++)
         {
-            if (Tools.Ordem[i].Tipo != Tools.Tipos.Digitalizador)
+            if (Tools.Ordem[i].Type != Tools.Types.Digitalizador)
                 continue;
-            else if (!List[Tools.Ordem[i].Índice].General.Habilitado)
+            else if (!List[Tools.Ordem[i].Index].General.Habilitado)
                 continue;
-            else if (i == EncontrarÍndice("Chat"))
+            else if (i == EncontrarIndex("Chat"))
 
-                Foco = Tools.Ordem[i].Índice;
+                Foco = Tools.Ordem[i].Index;
             return;
         }
     }
@@ -65,37 +65,37 @@ public class Scanners
         // Altera o digitalizador focado para o próximo
         for (byte i = 1; i <= Tools.Ordem.GetUpperBound(0); i++)
         {
-            if (Tools.Ordem[i].Tipo != Tools.Tipos.Digitalizador)
+            if (Tools.Ordem[i].Type != Tools.Types.Digitalizador)
                 continue;
-            else if (!List[Tools.Ordem[i].Índice].General.Habilitado)
+            else if (!List[Tools.Ordem[i].Index].General.Habilitado)
                 continue;
-            if (Foco != Último() && i <= Tools.Encontrar(Tools.Tipos.Digitalizador, Foco))
+            if (Foco != Último() && i <= Tools.Encontrar(Tools.Types.Digitalizador, Foco))
                 continue;
 
-            Foco = Tools.Ordem[i].Índice;
+            Foco = Tools.Ordem[i].Index;
             return;
         }
     }
 
     public static byte Último()
     {
-        byte Índice = 0;
+        byte Index = 0;
 
         // Retorna o último digitalizador habilitado
         for (byte i = 1; i <= Tools.Ordem.GetUpperBound(0); i++)
-            if (Tools.Ordem[i].Tipo == Tools.Tipos.Digitalizador)
-                if (List[Tools.Ordem[i].Índice].General.Habilitado)
-                    Índice = Tools.Ordem[i].Índice;
+            if (Tools.Ordem[i].Type == Tools.Types.Digitalizador)
+                if (List[Tools.Ordem[i].Index].General.Habilitado)
+                    Index = Tools.Ordem[i].Index;
 
-        return Índice;
+        return Index;
     }
 
     public static void Chat_Digitar()
     {
-        byte Índice = EncontrarÍndice("Chat");
+        byte Index = EncontrarIndex("Chat");
 
         // Somente se necessário
-        if (!Player.EstáJogando(Player.MeuÍndice)) return;
+        if (!Player.EstáJogando(Player.MyIndex)) return;
 
         // Altera a visiblidade da caixa
         Panels.Encontrar("Chat").General.Visível = !Panels.Encontrar("Chat").General.Visível;
@@ -104,20 +104,20 @@ public class Scanners
         if (Panels.Encontrar("Chat").General.Visível)
         {
             Tools.Linhas_Visível = true;
-            Foco = Índice;
+            Foco = Index;
             return;
         }
         else
             Foco = 0;
 
         // Data
-        string Mensagem = List[Índice].Texto;
-        string Jogador_Name = Player.Eu.Name;
+        string Mensagem = List[Index].Texto;
+        string Player_Name = Player.Eu.Name;
 
         // Somente se necessário
         if (Mensagem.Length < 3)
         {
-            List[Índice].Texto = string.Empty;
+            List[Index].Texto = string.Empty;
             return;
         }
 
@@ -126,7 +126,7 @@ public class Scanners
 
         // Global
         if (Mensagem.Substring(0, 1) == "'")
-            Enviar.Mensagem(Mensagem.Substring(1), Game.Mensagens.Global);
+            Sending.Mensagem(Mensagem.Substring(1), Game.Mensagens.Global);
         // Particular
         else if (Mensagem.Substring(0, 1) == "!")
         {
@@ -140,27 +140,27 @@ public class Scanners
                 Mensagem = Mensagem.Substring(Partes[0].Length + 1);
 
                 // Envia a mensagem
-                Enviar.Mensagem(Mensagem, Game.Mensagens.Particular, Destinatário);
+                Sending.Mensagem(Mensagem, Game.Mensagens.Particular, Destinatário);
             }
         }
-        // Mapa
+        // Map
         else
-            Enviar.Mensagem(Mensagem, Game.Mensagens.Mapa);
+            Sending.Mensagem(Mensagem, Game.Mensagens.Map);
 
         // Limpa a caixa de texto
-        List[Índice].Texto = string.Empty;
+        List[Index].Texto = string.Empty;
     }
 
     public class Eventos
     {
-        public static void MouseUp(MouseEventArgs e, byte Índice)
+        public static void MouseUp(MouseEventArgs e, byte Index)
         {
             // Somente se necessário
-            if (!List[Índice].General.Habilitado) return;
-            if (!Tools.EstáSobrepondo(new Rectangle(List[Índice].General.Posição, new Size(List[Índice].Largura, Gráficos.TTamanho(Gráficos.Tex_Digitalizador).Height)))) return;
+            if (!List[Index].General.Habilitado) return;
+            if (!Tools.EstáSobrepondo(new Rectangle(List[Index].General.Posição, new Size(List[Index].Largura, Gráficos.TTamanho(Gráficos.Tex_Digitalizador).Height)))) return;
 
             // Define o foco no Digitalizador
-            Foco = Índice;
+            Foco = Index;
         }
 
         public static void KeyPress(KeyPressEventArgs e)
@@ -187,9 +187,9 @@ public class Scanners
                     return;
                 }
 
-                // Não adicionar se já estiver no máximo de caracteres
-                if (List[Foco].Máx_Carácteres > 0)
-                    if (Texto.Length >= List[Foco].Máx_Carácteres)
+                // Não adicionar se já estiver no Maximo de caracteres
+                if (List[Foco].Max_Carácteres > 0)
+                    if (Texto.Length >= List[Foco].Max_Carácteres)
                         return;
             }
 

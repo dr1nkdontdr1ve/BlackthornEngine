@@ -7,13 +7,13 @@ using SFML.Window;
 partial class Graphics
 {
     // Locais de renderização
-    public static RenderWindow Dispositivo;
+    public static RenderWindow Device;
 
     // Fonte principal
     public static SFML.Graphics.Font Fonte;
 
-    // Texturas
-    public static Texture[] Tex_Personagem;
+    // Textures
+    public static Texture[] Tex_Character;
     public static Texture[] Tex_Azulejo;
     public static Texture[] Tex_Face;
     public static Texture[] Tex_Painel;
@@ -34,11 +34,11 @@ partial class Graphics
     public static Texture Tex_Grade;
     public static Texture Tex_Equipamentos;
 
-    // Formato das texturas
+    // Formato das Textures
     public const string Formato = ".png";
 
     #region Motor
-    public static Texture[] AdicionarTexturas(string Diretório)
+    public static Texture[] AdicionarTextures(string Diretório)
     {
         short i = 1;
         Texture[] TempTex = new Texture[0];
@@ -51,15 +51,15 @@ partial class Graphics
             i += 1;
         }
 
-        // Retorna o cache da textura
+        // Retorna o cache da Texture
         return TempTex;
     }
 
-    public static Size TTamanho(Texture Textura)
+    public static Size TTamanho(Texture Texture)
     {
-        // Retorna com o tamanho da textura
-        if (Textura != null)
-            return new Size((int)Textura.Size.X, (int)Textura.Size.Y);
+        // Retorna com o tamanho da Texture
+        if (Texture != null)
+            return new Size((int)Texture.Size.X, (int)Texture.Size.Y);
         else
             return new Size(0, 0);
     }
@@ -70,9 +70,9 @@ partial class Graphics
         return new SFML.Graphics.Color(R, G, B, A);
     }
 
-    public static void Desenhar(Texture Textura, Rectangle Fonte, Rectangle Destino, object Cor = null, object Modo = null)
+    public static void Desenhar(Texture Texture, Rectangle Fonte, Rectangle Destino, object Cor = null, object Modo = null)
     {
-        Sprite TmpImage = new Sprite(Textura);
+        Sprite TmpImage = new Sprite(Texture);
 
         // Define os Data
         TmpImage.TextureRect = new IntRect(Fonte.X, Fonte.Y, Fonte.Width, Fonte.Height);
@@ -82,38 +82,38 @@ partial class Graphics
             //    if ((int)Cor != -1)
             TmpImage.Color = (SFML.Graphics.Color)Cor;
 
-        // Renderiza a textura em forma de retângulo
+        // Renderiza a Texture em forma de retângulo
         if (Modo == null) Modo = RenderStates.Default;
-        Dispositivo.Draw(TmpImage, (RenderStates)Modo);
+        Device.Draw(TmpImage, (RenderStates)Modo);
     }
 
-    public static void Desenhar(Texture Textura, int X, int Y, int Fonte_X, int Fonte_Y, int Fonte_Largura, int Fonte_Altura, object Cor = null, RenderStates Modo = new RenderStates())
+    public static void Desenhar(Texture Texture, int X, int Y, int Fonte_X, int Fonte_Y, int Fonte_Largura, int Fonte_Altura, object Cor = null, RenderStates Modo = new RenderStates())
     {
         // Define as propriedades dos retângulos
         Rectangle Fonte = new Rectangle(new Point(Fonte_X, Fonte_Y), new Size(Fonte_Largura, Fonte_Altura));
         Rectangle Destino = new Rectangle(new Point(X, Y), new Size(Fonte_Largura, Fonte_Altura));
 
-        // Desenha a textura
-        Desenhar(Textura, Fonte, Destino, Cor);
+        // Desenha a Texture
+        Desenhar(Texture, Fonte, Destino, Cor);
     }
 
-    public static void Desenhar(Texture Textura, Rectangle Destino, object Cor = null, RenderStates Modo = new RenderStates())
+    public static void Desenhar(Texture Texture, Rectangle Destino, object Cor = null, RenderStates Modo = new RenderStates())
     {
         // Define as propriedades dos retângulos
-        Rectangle Fonte = new Rectangle(new Point(0), TTamanho(Textura));
+        Rectangle Fonte = new Rectangle(new Point(0), TTamanho(Texture));
 
-        // Desenha a textura
-        Desenhar(Textura, Fonte, Destino, Cor);
+        // Desenha a Texture
+        Desenhar(Texture, Fonte, Destino, Cor);
     }
 
-    public static void Desenhar(Texture Textura, Point Posição, object Cor = null, RenderStates Modo = new RenderStates())
+    public static void Desenhar(Texture Texture, Point Posição, object Cor = null, RenderStates Modo = new RenderStates())
     {
         // Define as propriedades dos retângulos
-        Rectangle Fonte = new Rectangle(new Point(0), TTamanho(Textura));
-        Rectangle Destino = new Rectangle(Posição, TTamanho(Textura));
+        Rectangle Fonte = new Rectangle(new Point(0), TTamanho(Texture));
+        Rectangle Destino = new Rectangle(Posição, TTamanho(Texture));
 
-        // Desenha a textura
-        Desenhar(Textura, Fonte, Destino, Cor);
+        // Desenha a Texture
+        Desenhar(Texture, Fonte, Destino, Cor);
     }
 
     private static void Desenhar(string Texto, int X, int Y, SFML.Graphics.Color Cor)
@@ -126,59 +126,59 @@ partial class Graphics
         TempTexto.Position = new Vector2f(X, Y);
 
         // Desenha
-        Dispositivo.Draw(TempTexto);
+        Device.Draw(TempTexto);
     }
 
-    public static void Renderizar_Caixa(Texture Textura, byte Margem, Point Posição, Size Tamanho)
+    public static void Renderizar_Caixa(Texture Texture, byte Margem, Point Posição, Size Tamanho)
     {
-        int Textura_Largura = TTamanho(Textura).Width;
-        int Textura_Altura = TTamanho(Textura).Height;
+        int Texture_Largura = TTamanho(Texture).Width;
+        int Texture_Altura = TTamanho(Texture).Height;
 
         // Borda esquerda
-        Desenhar(Textura, new Rectangle(new Point(0), new Size(Margem, Textura_Largura)), new Rectangle(Posição, new Size(Margem, Textura_Altura)));
+        Desenhar(Texture, new Rectangle(new Point(0), new Size(Margem, Texture_Largura)), new Rectangle(Posição, new Size(Margem, Texture_Altura)));
         // Borda direita
-        Desenhar(Textura, new Rectangle(new Point(Textura_Largura - Margem, 0), new Size(Margem, Textura_Altura)), new Rectangle(new Point(Posição.X + Tamanho.Width - Margem, Posição.Y), new Size(Margem, Textura_Altura)));
+        Desenhar(Texture, new Rectangle(new Point(Texture_Largura - Margem, 0), new Size(Margem, Texture_Altura)), new Rectangle(new Point(Posição.X + Tamanho.Width - Margem, Posição.Y), new Size(Margem, Texture_Altura)));
         // Centro
-        Desenhar(Textura, new Rectangle(new Point(Margem, 0), new Size(Margem, Textura_Altura)), new Rectangle(new Point(Posição.X + Margem, Posição.Y), new Size(Tamanho.Width - Margem * 2, Textura_Altura)));
+        Desenhar(Texture, new Rectangle(new Point(Margem, 0), new Size(Margem, Texture_Altura)), new Rectangle(new Point(Posição.X + Margem, Posição.Y), new Size(Tamanho.Width - Margem * 2, Texture_Altura)));
     }
 
-    public static void Renderizar_Caixa2(Texture Textura, byte Margem, Point Posição, Size Tamanho)
+    public static void Renderizar_Caixa2(Texture Texture, byte Margem, Point Posição, Size Tamanho)
     {
-        int Textura_Largura = TTamanho(Textura).Width;
-        int Textura_Altura = TTamanho(Textura).Height;
+        int Texture_Largura = TTamanho(Texture).Width;
+        int Texture_Altura = TTamanho(Texture).Height;
 
         // Borda esquerda
-        Desenhar(Textura, new Rectangle(new Point(0), new Size(Margem, Margem)), new Rectangle(Posição, new Size(Margem, Margem)));
-        Desenhar(Textura, new Rectangle(new Point(0, Textura_Altura - Margem), new Size(Margem, Margem)), new Rectangle(new Point(Posição.X, Posição.Y + Tamanho.Height - Margem), new Size(Margem, Margem)));
-        Desenhar(Textura, new Rectangle(new Point(0, Margem), new Size(Margem, Textura_Altura - Margem * 2)), new Rectangle(new Point(Posição.X, Posição.Y + Margem), new Size(Margem, Tamanho.Height - Margem * 2)));
+        Desenhar(Texture, new Rectangle(new Point(0), new Size(Margem, Margem)), new Rectangle(Posição, new Size(Margem, Margem)));
+        Desenhar(Texture, new Rectangle(new Point(0, Texture_Altura - Margem), new Size(Margem, Margem)), new Rectangle(new Point(Posição.X, Posição.Y + Tamanho.Height - Margem), new Size(Margem, Margem)));
+        Desenhar(Texture, new Rectangle(new Point(0, Margem), new Size(Margem, Texture_Altura - Margem * 2)), new Rectangle(new Point(Posição.X, Posição.Y + Margem), new Size(Margem, Tamanho.Height - Margem * 2)));
 
         // Borda direita
-        Desenhar(Textura, new Rectangle(new Point(Textura_Largura - Margem, 0), new Size(Margem, Margem)), new Rectangle(new Point(Posição.X + Tamanho.Width - Margem, Posição.Y), new Size(Margem, Margem)));
-        Desenhar(Textura, new Rectangle(new Point(Textura_Largura - Margem, Textura_Altura - Margem), new Size(Margem, Margem)), new Rectangle(new Point(Posição.X + Tamanho.Width - Margem, Posição.Y + Tamanho.Height - Margem), new Size(Margem, Margem)));
-        Desenhar(Textura, new Rectangle(new Point(Textura_Largura - Margem, Margem), new Size(Textura_Largura - Margem, Textura_Altura - Margem)), new Rectangle(new Point(Posição.X + Tamanho.Width + Margem, Posição.Y + Margem), new Size(Margem, Tamanho.Height - Margem * 2)));
+        Desenhar(Texture, new Rectangle(new Point(Texture_Largura - Margem, 0), new Size(Margem, Margem)), new Rectangle(new Point(Posição.X + Tamanho.Width - Margem, Posição.Y), new Size(Margem, Margem)));
+        Desenhar(Texture, new Rectangle(new Point(Texture_Largura - Margem, Texture_Altura - Margem), new Size(Margem, Margem)), new Rectangle(new Point(Posição.X + Tamanho.Width - Margem, Posição.Y + Tamanho.Height - Margem), new Size(Margem, Margem)));
+        Desenhar(Texture, new Rectangle(new Point(Texture_Largura - Margem, Margem), new Size(Texture_Largura - Margem, Texture_Altura - Margem)), new Rectangle(new Point(Posição.X + Tamanho.Width + Margem, Posição.Y + Margem), new Size(Margem, Tamanho.Height - Margem * 2)));
 
         // Centro
-        Desenhar(Textura, new Rectangle(new Point(Margem, Margem), new Size(3, 3)), new Rectangle(new Point(Posição.X + Margem, Posição.Y + Margem), new Size(Tamanho.Width - Margem * 2, Tamanho.Height - Margem * 2)));
+        Desenhar(Texture, new Rectangle(new Point(Margem, Margem), new Size(3, 3)), new Rectangle(new Point(Posição.X + Margem, Posição.Y + Margem), new Size(Tamanho.Width - Margem * 2, Tamanho.Height - Margem * 2)));
     }
 
     #endregion
 
-    public static void LerTexturas()
+    public static void LerTextures()
     {
-        // Inicia os dispositivos
-        Dispositivo = new RenderWindow(Janela.Objetos.Handle);
+        // Inicia os Devices
+        Device = new RenderWindow(Janela.Objetos.Handle);
         Fonte = new SFML.Graphics.Font(Diretórios.Fontes.FullName + "Georgia.ttf");
 
         // Conjuntos
-        Tex_Personagem = AdicionarTexturas(Diretórios.Tex_Personagens.FullName);
-        Tex_Azulejo = AdicionarTexturas(Diretórios.Tex_Azulejos.FullName);
-        Tex_Face = AdicionarTexturas(Diretórios.Tex_Faces.FullName);
-        Tex_Painel = AdicionarTexturas(Diretórios.Tex_Paineis.FullName);
-        Tex_Botão = AdicionarTexturas(Diretórios.Tex_Botões.FullName);
-        Tex_Panorama = AdicionarTexturas(Diretórios.Tex_Panoramas.FullName);
-        Tex_Fumaça = AdicionarTexturas(Diretórios.Tex_Fumaças.FullName);
-        Tex_Luz = AdicionarTexturas(Diretórios.Tex_Luzes.FullName);
-        Tex_Item = AdicionarTexturas(Diretórios.Tex_Itens.FullName);
+        Tex_Character = AdicionarTextures(Diretórios.Tex_Personagens.FullName);
+        Tex_Azulejo = AdicionarTextures(Diretórios.Tex_Azulejos.FullName);
+        Tex_Face = AdicionarTextures(Diretórios.Tex_Faces.FullName);
+        Tex_Painel = AdicionarTextures(Diretórios.Tex_Paineis.FullName);
+        Tex_Botão = AdicionarTextures(Diretórios.Tex_Botões.FullName);
+        Tex_Panorama = AdicionarTextures(Diretórios.Tex_Panoramas.FullName);
+        Tex_Fumaça = AdicionarTextures(Diretórios.Tex_Fumaças.FullName);
+        Tex_Luz = AdicionarTextures(Diretórios.Tex_Luzes.FullName);
+        Tex_Item = AdicionarTextures(Diretórios.Tex_Itens.FullName);
 
         // Únicas
         Tex_Clima = new Texture(Diretórios.Tex_Clima.FullName + Formato);
@@ -198,7 +198,7 @@ partial class Graphics
     public static void Apresentar()
     {
         // Limpa a área com um fundo preto
-        Dispositivo.Clear(SFML.Graphics.Color.Black);
+        Device.Clear(SFML.Graphics.Color.Black);
 
         // Desenha o menu
         Menu();
@@ -211,7 +211,7 @@ partial class Graphics
         Desenhar("Latência: " + Game.Latência.ToString(), 8, 83, SFML.Graphics.Color.White);
 
         // Exibe o que foi renderizado
-        Dispositivo.Display();
+        Device.Display();
     }
 
     public static void EmGame()
@@ -223,31 +223,31 @@ partial class Graphics
         // Atualiza a câmera
         Game.Atualizar_Câmera();
 
-        // Desenhos abaixo do jogador
-        Mapa_Panorama();
-        Mapa_Azulejos((byte)Mapa.Camadas.Chão);
-        Mapa_Itens();
+        // Desenhos abaixo do Player
+        Map_Panorama();
+        Map_Azulejos((byte)Map.Camadas.Chão);
+        Map_Itens();
 
         // Desenha os NPCs
-        for (byte i = 1; i <= Lists.Mapa.Temp_NPC.GetUpperBound(0); i++)
-            if (Lists.Mapa.Temp_NPC[i].Índice > 0)
+        for (byte i = 1; i <= Lists.Map.Temp_NPC.GetUpperBound(0); i++)
+            if (Lists.Map.Temp_NPC[i].Index > 0)
                 NPC(i);
 
-        // Desenha os jogadores
-        for (byte i = 1; i <= Jogador.MaiorÍndice; i++)
-            if (Jogador.EstáJogando(i))
-                if (i != Jogador.MeuÍndice)
-                    if (Lists.Jogador[i].Mapa == Jogador.Eu.Mapa)
-                        Jogador_Personagem(i);
+        // Desenha os Playeres
+        for (byte i = 1; i <= Player.MaiorIndex; i++)
+            if (Player.EstáJogando(i))
+                if (i != Player.MyIndex)
+                    if (Lists.Player[i].Map == Player.Eu.Map)
+                        Player_Character(i);
 
-        // Desenha o próprio jogador
-        Jogador_Personagem(Jogador.MeuÍndice);
+        // Desenha o próprio Player
+        Player_Character(Player.MyIndex);
 
-        // Desenhos acima do jogador
-        Mapa_Azulejos((byte)Mapa.Camadas.Telhado);
-        Mapa_Clima();
-        Mapa_Fumaça();
-        Mapa_Name();
+        // Desenhos acima do Player
+        Map_Azulejos((byte)Map.Camadas.Telhado);
+        Map_Clima();
+        Map_Fumaça();
+        Map_Name();
 
         // Interface do Game
         Game_Interface();
@@ -257,17 +257,17 @@ partial class Graphics
     public static void Botão(string Name)
     {
         byte Transparência = 225;
-        byte Índice = Botões.EncontrarÍndice(Name);
+        byte Index = Botões.EncontrarIndex(Name);
 
         // Lista a ordem de renderização da ferramenta
-        Ferramentas.Listar(Ferramentas.Tipos.Botão, Índice);
+        Ferramentas.Listar(Ferramentas.Types.Botão, Index);
 
         // Não desenha a ferramenta se ela não for visível
-        if (!Botões.Lista[Índice].Geral.VerificarHabilitação())
+        if (!Botões.Lista[Index].Geral.VerificarHabilitação())
             return;
 
         // Define a transparência do botão pelo seu estado
-        switch (Botões.Lista[Índice].Estado)
+        switch (Botões.Lista[Index].Estado)
         {
             case Botões.Estados.Sobrepor:
                 Transparência = 250;
@@ -278,42 +278,42 @@ partial class Graphics
         }
 
         // Desenha o botão
-        Desenhar(Tex_Botão[Botões.Lista[Índice].Textura], Botões.Lista[Índice].Geral.Posição, new SFML.Graphics.Color(255, 255, 225, Transparência));
+        Desenhar(Tex_Botão[Botões.Lista[Index].Texture], Botões.Lista[Index].Geral.Posição, new SFML.Graphics.Color(255, 255, 225, Transparência));
     }
 
     public static void Painel(string Name)
     {
-        byte Índice = Paineis.EncontrarÍndice(Name);
+        byte Index = Paineis.EncontrarIndex(Name);
 
         // Lista a ordem de renderização da ferramenta
-        Ferramentas.Listar(Ferramentas.Tipos.Painel, Índice);
+        Ferramentas.Listar(Ferramentas.Types.Painel, Index);
 
         // Não desenha a ferramenta se ela não for visível
-        if (!Paineis.Lista[Índice].Geral.VerificarHabilitação())
+        if (!Paineis.Lista[Index].Geral.VerificarHabilitação())
             return;
 
         // Desenha o painel
-        Desenhar(Tex_Painel[Paineis.Lista[Índice].Textura], Paineis.Lista[Índice].Geral.Posição);
+        Desenhar(Tex_Painel[Paineis.Lista[Index].Texture], Paineis.Lista[Index].Geral.Posição);
     }
 
     public static void Marcador(string Name)
     {
         Rectangle Fonte = new Rectangle(), Destino = new Rectangle();
-        byte Índice = Marcadores.EncontrarÍndice(Name);
+        byte Index = Marcadores.EncontrarIndex(Name);
 
         // Lista a ordem de renderização da ferramenta
-        Ferramentas.Listar(Ferramentas.Tipos.Marcador, Índice);
+        Ferramentas.Listar(Ferramentas.Types.Marcador, Index);
 
         // Não desenha a ferramenta se ela não for visível
-        if (!Marcadores.Lista[Índice].Geral.VerificarHabilitação())
+        if (!Marcadores.Lista[Index].Geral.VerificarHabilitação())
             return;
 
         // Define as propriedades dos retângulos
         Fonte.Size = new Size(TTamanho(Tex_Marcador).Width / 2, TTamanho(Tex_Marcador).Height);
         Destino = new Rectangle(Marcadores.Encontrar(Name).Geral.Posição, Fonte.Size);
 
-        // Desenha a textura do marcador pelo seu estado 
-        if (Marcadores.Lista[Índice].Estado)
+        // Desenha a Texture do marcador pelo seu estado 
+        if (Marcadores.Lista[Index].Estado)
             Fonte.Location = new Point(TTamanho(Tex_Marcador).Width / 2, 0);
 
         // Desenha o marcador 
@@ -323,20 +323,20 @@ partial class Graphics
 
     public static void Digitalizador(string Name)
     {
-        byte Índice = Digitalizadores.EncontrarÍndice(Name);
+        byte Index = Digitalizadores.EncontrarIndex(Name);
 
         // Lista a ordem de renderização da ferramenta
-        Ferramentas.Listar(Ferramentas.Tipos.Digitalizador, Índice);
+        Ferramentas.Listar(Ferramentas.Types.Digitalizador, Index);
 
         // Não desenha a ferramenta se ela não for visível
-        if (!Digitalizadores.Lista[Índice].Geral.VerificarHabilitação())
+        if (!Digitalizadores.Lista[Index].Geral.VerificarHabilitação())
             return;
 
         // Desenha a ferramenta
-        Renderizar_Caixa(Tex_Digitalizador, 3, Digitalizadores.Lista[Índice].Geral.Posição, new Size(Digitalizadores.Lista[Índice].Largura, TTamanho(Tex_Digitalizador).Height));
+        Renderizar_Caixa(Tex_Digitalizador, 3, Digitalizadores.Lista[Index].Geral.Posição, new Size(Digitalizadores.Lista[Index].Largura, TTamanho(Tex_Digitalizador).Height));
 
         // Desenha o texto do digitalizador
-        Digitalizador_Texto(Índice);
+        Digitalizador_Texto(Index);
     }
 
     public static void Digitalizador_Texto(byte i)
@@ -370,8 +370,8 @@ partial class Graphics
         Menu_Conectar();
         Menu_Registrar();
         Menu_Opções();
-        Menu_SelecionarPersonagem();
-        Menu_CriarPersonagem();
+        Menu_SelecionarCharacter();
+        Menu_CriarCharacter();
     }
 
     public static void Menu_Ferramentas()
@@ -421,102 +421,102 @@ partial class Graphics
         Botão("Opções_Retornar");
     }
 
-    public static void Menu_SelecionarPersonagem()
+    public static void Menu_SelecionarCharacter()
     {
         // Define a habilitação das ferramentas
-        Ferramentas.DefinirHabilitação("SelecionarPersonagem", Ferramentas.Janelas.Menu);
+        Ferramentas.DefinirHabilitação("SelecionarCharacter", Ferramentas.Janelas.Menu);
 
         // Desenha o conjunto das ferramentas
-        Painel("SelecionarPersonagem");
-        SelecionarPersonagem_Classe();
-        Botão("Personagem_Criar");
-        Botão("Personagem_Usar");
-        Botão("Personagem_Deletar");
-        Botão("Personagem_TrocarDireita");
-        Botão("Personagem_TrocarEsquerda");
+        Painel("SelecionarCharacter");
+        SelecionarCharacter_Classe();
+        Botão("Character_Criar");
+        Botão("Character_Usar");
+        Botão("Character_Deletar");
+        Botão("Character_TrocarDireita");
+        Botão("Character_TrocarEsquerda");
 
         // Eventos
         Botões.Eventos.Mudar_Personagens_Botões();
     }
 
-    public static void Menu_CriarPersonagem()
+    public static void Menu_CriarCharacter()
     {
         // Define a habilitação das ferramentas
-        Ferramentas.DefinirHabilitação("CriarPersonagem", Ferramentas.Janelas.Menu);
+        Ferramentas.DefinirHabilitação("CriarCharacter", Ferramentas.Janelas.Menu);
 
         // Desenha o conjunto das ferramentas
-        Painel("CriarPersonagem");
-        Botão("CriarPersonagem");
-        Digitalizador("CriarPersonagem_Name");
-        CriarPersonagem_Classe();
-        Botão("CriarPersonagem_TrocarDireita");
-        Botão("CriarPersonagem_TrocarEsquerda");
-        Botão("CriarPersonagem_Retornar");
+        Painel("CriarCharacter");
+        Botão("CriarCharacter");
+        Digitalizador("CriarCharacter_Name");
+        CriarCharacter_Classe();
+        Botão("CriarCharacter_TrocarDireita");
+        Botão("CriarCharacter_TrocarEsquerda");
+        Botão("CriarCharacter_Retornar");
         Marcador("GêneroMasculino");
         Marcador("GêneroFeminino");
     }
 
-    public static void SelecionarPersonagem_Classe()
+    public static void SelecionarCharacter_Classe()
     {
-        short Textura;
+        short Texture;
         string Texto = "Nenhum";
 
         // Somente se necessário
-        if (!Paineis.Encontrar("SelecionarPersonagem").Geral.Habilitado) return;
+        if (!Paineis.Encontrar("SelecionarCharacter").Geral.Habilitado) return;
         if (Lists.Personagens == null) return;
 
         // Data
-        int Classe = Lists.Personagens[Game.SelecionarPersonagem].Classe;
+        int Classe = Lists.Personagens[Game.SelecionarCharacter].Classe;
         Point Texto_Posição = new Point(399, 425);
 
-        // Verifica se o personagem existe
+        // Verifica se o Character existe
         if (Classe == 0)
         {
             Desenhar(Texto, Texto_Posição.X - Ferramentas.MedirTexto_Largura(Texto) / 2, Texto_Posição.Y, SFML.Graphics.Color.White);
             return;
         }
 
-        // Textura do personagem
-        if (Lists.Personagens[Game.SelecionarPersonagem].Gênero)
-            Textura = Lists.Classe[Classe].Textura_Masculina;
+        // Texture do Character
+        if (Lists.Personagens[Game.SelecionarCharacter].Gênero)
+            Texture = Lists.Classe[Classe].Texture_Masculina;
         else
-            Textura = Lists.Classe[Classe].Textura_Feminina;
+            Texture = Lists.Classe[Classe].Texture_Feminina;
 
-        // Desenha o personagem
-        if (Textura > 0)
+        // Desenha o Character
+        if (Texture > 0)
         {
-            Desenhar(Tex_Face[Textura], new Point(353, 442));
-            Personagem(Textura, new Point(356, 534 - TTamanho(Tex_Personagem[Textura]).Height / 4), Game.Direções.Abaixo, Game.Animação_Parada);
+            Desenhar(Tex_Face[Texture], new Point(353, 442));
+            Character(Texture, new Point(356, 534 - TTamanho(Tex_Character[Texture]).Height / 4), Game.Direções.Abaixo, Game.Animação_Parada);
         }
 
         // Desenha o Name da classe
-        Texto = Lists.Personagens[Game.SelecionarPersonagem].Name;
+        Texto = Lists.Personagens[Game.SelecionarCharacter].Name;
         Desenhar(Texto, Texto_Posição.X - Ferramentas.MedirTexto_Largura(Texto) / 2, Texto_Posição.Y, SFML.Graphics.Color.White);
     }
 
-    public static void CriarPersonagem_Classe()
+    public static void CriarCharacter_Classe()
     {
-        short Textura;
+        short Texture;
 
         // Não desenhar se o painel não for visível
-        if (!Paineis.Encontrar("CriarPersonagem").Geral.Habilitado)
+        if (!Paineis.Encontrar("CriarCharacter").Geral.Habilitado)
             return;
 
-        // Textura do personagem
+        // Texture do Character
         if (Marcadores.Encontrar("GêneroMasculino").Estado)
-            Textura = Lists.Classe[Game.CriarPersonagem_Classe].Textura_Masculina;
+            Texture = Lists.Classe[Game.CriarCharacter_Classe].Texture_Masculina;
         else
-            Textura = Lists.Classe[Game.CriarPersonagem_Classe].Textura_Feminina;
+            Texture = Lists.Classe[Game.CriarCharacter_Classe].Texture_Feminina;
 
-        // Desenha o personagem
-        if (Textura > 0)
+        // Desenha o Character
+        if (Texture > 0)
         {
-            Desenhar(Tex_Face[Textura], new Point(425, 467));
-            Personagem(Textura, new Point(430, 527), Game.Direções.Abaixo, Game.Animação_Parada);
+            Desenhar(Tex_Face[Texture], new Point(425, 467));
+            Character(Texture, new Point(430, 527), Game.Direções.Abaixo, Game.Animação_Parada);
         }
 
         // Desenha o Name da classe
-        string Texto = Lists.Classe[Game.CriarPersonagem_Classe].Name;
+        string Texto = Lists.Classe[Game.CriarCharacter_Classe].Name;
         Desenhar(Texto, 471 - Ferramentas.MedirTexto_Largura(Texto) / 2, 449, SFML.Graphics.Color.White);
     }
     #endregion
@@ -533,8 +533,8 @@ partial class Graphics
         Game_Chat();
         Game_Barras();
         Game_Hotbar();
-        Game_Menu_Personagem();
-        Game_Menu_Inventário();
+        Game_Menu_Character();
+        Game_Menu_Inventory();
     }
 
     public static void Game_Hotbar()
@@ -546,18 +546,18 @@ partial class Graphics
         Painel("Hotbar");
 
         // Desenha os itens da hotbar
-        for (byte i = 1; i <= Game.Máx_Hotbar; i++)
+        for (byte i = 1; i <= Game.Max_Hotbar; i++)
         {
-            byte Slot = Jogador.Hotbar[i].Slot;
+            byte Slot = Player.Hotbar[i].Slot;
             if (Slot > 0)
             {
                 // Itens
-                if (Jogador.Hotbar[i].Tipo == (byte)Game.Hotbar.Item)
+                if (Player.Hotbar[i].Type == (byte)Game.Hotbar.Item)
                 {
                     // Desenha as visualizações do item
                     Point Posição = new Point(Painel_Posição.X + 8 + (i - 1) * 36, Painel_Posição.Y + 6);
-                    Desenhar(Tex_Item[Lists.Item[Jogador.Inventário[Slot].Item_Num].Textura], Posição);
-                    if (Ferramentas.EstáSobrepondo(new Rectangle(Posição.X, Posição.Y, 32, 32))) Painel_Informações(Jogador.Inventário[Slot].Item_Num, Painel_Posição.X, Painel_Posição.Y + 42);
+                    Desenhar(Tex_Item[Lists.Item[Player.Inventory[Slot].Item_Num].Texture], Posição);
+                    if (Ferramentas.EstáSobrepondo(new Rectangle(Posição.X, Posição.Y, 32, 32))) Painel_Informações(Player.Inventory[Slot].Item_Num, Painel_Posição.X, Painel_Posição.Y + 42);
                 }
             }
 
@@ -572,40 +572,40 @@ partial class Graphics
         }
 
         // Movendo slot
-        if (Jogador.Hotbar_Movendo > 0)
-            if (Jogador.Hotbar[Jogador.Hotbar_Movendo].Tipo == (byte)Game.Hotbar.Item)
-                Desenhar(Tex_Item[Lists.Item[Jogador.Inventário[Jogador.Hotbar[Jogador.Hotbar_Movendo].Slot].Item_Num].Textura], new Point(Ferramentas.Ponteiro.X + 6, Ferramentas.Ponteiro.Y + 6));
+        if (Player.Hotbar_Movendo > 0)
+            if (Player.Hotbar[Player.Hotbar_Movendo].Type == (byte)Game.Hotbar.Item)
+                Desenhar(Tex_Item[Lists.Item[Player.Inventory[Player.Hotbar[Player.Hotbar_Movendo].Slot].Item_Num].Texture], new Point(Ferramentas.Ponteiro.X + 6, Ferramentas.Ponteiro.Y + 6));
     }
 
     public static void Game_Menu()
     {
         // Desenha o conjunto das ferramentas
         Painel("Menu");
-        Botão("Menu_Personagem");
-        Botão("Menu_Inventário");
+        Botão("Menu_Character");
+        Botão("Menu_Inventory");
         Botão("Menu_Feitiços");
         Botão("Menu_1");
         Botão("Menu_2");
         Botão("Menu_Opções");
     }
 
-    public static void Game_Menu_Personagem()
+    public static void Game_Menu_Character()
     {
-        Point Posição = Paineis.Encontrar("Menu_Personagem").Geral.Posição;
+        Point Posição = Paineis.Encontrar("Menu_Character").Geral.Posição;
 
         // Somente se necessário
-        if (!Paineis.Encontrar("Menu_Personagem").Geral.Visível) return;
+        if (!Paineis.Encontrar("Menu_Character").Geral.Visível) return;
 
         // Desenha o painel 
-        Painel("Menu_Personagem");
+        Painel("Menu_Character");
 
         // Data básicos
-        Desenhar(Jogador.Eu.Name, Posição.X + 18, Posição.Y + 52, SFML.Graphics.Color.White);
-        Desenhar(Jogador.Eu.Level.ToString(), Posição.X + 18, Posição.Y + 79, SFML.Graphics.Color.White);
-        Desenhar(Tex_Face[Lists.Classe[Jogador.Eu.Classe].Textura_Masculina], new Point(Posição.X + 82, Posição.Y + 37));
+        Desenhar(Player.Eu.Name, Posição.X + 18, Posição.Y + 52, SFML.Graphics.Color.White);
+        Desenhar(Player.Eu.Level.ToString(), Posição.X + 18, Posição.Y + 79, SFML.Graphics.Color.White);
+        Desenhar(Tex_Face[Lists.Classe[Player.Eu.Classe].Texture_Masculina], new Point(Posição.X + 82, Posição.Y + 37));
 
         // Adicionar atributos
-        if (Jogador.Eu.Pontos > 0)
+        if (Player.Eu.Pontos > 0)
         {
             Botão("Atributos_Força");
             Botão("Atributos_Resistência");
@@ -615,56 +615,56 @@ partial class Graphics
         }
 
         // Atributos
-        Desenhar("Força: " + Jogador.Eu.Atributo[(byte)Game.Atributos.Força], Posição.X + 32, Posição.Y + 146, SFML.Graphics.Color.White);
-        Desenhar("Resistência: " + Jogador.Eu.Atributo[(byte)Game.Atributos.Resistência], Posição.X + 32, Posição.Y + 162, SFML.Graphics.Color.White);
-        Desenhar("Inteligência: " + Jogador.Eu.Atributo[(byte)Game.Atributos.Inteligência], Posição.X + 32, Posição.Y + 178, SFML.Graphics.Color.White);
-        Desenhar("Agilidade: " + +Jogador.Eu.Atributo[(byte)Game.Atributos.Agilidade], Posição.X + 32, Posição.Y + 194, SFML.Graphics.Color.White);
-        Desenhar("Vitalidade: " + +Jogador.Eu.Atributo[(byte)Game.Atributos.Vitalidade], Posição.X + 32, Posição.Y + 210, SFML.Graphics.Color.White);
-        Desenhar("Pontos: " + Jogador.Eu.Pontos, Posição.X + 14, Posição.Y + 228, SFML.Graphics.Color.White);
+        Desenhar("Força: " + Player.Eu.Atributo[(byte)Game.Atributos.Força], Posição.X + 32, Posição.Y + 146, SFML.Graphics.Color.White);
+        Desenhar("Resistência: " + Player.Eu.Atributo[(byte)Game.Atributos.Resistência], Posição.X + 32, Posição.Y + 162, SFML.Graphics.Color.White);
+        Desenhar("Inteligência: " + Player.Eu.Atributo[(byte)Game.Atributos.Inteligência], Posição.X + 32, Posição.Y + 178, SFML.Graphics.Color.White);
+        Desenhar("Agilidade: " + +Player.Eu.Atributo[(byte)Game.Atributos.Agilidade], Posição.X + 32, Posição.Y + 194, SFML.Graphics.Color.White);
+        Desenhar("Vitalidade: " + +Player.Eu.Atributo[(byte)Game.Atributos.Vitalidade], Posição.X + 32, Posição.Y + 210, SFML.Graphics.Color.White);
+        Desenhar("Pontos: " + Player.Eu.Pontos, Posição.X + 14, Posição.Y + 228, SFML.Graphics.Color.White);
 
         // Equipamentos 
-        for (byte i = 0; i <= (byte)Game.Equipamentos.Quantidade - 1; i++)
+        for (byte i = 0; i <= (byte)Game.Equipamentos.Amount - 1; i++)
         {
-            if (Jogador.Eu.Equipamento[i] == 0)
+            if (Player.Eu.Equipamento[i] == 0)
                 Desenhar(Tex_Equipamentos, Posição.X + 7 + i * 34, Posição.Y + 247, i * 34, 0, 34, 34);
             else
             {
-                Desenhar(Tex_Item[Lists.Item[Jogador.Eu.Equipamento[i]].Textura], Posição.X + 8 + i * 35, Posição.Y + 247, 0, 0, 34, 34);
-                if (Ferramentas.EstáSobrepondo(new Rectangle(Posição.X + 7 + i * 36, Posição.Y + 247, 32, 32))) Painel_Informações(Jogador.Eu.Equipamento[i], Posição.X - 186, Posição.Y + 5);
+                Desenhar(Tex_Item[Lists.Item[Player.Eu.Equipamento[i]].Texture], Posição.X + 8 + i * 35, Posição.Y + 247, 0, 0, 34, 34);
+                if (Ferramentas.EstáSobrepondo(new Rectangle(Posição.X + 7 + i * 36, Posição.Y + 247, 32, 32))) Painel_Informações(Player.Eu.Equipamento[i], Posição.X - 186, Posição.Y + 5);
             }
         }
     }
 
-    public static void Game_Menu_Inventário()
+    public static void Game_Menu_Inventory()
     {
         byte NumColunas = 5;
-        Point Painel_Posição = Paineis.Encontrar("Menu_Inventário").Geral.Posição;
+        Point Painel_Posição = Paineis.Encontrar("Menu_Inventory").Geral.Posição;
 
         // Somente se necessário
-        if (!Paineis.Encontrar("Menu_Inventário").Geral.Visível) return;
+        if (!Paineis.Encontrar("Menu_Inventory").Geral.Visível) return;
 
         // Desenha o painel 
-        Painel("Menu_Inventário");
+        Painel("Menu_Inventory");
 
-        // Desenha todos os itens do inventário
-        for (byte i = 1; i <= Game.Máx_Inventário; i++)
-            if (Jogador.Inventário[i].Item_Num > 0)
+        // Desenha todos os itens do Inventory
+        for (byte i = 1; i <= Game.Max_Inventory; i++)
+            if (Player.Inventory[i].Item_Num > 0)
             {
                 byte Linha = (byte)((i - 1) / NumColunas);
                 int Coluna = i - (Linha * 5) - 1;
                 Point Posição = new Point(Painel_Posição.X + 7 + Coluna * 36, Painel_Posição.Y + 30 + Linha * 36);
 
                 // Desenha as visualizações do item
-                Desenhar(Tex_Item[Lists.Item[Jogador.Inventário[i].Item_Num].Textura], Posição);
-                if (Ferramentas.EstáSobrepondo(new Rectangle(Posição.X, Posição.Y, 32, 32))) Painel_Informações(Jogador.Inventário[i].Item_Num, Painel_Posição.X - 186, Painel_Posição.Y + 3);
+                Desenhar(Tex_Item[Lists.Item[Player.Inventory[i].Item_Num].Texture], Posição);
+                if (Ferramentas.EstáSobrepondo(new Rectangle(Posição.X, Posição.Y, 32, 32))) Painel_Informações(Player.Inventory[i].Item_Num, Painel_Posição.X - 186, Painel_Posição.Y + 3);
 
-                // Quantidade
-                if (Jogador.Inventário[i].Quantidade > 1) Desenhar(Jogador.Inventário[i].Quantidade.ToString(), Posição.X + 2, Posição.Y + 17, SFML.Graphics.Color.White);
+                // Amount
+                if (Player.Inventory[i].Amount > 1) Desenhar(Player.Inventory[i].Amount.ToString(), Posição.X + 2, Posição.Y + 17, SFML.Graphics.Color.White);
             }
 
         // Movendo item
-        if (Jogador.Inventário_Movendo > 0)
-            Desenhar(Tex_Item[Lists.Item[Jogador.Inventário[Jogador.Inventário_Movendo].Item_Num].Textura], new Point(Ferramentas.Ponteiro.X + 6, Ferramentas.Ponteiro.Y + 6));
+        if (Player.Inventory_Movendo > 0)
+            Desenhar(Tex_Item[Lists.Item[Player.Inventory[Player.Inventory_Movendo].Item_Num].Texture], new Point(Ferramentas.Ponteiro.X + 6, Ferramentas.Ponteiro.Y + 6));
     }
 
     public static void Painel_Informações(short Item_Num, int X, int Y)
@@ -677,10 +677,10 @@ partial class Graphics
         // Informações
         Point Posição = Paineis.Encontrar("Menu_Informação").Geral.Posição;
         Desenhar(Lists.Item[Item_Num].Name, Posição.X + 9, Posição.Y + 6, SFML.Graphics.Color.Yellow);
-        Desenhar(Tex_Item[Lists.Item[Item_Num].Textura], new Rectangle(Posição.X + 9, Posição.Y + 21, 64, 64));
+        Desenhar(Tex_Item[Lists.Item[Item_Num].Texture], new Rectangle(Posição.X + 9, Posição.Y + 21, 64, 64));
 
         // Requerimentos
-        if (Lists.Item[Item_Num].Tipo != (byte)Game.Itens.Nenhum)
+        if (Lists.Item[Item_Num].Type != (byte)Game.Itens.Nenhum)
         {
             Desenhar("Req level: " + Lists.Item[Item_Num].Req_Level, Posição.X + 9, Posição.Y + 90, SFML.Graphics.Color.White);
             if (Lists.Item[Item_Num].Req_Classe > 0)
@@ -690,24 +690,24 @@ partial class Graphics
         }
 
         // Específicas 
-        if (Lists.Item[Item_Num].Tipo == (byte)Game.Itens.Poção)
+        if (Lists.Item[Item_Num].Type == (byte)Game.Itens.Poção)
         {
-            for (byte n = 0; n <= (byte)Game.Vitais.Quantidade - 1; n++)
-                Desenhar(((Game.Vitais)n).ToString() + ": " + Lists.Item[Item_Num].Poção_Vital[n], Posição.X + 100, Posição.Y + 18 + 12 * n, SFML.Graphics.Color.White);
+            for (byte n = 0; n <= (byte)Game.Vital.Amount - 1; n++)
+                Desenhar(((Game.Vital)n).ToString() + ": " + Lists.Item[Item_Num].Poção_Vital[n], Posição.X + 100, Posição.Y + 18 + 12 * n, SFML.Graphics.Color.White);
             Desenhar("Exp: " + Lists.Item[Item_Num].Poção_Experiência, Posição.X + 100, Posição.Y + 42, SFML.Graphics.Color.White);
         }
-        else if (Lists.Item[Item_Num].Tipo == (byte)Game.Itens.Equipamento)
+        else if (Lists.Item[Item_Num].Type == (byte)Game.Itens.Equipamento)
         {
-            for (byte n = 0; n <= (byte)Game.Atributos.Quantidade - 1; n++) Desenhar(((Game.Atributos)n).ToString() + ": " + Lists.Item[Item_Num].Equip_Atributo[n], Posição.X + 100, Posição.Y + 18 + 12 * n, SFML.Graphics.Color.White);
-            if (Lists.Item[Item_Num].Equip_Tipo == (byte)Game.Equipamentos.Arma) Desenhar("Dano: " + Lists.Item[Item_Num].Arma_Dano, Posição.X + 100, Posição.Y + 18 + 60, SFML.Graphics.Color.White);
+            for (byte n = 0; n <= (byte)Game.Atributos.Amount - 1; n++) Desenhar(((Game.Atributos)n).ToString() + ": " + Lists.Item[Item_Num].Equip_Atributo[n], Posição.X + 100, Posição.Y + 18 + 12 * n, SFML.Graphics.Color.White);
+            if (Lists.Item[Item_Num].Equip_Type == (byte)Game.Equipamentos.Arma) Desenhar("Dano: " + Lists.Item[Item_Num].Arma_Dano, Posição.X + 100, Posição.Y + 18 + 60, SFML.Graphics.Color.White);
         }
     }
 
     public static void Game_Barras()
     {
-        decimal Vida_Porcentagem = Jogador.Eu.Vital[(byte)Game.Vitais.Vida] / (decimal)Jogador.Eu.Máx_Vital[(byte)Game.Vitais.Vida];
-        decimal Mana_Porcentagem = Jogador.Eu.Vital[(byte)Game.Vitais.Mana] / (decimal)Jogador.Eu.Máx_Vital[(byte)Game.Vitais.Mana];
-        decimal Exp_Porcentagem = Jogador.Eu.Experiência / (decimal)Jogador.Eu.ExpNecessária;
+        decimal Vida_Porcentagem = Player.Eu.Vital[(byte)Game.Vital.Vida] / (decimal)Player.Eu.Max_Vital[(byte)Game.Vital.Vida];
+        decimal Mana_Porcentagem = Player.Eu.Vital[(byte)Game.Vital.Mana] / (decimal)Player.Eu.Max_Vital[(byte)Game.Vital.Mana];
+        decimal Exp_Porcentagem = Player.Eu.Experiência / (decimal)Player.Eu.ExpNecessária;
 
         // Painel
         Painel("Barras");
@@ -723,16 +723,16 @@ partial class Graphics
         Desenhar("Exp", 18, 47, SFML.Graphics.Color.White);
 
         // Indicadores
-        Desenhar(Jogador.Eu.Vital[(byte)Game.Vitais.Vida] + "/" + Jogador.Eu.Máx_Vital[(byte)Game.Vitais.Vida], 70, 15, SFML.Graphics.Color.White);
-        Desenhar(Jogador.Eu.Vital[(byte)Game.Vitais.Mana] + "/" + Jogador.Eu.Máx_Vital[(byte)Game.Vitais.Mana], 70, 33, SFML.Graphics.Color.White);
-        Desenhar(Jogador.Eu.Experiência + "/" + Jogador.Eu.ExpNecessária, 70, 51, SFML.Graphics.Color.White);
-        Desenhar("Posição: " + Jogador.Eu.X + "/" + Jogador.Eu.Y, 8, 93, SFML.Graphics.Color.White);
+        Desenhar(Player.Eu.Vital[(byte)Game.Vital.Vida] + "/" + Player.Eu.Max_Vital[(byte)Game.Vital.Vida], 70, 15, SFML.Graphics.Color.White);
+        Desenhar(Player.Eu.Vital[(byte)Game.Vital.Mana] + "/" + Player.Eu.Max_Vital[(byte)Game.Vital.Mana], 70, 33, SFML.Graphics.Color.White);
+        Desenhar(Player.Eu.Experiência + "/" + Player.Eu.ExpNecessária, 70, 51, SFML.Graphics.Color.White);
+        Desenhar("Posição: " + Player.Eu.X + "/" + Player.Eu.Y, 8, 93, SFML.Graphics.Color.White);
     }
 
     public static void Game_Chat()
     {
         // Define a bisiblidade da caixa
-        Paineis.Encontrar("Chat").Geral.Visível = Digitalizadores.Foco == Digitalizadores.EncontrarÍndice("Chat");
+        Paineis.Encontrar("Chat").Geral.Visível = Digitalizadores.Foco == Digitalizadores.EncontrarIndex("Chat");
 
         // Renderiza as caixas
         Painel("Chat");
@@ -755,15 +755,15 @@ partial class Graphics
     }
     #endregion
 
-    public static void Personagem(short Textura, Point Posição, Game.Direções Direção, byte Coluna, bool Sofrendo = false)
+    public static void Character(short Texture, Point Posição, Game.Direções Direction, byte Coluna, bool Sofrendo = false)
     {
         Rectangle Fonte = new Rectangle(), Destino = new Rectangle();
-        Size Tamanho = TTamanho(Tex_Personagem[Textura]);
+        Size Tamanho = TTamanho(Tex_Character[Texture]);
         SFML.Graphics.Color Cor = new SFML.Graphics.Color(255, 255, 255);
         byte Linha = 0;
 
-        // Direção
-        switch (Direção)
+        // Direction
+        switch (Direction)
         {
             case Game.Direções.Acima: Linha = Game.Movimentação_Acima; break;
             case Game.Direções.Abaixo: Linha = Game.Movimentação_Abaixo; break;
@@ -772,17 +772,17 @@ partial class Graphics
         }
 
         // Define as propriedades dos retângulos
-        Fonte.X = Coluna * Tamanho.Width / Game.Animação_Quantidade;
-        Fonte.Y = Linha * Tamanho.Height / Game.Animação_Quantidade;
-        Fonte.Width = Tamanho.Width / Game.Animação_Quantidade;
-        Fonte.Height = Tamanho.Height / Game.Animação_Quantidade;
+        Fonte.X = Coluna * Tamanho.Width / Game.Animação_Amount;
+        Fonte.Y = Linha * Tamanho.Height / Game.Animação_Amount;
+        Fonte.Width = Tamanho.Width / Game.Animação_Amount;
+        Fonte.Height = Tamanho.Height / Game.Animação_Amount;
         Destino = new Rectangle(Posição, Fonte.Size);
 
-        // Demonstra que o personagem está sofrendo dano
+        // Demonstra que o Character está sofrendo dano
         if (Sofrendo) Cor = new SFML.Graphics.Color(205, 125, 125);
 
-        // Desenha o personagem e sua sombra
-        Desenhar(Tex_Sombra, Destino.Location.X, Destino.Location.Y + Tamanho.Height / Game.Animação_Quantidade - TTamanho(Tex_Sombra).Height + 5, 0, 0, Tamanho.Width / Game.Animação_Quantidade, TTamanho(Tex_Sombra).Height);
-        Desenhar(Tex_Personagem[Textura], Fonte, Destino, Cor);
+        // Desenha o Character e sua sombra
+        Desenhar(Tex_Sombra, Destino.Location.X, Destino.Location.Y + Tamanho.Height / Game.Animação_Amount - TTamanho(Tex_Sombra).Height + 5, 0, 0, Tamanho.Width / Game.Animação_Amount, TTamanho(Tex_Sombra).Height);
+        Desenhar(Tex_Character[Texture], Fonte, Destino, Cor);
     }
 }

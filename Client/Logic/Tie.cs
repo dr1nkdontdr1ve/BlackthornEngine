@@ -20,7 +20,7 @@ class Tie
             Contagem = Environment.TickCount;
 
             // Handles incoming data
-            Rede.ReceberData();
+            Network.ReceberData();
 
             // Displays graphics to screen
             Gráficos.Apresentar();
@@ -29,7 +29,7 @@ class Tie
             Digitalizador();
             Map.Lógica();
 
-            if (Player.MeuÍndice > 0 && Tools.JanelaAtual == Tools.Janelas.Game)
+            if (Player.MyIndex > 0 && Tools.JanelaAtual == Tools.Janelas.Game)
                 if (Contagem_30 < Environment.TickCount)
                 {
                     // Logic
@@ -47,7 +47,7 @@ class Tie
             // Calculate the FPS
             if (Contagem_1000 < Environment.TickCount)
             {
-                Enviar.Latência();
+                Sending.Latência();
                 Game.FPS = FPS;
                 FPS = 0;
                 Contagem_1000 = Environment.TickCount + 1000;

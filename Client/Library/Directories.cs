@@ -11,7 +11,7 @@ class Directories
     public static DirectoryInfo Músicas = new DirectoryInfo(Application.StartupPath + @"\Aúdio\Músicas\");
     public static FileInfo Opções = new FileInfo(Application.StartupPath + @"\Data\Opções" + Format);
     public static FileInfo Cliente_Data = new FileInfo(Application.StartupPath + @"\Data\Gerais" + Format);
-    public static DirectoryInfo Mapas_Data = new DirectoryInfo(Application.StartupPath + @"\Data\Mapas\");
+    public static DirectoryInfo Maps_Data = new DirectoryInfo(Application.StartupPath + @"\Data\Maps\");
     public static DirectoryInfo Botões_Data = new DirectoryInfo(Application.StartupPath + @"\Data\Ferramentas\Botões\");
     public static DirectoryInfo Digitalizadores_Data = new DirectoryInfo(Application.StartupPath + @"\Data\Ferramentas\Digitalizadores\");
     public static DirectoryInfo Paineis_Data = new DirectoryInfo(Application.StartupPath + @"\Data\Ferramentas\Paineis\");

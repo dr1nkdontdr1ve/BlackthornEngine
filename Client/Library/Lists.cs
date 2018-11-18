@@ -34,11 +34,11 @@
 
         public struct Server_Data
         {
-            public byte Máx_Jogadores;
-            public byte Máx_Personagens;
+            public byte Max_Playeres;
+            public byte Max_Personagens;
             public byte Num_Classes;
             public byte Num_Azulejos;
-            public short Num_Mapas;
+            public short Num_Maps;
         }
 
         public class Player
@@ -50,7 +50,7 @@
             public bool Atacando;
             public int Ataque_Tempo;
             public int Sofrendo;
-            public short[] Máx_Vital;
+            public short[] Max_Vital;
             public int Coletar_Tempo;
             // Geral
             public string Name;
@@ -62,10 +62,10 @@
             public short Pontos;
             public short[] Vital;
             public short[] Atributo;
-            public short Mapa;
+            public short Map;
             public byte X;
             public byte Y;
-            public Game.Direções Direção;
+            public Game.Direções Direction;
             public Game.Movimentos Movimento;
             public short[] Equipamento;
         }
@@ -81,10 +81,10 @@
         public class Classe
         {
             public string Name;
-            public short Textura_Masculina;
-            public short Textura_Feminina;
-            public short Aparecer_Mapa;
-            public byte Aparecer_Direção;
+            public short Texture_Masculina;
+            public short Texture_Feminina;
+            public short Aparecer_Map;
+            public byte Aparecer_Direction;
             public byte Aparecer_X;
             public byte Aparecer_Y;
         }
@@ -99,27 +99,27 @@
             public byte Panorama;
             public byte Música;
             public int Coloração;
-            public Mapa_Clima Clima;
-            public Mapa_Fumaça Fumaça;
+            public Map_Clima Clima;
+            public Map_Fumaça Fumaça;
             public short[] Ligação;
             public Azulejo[,] Azulejo;
             public Luz[] Luz;
             public short[] NPC;
 
             // Temporário
-            public Mapa_NPCs[] Temp_NPC;
-            public Mapa_Itens[] Temp_Item;
+            public Map_NPCs[] Temp_NPC;
+            public Map_Itens[] Temp_Item;
         }
 
         public struct Map_Climate
         {
-            public byte Tipo;
+            public byte Type;
             public byte Intensidade;
         }
 
         public struct Map_Smoke
         {
-            public byte Textura;
+            public byte Texture;
             public sbyte VelocidadeX;
             public sbyte VelocidadeY;
             public byte Transparência;
@@ -162,8 +162,8 @@
         public struct NPCs
         {
             public string Name;
-            public short Textura;
-            public byte Tipo;
+            public short Texture;
+            public byte Type;
             public short[] Vital;
         }
 
@@ -177,17 +177,17 @@
             public int Ataque_Tempo;
             public int Sofrendo;
             // Geral
-            public short Índice;
+            public short Index;
             public byte X;
             public byte Y;
-            public Game.Direções Direção;
+            public Game.Direções Direction;
             public Game.Movimentos Movimento;
             public short[] Vital;
         }
 
         public struct Map_Items
         {
-            public short Índice;
+            public short Index;
             public byte X;
             public byte Y;
         }
@@ -197,8 +197,8 @@
             // General
             public string Name;
             public string Descrição;
-            public short Textura;
-            public byte Tipo;
+            public short Texture;
+            public byte Type;
             // Requirements
             public short Req_Level;
             public byte Req_Classe;

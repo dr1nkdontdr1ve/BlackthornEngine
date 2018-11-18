@@ -3,44 +3,44 @@ using Lidgren.Network;
 
 class Network
 {
-    // Protocolo do controle de transmissão
-    public static NetClient Dispositivo;
+    // Transmission Control Protocol
+    public static NetClient Device;
 
-    // Manuseamento dos Data
+    // Handling of Data
     public static NetIncomingMessage Data;
 
-    // Data para a conexão com o servidor
+    // Data for connecting to the server
     public const string IP = "localhost";
-    public const short Porta = 7001;
+    public const short Port = 7001;
 
-    public static void Iniciar()
+    public static void Start()
     {
-        NetPeerConfiguration Configurações = new NetPeerConfiguration("CryBits");
+        NetPeerConfiguration Settings = new NetPeerConfiguration("CryBits");
 
-        // Cria o dispositivo com as devidas configurações
-        Dispositivo = new NetClient(Configurações);
-        Dispositivo.Start();
+        // Creates the Device with the appropriate settings
+        Device = new NetClient(Settings);
+        Device.Start();
     }
 
-    public static void Desconectar()
+    public static void Disconnect()
     {
-        // Acaba com a conexão
-        if (Dispositivo != null)
-            Dispositivo.Disconnect(string.Empty);
+        // End the connection
+        if (Device != null)
+            Device.Disconnect(string.Empty);
     }
 
-    public static void ReceberData()
+    public static void ReceivingData()
     {
-        // Lê e direciona todos os Data recebidos
-        while ((Data = Dispositivo.ReadMessage()) != null)
+        // Reads and directs all received Data
+        while ((Data = Device.ReadMessage()) != null)
         {
             switch (Data.MessageType)
             {
-                // Recebe e manuseia os Data
+                // Receive and handle the data
                 case NetIncomingMessageType.Data:
-                    Receber.Data(Data);
+                    Receiving.Data(Data);
                     break;
-                // Desconectar o jogador caso o servidor seja desligado
+                // Disconnect the player if the server is disconnected
                 case NetIncomingMessageType.StatusChanged:
                     if ((NetConnectionStatus)Data.ReadByte() == NetConnectionStatus.Disconnected)
                         Game.Desconectar();
@@ -48,33 +48,33 @@ class Network
                     break;
             }
 
-            Dispositivo.Recycle(Data);
+            Device.Recycle(Data);
         }
     }
 
-    public static bool EstáConectado()
+    public static bool IsConnected()
     {
-        // Retorna um valor de acordo com o estado da conexão do jogador
-        if (Dispositivo.ConnectionStatus == NetConnectionStatus.Connected)
+        // Returns a value according to the state of the player connection
+        if (Device.ConnectionStatus == NetConnectionStatus.Connected)
             return true;
         else
             return false;
     }
 
-    public static bool TentarConectar()
+    public static bool TryConnect()
     {
-        int Espera = Environment.TickCount;
+        int Wait = Environment.TickCount;
 
-        // Se o jogador já estiver conectado, então isso não é mais necessário
-        if (EstáConectado()) return true;
+        // If the player is already logged in, then this is no longer necessary.
+        if (IsConnected()) return true;
 
-        // Tenta se conectar
-        Dispositivo.Connect(IP, Porta);
+        // Try to connect
+        Device.Connect(IP, Port);
 
-        // Espere até que o jogador se conecte
-        while (!EstáConectado() && Environment.TickCount <= Espera + 1000)
-            ReceberData();
+        // Wait until the player connects
+        while (!IsConnected() && Environment.TickCount <= Wait + 1000)
+            ReceivingData();
 
-        return EstáConectado();
+        return IsConnected();
     }
 }

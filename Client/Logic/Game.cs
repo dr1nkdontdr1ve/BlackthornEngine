@@ -14,8 +14,8 @@ public class Game
     public static short FPS;
 
     // Interface
-    public static byte CriarPersonagem_Classe = 1;
-    public static byte SelecionarPersonagem = 1;
+    public static byte CriarCharacter_Classe = 1;
+    public static byte SelecionarCharacter = 1;
 
     // Player
     public const short Ataque_Velocidade = 750;
@@ -29,7 +29,7 @@ public class Game
     public static bool Pressionado_Control;
 
     // Animation
-    public const byte Animação_Quantidade = 4;
+    public const byte Animação_Amount = 4;
     public const byte Animação_Parada = 1;
     public const byte Animação_Direita = 0;
     public const byte Animação_Esquerda = 2;
@@ -46,16 +46,16 @@ public class Game
     public static Rectangle Azulejos_Visão;
 
     // Directional lock
-    public const byte Máx_BloqDirecional = 3;
+    public const byte Max_BloqDirecional = 3;
 
     // Screen size
     public const short Tela_Largura = (Map.Min_Largura + 1) * Grade;
     public const short Tela_Altura = (Map.Min_Altura + 1) * Grade;
 
     // Limits in general
-    public const byte Máx_Inventário = 30;
-    public const byte Máx_Mapa_Itens = 100;
-    public const byte Máx_Hotbar = 10;
+    public const byte Max_Inventory = 30;
+    public const byte Max_Map_Itens = 100;
+    public const byte Max_Hotbar = 10;
 
     // Latency
     public static int Latência;
@@ -66,8 +66,8 @@ public class Game
     {
         Conectar,
         Registrar,
-        SelecionarPersonagem,
-        CriarPersonagem
+        SelecionarCharacter,
+        CriarCharacter
     }
 
     public enum Atributos
@@ -77,7 +77,7 @@ public class Game
         Inteligência,
         Agilidade,
         Vitalidade,
-        Quantidade
+        Amount
     }
 
     public enum Direções
@@ -86,7 +86,7 @@ public class Game
         Abaixo,
         Esquerda,
         Direita,
-        Quantidade
+        Amount
     }
 
     public enum Movimentos
@@ -107,16 +107,16 @@ public class Game
     public enum Mensagens
     {
         Game,
-        Mapa,
+        Map,
         Global,
         Particular
     }
 
-    public enum Vitais
+    public enum Vital
     {
         Vida,
         Mana,
-        Quantidade
+        Amount
     }
 
     public enum NPCs
@@ -128,7 +128,7 @@ public class Game
 
     public enum Alvo
     {
-        Jogador = 1,
+        Player = 1,
         NPC
     }
 
@@ -146,7 +146,7 @@ public class Game
         Capacete,
         Escudo,
         Amuleto,
-        Quantidade
+        Amount
     }
 
     public enum Hotbar
@@ -172,13 +172,13 @@ public class Game
         AbrirMenu();
 
         // Termina a conexão
-        Rede.Desconectar();
+        Network.Desconectar();
     }
 
     public static void DefinirSituação(Situações Situação)
     {
         // Verifica se é possível se conectar ao servidor
-        if (!Rede.TentarConectar())
+        if (!Network.TentarConectar())
         {
             MessageBox.Show("The server is currently unavailable.");
             return;
@@ -187,9 +187,9 @@ public class Game
         // Envia os Data
         switch (Situação)
         {
-            case Situações.Conectar: Enviar.Conectar(); break;
-            case Situações.Registrar: Enviar.Registrar(); break;
-            case Situações.CriarPersonagem: Enviar.CriarPersonagem(); break;
+            case Situações.Conectar: Sending.Conectar(); break;
+            case Situações.Registrar: Sending.Registrar(); break;
+            case Situações.CriarCharacter: Sending.CriarCharacter(); break;
         }
     }
 
@@ -201,9 +201,9 @@ public class Game
 
         // Limpa os valores
         Áudio.Som.Parar_Tudo();
-        Player.MeuÍndice = 0;
+        Player.MyIndex = 0;
 
-        // Traz o jogador de volta ao menu
+        // Traz o Player de volta ao menu
         Tools.JanelaAtual = Tools.Janelas.Menu;
         Panels.Menu_Fechar();
         Panels.Encontrar("Conectar").General.Visível = true;
@@ -242,20 +242,20 @@ public class Game
         Final.Y = Início.Y + (Map.Min_Altura + 1) + 1;
 
         // Reajusta a posição horizontal da tela
-        if (Final.X > Lists.Mapa.Largura)
+        if (Final.X > Lists.Map.Largura)
         {
             Posição.X = Grade;
-            if (Final.X == Lists.Mapa.Largura + 1 && Player.Eu.X2 < 0) Posição.X = Player.Eu.X2 + Grade;
-            Final.X = Lists.Mapa.Largura;
+            if (Final.X == Lists.Map.Largura + 1 && Player.Eu.X2 < 0) Posição.X = Player.Eu.X2 + Grade;
+            Final.X = Lists.Map.Largura;
             Início.X = Final.X - Map.Min_Largura - 1;
         }
 
         // Reajusta a posição vertical da tela
-        if (Final.Y > Lists.Mapa.Altura)
+        if (Final.Y > Lists.Map.Altura)
         {
             Posição.Y = Grade;
-            if (Final.Y == Lists.Mapa.Altura + 1 && Player.Eu.Y2 < 0) Posição.Y = Player.Eu.Y2 + Grade;
-            Final.Y = Lists.Mapa.Altura;
+            if (Final.Y == Lists.Map.Altura + 1 && Player.Eu.Y2 < 0) Posição.Y = Player.Eu.Y2 + Grade;
+            Final.Y = Lists.Map.Altura;
             Início.Y = Final.Y - Map.Min_Altura - 1;
         }
 
@@ -293,16 +293,16 @@ public class Game
             return false;
     }
 
-    public static Direções DireçãoInversa(Direções Direção)
+    public static Direções DirectionInversa(Direções Direction)
     {
-        // Retorna a direção inversa
-        switch (Direção)
+        // Retorna a Direction inversa
+        switch (Direction)
         {
             case Direções.Acima: return Direções.Abaixo;
             case Direções.Abaixo: return Direções.Acima;
             case Direções.Esquerda: return Direções.Direita;
             case Direções.Direita: return Direções.Esquerda;
-            default: return Direções.Quantidade;
+            default: return Direções.Amount;
         }
     }
 }

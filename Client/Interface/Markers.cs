@@ -17,7 +17,7 @@ public class Markers
         public Tools.General General;
     }
 
-    public static byte EncontrarÍndice(string Name)
+    public static byte EncontrarIndex(string Name)
     {
         // List the names of the tools
         for (byte i = 1; i <= List.GetUpperBound(0); i++)
@@ -39,26 +39,26 @@ public class Markers
 
     public class Events
     {
-        public static void MouseUp(MouseEventArgs e, byte Índice)
+        public static void MouseUp(MouseEventArgs e, byte Index)
         {
-            int Texto_Largura; Size Textura_Tamanho; Size Caixa;
+            int Texto_Largura; Size Texture_Tamanho; Size Caixa;
 
             // Only if necessary
-            if (!List[Índice].General.Habilitado) return;
+            if (!List[Index].General.Habilitado) return;
 
             // Marker size
-            Textura_Tamanho = Gráficos.TTamanho(Gráficos.Tex_Marcador);
-            Texto_Largura = Tools.MedirTexto_Largura(List[Índice].Text);
-            Caixa = new Size(Textura_Tamanho.Width / 2 + Texto_Largura + Margin, Textura_Tamanho.Height);
+            Texture_Tamanho = Gráficos.TTamanho(Gráficos.Tex_Marcador);
+            Texto_Largura = Tools.MedirTexto_Largura(List[Index].Text);
+            Caixa = new Size(Texture_Tamanho.Width / 2 + Texto_Largura + Margin, Texture_Tamanho.Height);
 
             // Somente se estiver sobrepondo a ferramenta
-            if (!Tools.EstáSobrepondo(new Rectangle(List[Índice].General.Posição, Caixa))) return;
+            if (!Tools.EstáSobrepondo(new Rectangle(List[Index].General.Posição, Caixa))) return;
 
             // Altera o estado do marcador
-            List[Índice].State = !List[Índice].State;
+            List[Index].State = !List[Index].State;
 
             // Executa o evento
-            Executar(List[Índice].General.Name);
+            Executar(List[Index].General.Name);
             Áudio.Som.Reproduzir(Áudio.Sons.Clique);
         }
 

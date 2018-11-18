@@ -9,20 +9,20 @@ partial class Sending
         Latência,
         Conectar,
         Registrar,
-        CriarPersonagem,
-        Personagem_Usar,
-        Personagem_Criar,
-        Personagem_Deletar,
-        Jogador_Direção,
-        Jogador_Mover,
-        Solicitar_Mapa,
+        CriarCharacter,
+        Character_Usar,
+        Character_Criar,
+        Character_Deletar,
+        Player_Direction,
+        Player_Mover,
+        Solicitar_Map,
         Mensagem,
-        Jogador_Atacar,
+        Player_Atacar,
         AdicionarPonto,
         ColetarItem,
         SoltarItem,
-        Inventário_Mudar,
-        Inventário_Usar,
+        Inventory_Mudar,
+        Inventory_Usar,
         Equipamento_Remover,
         Hotbar_Adicionar,
         Hotbar_Mudar,
@@ -32,12 +32,12 @@ partial class Sending
     public static void Pacote(NetOutgoingMessage Data)
     {
         // Envia os Data ao servidor
-        Rede.Dispositivo.SendMessage(Data, NetDeliveryMethod.ReliableOrdered);
+        Network.Device.SendMessage(Data, NetDeliveryMethod.ReliableOrdered);
     }
 
     public static void Conectar()
     {
-        NetOutgoingMessage Data = Rede.Dispositivo.CreateMessage();
+        NetOutgoingMessage Data = Network.Device.CreateMessage();
 
         // Envia os Data
         Data.Write((byte)Pacotes.Conectar);
@@ -48,7 +48,7 @@ partial class Sending
 
     public static void Registrar()
     {
-        NetOutgoingMessage Data = Rede.Dispositivo.CreateMessage();
+        NetOutgoingMessage Data = Network.Device.CreateMessage();
 
         // Envia os Data
         Data.Write((byte)Pacotes.Registrar);
@@ -57,60 +57,60 @@ partial class Sending
         Pacote(Data);
     }
 
-    public static void CriarPersonagem()
+    public static void CriarCharacter()
     {
-        NetOutgoingMessage Data = Rede.Dispositivo.CreateMessage();
+        NetOutgoingMessage Data = Network.Device.CreateMessage();
 
         // Envia os Data
-        Data.Write((byte)Pacotes.CriarPersonagem);
-        Data.Write(Digitalizadores.Encontrar("CriarPersonagem_Name").Texto);
-        Data.Write(Game.CriarPersonagem_Classe);
+        Data.Write((byte)Pacotes.CriarCharacter);
+        Data.Write(Digitalizadores.Encontrar("CriarCharacter_Name").Texto);
+        Data.Write(Game.CriarCharacter_Classe);
         Data.Write(Marcadores.Encontrar("GêneroMasculino").Estado);
         Pacote(Data);
     }
 
-    public static void Personagem_Usar()
+    public static void Character_Usar()
     {
-        NetOutgoingMessage Data = Rede.Dispositivo.CreateMessage();
+        NetOutgoingMessage Data = Network.Device.CreateMessage();
 
         // Envia os Data
-        Data.Write((byte)Pacotes.Personagem_Usar);
-        Data.Write(Game.SelecionarPersonagem);
+        Data.Write((byte)Pacotes.Character_Usar);
+        Data.Write(Game.SelecionarCharacter);
         Pacote(Data);
     }
 
-    public static void Personagem_Criar()
+    public static void Character_Criar()
     {
-        NetOutgoingMessage Data = Rede.Dispositivo.CreateMessage();
+        NetOutgoingMessage Data = Network.Device.CreateMessage();
 
         // Envia os Data
-        Data.Write((byte)Pacotes.Personagem_Criar);
+        Data.Write((byte)Pacotes.Character_Criar);
         Pacote(Data);
     }
 
-    public static void Personagem_Deletar()
+    public static void Character_Deletar()
     {
-        NetOutgoingMessage Data = Rede.Dispositivo.CreateMessage();
+        NetOutgoingMessage Data = Network.Device.CreateMessage();
 
         // Envia os Data
-        Data.Write((byte)Pacotes.Personagem_Deletar);
-        Data.Write(Game.SelecionarPersonagem);
+        Data.Write((byte)Pacotes.Character_Deletar);
+        Data.Write(Game.SelecionarCharacter);
         Pacote(Data);
     }
 
-    public static void Solicitar_Mapa(bool Necessário)
+    public static void Solicitar_Map(bool Necessário)
     {
-        NetOutgoingMessage Data = Rede.Dispositivo.CreateMessage();
+        NetOutgoingMessage Data = Network.Device.CreateMessage();
 
         // Envia os Data
-        Data.Write((byte)Pacotes.Solicitar_Mapa);
+        Data.Write((byte)Pacotes.Solicitar_Map);
         Data.Write(Necessário);
         Pacote(Data);
     }
 
     public static void Latência()
     {
-        NetOutgoingMessage Data = Rede.Dispositivo.CreateMessage();
+        NetOutgoingMessage Data = Network.Device.CreateMessage();
 
         // Envia os Data
         Data.Write((byte)Pacotes.Latência);
@@ -120,21 +120,21 @@ partial class Sending
         Game.Latência_Envio = Environment.TickCount;
     }
 
-    public static void Mensagem(string Mensagem, Game.Mensagens Tipo, string Dado = "")
+    public static void Mensagem(string Mensagem, Game.Mensagens Type, string Dado = "")
     {
-        NetOutgoingMessage Data = Rede.Dispositivo.CreateMessage();
+        NetOutgoingMessage Data = Network.Device.CreateMessage();
 
         // Envia os Data
         Data.Write((byte)Pacotes.Mensagem);
         Data.Write(Mensagem);
-        Data.Write((byte)Tipo);
+        Data.Write((byte)Type);
         Data.Write(Dado);
         Pacote(Data);
     }
 
     public static void AdicionarPonto(Game.Atributos Atributo)
     {
-        NetOutgoingMessage Data = Rede.Dispositivo.CreateMessage();
+        NetOutgoingMessage Data = Network.Device.CreateMessage();
 
         // Envia os Data
         Data.Write((byte)Pacotes.AdicionarPonto);
@@ -144,7 +144,7 @@ partial class Sending
 
     public static void ColetarItem()
     {
-        NetOutgoingMessage Data = Rede.Dispositivo.CreateMessage();
+        NetOutgoingMessage Data = Network.Device.CreateMessage();
 
         // Envia os Data
         Data.Write((byte)Pacotes.ColetarItem);
@@ -153,7 +153,7 @@ partial class Sending
 
     public static void SoltarItem(byte Slot)
     {
-        NetOutgoingMessage Data = Rede.Dispositivo.CreateMessage();
+        NetOutgoingMessage Data = Network.Device.CreateMessage();
 
         // Envia os Data
         Data.Write((byte)Pacotes.SoltarItem);
@@ -161,30 +161,30 @@ partial class Sending
         Pacote(Data);
     }
 
-    public static void Inventário_Mudar(byte Antigo, byte Novo)
+    public static void Inventory_Mudar(byte Antigo, byte Novo)
     {
-        NetOutgoingMessage Data = Rede.Dispositivo.CreateMessage();
+        NetOutgoingMessage Data = Network.Device.CreateMessage();
 
         // Envia os Data
-        Data.Write((byte)Pacotes.Inventário_Mudar);
+        Data.Write((byte)Pacotes.Inventory_Mudar);
         Data.Write(Antigo);
         Data.Write(Novo);
         Pacote(Data);
     }
 
-    public static void Inventário_Usar(byte Slot)
+    public static void Inventory_Usar(byte Slot)
     {
-        NetOutgoingMessage Data = Rede.Dispositivo.CreateMessage();
+        NetOutgoingMessage Data = Network.Device.CreateMessage();
 
         // Envia os Data
-        Data.Write((byte)Pacotes.Inventário_Usar);
+        Data.Write((byte)Pacotes.Inventory_Usar);
         Data.Write(Slot);
         Pacote(Data);
     }
 
     public static void Equipamento_Remover(byte Slot)
     {
-        NetOutgoingMessage Data = Rede.Dispositivo.CreateMessage();
+        NetOutgoingMessage Data = Network.Device.CreateMessage();
 
         // Envia os Data
         Data.Write((byte)Pacotes.Equipamento_Remover);
@@ -192,21 +192,21 @@ partial class Sending
         Pacote(Data);
     }
 
-    public static void Hotbar_Adicionar(byte Hotbar_Slot, byte Tipo, byte Slot)
+    public static void Hotbar_Adicionar(byte Hotbar_Slot, byte Type, byte Slot)
     {
-        NetOutgoingMessage Data = Rede.Dispositivo.CreateMessage();
+        NetOutgoingMessage Data = Network.Device.CreateMessage();
 
         // Envia os Data
         Data.Write((byte)Pacotes.Hotbar_Adicionar);
         Data.Write(Hotbar_Slot);
-        Data.Write(Tipo);
+        Data.Write(Type);
         Data.Write(Slot);
         Pacote(Data);
     }
 
     public static void Hotbar_Mudar(byte Antigo, byte Novo)
     {
-        NetOutgoingMessage Data = Rede.Dispositivo.CreateMessage();
+        NetOutgoingMessage Data = Network.Device.CreateMessage();
 
         // Envia os Data
         Data.Write((byte)Pacotes.Hotbar_Mudar);
@@ -217,7 +217,7 @@ partial class Sending
 
     public static void Hotbar_Usar(byte Slot)
     {
-        NetOutgoingMessage Data = Rede.Dispositivo.CreateMessage();
+        NetOutgoingMessage Data = Network.Device.CreateMessage();
 
         // Envia os Data
         Data.Write((byte)Pacotes.Hotbar_Usar);
