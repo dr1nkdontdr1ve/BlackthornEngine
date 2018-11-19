@@ -5,127 +5,127 @@ using Lidgren.Network;
 
 partial class Receiving
 {
-    // Pacotes do servidor
-    public enum Pacotes
+    // Packages do servidor
+    public enum Packages
     {
-        Alerta,
-        Conectar,
-        CriarCharacter,
+        Alert,
+        Connect,
+        CreateCharacter,
         Entrada,
         Classes,
-        Personagens,
+        Characters,
         Entrar,
-        MaiorIndex,
+        BiggerIndex,
         Player_Data,
-        Player_Posição,
+        Player_Position,
         Player_Vital,
-        Player_Saiu,
-        Player_Atacar,
-        Player_Mover,
+        Player_Exited,
+        Player_Attack,
+        Player_Move,
         Player_Direction,
-        Player_Experiência,
+        Player_Experience,
         Player_Inventory,
-        Player_Equipamentos,
+        Player_Equipments,
         Player_Hotbar,
         EntrarNoMap,
-        Map_Revisão,
+        Map_ReView,
         Map,
-        Latência,
-        Mensagem,
+        Latency,
+        Message,
         NPCs,
         Map_NPCs,
         Map_NPC,
-        Map_NPC_Movimento,
+        Map_NPC_Movement,
         Map_NPC_Direction,
         Map_NPC_Vital,
-        Map_NPC_Atacar,
-        Map_NPC_Morreu,
-        Itens,
-        Map_Itens
+        Map_NPC_Attack,
+        Map_NPC_Died,
+        Items,
+        Map_Items
     }
 
     public static void Data(NetIncomingMessage Data)
     {
         // Manuseia os Data recebidos
-        switch ((Pacotes)Data.ReadByte())
+        switch ((Packages)Data.ReadByte())
         {
-            case Pacotes.Alerta: Alerta(Data); break;
-            case Pacotes.Conectar: Conectar(Data); break;
-            case Pacotes.Entrada: Entrada(Data); break;
-            case Pacotes.CriarCharacter: CriarCharacter(Data); break;
-            case Pacotes.Entrar: Entrar(Data); break;
-            case Pacotes.Classes: Classes(Data); break;
-            case Pacotes.Personagens: Personagens(Data); break;
-            case Pacotes.MaiorIndex: MaiorIndex(Data); break;
-            case Pacotes.Player_Data: Player_Data(Data); break;
-            case Pacotes.Player_Posição: Player_Posição(Data); break;
-            case Pacotes.Player_Vital: Player_Vital(Data); break;
-            case Pacotes.Player_Mover: Player_Mover(Data); break;
-            case Pacotes.Player_Saiu: Player_Saiu(Data); break;
-            case Pacotes.Player_Direction: Player_Direction(Data); break;
-            case Pacotes.Player_Atacar: Player_Atacar(Data); break;
-            case Pacotes.Player_Experiência: Player_Experiência(Data); break;
-            case Pacotes.Player_Inventory: Player_Inventory(Data); break;
-            case Pacotes.Player_Equipamentos: Player_Equipamentos(Data); break;
-            case Pacotes.Player_Hotbar: Player_Hotbar(Data); break;
-            case Pacotes.Map_Revisão: Map_Revisão(Data); break;
-            case Pacotes.Map: Map(Data); break;
-            case Pacotes.EntrarNoMap: EntrarNoMap(Data); break;
-            case Pacotes.Latência: Latência(Data); break;
-            case Pacotes.Mensagem: Mensagem(Data); break;
-            case Pacotes.NPCs: NPCs(Data); break;
-            case Pacotes.Map_NPCs: Map_NPCs(Data); break;
-            case Pacotes.Map_NPC: Map_NPC(Data); break;
-            case Pacotes.Map_NPC_Movimento: Map_NPC_Movimento(Data); break;
-            case Pacotes.Map_NPC_Direction: Map_NPC_Direction(Data); break;
-            case Pacotes.Map_NPC_Vital: Map_NPC_Vital(Data); break;
-            case Pacotes.Map_NPC_Atacar: Map_NPC_Atacar(Data); break;
-            case Pacotes.Map_NPC_Morreu: Map_NPC_Morreu(Data); break;
-            case Pacotes.Itens: Itens(Data); break;
-            case Pacotes.Map_Itens: Map_Itens(Data); break;
+            case Packages.Alert: Alert(Data); break;
+            case Packages.Connect: Connect(Data); break;
+            case Packages.Entrada: Entrada(Data); break;
+            case Packages.CreateCharacter: CreateCharacter(Data); break;
+            case Packages.Entrar: Entrar(Data); break;
+            case Packages.Classes: Classes(Data); break;
+            case Packages.Characters: Characters(Data); break;
+            case Packages.BiggerIndex: BiggerIndex(Data); break;
+            case Packages.Player_Data: Player_Data(Data); break;
+            case Packages.Player_Position: Player_Position(Data); break;
+            case Packages.Player_Vital: Player_Vital(Data); break;
+            case Packages.Player_Move: Player_Move(Data); break;
+            case Packages.Player_Exited: Player_Exited(Data); break;
+            case Packages.Player_Direction: Player_Direction(Data); break;
+            case Packages.Player_Attack: Player_Attack(Data); break;
+            case Packages.Player_Experience: Player_Experience(Data); break;
+            case Packages.Player_Inventory: Player_Inventory(Data); break;
+            case Packages.Player_Equipments: Player_Equipments(Data); break;
+            case Packages.Player_Hotbar: Player_Hotbar(Data); break;
+            case Packages.Map_ReView: Map_Review(Data); break;
+            case Packages.Map: Map(Data); break;
+            case Packages.EntrarNoMap: EntrarNoMap(Data); break;
+            case Packages.Latency: Latency(Data); break;
+            case Packages.Message: Message(Data); break;
+            case Packages.NPCs: NPCs(Data); break;
+            case Packages.Map_NPCs: Map_NPCs(Data); break;
+            case Packages.Map_NPC: Map_NPC(Data); break;
+            case Packages.Map_NPC_Movement: Map_NPC_Movement(Data); break;
+            case Packages.Map_NPC_Direction: Map_NPC_Direction(Data); break;
+            case Packages.Map_NPC_Vital: Map_NPC_Vital(Data); break;
+            case Packages.Map_NPC_Attack: Map_NPC_Attack(Data); break;
+            case Packages.Map_NPC_Died: Map_NPC_Died(Data); break;
+            case Packages.Items:Items(Data); break;
+            case Packages.Map_Items: Map_Items(Data); break;
         }
     }
 
-    private static void Alerta(NetIncomingMessage Data)
+    private static void Alert(NetIncomingMessage Data)
     {
-        // Mostra a mensagem
+        // Mostra a Message
         MessageBox.Show(Data.ReadString());
     }
 
-    private static void Conectar(NetIncomingMessage Data)
+    private static void Connect(NetIncomingMessage Data)
     {
         // Reseta os valores
-        Game.SelecionarCharacter = 1;
+        Game.SelectCharacter = 1;
 
-        // Abre o painel de seleção de personagens
-        Paineis.Menu_Fechar();
-        Paineis.Encontrar("SelecionarCharacter").Geral.Visível = true;
+        // Abre o Panel de seleção de Characters
+        Panels.Menu_Close();
+        Panels.Locate("SelectCharacter").General.Visible = true;
     }
 
     private static void Entrada(NetIncomingMessage Data)
     {
         // Definir os valores que são enviados do servidor
         Player.MyIndex = Data.ReadByte();
-        Player.MaiorIndex = Data.ReadByte();
+        Player.BiggerIndex = Data.ReadByte();
 
-        // Limpa a estrutura dos Playeres
+        // Limpa a Structure dos Playeres
         Lists.Player = new Lists.Structures.Player[Data.ReadByte() + 1];
 
         for (byte i = 1; i <= Lists.Player.GetUpperBound(0); i++)
             Clean.Player(i);
     }
 
-    private static void CriarCharacter(NetIncomingMessage Data)
+    private static void CreateCharacter(NetIncomingMessage Data)
     {
         // Reseta os valores
-        Digitalizadores.Encontrar("CriarCharacter_Name").Texto = string.Empty;
-        Marcadores.Encontrar("GêneroMasculino").Estado = true;
-        Marcadores.Encontrar("GêneroFeminino").Estado = false;
-        Game.CriarCharacter_Classe = 1;
+        Scanners.Locate("CreateCharacter_Name").Text = string.Empty;
+        Markers.Locate("GenreMasculino").State = true;
+        Markers.Locate("GenreFeminino").State = false;
+        Game.CreateCharacter_Classe = 1;
 
-        // Abre o painel de criação de Character
-        Paineis.Menu_Fechar();
-        Paineis.Encontrar("CriarCharacter").Geral.Visível = true;
+        // Abre o Panel de criação de Character
+        Panels.Menu_Close();
+        Panels.Locate("CreateCharacter").General.Visible = true;
     }
 
     private static void Classes(NetIncomingMessage Data)
@@ -140,56 +140,56 @@ partial class Receiving
             // Recebe os Data do Character
             Lists.Classe[i] = new Lists.Structures.Classe();
             Lists.Classe[i].Name = Data.ReadString();
-            Lists.Classe[i].Texture_Masculina = Data.ReadInt16();
-            Lists.Classe[i].Texture_Feminina = Data.ReadInt16();
+            Lists.Classe[i].Texture_Male = Data.ReadInt16();
+            Lists.Classe[i].Texture_Female = Data.ReadInt16();
         }
     }
 
-    private static void Personagens(NetIncomingMessage Data)
+    private static void Characters(NetIncomingMessage Data)
     {
         byte Amount = Data.ReadByte();
 
-        // Redimensiona a lista
-        Lists.Servidor_Data.Max_Personagens = Amount;
-        Lists.Personagens = new Lists.Structures.Character[Amount + 1];
+        // Redimensiona a List
+        Lists.Server_Data.Max_Characters = Amount;
+        Lists.Characters = new Lists.Structures.Character[Amount + 1];
 
         for (byte i = 1; i <= Amount; i++)
         {
             // Recebe os Data do Character
-            Lists.Personagens[i] = new Lists.Structures.Character();
-            Lists.Personagens[i].Name = Data.ReadString();
-            Lists.Personagens[i].Classe = Data.ReadByte();
-            Lists.Personagens[i].Gênero = Data.ReadBoolean();
-            Lists.Personagens[i].Level = Data.ReadInt16();
+            Lists.Characters[i] = new Lists.Structures.Character();
+            Lists.Characters[i].Name = Data.ReadString();
+            Lists.Characters[i].Classe = Data.ReadByte();
+            Lists.Characters[i].Genre = Data.ReadBoolean();
+            Lists.Characters[i].Level = Data.ReadInt16();
         }
     }
 
     private static void Entrar(NetIncomingMessage Data)
     {
         // Reseta os valores
-        Ferramentas.Chat = new System.Collections.Generic.List<Ferramentas.Chat_Estrutura>();
-        Digitalizadores.Encontrar("Chat").Texto = string.Empty;
-        Paineis.Encontrar("Chat").Geral.Visível = false;
-        Ferramentas.Linha = 0;
+        Tools.Chat = new System.Collections.Generic.List<Tools.Chat_Structure>();
+        Scanners.Locate("Chat").Text = string.Empty;
+        Panels.Locate("Chat").General.Visible = false;
+        Tools.Line = 0;
 
         // Abre o Game
-        Áudio.Música.Parar();
-        Ferramentas.JanelaAtual = Ferramentas.Janelas.Game;
+        Audio.Música.Stop();
+        Tools.CurrentWindow = Tools.Windows.Game;
     }
 
-    private static void MaiorIndex(NetIncomingMessage Data)
+    private static void BiggerIndex(NetIncomingMessage Data)
     {
         // Define o número maior de Index
-        Player.MaiorIndex = Data.ReadByte();
+        Player.BiggerIndex = Data.ReadByte();
     }
 
-    public static void Map_Revisão(NetIncomingMessage Data)
+    public static void Map_Review(NetIncomingMessage Data)
     {
         bool Necessário = false;
         int Map = Data.ReadInt16();
 
         // Limpa todos os outros Playeres
-        for (byte i = 1; i <= Player.MaiorIndex; i++)
+        for (byte i = 1; i <= Player.BiggerIndex; i++)
             if (i != Player.MyIndex)
                 Clean.Player(i);
 
@@ -198,75 +198,75 @@ partial class Receiving
         Necessário = true;
 
         // Solicita os Data do Map
-        Sending.Solicitar_Map(Necessário);
+        Sending.Request_Map(Necessário);
     }
 
     public static void Map(NetIncomingMessage Data)
     {
         // Define os Data
         short Map_Num = Data.ReadInt16();
-        Lists.Map.Revisão = Data.ReadInt16();
+        Lists.Map.Review = Data.ReadInt16();
         Lists.Map.Name = Data.ReadString();
-        Lists.Map.Largura = Data.ReadByte();
-        Lists.Map.Altura = Data.ReadByte();
+        Lists.Map.Width = Data.ReadByte();
+        Lists.Map.Height = Data.ReadByte();
         Lists.Map.Moral = Data.ReadByte();
         Lists.Map.Panorama = Data.ReadByte();
-        Lists.Map.Música = Data.ReadByte();
+        Lists.Map.Music = Data.ReadByte();
         Lists.Map.Coloração = Data.ReadInt32();
-        Lists.Map.Clima.Type = Data.ReadByte();
-        Lists.Map.Clima.Intensidade = Data.ReadByte();
-        Lists.Map.Fumaça.Texture = Data.ReadByte();
-        Lists.Map.Fumaça.VelocidadeX = Data.ReadSByte();
-        Lists.Map.Fumaça.VelocidadeY = Data.ReadSByte();
-        Lists.Map.Fumaça.Transparência = Data.ReadByte();
+        Lists.Map.Climate.Type = Data.ReadByte();
+        Lists.Map.Climate.Intensity = Data.ReadByte();
+        Lists.Map.Smoke.Texture = Data.ReadByte();
+        Lists.Map.Smoke.VelocityX = Data.ReadSByte();
+        Lists.Map.Smoke.VelocityY = Data.ReadSByte();
+        Lists.Map.Smoke.Transparency = Data.ReadByte();
 
         // Redimensiona as ligações
-        Lists.Map.Ligação = new short[(byte)Game.Direções.Amount];
+        Lists.Map.Ligação = new short[(byte)Game.Location.Amount];
 
-        for (short i = 0; i <= (short)Game.Direções.Amount - 1; i++)
+        for (short i = 0; i <= (short)Game.Location.Amount - 1; i++)
             Lists.Map.Ligação[i] = Data.ReadInt16();
 
-        // Redimensiona os azulejos
-        Lists.Map.Azulejo = new Lists.Structures.Azulejo[Lists.Map.Largura + 1, Lists.Map.Altura + 1];
+        // Redimensiona os Tiles
+        Lists.Map.Tile = new Lists.Structures.Tile[Lists.Map.Width + 1, Lists.Map.Height + 1];
 
         // Lê os Data
-        byte NumCamadas = Data.ReadByte();
-        for (byte x = 0; x <= Lists.Map.Largura; x++)
-            for (byte y = 0; y <= Lists.Map.Altura; y++)
+        byte NumLayers = Data.ReadByte();
+        for (byte x = 0; x <= Lists.Map.Width; x++)
+            for (byte y = 0; y <= Lists.Map.Height; y++)
             {
-                // Redimensiona os Data dos azulejos
-                Lists.Map.Azulejo[x, y].Data = new Lists.Structures.Azulejo_Data[(byte)global::Map.Camadas.Amount, NumCamadas + 1];
+                // Redimensiona os Data dos Tiles
+                Lists.Map.Tile[x, y].Data = new Lists.Structures.Tile_Data[(byte)global::Map.Layers.Amount, NumLayers + 1];
 
-                for (byte c = 0; c <= (byte)global::Map.Camadas.Amount - 1; c++)
-                    for (byte q = 0; q <= NumCamadas; q++)
+                for (byte c = 0; c <= (byte)global::Map.Layers.Amount - 1; c++)
+                    for (byte q = 0; q <= NumLayers; q++)
                     {
-                        Lists.Map.Azulejo[x, y].Data[c, q].x = Data.ReadByte();
-                        Lists.Map.Azulejo[x, y].Data[c, q].y = Data.ReadByte();
-                        Lists.Map.Azulejo[x, y].Data[c, q].Azulejo = Data.ReadByte();
-                        Lists.Map.Azulejo[x, y].Data[c, q].Automático = Data.ReadBoolean();
-                        Lists.Map.Azulejo[x, y].Data[c, q].Mini = new Point[4];
+                        Lists.Map.Tile[x, y].Data[c, q].x = Data.ReadByte();
+                        Lists.Map.Tile[x, y].Data[c, q].y = Data.ReadByte();
+                        Lists.Map.Tile[x, y].Data[c, q].Tile = Data.ReadByte();
+                        Lists.Map.Tile[x, y].Data[c, q].Automático = Data.ReadBoolean();
+                        Lists.Map.Tile[x, y].Data[c, q].Mini = new Point[4];
                     }
             }
 
-        // Data específicos dos azulejos
-        for (byte x = 0; x <= Lists.Map.Largura; x++)
-            for (byte y = 0; y <= Lists.Map.Altura; y++)
+        // Data específicos dos Tiles
+        for (byte x = 0; x <= Lists.Map.Width; x++)
+            for (byte y = 0; y <= Lists.Map.Height; y++)
             {
-                Lists.Map.Azulejo[x, y].Atributo = Data.ReadByte();
-                Lists.Map.Azulejo[x, y].Bloqueio = new bool[(byte)Game.Direções.Amount];
-                for (byte i = 0; i <= (byte)Game.Direções.Amount - 1; i++)
-                    Lists.Map.Azulejo[x, y].Bloqueio[i] = Data.ReadBoolean();
+                Lists.Map.Tile[x, y].Attribute = Data.ReadByte();
+                Lists.Map.Tile[x, y].Block = new bool[(byte)Game.Location.Amount];
+                for (byte i = 0; i <= (byte)Game.Location.Amount - 1; i++)
+                    Lists.Map.Tile[x, y].Block[i] = Data.ReadBoolean();
             }
 
-        // Luzes
-        Lists.Map.Luz = new Lists.Structures.Luz[Data.ReadInt32() + 1];
-        if (Lists.Map.Luz.GetUpperBound(0) > 0)
-            for (byte i = 0; i <= Lists.Map.Luz.GetUpperBound(0); i++)
+        // Lightes
+        Lists.Map.Light = new Lists.Structures.Light[Data.ReadInt32() + 1];
+        if (Lists.Map.Light.GetUpperBound(0) > 0)
+            for (byte i = 0; i <= Lists.Map.Light.GetUpperBound(0); i++)
             {
-                Lists.Map.Luz[i].X = Data.ReadByte();
-                Lists.Map.Luz[i].Y = Data.ReadByte();
-                Lists.Map.Luz[i].Largura = Data.ReadByte();
-                Lists.Map.Luz[i].Altura = Data.ReadByte();
+                Lists.Map.Light[i].X = Data.ReadByte();
+                Lists.Map.Light[i].Y = Data.ReadByte();
+                Lists.Map.Light[i].Width = Data.ReadByte();
+                Lists.Map.Light[i].Height = Data.ReadByte();
             }
 
         // NPCs
@@ -276,71 +276,71 @@ partial class Receiving
                 Lists.Map.NPC[i] = Data.ReadInt16();
 
         // Salva o Map
-        Escrever.Map(Map_Num);
+        Write.Map(Map_Num);
 
-        // Redimensiona as partículas do clima
-        global::Map.Clima_Ajustar();
-        global::Map.AutoCriação.Atualizar();
+        // Redimensiona as Particles do Climate
+        global::Map.Climate_Ajustar();
+        global::Map.AutoCriação.Update();
     }
 
     public static void EntrarNoMap(NetIncomingMessage Data)
     {
-        // Se tiver, reproduz a música de fundo do Map
-        if (Lists.Map.Música > 0)
-            Áudio.Música.Reproduzir((Áudio.Músicas)Lists.Map.Música);
+        // Se tiver, reproduz a Music de fundo do Map
+        if (Lists.Map.Music > 0)
+            Audio.Música.Reproduce((Audio.Músicas)Lists.Map.Music);
         else
-            Áudio.Música.Parar();
+            Audio.Música.Stop();
     }
 
-    public static void Latência(NetIncomingMessage Data)
+    public static void Latency(NetIncomingMessage Data)
     {
-        // Define a latência
-        Game.Latência = Environment.TickCount - Game.Latência_Envio;
+        // Define a Latency
+        Game.Latency = Environment.TickCount - Game.Latency_Envio;
     }
 
-    public static void Mensagem(NetIncomingMessage Data)
+    public static void Message(NetIncomingMessage Data)
     {
-        // Adiciona a mensagem
-        string Texto = Data.ReadString();
+        // Adiciona a Message
+        string Text = Data.ReadString();
         Color Cor = Color.FromArgb(Data.ReadInt32());
-        Ferramentas.Adicionar(Texto, new SFML.Graphics.Color(Cor.R, Cor.G, Cor.B));
+        Tools.Add(Text, new SFML.Graphics.Color(Cor.R, Cor.G, Cor.B));
     }
 
-    public static void Itens(NetIncomingMessage Data)
+    public static void Items(NetIncomingMessage Data)
     {
         // Amount
-        Lists.Item = new Lists.Structures.Itens[Data.ReadByte() + 1];
+        Lists.Item = new Lists.Structures.Items[Data.ReadByte() + 1];
 
         for (byte i = 1; i <= Lists.Item.GetUpperBound(0); i++)
         {
             // Redimensiona os valores necessários 
-            Lists.Item[i].Poção_Vital = new short[(byte)Game.Vital.Amount];
-            Lists.Item[i].Equip_Atributo = new short[(byte)Game.Atributos.Amount];
+            Lists.Item[i].Potion_Vital = new short[(byte)Game.Vital.Amount];
+            Lists.Item[i].Equip_Attribute = new short[(byte)Game.Attributes.Amount];
 
             // Lê os Data
             Lists.Item[i].Name = Data.ReadString();
-            Lists.Item[i].Descrição = Data.ReadString();
+            Lists.Item[i].Description = Data.ReadString();
             Lists.Item[i].Texture = Data.ReadInt16();
             Lists.Item[i].Type = Data.ReadByte();
             Lists.Item[i].Req_Level = Data.ReadInt16();
             Lists.Item[i].Req_Classe = Data.ReadByte();
-            Lists.Item[i].Poção_Experiência = Data.ReadInt16();
-            for (byte n = 0; n <= (byte)Game.Vital.Amount - 1; n++) Lists.Item[i].Poção_Vital[n] = Data.ReadInt16();
+            Lists.Item[i].Potion_Experience = Data.ReadInt16();
+            for (byte n = 0; n <= (byte)Game.Vital.Amount - 1; n++) Lists.Item[i].Potion_Vital[n] = Data.ReadInt16();
             Lists.Item[i].Equip_Type = Data.ReadByte();
-            for (byte n = 0; n <= (byte)Game.Atributos.Amount - 1; n++) Lists.Item[i].Equip_Atributo[n] = Data.ReadInt16();
-            Lists.Item[i].Arma_Dano = Data.ReadInt16();
+            for (byte n = 0; n <= (byte)Game.Attributes.Amount - 1; n++) Lists.Item[i].Equip_Attribute[n] = Data.ReadInt16();
+            Lists.Item[i].Weapon_Damage = Data.ReadInt16();
         }
     }
 
-    public static void Map_Itens(NetIncomingMessage Data)
+    public static void Map_Items(NetIncomingMessage Data)
     {
         // Amount
-        Lists.Map.Temp_Item = new Lists.Structures.Map_Itens[Data.ReadInt16() + 1];
+        Lists.Map.Temp_Item = new Lists.Structures.Map_Items[Data.ReadInt16() + 1];
 
         // Lê os Data de todos
         for (byte i = 1; i <= Lists.Map.Temp_Item.GetUpperBound(0); i++)
         {
-            // Geral
+            // General
             Lists.Map.Temp_Item[i].Index = Data.ReadInt16();
             Lists.Map.Temp_Item[i].X = Data.ReadByte();
             Lists.Map.Temp_Item[i].Y = Data.ReadByte();

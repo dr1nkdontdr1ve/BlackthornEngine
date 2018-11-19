@@ -1,4 +1,4 @@
-﻿partial class Janela
+﻿partial class Window
 {
     /// <summary>
     /// Required designer variable.
@@ -28,25 +28,25 @@
     {
             this.SuspendLayout();
             // 
-            // Janela
+            // Window
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 608);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
-            this.Name = "Janela";
+            this.Name = "Window";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Janela";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Janela_FormClosing);
-            this.Paint += new System.Windows.Forms.PaintEventHandler(this.Janela_Paint);
-            this.DoubleClick += new System.EventHandler(this.Janela_DoubleClick);
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Janela_KeyDown);
-            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Janela_KeyPress);
-            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Janela_KeyUp);
-            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Janela_MouseDown);
-            this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Janela_MouseMove);
-            this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Janela_MouseUp);
+            this.Text = "Window";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Window_FormClosing);
+            this.Paint += new System.Windows.Forms.PaintEventHandler(this.Window_Paint);
+            this.DoubleClick += new System.EventHandler(this.Window_DoubleClick);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Window_KeyDown);
+            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Window_KeyPress);
+            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Window_KeyUp);
+            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Window_MouseDown);
+            this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Window_MouseMove);
+            this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Window_MouseUp);
             this.ResumeLayout(false);
 
     }

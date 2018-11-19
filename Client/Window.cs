@@ -2,7 +2,7 @@
 
 public partial class Window : Form
 {
-    // Usado para acessar os Data da janela
+    // Usado para acessar os Data da Window
     public static Window Objects = new Window();
 
     public Window()
@@ -10,159 +10,159 @@ public partial class Window : Form
         InitializeComponent();
     }
 
-    private void Janela_FormClosing(object sender, FormClosingEventArgs e)
+    private void Window_FormClosing(object sender, FormClosingEventArgs e)
     {
         // Fecha o Game
-        if (Ferramentas.JanelaAtual == Ferramentas.Janelas.Game)
+        if (Tools.CurrentWindow == Tools.Windows.Game)
         {
             e.Cancel = true;
-            Game.Sair();
+            Game.Leave();
         }
         else
-            Aplicação.Funcionado = false;
+           Program.Functional = false;
     }
 
-    private void Janela_MouseDown(object sender, MouseEventArgs e)
+    private void Window_MouseDown(object sender, MouseEventArgs e)
     {
-        // Executa o evento de acordo a sobreposição do ponteiro
-        for (byte i = 0; i <= Ferramentas.Ordem.GetUpperBound(0); i++)
-            switch (Ferramentas.Ordem[i].Type)
+        // Executa o evento de acordo a sobrePosition do ponteiro
+        for (byte i = 0; i <= Tools.Ordem.GetUpperBound(0); i++)
+            switch (Tools.Ordem[i].Type)
             {
-                case Ferramentas.Types.Botão: Botões.Eventos.MouseDown(e, Ferramentas.Ordem[i].Index); break;
+                case Tools.Types.Button: Buttons.Events.MouseDown(e, Tools.Ordem[i].Index); break;
             }
 
-        // Eventos em Game
-        if (Ferramentas.JanelaAtual == Ferramentas.Janelas.Game)
+        // Events em Game
+        if (Tools.CurrentWindow == Tools.Windows.Game)
         {
-            Ferramentas.Inventory_MouseDown(e);
-            Ferramentas.Equipamento_MouseDown(e);
-            Ferramentas.Hotbar_MouseDown(e);
+            Tools.Inventory_MouseDown(e);
+            Tools.Equipment_MouseDown(e);
+            Tools.Hotbar_MouseDown(e);
         }
     }
 
-    private void Janela_MouseMove(object sender, MouseEventArgs e)
+    private void Window_MouseMove(object sender, MouseEventArgs e)
     {
-        // Define a Posição do mouse à váriavel
-        Ferramentas.Ponteiro.X = e.X;
-        Ferramentas.Ponteiro.Y = e.Y;
+        // Define a Position do mouse à váriavel
+        Tools.Ponteiro.X = e.X;
+        Tools.Ponteiro.Y = e.Y;
 
-        // Executa o evento de acordo a sobreposição do ponteiro
-        for (byte i = 0; i <= Ferramentas.Ordem.GetUpperBound(0); i++)
-            switch (Ferramentas.Ordem[i].Type)
+        // Executa o evento de acordo a sobrePosition do ponteiro
+        for (byte i = 0; i <= Tools.Ordem.GetUpperBound(0); i++)
+            switch (Tools.Ordem[i].Type)
             {
-                case Ferramentas.Types.Botão: Botões.Eventos.MouseMove(e, Ferramentas.Ordem[i].Index); break;
+                case Tools.Types.Button: Buttons.Events.MouseMove(e, Tools.Ordem[i].Index); break;
             }
     }
 
-    private void Janela_MouseUp(object sender, MouseEventArgs e)
+    private void Window_MouseUp(object sender, MouseEventArgs e)
     {
-        // Executa o evento de acordo a sobreposição do ponteiro
-        for (byte i = 0; i <= Ferramentas.Ordem.GetUpperBound(0); i++)
-            switch (Ferramentas.Ordem[i].Type)
+        // Executa o evento de acordo a sobrePosition do ponteiro
+        for (byte i = 0; i <= Tools.Ordem.GetUpperBound(0); i++)
+            switch (Tools.Ordem[i].Type)
             {
-                case Ferramentas.Types.Botão: Botões.Eventos.MouseUp(e, Ferramentas.Ordem[i].Index); break;
-                case Ferramentas.Types.Marcador: Marcadores.Eventos.MouseUp(e, Ferramentas.Ordem[i].Index); break;
-                case Ferramentas.Types.Digitalizador: Digitalizadores.Eventos.MouseUp(e, Ferramentas.Ordem[i].Index); break;
+                case Tools.Types.Button: Buttons.Events.MouseUp(e, Tools.Ordem[i].Index); break;
+                case Tools.Types.Marker: Markers.Events.MouseUp(e, Tools.Ordem[i].Index); break;
+                case Tools.Types.Scanner: Scanners.Events.MouseUp(e, Tools.Ordem[i].Index); break;
             }
 
-        // Eventos em Game
-        if (Ferramentas.JanelaAtual == Ferramentas.Janelas.Game)
+        // Events em Game
+        if (Tools.CurrentWindow == Tools.Windows.Game)
         {
             // Muda o slot do item
-            if (Player.Inventory_Movendo > 0)
-                if (Ferramentas.Inventory_Sobrepondo() > 0)
-                    Sending.Inventory_Mudar(Player.Inventory_Movendo, Ferramentas.Inventory_Sobrepondo());
+            if (Player.Inventory_Moving > 0)
+                if (Tools.Inventory_Overlapping() > 0)
+                    Sending.Inventory_Change(Player.Inventory_Moving, Tools.Inventory_Overlapping());
 
             // Muda o slot da hotbar
-            if (Ferramentas.Hotbar_Sobrepondo() > 0)
+            if (Tools.Hotbar_Overlapping() > 0)
             {
-                if (Player.Hotbar_Movendo > 0) Sending.Hotbar_Mudar(Player.Hotbar_Movendo, Ferramentas.Hotbar_Sobrepondo());
-                if (Player.Inventory_Movendo > 0) Sending.Hotbar_Adicionar(Ferramentas.Hotbar_Sobrepondo(), (byte)Game.Hotbar.Item, Player.Inventory_Movendo);
+                if (Player.Hotbar_Moving > 0) Sending.Hotbar_Change(Player.Hotbar_Moving, Tools.Hotbar_Overlapping());
+                if (Player.Inventory_Moving > 0) Sending.Hotbar_Add(Tools.Hotbar_Overlapping(), (byte)Game.Hotbar.Item, Player.Inventory_Moving);
             }
 
-            // Reseta a movimentação
-            Player.Inventory_Movendo = 0;
-            Player.Hotbar_Movendo = 0;
+            // Reseta a Movement
+            Player.Inventory_Moving = 0;
+            Player.Hotbar_Moving = 0;
         }
     }
 
-    private void Janela_KeyPress(object sender, KeyPressEventArgs e)
+    private void Window_KeyPress(object sender, KeyPressEventArgs e)
     {
-        // Executa os eventos
-        Digitalizadores.Eventos.KeyPress(e);
+        // Executa os Events
+        Scanners.Events.KeyPress(e);
     }
 
-    private void Janela_KeyDown(object sender, KeyEventArgs e)
+    private void Window_KeyDown(object sender, KeyEventArgs e)
     {
-        // Define se um botão está sendo pressionado
+        // Define se um Button está sendo HoldKey
         switch (e.KeyCode)
         {
-            case Keys.Up: Game.Pressionado_Acima = true; break;
-            case Keys.Down: Game.Pressionado_Abaixo = true; break;
-            case Keys.Left: Game.Pressionado_Esquerda = true; break;
-            case Keys.Right: Game.Pressionado_Direita = true; break;
-            case Keys.ShiftKey: Game.Pressionado_Shift = true; break;
-            case Keys.ControlKey: Game.Pressionado_Control = true; break;
-            case Keys.Enter: Digitalizadores.Chat_Digitar(); break;
+            case Keys.Up: Game.HoldKey_Above = true; break;
+            case Keys.Down: Game.HoldKey_Below = true; break;
+            case Keys.Left: Game.HoldKey_Left = true; break;
+            case Keys.Right: Game.HoldKey_Right = true; break;
+            case Keys.ShiftKey: Game.HoldKey_Shift = true; break;
+            case Keys.ControlKey: Game.HoldKey_Control = true; break;
+            case Keys.Enter: Scanners.Chat_Digitar(); break;
         }
 
         // Em Game
-        if (Ferramentas.JanelaAtual == Ferramentas.Janelas.Game)
-            if (!Paineis.Encontrar("Chat").Geral.Visível)
+        if (Tools.CurrentWindow == Tools.Windows.Game)
+            if (!Panels.Locate("Chat").General.Visible)
             {
                 switch (e.KeyCode)
                 {
-                    case Keys.Space: Player.ColetarItem(); break;
-                    case Keys.D1: Sending.Hotbar_Usar(1); break;
-                    case Keys.D2: Sending.Hotbar_Usar(2); break;
-                    case Keys.D3: Sending.Hotbar_Usar(3); break;
-                    case Keys.D4: Sending.Hotbar_Usar(4); break;
-                    case Keys.D5: Sending.Hotbar_Usar(5); break;
-                    case Keys.D6: Sending.Hotbar_Usar(6); break;
-                    case Keys.D7: Sending.Hotbar_Usar(7); break;
-                    case Keys.D8: Sending.Hotbar_Usar(8); break;
-                    case Keys.D9: Sending.Hotbar_Usar(9); break;
-                    case Keys.D0: Sending.Hotbar_Usar(0); break;
+                    case Keys.Space: Player.CollectItem(); break;
+                    case Keys.D1: Sending.Hotbar_Use(1); break;
+                    case Keys.D2: Sending.Hotbar_Use(2); break;
+                    case Keys.D3: Sending.Hotbar_Use(3); break;
+                    case Keys.D4: Sending.Hotbar_Use(4); break;
+                    case Keys.D5: Sending.Hotbar_Use(5); break;
+                    case Keys.D6: Sending.Hotbar_Use(6); break;
+                    case Keys.D7: Sending.Hotbar_Use(7); break;
+                    case Keys.D8: Sending.Hotbar_Use(8); break;
+                    case Keys.D9: Sending.Hotbar_Use(9); break;
+                    case Keys.D0: Sending.Hotbar_Use(0); break;
                 }
             }
     }
 
-    private void Janela_KeyUp(object sender, KeyEventArgs e)
+    private void Window_KeyUp(object sender, KeyEventArgs e)
     {
-        // Define se um botão está sendo pressionado
+        // Define se um Button está sendo HoldKey
         switch (e.KeyCode)
         {
-            case Keys.Up: Game.Pressionado_Acima = false; break;
-            case Keys.Down: Game.Pressionado_Abaixo = false; break;
-            case Keys.Left: Game.Pressionado_Esquerda = false; break;
-            case Keys.Right: Game.Pressionado_Direita = false; break;
-            case Keys.ShiftKey: Game.Pressionado_Shift = false; break;
-            case Keys.ControlKey: Game.Pressionado_Control = false; break;
+            case Keys.Up: Game.HoldKey_Above = false; break;
+            case Keys.Down: Game.HoldKey_Below = false; break;
+            case Keys.Left: Game.HoldKey_Left = false; break;
+            case Keys.Right: Game.HoldKey_Right = false; break;
+            case Keys.ShiftKey: Game.HoldKey_Shift = false; break;
+            case Keys.ControlKey: Game.HoldKey_Control = false; break;
         }
     }
 
-    private void Janela_Paint(object sender, PaintEventArgs e)
+    private void Window_Paint(object sender, PaintEventArgs e)
     {
-        // Atualiza a janela
-        Gráficos.Apresentar();
+        // Atualiza a Window
+        Graphics.Apresentar();
     }
 
-    private void Janela_DoubleClick(object sender, System.EventArgs e)
+    private void Window_DoubleClick(object sender, System.EventArgs e)
     {
-        // Eventos em Game
-        if (Ferramentas.JanelaAtual == Ferramentas.Janelas.Game)
+        // Events em Game
+        if (Tools.CurrentWindow == Tools.Windows.Game)
         {
-            // Usar item
-            byte Slot = Ferramentas.Inventory_Sobrepondo();
+            // Use item
+            byte Slot = Tools.Inventory_Overlapping();
             if (Slot > 0)
                 if (Player.Inventory[Slot].Item_Num > 0)
-                    Sending.Inventory_Usar(Slot);
+                    Sending.Inventory_Use(Slot);
 
-            // Usar o que estiver na hotbar
-            Slot = Ferramentas.Hotbar_Sobrepondo();
+            // Use o que estiver na hotbar
+            Slot = Tools.Hotbar_Overlapping();
             if (Slot > 0)
                 if (Player.Hotbar[Slot].Slot > 0)
-                    Sending.Hotbar_Usar(Slot);
+                    Sending.Hotbar_Use(Slot);
         }
     }
 }

@@ -10,9 +10,9 @@
         public Tools.General General;
     }
 
-    public static byte EncontrarIndex(string Name)
+    public static byte LocateIndex(string Name)
     {
-        // Lista os Names das ferramentas
+        // List os Names das Tools
         for (byte i = 1; i <= List.GetUpperBound(0); i++)
             if (List[i].General.Name == Name)
                 return i;
@@ -20,9 +20,9 @@
         return 0;
     }
 
-    public static Structure Encontrar(string Name)
+    public static Structure Locate(string Name)
     {
-        // Lista os Names das ferramentas
+        // List os Names das Tools
         for (byte i = 1; i <= List.GetUpperBound(0); i++)
             if (List[i].General.Name == Name)
                 return List[i];
@@ -30,13 +30,13 @@
         return null;
     }
 
-    public static void Menu_Fechar()
+    public static void Menu_Close()
     {
-        // Fecha todos os paineis abertos
-        Encontrar("Conectar").General.Visível = false;
-        Encontrar("Registrar").General.Visível = false;
-        Encontrar("Opções").General.Visível = false;
-        Encontrar("SelecionarCharacter").General.Visível = false;
-        Encontrar("CriarCharacter").General.Visível = false;
+        // Fecha todos os Panels abertos
+        Locate("Connect").General.Visible = false;
+        Locate("Register").General.Visible = false;
+        Locate("Options").General.Visible = false;
+        Locate("SelectCharacter").General.Visible = false;
+        Locate("CreateCharacter").General.Visible = false;
     }
 }

@@ -11,19 +11,19 @@ public class Scanners
     public static byte Foco;
     public static bool Sinal;
 
-    // Estrutura da ferramenta
+    // Structure da ferramenta
     public class Structure
     {
-        public string Texto;
+        public string Text;
         public short Max_Carácteres;
-        public short Largura;
+        public short Width;
         public bool Senha;
         public Tools.General General;
     }
 
-    public static byte EncontrarIndex(string Name)
+    public static byte LocateIndex(string Name)
     {
-        // Lista os Names das ferramentas
+        // List os Names das Tools
         for (byte i = 1; i <= List.GetUpperBound(0); i++)
             if (List[i].General.Name == Name)
                 return i;
@@ -31,9 +31,9 @@ public class Scanners
         return 0;
     }
 
-    public static Structure Encontrar(string Name)
+    public static Structure Locate(string Name)
     {
-        // Lista os Names das ferramentas
+        // List os Names das Tools
         for (byte i = 1; i <= List.GetUpperBound(0); i++)
             if (List[i].General.Name == Name)
                 return List[i];
@@ -43,33 +43,33 @@ public class Scanners
 
     public static void Focalizar()
     {
-        // Se o digitalizador não estiver habilitado então isso não é necessário 
+        // Se o Scanner não estiver habilitado então isso não é necessário 
         if (List[Foco] != null && List[Foco].General.Habilitado) return;
 
-        // Altera o digitalizador focado para o mais próximo
+        // Altera o Scanner focado para o mais Next
         for (byte i = 1; i <= Tools.Ordem.GetUpperBound(0); i++)
         {
-            if (Tools.Ordem[i].Type != Tools.Types.Digitalizador)
+            if (Tools.Ordem[i].Type != Tools.Types.Scanner)
                 continue;
             else if (!List[Tools.Ordem[i].Index].General.Habilitado)
                 continue;
-            else if (i == EncontrarIndex("Chat"))
+            else if (i == LocateIndex("Chat"))
 
                 Foco = Tools.Ordem[i].Index;
             return;
         }
     }
 
-    public static void TrocarFoco()
+    public static void ExchangeFoco()
     {
-        // Altera o digitalizador focado para o próximo
+        // Altera o Scanner focado para o Next
         for (byte i = 1; i <= Tools.Ordem.GetUpperBound(0); i++)
         {
-            if (Tools.Ordem[i].Type != Tools.Types.Digitalizador)
+            if (Tools.Ordem[i].Type != Tools.Types.Scanner)
                 continue;
             else if (!List[Tools.Ordem[i].Index].General.Habilitado)
                 continue;
-            if (Foco != Último() && i <= Tools.Encontrar(Tools.Types.Digitalizador, Foco))
+            if (Foco != Último() && i <= Tools.Locate(Tools.Types.Scanner, Foco))
                 continue;
 
             Foco = Tools.Ordem[i].Index;
@@ -81,9 +81,9 @@ public class Scanners
     {
         byte Index = 0;
 
-        // Retorna o último digitalizador habilitado
+        // Retorna o último Scanner habilitado
         for (byte i = 1; i <= Tools.Ordem.GetUpperBound(0); i++)
-            if (Tools.Ordem[i].Type == Tools.Types.Digitalizador)
+            if (Tools.Ordem[i].Type == Tools.Types.Scanner)
                 if (List[Tools.Ordem[i].Index].General.Habilitado)
                     Index = Tools.Ordem[i].Index;
 
@@ -92,18 +92,18 @@ public class Scanners
 
     public static void Chat_Digitar()
     {
-        byte Index = EncontrarIndex("Chat");
+        byte Index = LocateIndex("Chat");
 
         // Somente se necessário
-        if (!Player.EstáJogando(Player.MyIndex)) return;
+        if (!Player.IsPlaying(Player.MyIndex)) return;
 
         // Altera a visiblidade da caixa
-        Panels.Encontrar("Chat").General.Visível = !Panels.Encontrar("Chat").General.Visível;
+        Panels.Locate("Chat").General.Visible = !Panels.Locate("Chat").General.Visible;
 
-        // Altera o foco do digitalizador
-        if (Panels.Encontrar("Chat").General.Visível)
+        // Altera o foco do Scanner
+        if (Panels.Locate("Chat").General.Visible)
         {
-            Tools.Linhas_Visível = true;
+            Tools.Lines_Visible = true;
             Foco = Index;
             return;
         }
@@ -111,55 +111,55 @@ public class Scanners
             Foco = 0;
 
         // Data
-        string Mensagem = List[Index].Texto;
+        string Message = List[Index].Text;
         string Player_Name = Player.Eu.Name;
 
         // Somente se necessário
-        if (Mensagem.Length < 3)
+        if (Message.Length < 3)
         {
-            List[Index].Texto = string.Empty;
+            List[Index].Text = string.Empty;
             return;
         }
 
         // Separa as mensagens em partes
-        string[] Partes = Mensagem.Split(' ');
+        string[] Partes = Message.Split(' ');
 
         // Global
-        if (Mensagem.Substring(0, 1) == "'")
-            Sending.Mensagem(Mensagem.Substring(1), Game.Mensagens.Global);
+        if (Message.Substring(0, 1) == "'")
+            Sending.Message(Message.Substring(1), Game.Mensagens.Global);
         // Particular
-        else if (Mensagem.Substring(0, 1) == "!")
+        else if (Message.Substring(0, 1) == "!")
         {
             // Previni erros 
             if (Partes.GetUpperBound(0) < 1)
-                Tools.Adicionar("Use: '!' + Destination + 'Message'", SFML.Graphics.Color.White);
+                Tools.Add("Use: '!' + Destination + 'Message'", SFML.Graphics.Color.White);
             else
             {
                 // Data
-                string Destinatário = Mensagem.Substring(1, Partes[0].Length - 1);
-                Mensagem = Mensagem.Substring(Partes[0].Length + 1);
+                string Destinatário = Message.Substring(1, Partes[0].Length - 1);
+                Message = Message.Substring(Partes[0].Length + 1);
 
-                // Envia a mensagem
-                Sending.Mensagem(Mensagem, Game.Mensagens.Particular, Destinatário);
+                // Envia a Message
+                Sending.Message(Message, Game.Mensagens.Particular, Destinatário);
             }
         }
         // Map
         else
-            Sending.Mensagem(Mensagem, Game.Mensagens.Map);
+            Sending.Message(Message, Game.Mensagens.Map);
 
-        // Limpa a caixa de texto
-        List[Index].Texto = string.Empty;
+        // Limpa a caixa de Text
+        List[Index].Text = string.Empty;
     }
 
-    public class Eventos
+    public class Events
     {
         public static void MouseUp(MouseEventArgs e, byte Index)
         {
             // Somente se necessário
             if (!List[Index].General.Habilitado) return;
-            if (!Tools.EstáSobrepondo(new Rectangle(List[Index].General.Posição, new Size(List[Index].Largura, Gráficos.TTamanho(Gráficos.Tex_Digitalizador).Height)))) return;
+            if (!Tools.EstáOverlapping(new Rectangle(List[Index].General.Position, new Size(List[Index].Width, Graphics.MySize(Graphics.Tex_Scanner).Height)))) return;
 
-            // Define o foco no Digitalizador
+            // Define o foco no Scanner
             Foco = Index;
         }
 
@@ -168,33 +168,33 @@ public class Scanners
             // Se não tiver nenhum focado então sair
             if (Foco == 0) return;
 
-            // Altera o foco do digitalizador para o próximo
+            // Altera o foco do Scanner para o Next
             if (e.KeyChar == (char)Keys.Tab)
             {
-                TrocarFoco();
+                ExchangeFoco();
                 return;
             }
 
-            // Texto
-            string Texto = List[Foco].Texto;
+            // Text
+            string Text = List[Foco].Text;
 
-            // Apaga a última letra do texto
-            if (!string.IsNullOrEmpty(Texto))
+            // Apaga a última letra do Text
+            if (!string.IsNullOrEmpty(Text))
             {
-                if (e.KeyChar == '\b' && Texto.Length > 0)
+                if (e.KeyChar == '\b' && Text.Length > 0)
                 {
-                    List[Foco].Texto = Texto.Remove(Texto.Length - 1);
+                    List[Foco].Text = Text.Remove(Text.Length - 1);
                     return;
                 }
 
-                // Não adicionar se já estiver no Maximo de caracteres
+                // Não Add se já estiver no Maximo de caracteres
                 if (List[Foco].Max_Carácteres > 0)
-                    if (Texto.Length >= List[Foco].Max_Carácteres)
+                    if (Text.Length >= List[Foco].Max_Carácteres)
                         return;
             }
 
-            // Adiciona apenas os caractres válidos ao digitalizador
-            if (e.KeyChar >= 32 && e.KeyChar <= 126) List[Foco].Texto += e.KeyChar.ToString();
+            // Adiciona apenas os caractres válidos ao Scanner
+            if (e.KeyChar >= 32 && e.KeyChar <= 126) List[Foco].Text += e.KeyChar.ToString();
         }
     }
 }

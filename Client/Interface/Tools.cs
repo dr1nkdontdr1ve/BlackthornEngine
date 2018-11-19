@@ -5,24 +5,24 @@ using System.Collections.Generic;
 
 public class Tools
 {
-    // Habilitação das ferramentas
+    // Habilitação das Tools
     public static bool Habilitação;
 
-    // Posição do ponteiro do mouse
+    // Position do ponteiro do mouse
     public static Point Ponteiro;
 
-    // Janela que está focada
-    public static Janelas JanelaAtual;
+    // Window que está focada
+    public static Windows CurrentWindow;
 
     // Chat
-    public static bool Linhas_Visível;
-    public const byte Linhas_Visíveis = 9;
-    public const byte Max_Linhas = 50;
-    public static byte Linha;
+    public static bool Lines_Visible;
+    public const byte Lines_Visíveis = 9;
+    public const byte Max_Lines = 50;
+    public static byte Line;
 
-    // Ordem da renderização das ferramentas
+    // Ordem da renderização das Tools
     public static Identificação[] Ordem = new Identificação[0];
-    public static List<Chat_Estrutura> Chat = new List<Chat_Estrutura>();
+    public static List<Chat_Structure> Chat = new List<Chat_Structure>();
 
     public struct Identificação
     {
@@ -33,71 +33,71 @@ public class Tools
     public class General
     {
         public string Name;
-        public bool Visível;
-        public Point Posição;
+        public bool Visible;
+        public Point Position;
         public bool Habilitado;
 
-        public bool VerificarHabilitação()
+        public bool CheckHabilitação()
         {
             // Define a habilitação da ferramenta
-            if (!Visível || !Habilitação)
+            if (!Visible || !Habilitação)
                 return Habilitado = false;
             else
                 return Habilitado = true;
         }
     }
 
-    public class Chat_Estrutura
+    public class Chat_Structure
     {
-        public string Texto;
+        public string Text;
         public SFML.Graphics.Color Cor;
     }
 
-    // Identificação das janelas do Game
-    public enum Janelas
+    // Identificação das Windows do Game
+    public enum Windows
     {
         Nenhuma,
         Menu,
         Game
     }
 
-    // Types de ferramentas
+    // Types de Tools
     public enum Types
     {
-        Botão,
-        Painel,
-        Marcador,
-        Digitalizador
+        Button,
+        Panel,
+        Marker,
+        Scanner
     }
 
-    public static void DefinirHabilitação(string Painel, Janelas Janela)
+    public static void DefinirHabilitação(string Panel, Windows Window)
     {
         // Define a habilitação
-        if (JanelaAtual != Janela || Painel != string.Empty && !Panels.Encontrar(Painel).General.Visível)
+        if (CurrentWindow != Window || Panel != string.Empty && !Panels.Locate(Panel).General.Visible)
             Habilitação = false;
         else
             Habilitação = true;
     }
 
-    public static void Listar(Types Type, byte Index)
+    public static void Listr(Types Type, byte Index)
     {
         int Amount = Ordem.GetUpperBound(0) + 1;
 
-        // Se já estiver listado não é necessário listar de novo
-        if (EstáListado(Type, Index))
+        // Se já estiver Listdo não é necessário Listr de novo
+        if (EstáListdo(Type, Index))
             return;
 
-        // Altera o tamanho da caixa
+        // Altera o Size da caixa
         Array.Resize(ref Ordem, Amount + 1);
 
-        // Adiciona à lista
+        // Adiciona à List
         Ordem[Amount].Type = Type;
         Ordem[Amount].Index = Index;
     }
 
-    private static bool EstáListado(Types Type, byte Index)
+    private static bool EstáListdo(Types Type, byte Index)
     {
-        // Verifica se a ferramenta já está listada
+        // Verifica se a ferramenta já está Listda
         for (short i = 1; i <= Ordem.GetUpperBound(0); i++)
             if (Ordem[i].Type == Type && Ordem[i].Index == Index)
                 return true;
@@ -105,7 +105,7 @@ public class Tools
         return false;
     }
 
-    public static bool EstáSobrepondo(Rectangle Retângulo)
+    public static bool EstáOverlapping(Rectangle Retângulo)
     {
         // Verficia se o mouse está sobre o objeto
         if (Ponteiro.X >= Retângulo.X && Ponteiro.X <= Retângulo.X + Retângulo.Width)
@@ -116,9 +116,9 @@ public class Tools
         return false;
     }
 
-    public static int Encontrar(Types Type, byte Index)
+    public static int Locate(Types Type, byte Index)
     {
-        // Lista os Names dos botões
+        // List os Names dos Buttons
         for (byte i = 1; i <= Ordem.GetUpperBound(0); i++)
             if (Ordem[i].Type == Type && Ordem[i].Index == Index)
                 return i;
@@ -126,114 +126,114 @@ public class Tools
         return 0;
     }
 
-    public static int MedirTexto_Largura(string Texto)
+    public static int MeasureText_Width(string Text)
     {
-        // Data do texto
-        SFML.Graphics.Text TempTexto = new SFML.Graphics.Text(Texto, Gráficos.Fonte);
-        TempTexto.CharacterSize = 10;
-        return (int)TempTexto.GetLocalBounds().Width;
+        // Data do Text
+        SFML.Graphics.Text TempText = new SFML.Graphics.Text(Text, Graphics.Fonte);
+        TempText.CharacterSize = 10;
+        return (int)TempText.GetLocalBounds().Width;
     }
 
-    public static string QuebraTexto(string Texto, int Largura)
+    public static string SmashText(string Text, int Width)
     {
-        int Texto_Largura;
+        int Text_Width;
 
         // Previni sobrecargas
-        if (string.IsNullOrEmpty(Texto))
-            return Texto;
+        if (string.IsNullOrEmpty(Text))
+            return Text;
 
         // Usado para fazer alguns calculos
-        Texto_Largura = MedirTexto_Largura(Texto);
+        Text_Width = MeasureText_Width(Text);
 
-        // Diminui o tamanho do texto até que ele possa caber no digitalizador
-        while (Texto_Largura - Largura >= 0)
+        // Diminui o Size do Text até que ele possa caber no Scanner
+        while (Text_Width - Width >= 0)
         {
-            Texto = Texto.Substring(1);
-            Texto_Largura = MedirTexto_Largura(Texto);
+            Text = Text.Substring(1);
+            Text_Width = MeasureText_Width(Text);
         }
 
-        return Texto;
+        return Text;
     }
 
-    public static byte EcontrarLinhaVazia()
+    public static byte EcontrarLineVazia()
     {
-        // Encontra uma linha vazia
-        for (byte i = 0; i <= Max_Linhas; i++)
-            if (Chat[i].Texto == string.Empty)
+        // Encontra uma Line vazia
+        for (byte i = 0; i <= Max_Lines; i++)
+            if (Chat[i].Text == string.Empty)
                 return i;
 
         return 0;
     }
 
-    public static void AdicionarLinha(string Mensagem, SFML.Graphics.Color Cor)
+    public static void AddLine(string Message, SFML.Graphics.Color Cor)
     {
-        Chat.Add(new Chat_Estrutura());
+        Chat.Add(new Chat_Structure());
         int i = Chat.Count - 1;
 
-        // Adiciona a mensagem em uma linha vazia
-        Chat[i].Texto = Mensagem;
+        // Adiciona a Message em uma Line vazia
+        Chat[i].Text = Message;
         Chat[i].Cor = Cor;
 
-        // Remove uma linha se necessário
-        if (Chat.Count > Max_Linhas) Chat.Remove(Chat[0]);
-        if (i + Linha > Linhas_Visíveis + Linha)
-            Linha = (byte)(i - Linhas_Visíveis);
+        // Remove uma Line se necessário
+        if (Chat.Count > Max_Lines) Chat.Remove(Chat[0]);
+        if (i + Line > Lines_Visíveis + Line)
+            Line = (byte)(i - Lines_Visíveis);
 
-        // Torna as linhas visíveis
-        Linhas_Visível = true;
+        // Torna as Lines visíveis
+        Lines_Visible = true;
     }
 
-    public static void Adicionar(string Mensagem, SFML.Graphics.Color Cor)
+    public static void Add(string Message, SFML.Graphics.Color Cor)
     {
-        int Mensagem_Largura, Caixa_Largura = Gráficos.TTamanho(Gráficos.Tex_Painel[Panels.Encontrar("Chat").Texture]).Width - 16;
-        string Temp_Mensagem; int Separação;
+        int Message_Width, Caixa_Width = Graphics.MySize(Graphics.Tex_Panel[Panels.Locate("Chat").Texture]).Width - 16;
+        string Temp_Message; int Separação;
 
         // Remove os espaços
-        Mensagem = Mensagem.Trim();
-        Mensagem_Largura = MedirTexto_Largura(Mensagem);
+        Message = Message.Trim();
+        Message_Width = MeasureText_Width(Message);
 
-        // Caso couber, adiciona a mensagem normalmente
-        if (Mensagem_Largura < Caixa_Largura)
-            AdicionarLinha(Mensagem, Cor);
+        // Caso couber, adiciona a Message normalmente
+        if (Message_Width < Caixa_Width)
+            AddLine(Message, Cor);
         else
         {
-            for (int i = 0; i <= Mensagem.Length; i++)
+            for (int i = 0; i <= Message.Length; i++)
             {
-                // Verifica se o próximo caráctere é um separável 
-                switch (Mensagem[i])
+                // Verifica se o Next caráctere é um separável 
+                switch (Message[i])
                 {
                     case '-':
                     case '_':
                     case ' ': Separação = i; break;
                 }
 
-                Temp_Mensagem = Mensagem.Substring(0, i);
+                Temp_Message = Message.Substring(0, i);
 
-                // Adiciona o texto à caixa
-                if (MedirTexto_Largura(Temp_Mensagem) > Caixa_Largura)
+                // Adiciona o Text à caixa
+                if (MeasureText_Width(Temp_Message) > Caixa_Width)
                 {
-                    AdicionarLinha(Temp_Mensagem, Cor);
-                    Adicionar(Mensagem.Substring(Temp_Mensagem.Length), Cor);
+                    AddLine(Temp_Message, Cor);
+                    Add(Message.Substring(Temp_Message.Length), Cor);
                     return;
                 }
             }
         }
     }
 
-    public static byte Inventory_Sobrepondo()
+    public static byte Inventory_Overlapping()
     {
-        byte NumColunas = 5;
-        Point Painel_Posição = Panels.Encontrar("Menu_Inventory").General.Posição;
+        byte NumColumns = 5;
+        Point Panel_Position = Panels.Locate("Menu_Inventory").General.Position;
 
         for (byte i = 1; i <= Game.Max_Inventory; i++)
         {
-            // Posição do item
-            byte Linha = (byte)((i - 1) / NumColunas);
-            int Coluna = i - (Linha * 5) - 1;
-            Point Posição = new Point(Painel_Posição.X + 7 + Coluna * 36, Painel_Posição.Y + 30 + Linha * 36);
+            // Position do item
+            byte Line = (byte)((i - 1) / NumColumns);
+            int Coluna = i - (Line * 5) - 1;
+            Point Position = new Point(Panel_Position.X + 7 + Coluna * 36, Panel_Position.Y + 30 + Line * 36);
 
             // Retorna o slot em que o mouse está por cima
-            if (EstáSobrepondo(new Rectangle(Posição.X, Posição.Y, 32, 32)))
+            if (EstáOverlapping(new Rectangle(Position.X, Position.Y, 32, 32)))
                 return i;
         }
 
@@ -242,7 +242,7 @@ public class Tools
 
     public static void Inventory_MouseDown(MouseEventArgs e)
     {
-        byte Slot = Inventory_Sobrepondo();
+        byte Slot = Inventory_Overlapping();
 
         // Somente se necessário
         if (Slot == 0) return;
@@ -257,36 +257,36 @@ public class Tools
         // Seleciona o item
         else if (e.Button == MouseButtons.Left)
         {
-            Player.Inventory_Movendo = Slot;
+            Player.Inventory_Moving = Slot;
             return;
         }
     }
 
-    public static void Equipamento_MouseDown(MouseEventArgs e)
+    public static void Equipment_MouseDown(MouseEventArgs e)
     {
-        Point Painel_Posição = Panels.Encontrar("Menu_Character").General.Posição;
+        Point Panel_Position = Panels.Locate("Menu_Character").General.Position;
 
-        for (byte i = 0; i <= (byte)Game.Equipamentos.Amount - 1; i++)
-            if (EstáSobrepondo(new Rectangle(Painel_Posição.X + 7 + i * 36, Painel_Posição.Y + 247, 32, 32)))
-                // Remove o equipamento
+        for (byte i = 0; i <= (byte)Game.Equipments.Amount - 1; i++)
+            if (EstáOverlapping(new Rectangle(Panel_Position.X + 7 + i * 36, Panel_Position.Y + 247, 32, 32)))
+                // Remove o Equipment
                 if (e.Button == MouseButtons.Right)
                 {
-                    Sending.Equipamento_Remover(i);
+                    Sending.Equipment_Remove(i);
                     return;
                 }
     }
 
-    public static byte Hotbar_Sobrepondo()
+    public static byte Hotbar_Overlapping()
     {
-        Point Painel_Posição = Panels.Encontrar("Hotbar").General.Posição;
+        Point Panel_Position = Panels.Locate("Hotbar").General.Position;
 
         for (byte i = 1; i <= Game.Max_Hotbar; i++)
         {
-            // Posição do slot
-            Point Posição = new Point(Painel_Posição.X + 8 + (i - 1) * 36, Painel_Posição.Y + 6);
+            // Position do slot
+            Point Position = new Point(Panel_Position.X + 8 + (i - 1) * 36, Panel_Position.Y + 6);
 
             // Retorna o slot em que o mouse está por cima
-            if (EstáSobrepondo(new Rectangle(Posição.X, Posição.Y, 32, 32)))
+            if (EstáOverlapping(new Rectangle(Position.X, Position.Y, 32, 32)))
                 return i;
         }
 
@@ -295,7 +295,7 @@ public class Tools
 
     public static void Hotbar_MouseDown(MouseEventArgs e)
     {
-        byte Slot = Hotbar_Sobrepondo();
+        byte Slot = Hotbar_Overlapping();
 
         // Somente se necessário
         if (Slot == 0) return;
@@ -304,13 +304,13 @@ public class Tools
         // Solta item
         if (e.Button == MouseButtons.Right)
         {
-            Sending.Hotbar_Adicionar(Slot, 0, 0);
+            Sending.Hotbar_Add(Slot, 0, 0);
             return;
         }
         // Seleciona o item
         else if (e.Button == MouseButtons.Left)
         {
-            Player.Hotbar_Movendo = Slot;
+            Player.Hotbar_Moving = Slot;
             return;
         }
     }

@@ -17,7 +17,7 @@ public class Markers
         public Tools.General General;
     }
 
-    public static byte EncontrarIndex(string Name)
+    public static byte LocateIndex(string Name)
     {
         // List the names of the tools
         for (byte i = 1; i <= List.GetUpperBound(0); i++)
@@ -27,7 +27,7 @@ public class Markers
         return 0;
     }
 
-    public static Structure Encontrar(string Name)
+    public static Structure Locate(string Name)
     {
         // List the names of the tools
         for (byte i = 1; i <= List.GetUpperBound(0); i++)
@@ -41,77 +41,77 @@ public class Markers
     {
         public static void MouseUp(MouseEventArgs e, byte Index)
         {
-            int Texto_Largura; Size Texture_Tamanho; Size Caixa;
+            int Text_Width; Size Texture_Size; Size Caixa;
 
             // Only if necessary
             if (!List[Index].General.Habilitado) return;
 
             // Marker size
-            Texture_Tamanho = Gráficos.TTamanho(Gráficos.Tex_Marcador);
-            Texto_Largura = Tools.MedirTexto_Largura(List[Index].Text);
-            Caixa = new Size(Texture_Tamanho.Width / 2 + Texto_Largura + Margin, Texture_Tamanho.Height);
+            Texture_Size = Graphics.MySize(Graphics.Tex_Marker);
+            Text_Width = Tools.MeasureText_Width(List[Index].Text);
+            Caixa = new Size(Texture_Size.Width / 2 + Text_Width + Margin, Texture_Size.Height);
 
-            // Somente se estiver sobrepondo a ferramenta
-            if (!Tools.EstáSobrepondo(new Rectangle(List[Index].General.Posição, Caixa))) return;
+            // Somente se estiver Overlapping a ferramenta
+            if (!Tools.EstáOverlapping(new Rectangle(List[Index].General.Position, Caixa))) return;
 
-            // Altera o estado do marcador
+            // Altera o State do Marker
             List[Index].State = !List[Index].State;
 
             // Executa o evento
-            Executar(List[Index].General.Name);
-            Áudio.Som.Reproduzir(Áudio.Sons.Clique);
+            Run(List[Index].General.Name);
+            Audio.Som.Reproduce(Audio.Sons.Click);
         }
 
-        public static void Executar(string Name)
+        public static void Run(string Name)
         {
-            // Executa o evento do marcador
+            // Executa o evento do Marker
             switch (Name)
             {
                 case "Sons": Sons(); break;
                 case "Músicas": Músicas(); break;
-                case "SalvarUsuário": SaveUser(); break;
-                case "GêneroMasculino": GenreMale(); break;
-                case "GêneroFeminino": GenreFemale(); break;
+                case "SaveUser": SaveUser(); break;
+                case "GenreMasculino": GenreMale(); break;
+                case "GenreFeminino": GenreFemale(); break;
             }
         }
 
         public static void Sons()
         {
             // Salva os Data
-            Lists.Opções.Sons = Encontrar("Sons").State;
-            Escrever.Opções();
+            Lists.Options.Sons = Locate("Sons").State;
+            Write.Options();
         }
 
         public static void Músicas()
         {
-            // Salva os Data
-            Lists.Opções.Músicas = Encontrar("Músicas").State;
-            Escrever.Opções();
+            // Save the Data
+            Lists.Options.Músicas = Locate("Músicas").State;
+            Write.Options();
 
-            // Para ou reproduz a música dependendo do estado do marcador
-            if (!Lists.Opções.Músicas)
-                Áudio.Música.Parar();
+            // To or Play Music depending on Marker State
+            if (!Lists.Options.Músicas)
+                Audio.Música.Stop();
             else
-                Áudio.Música.Reproduzir(Áudio.Músicas.Menu);
+                Audio.Música.Reproduce(Audio.Músicas.Menu);
         }
 
         public static void SaveUser()
         {
             // Salva os Data
-            Lists.Opções.SalvarUsuário = Encontrar("SaveUser").State;
-            Escrever.Opções();
+            Lists.Options.SaveUser = Locate("SaveUser").State;
+            Write.Options();
         }
 
         public static void GenreMale()
         {
             // Changes marker status of another genre
-            Encontrar("GêneroFeminino").State = !Encontrar("GêneroMasculino").State;
+            Locate("GenreFeminino").State = !Locate("GenreMasculino").State;
         }
 
         public static void GenreFemale()
         {
             // Changes marker status of another genre
-            Encontrar("GêneroMasculino").State = !Encontrar("GêneroFeminino").State;
+            Locate("GenreMasculino").State = !Locate("GenreFeminino").State;
         }
     }
 }

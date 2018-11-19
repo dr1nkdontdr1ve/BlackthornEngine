@@ -2,8 +2,8 @@
 {
     // Armazenamento de Data
     public static Structures.Options Options = new Structures.Options();
-    public static Structures.Cliente_Data Cliente_Data = new Structures.Client_Data();
-    public static Structures.Servidor_Data Servidor_Data = new Structures.Server_Data();
+    public static Structures.Client_Data Client_Data = new Structures.Client_Data();
+    public static Structures.Server_Data Server_Data = new Structures.Server_Data();
     public static Structures.Player[] Player;
     public static Structures.Classe[] Classe;
     public static Structures.Character[] Characters;
@@ -12,32 +12,32 @@
     public static Structures.NPCs[] NPC;
     public static Structures.Items[] Item;
 
-    // Estrutura dos itens em gerais
+    // Structure dosItems em gerais
     public class Structures
     {
         public struct Options
         {
             public string Game_Name;
-            public bool SalvarUsuário;
+            public bool SaveUser;
             public bool Sons;
             public bool Músicas;
-            public string Usuário;
+            public string User;
         }
 
         public struct Client_Data
         {
-            public byte Num_Botões;
-            public byte Num_Paineis;
-            public byte Num_Marcadores;
-            public byte Num_Digitalizadores;
+            public byte Num_Buttons;
+            public byte Num_Panels;
+            public byte Num_Markers;
+            public byte Num_Scanners;
         }
 
         public struct Server_Data
         {
             public byte Max_Playeres;
-            public byte Max_Personagens;
+            public byte Max_Characters;
             public byte Num_Classes;
-            public byte Num_Azulejos;
+            public byte Num_Tiles;
             public short Num_Maps;
         }
 
@@ -46,43 +46,43 @@
             // Apenas na parte do cliente
             public short X2;
             public short Y2;
-            public byte Animação;
+            public byte Animation;
             public bool Atacando;
-            public int Ataque_Tempo;
-            public int Sofrendo;
+            public int Attack_Time;
+            public int Suffering;
             public short[] Max_Vital;
-            public int Coletar_Tempo;
-            // Geral
+            public int Coletar_Time;
+            // General
             public string Name;
             public byte Classe;
-            public bool Gênero;
+            public bool Genre;
             public short Level;
-            public short Experiência;
+            public short Experience;
             public short ExpNecessária;
             public short Pontos;
             public short[] Vital;
-            public short[] Atributo;
+            public short[] Attribute;
             public short Map;
             public byte X;
             public byte Y;
-            public Game.Direções Direction;
-            public Game.Movimentos Movimento;
-            public short[] Equipamento;
+            public Game.Location Direction;
+            public Game.Movements Movement;
+            public short[] Equipment;
         }
 
         public class Character
         {
             public string Name;
             public byte Classe;
-            public bool Gênero;
+            public bool Genre;
             public short Level;
         }
 
         public class Classe
         {
             public string Name;
-            public short Texture_Masculina;
-            public short Texture_Feminina;
+            public short Texture_Male;
+            public short Texture_Female;
             public short Aparecer_Map;
             public byte Aparecer_Direction;
             public byte Aparecer_X;
@@ -91,62 +91,62 @@
         
         public struct Maps
         {
-            public short Revisão;
+            public short Review;
             public string Name;
-            public byte Largura;
-            public byte Altura;
+            public byte Width;
+            public byte Height;
             public byte Moral;
             public byte Panorama;
-            public byte Música;
+            public byte Music;
             public int Coloração;
-            public Map_Clima Clima;
-            public Map_Fumaça Fumaça;
+            public Map_Climate Climate;
+            public Map_Smoke Smoke;
             public short[] Ligação;
-            public Azulejo[,] Azulejo;
-            public Luz[] Luz;
+            public Tile[,] Tile;
+            public Light[] Light;
             public short[] NPC;
 
-            // Temporário
+            // Timerário
             public Map_NPCs[] Temp_NPC;
-            public Map_Itens[] Temp_Item;
+            public Map_Items[] Temp_Item;
         }
 
         public struct Map_Climate
         {
             public byte Type;
-            public byte Intensidade;
+            public byte Intensity;
         }
 
         public struct Map_Smoke
         {
             public byte Texture;
-            public sbyte VelocidadeX;
-            public sbyte VelocidadeY;
-            public byte Transparência;
+            public sbyte VelocityX;
+            public sbyte VelocityY;
+            public byte Transparency;
         }
 
         public struct Tile
         {
-            public byte Atributo;
-            public bool[] Bloqueio;
-            public Azulejo_Data[,] Data;
+            public byte Attribute;
+            public bool[] Block;
+            public Tile_Data[,] Data;
         }
 
         public struct Tile_Data
         {
             public byte x;
             public byte y;
-            public byte Azulejo;
+            public byte Tile;
             public bool Automático;
             public System.Drawing.Point[] Mini;
         }
 
         public struct Climate
         {
-            public bool Visível;
+            public bool Visible;
             public int x;
             public int y;
-            public int Velocidade;
+            public int Velocity;
             public int Inicío;
             public bool Voltar;
         }
@@ -155,8 +155,8 @@
         {
             public byte X;
             public byte Y;
-            public byte Largura;
-            public byte Altura;
+            public byte Width;
+            public byte Height;
         }
 
         public struct NPCs
@@ -172,16 +172,16 @@
             // Apenas na parte do cliente
             public short X2;
             public short Y2;
-            public byte Animação;
+            public byte Animation;
             public bool Atacando;
-            public int Ataque_Tempo;
-            public int Sofrendo;
-            // Geral
+            public int Attack_Time;
+            public int Suffering;
+            // General
             public short Index;
             public byte X;
             public byte Y;
-            public Game.Direções Direction;
-            public Game.Movimentos Movimento;
+            public Game.Location Direction;
+            public Game.Movements Movement;
             public short[] Vital;
         }
 
@@ -196,15 +196,15 @@
         {
             // General
             public string Name;
-            public string Descrição;
+            public string Description;
             public short Texture;
             public byte Type;
             // Requirements
             public short Req_Level;
             public byte Req_Classe;
             // Potion
-            public short Poção_Experiência;
-            public short[] Poção_Vital;
+            public short Potion_Experience;
+            public short[] Potion_Vital;
             // Equipment
             public byte Equip_Type;
             public short[] Equip_Attribute;

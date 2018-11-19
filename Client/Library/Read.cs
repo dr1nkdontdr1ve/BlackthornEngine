@@ -7,50 +7,50 @@ class Read
         // Carrega todos os Data
         Client_Data();
         Buttons_Data();
-        Digitalizadores_Data();
+        Scanners_Data();
         Panels_Data();
-        Marcadores_Data();
+        Markers_Data();
         Options();
     }
 
     public static void Options()
     {
         // Cria o arquivo se ele não existir
-        if (!Diretórios.Opções.Exists)
-            Clean.Opções();
+        if (!Directories.Options.Exists)
+            Clean.Options();
         else
         {
-            // Cria um arquivo temporário
-            BinaryReader Arquivo = new BinaryReader(File.OpenRead(Diretórios.Opções.FullName));
+            // Create a Timer file
+            BinaryReader Arquivo = new BinaryReader(File.OpenRead(Directories.Options.FullName));
 
-            // Carrega os Data
-            Lists.Opções.Game_Name = Arquivo.ReadString();
-            Lists.Opções.SalvarUsuário = Arquivo.ReadBoolean();
-            Lists.Opções.Sons = Arquivo.ReadBoolean();
-            Lists.Opções.Músicas = Arquivo.ReadBoolean();
-            Lists.Opções.Usuário = Arquivo.ReadString();
+            // Load the Data
+            Lists.Options.Game_Name = Arquivo.ReadString();
+            Lists.Options.SaveUser = Arquivo.ReadBoolean();
+            Lists.Options.Sons = Arquivo.ReadBoolean();
+            Lists.Options.Músicas = Arquivo.ReadBoolean();
+            Lists.Options.User = Arquivo.ReadString();
 
-            // Descarrega o arquivo
+            // Download the file
             Arquivo.Dispose();
         }
 
-        // Adiciona os Data ao cache
-        Markers.Encontrar("Sons").State = Lists.Opções.Sons;
-        Markers.Encontrar("Músicas").State = Lists.Opções.Músicas;
-        Markers.Encontrar("SalvarUsuário").State = Lists.Opções.SalvarUsuário;
-        if (Lists.Opções.SalvarUsuário) Scanners.Encontrar("Conectar_Usuário").Texto = Lists.Opções.Usuário;
+        // Adds the Data to the cache
+        Markers.Locate("Sons").State = Lists.Options.Sons;
+        Markers.Locate("Músicas").State = Lists.Options.Músicas;
+        Markers.Locate("SaveUser").State = Lists.Options.SaveUser;
+        if (Lists.Options.SaveUser) Scanners.Locate("Connect_User").Text = Lists.Options.User;
     }
 
     public static void Client_Data()
     {
         // Cria um sistema Binary para a manipulação dos Data
-        BinaryReader Binary = new BinaryReader(Diretórios.Client_Data.OpenRead());
+        BinaryReader Binary = new BinaryReader(Directories.Client_Data.OpenRead());
 
         // Lê os Data
-        Lists.Client_Data.Num_Botões = Binary.ReadByte();
-        Lists.Client_Data.Num_Digitalizadores = Binary.ReadByte();
-        Lists.Client_Data.Num_Paineis = Binary.ReadByte();
-        Lists.Client_Data.Num_Marcadores = Binary.ReadByte();
+        Lists.Client_Data.Num_Buttons = Binary.ReadByte();
+        Lists.Client_Data.Num_Scanners = Binary.ReadByte();
+        Lists.Client_Data.Num_Panels = Binary.ReadByte();
+        Lists.Client_Data.Num_Markers = Binary.ReadByte();
 
         // Fecha o sistema
         Binary.Dispose();
@@ -58,11 +58,11 @@ class Read
 
     public static void Buttons_Data()
     {
-        Buttons.List = new Buttons.Structure[Lists.Client_Data.Num_Botões + 1];
+        Buttons.List = new Buttons.Structure[Lists.Client_Data.Num_Buttons + 1];
 
         // Lê os Data
         for (byte i = 1; i <= Buttons.List.GetUpperBound(0); i++)
-            Botão_Data(i);
+            Button_Data(i);
     }
 
     public static void Button_Data(byte Index)
@@ -71,45 +71,45 @@ class Read
         Clean.Button(Index);
 
         // Cria um sistema Binary para a manipulação dos Data
-        FileInfo Arquivo = new FileInfo(Diretórios.Botões_Data.FullName + Index + Diretórios.Format);
+        FileInfo Arquivo = new FileInfo(Directories.Buttons_Data.FullName + Index + Directories.Format);
         BinaryReader Binary = new BinaryReader(Arquivo.OpenRead());
 
         // Lê os Data
-        Buttons.List[Index].Geral.Name = Binary.ReadString();
-        Buttons.List[Index].Geral.Posição.X = Binary.ReadInt32();
-        Buttons.List[Index].Geral.Posição.Y = Binary.ReadInt32();
-        Buttons.List[Index].Geral.Visível = Binary.ReadBoolean();
+        Buttons.List[Index].General.Name = Binary.ReadString();
+        Buttons.List[Index].General.Position.X = Binary.ReadInt32();
+        Buttons.List[Index].General.Position.Y = Binary.ReadInt32();
+        Buttons.List[Index].General.Visible = Binary.ReadBoolean();
         Buttons.List[Index].Texture = Binary.ReadByte();
 
         // Fecha o sistema
         Binary.Dispose();
     }
 
-    public static void Digitalizadores_Data()
+    public static void Scanners_Data()
     {
-        Scanners.List = new Scanners.Structure[Lists.Cliente_Data.Num_Digitalizadores + 1];
+        Scanners.List = new Scanners.Structure[Lists.Client_Data.Num_Scanners + 1];
 
         // Lê os Data
         for (byte i = 1; i <= Scanners.List.GetUpperBound(0); i++)
-            Digitalizador_Data(i);
+            Scanner_Data(i);
     }
 
-    public static void Digitalizador_Data(byte Index)
+    public static void Scanner_Data(byte Index)
     {
         // Limpa os valores
-        Clean.Digitalizador(Index);
+        Clean.Scanner(Index);
 
         // Cria um sistema Binary para a manipulação dos Data
-        FileInfo Arquivo = new FileInfo(Diretórios.Digitalizadores_Data.FullName + Index + Diretórios.Format);
+        FileInfo Arquivo = new FileInfo(Directories.Scanners_Data.FullName + Index + Directories.Format);
         BinaryReader Binary = new BinaryReader(Arquivo.OpenRead());
 
         // Lê os Data
         Scanners.List[Index].General.Name = Binary.ReadString();
-        Scanners.List[Index].General.Posição.X = Binary.ReadInt32();
-        Scanners.List[Index].General.Posição.Y = Binary.ReadInt32();
-        Scanners.List[Index].General.Visível = Binary.ReadBoolean();
+        Scanners.List[Index].General.Position.X = Binary.ReadInt32();
+        Scanners.List[Index].General.Position.Y = Binary.ReadInt32();
+        Scanners.List[Index].General.Visible = Binary.ReadBoolean();
         Scanners.List[Index].Max_Carácteres = Binary.ReadInt16();
-        Scanners.List[Index].Largura = Binary.ReadInt16();
+        Scanners.List[Index].Width = Binary.ReadInt16();
         Scanners.List[Index].Senha = Binary.ReadBoolean();
 
         // Fecha o sistema
@@ -118,56 +118,56 @@ class Read
 
     public static void Panels_Data()
     {
-        Panels.List = new Panels.Structure[Lists.Cliente_Data.Num_Paineis + 1];
+        Panels.List = new Panels.Structure[Lists.Client_Data.Num_Panels + 1];
 
         // Lê os Data
         for (byte i = 1; i <= Panels.List.GetUpperBound(0); i++)
-            Painel_Data(i);
+            Panel_Data(i);
     }
 
     public static void Panel_Data(byte Index)
     {
         // Limpa os valores
-        Clean.Painel(Index);
+        Clean.Panel(Index);
 
         // Cria um sistema Binary para a manipulação dos Data
-        FileInfo Arquivo = new FileInfo(Diretórios.Paineis_Data.FullName + Index + Diretórios.Format);
+        FileInfo Arquivo = new FileInfo(Directories.Panels_Data.FullName + Index + Directories.Format);
         BinaryReader Binary = new BinaryReader(Arquivo.OpenRead());
 
         // Carrega os Data
         Panels.List[Index].General.Name = Binary.ReadString();
-        Panels.List[Index].General.Posição.X = Binary.ReadInt32();
-        Panels.List[Index].General.Posição.Y = Binary.ReadInt32();
-        Panels.List[Index].General.Visível = Binary.ReadBoolean();
+        Panels.List[Index].General.Position.X = Binary.ReadInt32();
+        Panels.List[Index].General.Position.Y = Binary.ReadInt32();
+        Panels.List[Index].General.Visible = Binary.ReadBoolean();
         Panels.List[Index].Texture = Binary.ReadByte();
 
         // Fecha o sistema
         Binary.Dispose();
     }
 
-    public static void Marcadores_Data()
+    public static void Markers_Data()
     {
-        Markers.List = new Markers.Structure[Lists.Cliente_Data.Num_Marcadores + 1];
+        Markers.List = new Markers.Structure[Lists.Client_Data.Num_Markers + 1];
 
         // Lê os Data
         for (byte i = 1; i <= Markers.List.GetUpperBound(0); i++)
-            Marcador_Data(i);
+            Marker_Data(i);
     }
 
-    public static void Marcador_Data(byte Index)
+    public static void Marker_Data(byte Index)
     {
         // Limpa os valores
-        Clean.Marcador(Index);
+        Clean.Marker(Index);
 
         // Cria um sistema Binary para a manipulação dos Data
-        FileInfo Arquivo = new FileInfo(Diretórios.Marcadores_Data.FullName + Index + Diretórios.Format);
+        FileInfo Arquivo = new FileInfo(Directories.Markers_Data.FullName + Index + Directories.Format);
         BinaryReader Binary = new BinaryReader(Arquivo.OpenRead());
 
         // Carrega os Data
         Markers.List[Index].General.Name = Binary.ReadString();
-        Markers.List[Index].General.Posição.X = Binary.ReadInt32();
-        Markers.List[Index].General.Posição.Y = Binary.ReadInt32();
-        Markers.List[Index].General.Visível = Binary.ReadBoolean();
+        Markers.List[Index].General.Position.X = Binary.ReadInt32();
+        Markers.List[Index].General.Position.Y = Binary.ReadInt32();
+        Markers.List[Index].General.Visible = Binary.ReadBoolean();
         Markers.List[Index].Text = Binary.ReadString();
         Markers.List[Index].State = Binary.ReadBoolean();
 
@@ -178,71 +178,71 @@ class Read
     public static void Map(int Index)
     {
         // Cria um sistema Binary para a manipulação dos Data
-        FileInfo Arquivo = new FileInfo(Diretórios.Maps_Data.FullName + Index + Diretórios.Format);
+        FileInfo Arquivo = new FileInfo(Directories.Maps_Data.FullName + Index + Directories.Format);
         BinaryReader Binary = new BinaryReader(Arquivo.OpenRead());
 
         // Lê os Data
-        Lists.Map.Revisão = Binary.ReadInt16();
+        Lists.Map.Review = Binary.ReadInt16();
         Lists.Map.Name = Binary.ReadString();
         Lists.Map.Width = Binary.ReadByte();
         Lists.Map.Height = Binary.ReadByte();
         Lists.Map.Moral = Binary.ReadByte();
         Lists.Map.Panorama = Binary.ReadByte();
-        Lists.Map.Música = Binary.ReadByte();
+        Lists.Map.Music = Binary.ReadByte();
         Lists.Map.Coloração = Binary.ReadInt32();
-        Lists.Map.Clima.Type = Binary.ReadByte();
-        Lists.Map.Clima.Intensidade = Binary.ReadByte();
-        Lists.Map.Fumaça.Texture = Binary.ReadByte();
-        Lists.Map.Fumaça.VelocidadeX = Binary.ReadSByte();
-        Lists.Map.Fumaça.VelocidadeY = Binary.ReadSByte();
-        Lists.Map.Fumaça.Transparência = Binary.ReadByte();
+        Lists.Map.Climate.Type = Binary.ReadByte();
+        Lists.Map.Climate.Intensity = Binary.ReadByte();
+        Lists.Map.Smoke.Texture = Binary.ReadByte();
+        Lists.Map.Smoke.VelocityX = Binary.ReadSByte();
+        Lists.Map.Smoke.VelocityY = Binary.ReadSByte();
+        Lists.Map.Smoke.Transparency = Binary.ReadByte();
 
         // Redimensiona as ligações
-        Lists.Map.Ligação = new short[(byte)Game.Direções.Amount];
-        for (short i = 0; i <= (short)Game.Direções.Amount - 1; i++)
+        Lists.Map.Ligação = new short[(byte)Game.Location.Amount];
+        for (short i = 0; i <= (short)Game.Location.Amount - 1; i++)
             Lists.Map.Ligação[i] = Binary.ReadInt16();
 
-        // Redimensiona os azulejos 
+        // Redimensiona os Tiles 
         Lists.Map.Tile = new Lists.Structures.Tile[Lists.Map.Width + 1, Lists.Map.Height + 1];
 
         // Lê os Data
-        byte NumCamadas = Binary.ReadByte();
-        for (byte x = 0; x <= Lists.Map.Largura; x++)
-            for (byte y = 0; y <= Lists.Map.Altura; y++)
+        byte NumLayers = Binary.ReadByte();
+        for (byte x = 0; x <= Lists.Map.Width; x++)
+            for (byte y = 0; y <= Lists.Map.Height; y++)
             {
-                // Redimensiona os Data dos azulejos
-                Lists.Map.Azulejo[x, y].Data = new Lists.Structures.Azulejo_Data[(byte)global::Map.Camadas.Amount, NumCamadas + 1];
+                // Redimensiona os Data dos Tiles
+                Lists.Map.Tile[x, y].Data = new Lists.Structures.Tile_Data[(byte)global::Map.Layers.Amount, NumLayers + 1];
 
-                for (byte c = 0; c <= (byte)global::Map.Camadas.Amount - 1; c++)
-                    for (byte q = 0; q <= NumCamadas; q++)
+                for (byte c = 0; c <= (byte)global::Map.Layers.Amount - 1; c++)
+                    for (byte q = 0; q <= NumLayers; q++)
                     {
-                        Lists.Map.Azulejo[x, y].Data[c, q].x = Binary.ReadByte();
-                        Lists.Map.Azulejo[x, y].Data[c, q].y = Binary.ReadByte();
-                        Lists.Map.Azulejo[x, y].Data[c, q].Azulejo = Binary.ReadByte();
-                        Lists.Map.Azulejo[x, y].Data[c, q].Automático = Binary.ReadBoolean();
-                        Lists.Map.Azulejo[x, y].Data[c, q].Mini = new System.Drawing.Point[4];
+                        Lists.Map.Tile[x, y].Data[c, q].x = Binary.ReadByte();
+                        Lists.Map.Tile[x, y].Data[c, q].y = Binary.ReadByte();
+                        Lists.Map.Tile[x, y].Data[c, q].Tile = Binary.ReadByte();
+                        Lists.Map.Tile[x, y].Data[c, q].Automático = Binary.ReadBoolean();
+                        Lists.Map.Tile[x, y].Data[c, q].Mini = new System.Drawing.Point[4];
                     }
             }
 
-        // Data específicos dos azulejos
-        for (byte x = 0; x <= Lists.Map.Largura; x++)
-            for (byte y = 0; y <= Lists.Map.Altura; y++)
+        // Data específicos dos Tiles
+        for (byte x = 0; x <= Lists.Map.Width; x++)
+            for (byte y = 0; y <= Lists.Map.Height; y++)
             {
-                Lists.Map.Azulejo[x, y].Atributo = Binary.ReadByte();
-                Lists.Map.Azulejo[x, y].Bloqueio = new bool[(byte)Game.Direções.Amount];
-                for (byte i = 0; i <= (byte)Game.Direções.Amount - 1; i++)
-                    Lists.Map.Azulejo[x, y].Bloqueio[i] = Binary.ReadBoolean();
+                Lists.Map.Tile[x, y].Attribute = Binary.ReadByte();
+                Lists.Map.Tile[x, y].Block = new bool[(byte)Game.Location.Amount];
+                for (byte i = 0; i <= (byte)Game.Location.Amount - 1; i++)
+                    Lists.Map.Tile[x, y].Block[i] = Binary.ReadBoolean();
             }
 
-        // Luzes
-        Lists.Map.Luz = new Lists.Structures.Luz[Binary.ReadInt32() + 1];
-        if (Lists.Map.Luz.GetUpperBound(0) > 0)
-            for (byte i = 0; i <= Lists.Map.Luz.GetUpperBound(0); i++)
+        // Lightes
+        Lists.Map.Light = new Lists.Structures.Light[Binary.ReadInt32() + 1];
+        if (Lists.Map.Light.GetUpperBound(0) > 0)
+            for (byte i = 0; i <= Lists.Map.Light.GetUpperBound(0); i++)
             {
-                Lists.Map.Luz[i].X = Binary.ReadByte();
-                Lists.Map.Luz[i].Y = Binary.ReadByte();
-                Lists.Map.Luz[i].Largura = Binary.ReadByte();
-                Lists.Map.Luz[i].Altura = Binary.ReadByte();
+                Lists.Map.Light[i].X = Binary.ReadByte();
+                Lists.Map.Light[i].Y = Binary.ReadByte();
+                Lists.Map.Light[i].Width = Binary.ReadByte();
+                Lists.Map.Light[i].Height = Binary.ReadByte();
             }
 
         // NPCs
@@ -258,8 +258,8 @@ class Read
         // Fecha o sistema
         Binary.Dispose();
 
-        // Redimensiona as partículas do clima
-        global::Map.Clima_Ajustar();
-        global::Map.AutoCriação.Atualizar();
+        // Redimensiona as Particles do Climate
+        global::Map.Climate_Ajustar();
+        global::Map.AutoCriação.Update();
     }
 }

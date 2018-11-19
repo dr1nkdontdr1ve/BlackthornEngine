@@ -5,7 +5,7 @@ using System.Windows.Forms;
 class Tie
 {
     // Contagens
-    private static int Digitalizador_Contagem = 0;
+    private static int Scanner_Contagem = 0;
     private static int Chat_Contagem = 0;
 
     public static void Principal()
@@ -15,26 +15,26 @@ class Tie
         int Contagem_30 = 0;
         short FPS = 0;
 
-        while (Program.Funcionado)
+        while (Program.Functional)
         {
             Contagem = Environment.TickCount;
 
             // Handles incoming data
-            Network.ReceberData();
+            Network.ReceivingData();
 
             // Displays graphics to screen
-            Gráficos.Apresentar();
+            Graphics.Apresentar();
 
             // Events
-            Digitalizador();
-            Map.Lógica();
+            Scanner();
+            Map.Logic();
 
-            if (Player.MyIndex > 0 && Tools.JanelaAtual == Tools.Janelas.Game)
+            if (Player.MyIndex > 0 && Tools.CurrentWindow == Tools.Windows.Game)
                 if (Contagem_30 < Environment.TickCount)
                 {
                     // Logic
-                    Player.Lógica();
-                    NPC.Lógica();
+                    Player.Logic();
+                    NPC.Logic();
 
                     // Restarts the count
                     Contagem_30 = Environment.TickCount + 30;
@@ -47,7 +47,7 @@ class Tie
             // Calculate the FPS
             if (Contagem_1000 < Environment.TickCount)
             {
-                Sending.Latência();
+                Sending.Latency();
                 Game.FPS = FPS;
                 FPS = 0;
                 Contagem_1000 = Environment.TickCount + 1000;
@@ -60,23 +60,23 @@ class Tie
         Program.Leave();
     }
 
-    private static void Digitalizador()
+    private static void Scanner()
     {
-        // Contagem para a renderização da referência do último texto
-        if (Digitalizador_Contagem < Environment.TickCount)
+        // Contagem para a renderização da referência do último Text
+        if (Scanner_Contagem < Environment.TickCount)
         {
-            Digitalizador_Contagem = Environment.TickCount + 500;
+            Scanner_Contagem = Environment.TickCount + 500;
             Scanners.Sinal = !Scanners.Sinal;
 
-            // Se necessário foca o digitalizador de novo
+            // Se necessário foca o Scanner de novo
             Scanners.Focalizar();
         }
 
         // Chat
-        if (Tools.Linhas_Visível && !Panels.Encontrar("Chat").General.Visível)
+        if (Tools.Lines_Visible && !Panels.Locate("Chat").General.Visible)
         {
             if (Chat_Contagem < Environment.TickCount)
-                Tools.Linhas_Visível = false;
+                Tools.Lines_Visible = false;
         }
         else
             Chat_Contagem = Chat_Contagem = Environment.TickCount + 10000;

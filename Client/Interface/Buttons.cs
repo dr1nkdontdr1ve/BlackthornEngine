@@ -6,37 +6,37 @@ public class Buttons
     // Aramazenamento de Data da ferramenta
     public static Structure[] List = new Structure[1];
 
-    // Estrutura das ferramentas
+    // Structure das Tools
     public class Structure
     {
         public byte Texture;
-        public Estados Estado;
-        public Tools.General Geral;
+        public States State;
+        public Tools.General General;
     }
 
     // Button states
-    public enum Estados
+    public enum States
     {
         Normal,
-        Clique,
-        Sobrepor,
+        Click,
+        Overlap,
     }
 
-    public static byte EncontrarIndex(string Name)
+    public static byte LocateIndex(string Name)
     {
-        // Lista os Names das ferramentas
+        // List os Names das Tools
         for (byte i = 1; i <= List.GetUpperBound(0); i++)
-            if (List[i].Geral.Name == Name)
+            if (List[i].General.Name == Name)
                 return i;
 
         return 0;
     }
 
-    public static Structure Encontrar(string Name)
+    public static Structure Locate(string Name)
     {
-        // Lista os Names das ferramentas
+        // List os Names das Tools
         for (byte i = 1; i <= List.GetUpperBound(0); i++)
-            if (List[i].Geral.Name == Name)
+            if (List[i].General.Name == Name)
                 return List[i];
 
         return null;
@@ -46,290 +46,290 @@ public class Buttons
     {
         public static void MouseUp(MouseEventArgs e, byte Index)
         {
-            SFML.Graphics.Texture Texture = Gráficos.Tex_Botão[List[Index].Texture];
+            SFML.Graphics.Texture Texture = Graphics.Tex_Button[List[Index].Texture];
 
             // Somente se necessário
-            if (!List[Index].Geral.Habilitado) return;
-            if (!Tools.EstáSobrepondo(new Rectangle(List[Index].Geral.Posição, Gráficos.TTamanho(Texture)))) return;
+            if (!List[Index].General.Habilitado) return;
+            if (!Tools.EstáOverlapping(new Rectangle(List[Index].General.Position, Graphics.MySize(Texture)))) return;
 
-            // Altera o estado do botão
-            Áudio.Som.Reproduzir(Áudio.Sons.Clique);
-            List[Index].Estado = Estados.Sobrepor;
+            // Altera o State do Button
+            Audio.Som.Reproduce(Audio.Sons.Click);
+            List[Index].State = States.Overlap;
 
             // Executa o evento
-            Executar(List[Index].Geral.Name);
+            Run(List[Index].General.Name);
         }
 
         public static void MouseDown(MouseEventArgs e, byte Index)
         {
-            SFML.Graphics.Texture Texture = Gráficos.Tex_Botão[List[Index].Texture];
+            SFML.Graphics.Texture Texture = Graphics.Tex_Button[List[Index].Texture];
 
             // Somente se necessário
             if (e.Button == MouseButtons.Right) return;
-            if (!List[Index].Geral.Habilitado) return;
+            if (!List[Index].General.Habilitado) return;
 
-            // Se o mouse não estiver sobre a ferramenta, então não executar o evento
-            if (!Tools.EstáSobrepondo(new Rectangle(List[Index].Geral.Posição, Gráficos.TTamanho(Texture))))
+            // Se o mouse não estiver sobre a ferramenta, então não Run o evento
+            if (!Tools.EstáOverlapping(new Rectangle(List[Index].General.Position, Graphics.MySize(Texture))))
                 return;
 
-            // Altera o estado do botão
-            List[Index].Estado = Estados.Clique;
+            // Altera o State do Button
+            List[Index].State = States.Click;
         }
 
         public static void MouseMove(MouseEventArgs e, byte i)
         {
-            SFML.Graphics.Texture Texture = Gráficos.Tex_Botão[List[i].Texture];
+            SFML.Graphics.Texture Texture = Graphics.Tex_Button[List[i].Texture];
 
             // Somente se necessário
             if (e.Button == MouseButtons.Right) return;
-            if (!List[i].Geral.Habilitado) return;
+            if (!List[i].General.Habilitado) return;
 
-            // Se o mouse não estiver sobre a ferramenta, então não executar o evento
-            if (!Tools.EstáSobrepondo(new Rectangle(List[i].Geral.Posição, Gráficos.TTamanho(Texture))))
+            // Se o mouse não estiver sobre a ferramenta, então não Run o evento
+            if (!Tools.EstáOverlapping(new Rectangle(List[i].General.Position, Graphics.MySize(Texture))))
             {
-                List[i].Estado = Estados.Normal;
+                List[i].State = States.Normal;
                 return;
             }
 
-            // Se o botão já estiver no estado normal, isso não é necessário
-            if (List[i].Estado != Estados.Normal)
+            // Se o Button já estiver no State normal, isso não é necessário
+            if (List[i].State != States.Normal)
                 return;
 
-            // Altera o estado do botão
-            List[i].Estado = Estados.Sobrepor;
-            Áudio.Som.Reproduzir(Áudio.Sons.Sobrepor);
+            // Altera o State do Button
+            List[i].State = States.Overlap;
+            Audio.Som.Reproduce(Audio.Sons.Overlap);
         }
 
-        public static void Executar(string Name)
+        public static void Run(string Name)
         {
-            // Executa o evento do botão
+            // Executa o evento do Button
             switch (Name)
             {
-                case "Conectar": Conectar(); break;
-                case "Registrar": Registrar(); break;
-                case "Opções": Opções(); break;
-                case "Opções_Retornar": Menu_Retornar(); break;
-                case "Conectar_Pronto": Conectar_Pronto(); break;
-                case "Registrar_Pronto": Registrar_Pronto(); break;
-                case "CriarCharacter": CriarCharacter(); break;
-                case "CriarCharacter_TrocarDireita": CriarCharacter_TrocarDireita(); break;
-                case "CriarCharacter_TrocarEsquerda": CriarCharacter_TrocarEsquerda(); break;
-                case "CriarCharacter_Retornar": CriarCharacter_Retornar(); break;
-                case "Character_Usar": Character_Usar(); break;
-                case "Character_Criar": Character_Criar(); break;
-                case "Character_Deletar": Character_Deletar(); break;
-                case "Character_TrocarDireita": Character_TrocarDireita(); break;
-                case "Character_TrocarEsquerda": Character_TrocarEsquerda(); break;
-                case "Chat_Subir": Chat_Subir(); break;
-                case "Chat_Descer": Chat_Descer(); break;
+                case "Connect": Connect(); break;
+                case "Register": Register(); break;
+                case "Options": Options(); break;
+                case "Options_Retornar": Menu_Retornar(); break;
+                case "Connect_Ready": Connect_Ready(); break;
+                case "Register_Ready": Register_Ready(); break;
+                case "CreateCharacter": CreateCharacter(); break;
+                case "CreateCharacter_ExchangeRight": CreateCharacter_ExchangeRight(); break;
+                case "CreateCharacter_ExchangeLeft": CreateCharacter_ExchangeLeft(); break;
+                case "CreateCharacter_Retornar": CreateCharacter_Retornar(); break;
+                case "Character_Use": Character_Use(); break;
+                case "Character_Create": Character_Create(); break;
+                case "Character_Delete": Character_Delete(); break;
+                case "Character_ExchangeRight": Character_ExchangeRight(); break;
+                case "Character_ExchangeLeft": Character_ExchangeLeft(); break;
+                case "Chat_Up": Chat_Up(); break;
+                case "Chat_Down": Chat_Down(); break;
                 case "Menu_Character": Menu_Character(); break;
-                case "Atributos_Força": Atributos_Força(); break;
-                case "Atributos_Resistência": Atributos_Resistência(); break;
-                case "Atributos_Inteligência": Atributos_Inteligência(); break;
-                case "Atributos_Agilidade": Atributos_Agilidade(); break;
-                case "Atributos_Vitalidade": Atributos_Vitalidade(); break;
+                case "Attributes_Force": Attributes_Force(); break;
+                case "Attributes_Resistence": Attributes_Resistence(); break;
+                case "Attributes_Intelligence": Attributes_Intelligence(); break;
+                case "Attributes_Agility": Attributes_Agility(); break;
+                case "Attributes_Vitality": Attributes_Vitality(); break;
                 case "Menu_Inventory": Menu_Inventory(); break;
             }
         }
 
-        public static void Mudar_Personagens_Botões()
+        public static void Change_Characters_Buttons()
         {
             bool Visibilidade = false;
 
-            // Verifica apenas se o painel for visível
-            if (!Panels.Encontrar("SelecionarCharacter").General.Visível)
+            // Verifica apenas se o Panel for Visible
+            if (!Panels.Locate("SelectCharacter").General.Visible)
                 return;
 
-            if (Lists.Personagens[Game.SelecionarCharacter].Classe != 0)
+            if (Lists.Characters[Game.SelectCharacter].Classe != 0)
                 Visibilidade = true;
 
-            // Altera os botões visíveis
-            Encontrar("Character_Criar").Geral.Visível = !Visibilidade;
-            Encontrar("Character_Deletar").Geral.Visível = Visibilidade;
-            Encontrar("Character_Usar").Geral.Visível = Visibilidade;
+            // Altera os Buttons visíveis
+            Locate("Character_Create").General.Visible = !Visibilidade;
+            Locate("Character_Delete").General.Visible = Visibilidade;
+            Locate("Character_Use").General.Visible = Visibilidade;
         }
 
-        public static void Conectar()
+        public static void Connect()
         {
             // Termina a conexão
-            Network.Desconectar();
+            Network.Disconnect();
 
-            // Abre o painel
-            Panels.Menu_Fechar();
-            Panels.Encontrar("Conectar").General.Visível = true;
+            // Abre o Panel
+            Panels.Menu_Close();
+            Panels.Locate("Connect").General.Visible = true;
         }
 
-        public static void Registrar()
+        public static void Register()
         {
             // Termina a conexão
-            Network.Desconectar();
+            Network.Disconnect();
 
-            // Abre o painel
-            Panels.Menu_Fechar();
-            Panels.Encontrar("Registrar").General.Visível = true;
+            // Abre o Panel
+            Panels.Menu_Close();
+            Panels.Locate("Register").General.Visible = true;
         }
 
-        public static void Opções()
+        public static void Options()
         {
             // Termina a conexão
-            Network.Desconectar();
+            Network.Disconnect();
 
-            // Abre o painel
-            Panels.Menu_Fechar();
-            Panels.Encontrar("Opções").General.Visível = true;
+            // Abre o Panel
+            Panels.Menu_Close();
+            Panels.Locate("Options").General.Visible = true;
         }
 
         public static void Menu_Retornar()
         {
             // Termina a conexão
-            Network.Desconectar();
+            Network.Disconnect();
 
-            // Abre o painel
-            Panels.Menu_Fechar();
-            Panels.Encontrar("Conectar").General.Visível = true;
+            // Abre o Panel
+            Panels.Menu_Close();
+            Panels.Locate("Connect").General.Visible = true;
         }
 
-        public static void Conectar_Pronto()
+        public static void Connect_Ready()
         {
             // Saves the user name
-            Lists.Opções.Usuário = Scanners.Encontrar("Conectar_Usuário").Texto;
-            Escrever.Opções();
+            Lists.Options.User = Scanners.Locate("Connect_User").Text;
+            Write.Options();
 
             // Connect with Game
-            Game.DefinirSituação(Game.Situações.Conectar);
+            Game.SetLocation(Game.Situations.Connect);
         }
 
-        public static void Registrar_Pronto()
+        public static void Register_Ready()
         {
             // Regras de segurança
-            if (Scanners.Encontrar("Registrar_Senha").Texto != Scanners.Encontrar("Registrar_RepetirSenha").Texto)
+            if (Scanners.Locate("Register_Senha").Text != Scanners.Locate("Register_RepetirSenha").Text)
             {
                 MessageBox.Show("The passwords you entered are not the same.");
                 return;
             }
 
-            // Registra o Player, se estiver tudo certo
-            Game.DefinirSituação(Game.Situações.Registrar);
+            // Registra o Player, se estiver All certo
+            Game.SetLocation(Game.Situations.Register);
         }
 
-        public static void CriarCharacter()
+        public static void CreateCharacter()
         {
             // Abre a criação de Character
-            Game.DefinirSituação(Game.Situações.CriarCharacter);
+            Game.SetLocation(Game.Situations.CreateCharacter);
         }
 
-        public static void CriarCharacter_TrocarDireita()
+        public static void CreateCharacter_ExchangeRight()
         {
             // Altera a classe selecionada pelo Player
-            if (Game.CriarCharacter_Classe == Lists.Classe.GetUpperBound(0))
-                Game.CriarCharacter_Classe = 1;
+            if (Game.CreateCharacter_Classe == Lists.Classe.GetUpperBound(0))
+                Game.CreateCharacter_Classe = 1;
             else
-                Game.CriarCharacter_Classe += 1;
+                Game.CreateCharacter_Classe += 1;
         }
 
-        public static void CriarCharacter_TrocarEsquerda()
+        public static void CreateCharacter_ExchangeLeft()
         {
             // Altera a classe selecionada pelo Player
-            if (Game.CriarCharacter_Classe == 1)
-                Game.CriarCharacter_Classe = (byte)Lists.Classe.GetUpperBound(0);
+            if (Game.CreateCharacter_Classe == 1)
+                Game.CreateCharacter_Classe = (byte)Lists.Classe.GetUpperBound(0);
             else
-                Game.CriarCharacter_Classe -= 1;
+                Game.CreateCharacter_Classe -= 1;
         }
 
-        public static void CriarCharacter_Retornar()
+        public static void CreateCharacter_Retornar()
         {
-            // Abre o painel de personagens
-            Panels.Menu_Fechar();
-            Panels.Encontrar("SelecionarCharacter").General.Visível = true;
+            // Abre o Panel de Characters
+            Panels.Menu_Close();
+            Panels.Locate("SelectCharacter").General.Visible = true;
         }
 
-        public static void Character_Usar()
+        public static void Character_Use()
         {
             // Usa o Character selecionado
-            Sending.Character_Usar();
+            Sending.Character_Use();
         }
 
-        public static void Character_Deletar()
+        public static void Character_Delete()
         {
             // Deleta o Character selecionado
-            Sending.Character_Deletar();
+            Sending.Character_Delete();
         }
 
-        public static void Character_Criar()
+        public static void Character_Create()
         {
             // Abre a criação de Character
-            Sending.Character_Criar();
+            Sending.Character_Create();
         }
 
-        public static void Character_TrocarDireita()
+        public static void Character_ExchangeRight()
         {
             // Altera o Character selecionado pelo Player
-            if (Game.SelecionarCharacter == Lists.Servidor_Data.Max_Personagens)
-                Game.SelecionarCharacter = 1;
+            if (Game.SelectCharacter == Lists.Server_Data.Max_Characters)
+                Game.SelectCharacter = 1;
             else
-                Game.SelecionarCharacter += 1;
+                Game.SelectCharacter += 1;
         }
 
-        public static void Character_TrocarEsquerda()
+        public static void Character_ExchangeLeft()
         {
             // Altera o Character selecionado pelo Player
-            if (Game.SelecionarCharacter == 1)
-                Game.SelecionarCharacter = Lists.Servidor_Data.Max_Personagens;
+            if (Game.SelectCharacter == 1)
+                Game.SelectCharacter = Lists.Server_Data.Max_Characters;
             else
-                Game.SelecionarCharacter -= 1;
+                Game.SelectCharacter -= 1;
         }
 
-        public static void Chat_Subir()
+        public static void Chat_Up()
         {
-            // Sobe as linhas do chat
-            if (Tools.Linha > 0)
-                Tools.Linha -= 1;
+            // Sobe as Lines do chat
+            if (Tools.Line > 0)
+                Tools.Line -= 1;
         }
 
-        public static void Chat_Descer()
+        public static void Chat_Down()
         {
-            // Sobe as linhas do chat
-            if (Tools.Chat.Count - 1 - Tools.Linha - Tools.Linhas_Visíveis > 0)
-                Tools.Linha += 1;
+            // Sobe as Lines do chat
+            if (Tools.Chat.Count - 1 - Tools.Line - Tools.Lines_Visíveis > 0)
+                Tools.Line += 1;
         }
 
         public static void Menu_Character()
         {
-            // Altera a visibilidade do painel e fecha os outros
-            Panels.Encontrar("Menu_Character").General.Visível = !Panels.Encontrar("Menu_Character").General.Visível;
-            Panels.Encontrar("Menu_Inventory").General.Visível = false;
+            // Altera a visibilidade do Panel e fecha os outros
+            Panels.Locate("Menu_Character").General.Visible = !Panels.Locate("Menu_Character").General.Visible;
+            Panels.Locate("Menu_Inventory").General.Visible = false;
         }
 
-        public static void Atributos_Força()
+        public static void Attributes_Force()
         {
-            Sending.AdicionarPonto(Game.Atributos.Força);
+            Sending.AddPoints(Game.Attributes.Force);
         }
 
-        public static void Atributos_Resistência()
+        public static void Attributes_Resistence()
         {
-            Sending.AdicionarPonto(Game.Atributos.Resistência);
+            Sending.AddPoints(Game.Attributes.Resistence);
         }
 
-        public static void Atributos_Inteligência()
+        public static void Attributes_Intelligence()
         {
-            Sending.AdicionarPonto(Game.Atributos.Inteligência);
+            Sending.AddPoints(Game.Attributes.Intelligence);
         }
 
-        public static void Atributos_Agilidade()
+        public static void Attributes_Agility()
         {
-            Sending.AdicionarPonto(Game.Atributos.Agilidade);
+            Sending.AddPoints(Game.Attributes.Agility);
         }
 
-        public static void Atributos_Vitalidade()
+        public static void Attributes_Vitality()
         {
-            Sending.AdicionarPonto(Game.Atributos.Vitalidade);
+            Sending.AddPoints(Game.Attributes.Vitality);
         }
 
         public static void Menu_Inventory()
         {
-            // Altera a visibilidade do painel e fecha os outros
-            Panels.Encontrar("Menu_Inventory").General.Visível = !Panels.Encontrar("Menu_Inventory").General.Visível;
-            Panels.Encontrar("Menu_Character").General.Visível = false;
+            // Altera a visibilidade do Panel e fecha os outros
+            Panels.Locate("Menu_Inventory").General.Visible = !Panels.Locate("Menu_Inventory").General.Visible;
+            Panels.Locate("Menu_Character").General.Visible = false;
         }
     }
 }

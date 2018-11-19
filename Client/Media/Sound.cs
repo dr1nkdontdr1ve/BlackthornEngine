@@ -1,13 +1,13 @@
 ﻿using System;
 using SFML.Audio;
 
-class Sound
+class Audio
 {
-    // Lista dos sons
+    // List of sounds
     public enum Sons
     {
-        Clique = 1,
-        Sobrepor,
+        Click = 1,
+        Overlap,
         Chuva,
         Trovão_1,
         Trovão_2,
@@ -15,8 +15,7 @@ class Sound
         Trovão_4,
         Amount
     }
-
-    // Lists das músicas
+// Lists of Musics
     public enum Músicas
     {
         Menu = 1,
@@ -25,65 +24,65 @@ class Sound
 
     public class Som
     {
-        // Formato em o Device irá ler os sons
-        public const string Formato = ".wav";
+        // Format in the Device will read the sounds
+        public const string Format = ".wav";
 
-        // Device sonoro
-        public static Sound[] Lista;
+        // Sound device
+        public static Sound[] List;
 
-        public static void Ler()
+        public static void Read()
         {
-            // Redimensiona a lista
-            Array.Resize(ref Lista, (byte)Sons.Amount);
+            // Resize the List
+            Array.Resize(ref List, (byte)Sons.Amount);
 
-            // Carrega todos os arquivos e os adiciona a lista
-               for (int i = 1; i <= Lista.GetUpperBound(0); i++)
-             Lista[i] = new Sound(new SoundBuffer(Diretórios.Sons.FullName + i + Formato));
+            // Loads all files and adds them to List
+               for (int i = 1; i <= List.GetUpperBound(0); i++)
+             List[i] = new Sound(new SoundBuffer(Directories.Sons.FullName + i + Format));
         }
 
-        public static void Reproduzir(Sons Index, bool Laço = false)
+        public static void Reproduce(Sons Index, bool Laço = false)
         {
             // Apenas se necessário
-            if (!Lists.Opções.Sons) return;
+            if (!Lists.Options.Sons) return;
 
-            // Reproduz o áudio
-            Lista[(byte)Index].Volume = 20;
-            Lista[(byte)Index].Loop = Laço;
-            Lista[(byte)Index].Play();
+            // Reproduz o Sound
+            List[(byte)Index].Volume = 20;
+            List[(byte)Index].Loop = Laço;
+            List[(byte)Index].Play();
         }
 
-        public static void Parar_Tudo()
+        public static void Stop_All()
         {
             // Apenas se necessário
-            if (Lista == null) return;
+            if (List == null) return;
 
             // Para todos os sons
             for (byte i = 1; i <= (byte)Sons.Amount - 1; i++)
-                Lista[i].Stop();
+                List[i].Stop();
         }
     }
 
     public class Música
     {
-        // Formato em o Device irá ler as músicas
-        public const string Formato = ".ogg";
+        // Format in the Device will read the Musics
+        public const string Format = ".ogg";
 
-        // Lista das músicas
+        // List of Musics
         public static Music Reprodutor;
 
-        // Index da música reproduzida atualmente
+        //Index of Music currently played
         public static byte Atual;
 
-        public static void Reproduzir(Músicas Index, bool Laço = false)
+        public static void Reproduce(Músicas Index, bool Laço = false)
         {
-            string Diretório = Diretórios.Músicas.FullName + (byte)Index + Formato;
+            string Diretório = Directories.Músicas.FullName + (byte)Index + Format;
 
-            // Apenas se necessário
+            // Only if necessary
             if (Reprodutor != null) return;
-            if (!Lists.Opções.Músicas) return;
+            if (!Lists.Options.Músicas) return;
 
-            // Carrega o áudio
-            Reprodutor = new Music(Diretórios.Músicas.FullName + (byte)Index + Formato);
+            // Load the Sound
+            Reprodutor = new Music(Directories.Músicas.FullName + (byte)Index + Format);
             Reprodutor.Loop = true;
             Reprodutor.Volume = 20;
             Reprodutor.Loop = Laço;
@@ -93,9 +92,9 @@ class Sound
             Atual = (byte)Index;
         }
 
-        public static void Parar()
+        public static void Stop()
         {
-            // Para a música que está tocando
+            // For Music that is playing
             if (Reprodutor != null && Atual != 0)
             {
                 Reprodutor.Stop();

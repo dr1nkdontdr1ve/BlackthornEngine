@@ -1,54 +1,54 @@
 ﻿class Clean
 {
-    public static void Opções()
+    public static void Options()
     {
-        // Defini os Data das opções
-        Lists.Opções.Game_Name = "CryBits";
-        Lists.Opções.SalvarUsuário = true;
-        Lists.Opções.Músicas = true;
-        Lists.Opções.Sons = true;
-        Lists.Opções.Usuário = string.Empty;
+        // Defini os Data das Options
+        Lists.Options.Game_Name = "CryBits";
+        Lists.Options.SaveUser = true;
+        Lists.Options.Músicas = true;
+        Lists.Options.Sons = true;
+        Lists.Options.User = string.Empty;
 
         // Salva o que foi modificado
-        Escrever.Opções();
+        Write.Options();
     }
 
-    public static void Botão(int Index)
+    public static void Button(int Index)
     {
-        // Limpa a estrutura
-        Botões.Lista[Index] = new Botões.Estrutura();
-        Botões.Lista[Index].Geral = new Ferramentas.Geral();
+        // Limpa a Structure
+        Buttons.List[Index] = new Buttons.Structure();
+        Buttons.List[Index].General = new Tools.General();
     }
 
-    public static void Digitalizador(int Index)
+    public static void Scanner(int Index)
     {
-        // Limpa a estrutura
-        Digitalizadores.Lista[Index] = new Digitalizadores.Estrutura();
-        Digitalizadores.Lista[Index].Geral = new Ferramentas.Geral();
+        // Limpa a Structure
+        Scanners.List[Index] = new Scanners.Structure();
+        Scanners.List[Index].General = new Tools.General();
     }
 
-    public static void Painel(int Index)
+    public static void Panel(int Index)
     {
-        // Limpa a estrutura
-        Paineis.Lista[Index] = new Paineis.Estrutura();
-        Paineis.Lista[Index].Geral = new Ferramentas.Geral();
+        // Limpa a Structure
+        Panels.List[Index] = new Panels.Structure();
+        Panels.List[Index].General = new Tools.General();
     }
 
-    public static void Marcador(int Index)
+    public static void Marker(int Index)
     {
-        // Limpa a estrutura
-        Marcadores.Lista[Index] = new Marcadores.Estrutura();
-        Marcadores.Lista[Index].Geral = new Ferramentas.Geral();
+        // Limpa a Structure
+        Markers.List[Index] = new Markers.Structure();
+        Markers.List[Index].General = new Tools.General();
     }
 
     public static void Player(byte Index)
     {
-        // Limpa a estrutura
+        // Limpa a Structure
         Lists.Player[Index] = new Lists.Structures.Player();
         Lists.Player[Index].Vital = new short[(byte)Game.Vital.Amount];
         Lists.Player[Index].Max_Vital = new short[(byte)Game.Vital.Amount];
-        Lists.Player[Index].Atributo = new short[(byte)Game.Atributos.Amount];
-        Lists.Player[Index].Equipamento = new short[(byte)Game.Equipamentos.Amount];
+        Lists.Player[Index].Attribute = new short[(byte)Game.Attributes.Amount];
+        Lists.Player[Index].Equipment = new short[(byte)Game.Equipments.Amount];
 
         // Reseta os valores
         Lists.Player[Index].Name = string.Empty;

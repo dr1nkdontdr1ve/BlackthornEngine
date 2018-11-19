@@ -9,21 +9,21 @@ class Program
 
     public static void Main()
     {
-        // Verifica se todos os diretórios existem, se não existirem então criá-los
+        // Verifica se todos os Directories existem, se não existirem então criá-los
         Directories.Create();
 
         // Carrega todos os Data
         Read.Data();
 
         // Inicializa todos os Devices
-        Gráficos.LerTextures();
-        Áudio.Som.Ler();
-        Network.Iniciar();
+        Graphics.LerTextures();
+        Audio.Som.Read();
+        Network.Start();
 
-        // Abre a janela
-        Window.Objects.Text = Lists.Opções.Game_Name;
+        // Abre a Window
+        Window.Objects.Text = Lists.Options.Game_Name;
         Window.Objects.Visible = true;
-        Game.AbrirMenu();
+        Game.OpenMenu();
 
         // Inicia a aplicação
         Tie.Principal();
@@ -34,10 +34,10 @@ class Program
         int Espera = Environment.TickCount;
 
         // Elimina todos os Devices que estão sendo usados
-        Network.Desconectar();
+        Network.Disconnect();
 
         // Espera até que o Player seja desconectado
-        while (Network.EstáConectado())
+        while (Network.IsConnected())
             Application.DoEvents();
 
         // Fecha a aplicação

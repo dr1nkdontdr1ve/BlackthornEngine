@@ -3,152 +3,152 @@ using Lidgren.Network;
 
 partial class Sending
 {
-    // Pacotes do cliente
-    public enum Pacotes
+    // Packages do cliente
+    public enum Packages
     {
-        Latência,
-        Conectar,
-        Registrar,
-        CriarCharacter,
-        Character_Usar,
-        Character_Criar,
-        Character_Deletar,
+        Latency,
+        Connect,
+        Register,
+        CreateCharacter,
+        Character_Use,
+        Character_Create,
+        Character_Delete,
         Player_Direction,
-        Player_Mover,
-        Solicitar_Map,
-        Mensagem,
-        Player_Atacar,
-        AdicionarPonto,
-        ColetarItem,
+        Player_Move,
+        Request_Map,
+        Message,
+        Player_Attack,
+        AddPoints,
+        CollectItem,
         SoltarItem,
-        Inventory_Mudar,
-        Inventory_Usar,
-        Equipamento_Remover,
-        Hotbar_Adicionar,
-        Hotbar_Mudar,
-        Hotbar_Usar
+        Inventory_Change,
+        Inventory_Use,
+        Equipment_Remove,
+        Hotbar_Add,
+        Hotbar_Change,
+        Hotbar_Use
     }
 
-    public static void Pacote(NetOutgoingMessage Data)
+    public static void Package(NetOutgoingMessage Data)
     {
         // Envia os Data ao servidor
         Network.Device.SendMessage(Data, NetDeliveryMethod.ReliableOrdered);
     }
 
-    public static void Conectar()
+    public static void Connect()
     {
         NetOutgoingMessage Data = Network.Device.CreateMessage();
 
         // Envia os Data
-        Data.Write((byte)Pacotes.Conectar);
-        Data.Write(Digitalizadores.Encontrar("Conectar_Usuário").Texto);
-        Data.Write(Digitalizadores.Encontrar("Conectar_Senha").Texto);
-        Pacote(Data);
+        Data.Write((byte)Packages.Connect);
+        Data.Write(Scanners.Locate("Connect_User").Text);
+        Data.Write(Scanners.Locate("Connect_Senha").Text);
+        Package(Data);
     }
 
-    public static void Registrar()
+    public static void Register()
     {
         NetOutgoingMessage Data = Network.Device.CreateMessage();
 
         // Envia os Data
-        Data.Write((byte)Pacotes.Registrar);
-        Data.Write(Digitalizadores.Encontrar("Registrar_Usuário").Texto);
-        Data.Write(Digitalizadores.Encontrar("Registrar_Senha").Texto);
-        Pacote(Data);
+        Data.Write((byte)Packages.Register);
+        Data.Write(Scanners.Locate("Register_User").Text);
+        Data.Write(Scanners.Locate("Register_Senha").Text);
+        Package(Data);
     }
 
-    public static void CriarCharacter()
+    public static void CreateCharacter()
     {
         NetOutgoingMessage Data = Network.Device.CreateMessage();
 
         // Envia os Data
-        Data.Write((byte)Pacotes.CriarCharacter);
-        Data.Write(Digitalizadores.Encontrar("CriarCharacter_Name").Texto);
-        Data.Write(Game.CriarCharacter_Classe);
-        Data.Write(Marcadores.Encontrar("GêneroMasculino").Estado);
-        Pacote(Data);
+        Data.Write((byte)Packages.CreateCharacter);
+        Data.Write(Scanners.Locate("CreateCharacter_Name").Text);
+        Data.Write(Game.CreateCharacter_Classe);
+        Data.Write(Markers.Locate("GenreMasculino").State);
+        Package(Data);
     }
 
-    public static void Character_Usar()
+    public static void Character_Use()
     {
         NetOutgoingMessage Data = Network.Device.CreateMessage();
 
         // Envia os Data
-        Data.Write((byte)Pacotes.Character_Usar);
-        Data.Write(Game.SelecionarCharacter);
-        Pacote(Data);
+        Data.Write((byte)Packages.Character_Use);
+        Data.Write(Game.SelectCharacter);
+        Package(Data);
     }
 
-    public static void Character_Criar()
+    public static void Character_Create()
     {
         NetOutgoingMessage Data = Network.Device.CreateMessage();
 
         // Envia os Data
-        Data.Write((byte)Pacotes.Character_Criar);
-        Pacote(Data);
+        Data.Write((byte)Packages.Character_Create);
+        Package(Data);
     }
 
-    public static void Character_Deletar()
+    public static void Character_Delete()
     {
         NetOutgoingMessage Data = Network.Device.CreateMessage();
 
         // Envia os Data
-        Data.Write((byte)Pacotes.Character_Deletar);
-        Data.Write(Game.SelecionarCharacter);
-        Pacote(Data);
+        Data.Write((byte)Packages.Character_Delete);
+        Data.Write(Game.SelectCharacter);
+        Package(Data);
     }
 
-    public static void Solicitar_Map(bool Necessário)
+    public static void Request_Map(bool Necessário)
     {
         NetOutgoingMessage Data = Network.Device.CreateMessage();
 
         // Envia os Data
-        Data.Write((byte)Pacotes.Solicitar_Map);
+        Data.Write((byte)Packages.Request_Map);
         Data.Write(Necessário);
-        Pacote(Data);
+        Package(Data);
     }
 
-    public static void Latência()
+    public static void Latency()
     {
         NetOutgoingMessage Data = Network.Device.CreateMessage();
 
         // Envia os Data
-        Data.Write((byte)Pacotes.Latência);
-        Pacote(Data);
+        Data.Write((byte)Packages.Latency);
+        Package(Data);
 
         // Define a contaem na hora do envio
-        Game.Latência_Envio = Environment.TickCount;
+        Game.Latency_Envio = Environment.TickCount;
     }
 
-    public static void Mensagem(string Mensagem, Game.Mensagens Type, string Dado = "")
+    public static void Message(string Message, Game.Mensagens Type, string Dado = "")
     {
         NetOutgoingMessage Data = Network.Device.CreateMessage();
 
         // Envia os Data
-        Data.Write((byte)Pacotes.Mensagem);
-        Data.Write(Mensagem);
+        Data.Write((byte)Packages.Message);
+        Data.Write(Message);
         Data.Write((byte)Type);
         Data.Write(Dado);
-        Pacote(Data);
+        Package(Data);
     }
 
-    public static void AdicionarPonto(Game.Atributos Atributo)
+    public static void AddPoints(Game.Attributes Attribute)
     {
         NetOutgoingMessage Data = Network.Device.CreateMessage();
 
         // Envia os Data
-        Data.Write((byte)Pacotes.AdicionarPonto);
-        Data.Write((byte)Atributo);
-        Pacote(Data);
+        Data.Write((byte)Packages.AddPoints);
+        Data.Write((byte)Attribute);
+        Package(Data);
     }
 
-    public static void ColetarItem()
+    public static void CollectItem()
     {
         NetOutgoingMessage Data = Network.Device.CreateMessage();
 
         // Envia os Data
-        Data.Write((byte)Pacotes.ColetarItem);
-        Pacote(Data);
+        Data.Write((byte)Packages.CollectItem);
+        Package(Data);
     }
 
     public static void SoltarItem(byte Slot)
@@ -156,72 +156,72 @@ partial class Sending
         NetOutgoingMessage Data = Network.Device.CreateMessage();
 
         // Envia os Data
-        Data.Write((byte)Pacotes.SoltarItem);
+        Data.Write((byte)Packages.SoltarItem);
         Data.Write(Slot);
-        Pacote(Data);
+        Package(Data);
     }
 
-    public static void Inventory_Mudar(byte Antigo, byte Novo)
+    public static void Inventory_Change(byte Antigo, byte Novo)
     {
         NetOutgoingMessage Data = Network.Device.CreateMessage();
 
         // Envia os Data
-        Data.Write((byte)Pacotes.Inventory_Mudar);
+        Data.Write((byte)Packages.Inventory_Change);
         Data.Write(Antigo);
         Data.Write(Novo);
-        Pacote(Data);
+        Package(Data);
     }
 
-    public static void Inventory_Usar(byte Slot)
+    public static void Inventory_Use(byte Slot)
     {
         NetOutgoingMessage Data = Network.Device.CreateMessage();
 
         // Envia os Data
-        Data.Write((byte)Pacotes.Inventory_Usar);
+        Data.Write((byte)Packages.Inventory_Use);
         Data.Write(Slot);
-        Pacote(Data);
+        Package(Data);
     }
 
-    public static void Equipamento_Remover(byte Slot)
+    public static void Equipment_Remove(byte Slot)
     {
         NetOutgoingMessage Data = Network.Device.CreateMessage();
 
         // Envia os Data
-        Data.Write((byte)Pacotes.Equipamento_Remover);
+        Data.Write((byte)Packages.Equipment_Remove);
         Data.Write(Slot);
-        Pacote(Data);
+        Package(Data);
     }
 
-    public static void Hotbar_Adicionar(byte Hotbar_Slot, byte Type, byte Slot)
+    public static void Hotbar_Add(byte Hotbar_Slot, byte Type, byte Slot)
     {
         NetOutgoingMessage Data = Network.Device.CreateMessage();
 
         // Envia os Data
-        Data.Write((byte)Pacotes.Hotbar_Adicionar);
+        Data.Write((byte)Packages.Hotbar_Add);
         Data.Write(Hotbar_Slot);
         Data.Write(Type);
         Data.Write(Slot);
-        Pacote(Data);
+        Package(Data);
     }
 
-    public static void Hotbar_Mudar(byte Antigo, byte Novo)
+    public static void Hotbar_Change(byte Antigo, byte Novo)
     {
         NetOutgoingMessage Data = Network.Device.CreateMessage();
 
         // Envia os Data
-        Data.Write((byte)Pacotes.Hotbar_Mudar);
+        Data.Write((byte)Packages.Hotbar_Change);
         Data.Write(Antigo);
         Data.Write(Novo);
-        Pacote(Data);
+        Package(Data);
     }
 
-    public static void Hotbar_Usar(byte Slot)
+    public static void Hotbar_Use(byte Slot)
     {
         NetOutgoingMessage Data = Network.Device.CreateMessage();
 
         // Envia os Data
-        Data.Write((byte)Pacotes.Hotbar_Usar);
+        Data.Write((byte)Packages.Hotbar_Use);
         Data.Write(Slot);
-        Pacote(Data);
+        Package(Data);
     }
 }
