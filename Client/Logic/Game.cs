@@ -2,7 +2,7 @@
 using System.Drawing;
 using System.Windows.Forms;
 
-public class Game
+public class Jogo
 {
     // Números aleatórios
     public static Random Aleatório = new Random();
@@ -10,7 +10,7 @@ public class Game
     // Dimension of grids
     public const byte Grade = 32;
 
-    // Game Delay Calculation Measure
+    // Jogo Delay Calculation Measure
     public static short FPS;
 
     // Interface
@@ -52,7 +52,7 @@ public class Game
     public const short Screen_Width = (Map.Min_Width + 1) * Grade;
     public const short Screen_Height = (Map.Min_Height + 1) * Grade;
 
-    // Limits in general
+    // Limits in Geral
     public const byte Max_Inventory = 30;
     public const byte Max_Map_Items = 100;
     public const byte Max_Hotbar = 10;
@@ -106,7 +106,7 @@ public class Game
 
     public enum Mensagens
     {
-        Game,
+        Jogo,
         Map,
         Global,
         Particular
@@ -196,7 +196,7 @@ public class Game
     public static void Disconnect()
     {
         // Não Close os Panels se não for necessário
-        if (Panels.Locate("Options").General.Visible || Panels.Locate("Connect").General.Visible || Panels.Locate("Register").General.Visible)
+        if (Panels.Locate("Options").Geral.Visible || Panels.Locate("Connect").Geral.Visible || Panels.Locate("Register").Geral.Visible)
             return;
 
         // Limpa os valores
@@ -206,7 +206,7 @@ public class Game
         // Traz o Player de volta ao menu
         Tools.CurrentWindow = Tools.Windows.Menu;
         Panels.Menu_Close();
-        Panels.Locate("Connect").General.Visible = true;
+        Panels.Locate("Connect").Geral.Visible = true;
     }
 
     public static void Update_Camera()

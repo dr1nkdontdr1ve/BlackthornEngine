@@ -29,7 +29,7 @@ class Tie
             Scanner();
             Map.Logic();
 
-            if (Player.MyIndex > 0 && Tools.CurrentWindow == Tools.Windows.Game)
+            if (Player.MyIndex > 0 && Tools.CurrentWindow == Tools.Windows.Jogo)
                 if (Contagem_30 < Environment.TickCount)
                 {
                     // Logic
@@ -48,7 +48,7 @@ class Tie
             if (Contagem_1000 < Environment.TickCount)
             {
                 Sending.Latency();
-                Game.FPS = FPS;
+                Jogo.FPS = FPS;
                 FPS = 0;
                 Contagem_1000 = Environment.TickCount + 1000;
             }
@@ -56,7 +56,7 @@ class Tie
                 FPS += 1;
         }
 
-        // Close the game
+        // Close the Jogo
         Program.Leave();
     }
 
@@ -73,7 +73,7 @@ class Tie
         }
 
         // Chat
-        if (Tools.Lines_Visible && !Panels.Locate("Chat").General.Visible)
+        if (Tools.Lines_Visible && !Panels.Locate("Chat").Geral.Visible)
         {
             if (Chat_Contagem < Environment.TickCount)
                 Tools.Lines_Visible = false;

@@ -24,8 +24,8 @@ class Read
             BinaryReader Arquivo = new BinaryReader(File.OpenRead(Directories.Options.FullName));
 
             // Load the Data
-            Lists.Options.Game_Name = Arquivo.ReadString();
-            Lists.Options.SaveUser = Arquivo.ReadBoolean();
+            Lists.Options.Jogo_Name = Arquivo.ReadString();
+            Lists.Options.SalvarUsuário = Arquivo.ReadBoolean();
             Lists.Options.Sons = Arquivo.ReadBoolean();
             Lists.Options.Músicas = Arquivo.ReadBoolean();
             Lists.Options.User = Arquivo.ReadString();
@@ -37,8 +37,8 @@ class Read
         // Adds the Data to the cache
         Markers.Locate("Sons").State = Lists.Options.Sons;
         Markers.Locate("Músicas").State = Lists.Options.Músicas;
-        Markers.Locate("SaveUser").State = Lists.Options.SaveUser;
-        if (Lists.Options.SaveUser) Scanners.Locate("Connect_User").Text = Lists.Options.User;
+        Markers.Locate("SalvarUsuário").State = Lists.Options.SalvarUsuário;
+        if (Lists.Options.SalvarUsuário) Scanners.Locate("Conectar_Usuário").Text = Lists.Options.User;
     }
 
     public static void Client_Data()
@@ -75,10 +75,10 @@ class Read
         BinaryReader Binary = new BinaryReader(Arquivo.OpenRead());
 
         // Lê os Data
-        Buttons.List[Index].General.Name = Binary.ReadString();
-        Buttons.List[Index].General.Position.X = Binary.ReadInt32();
-        Buttons.List[Index].General.Position.Y = Binary.ReadInt32();
-        Buttons.List[Index].General.Visible = Binary.ReadBoolean();
+        Buttons.List[Index].Geral.Name = Binary.ReadString();
+        Buttons.List[Index].Geral.Position.X = Binary.ReadInt32();
+        Buttons.List[Index].Geral.Position.Y = Binary.ReadInt32();
+        Buttons.List[Index].Geral.Visible = Binary.ReadBoolean();
         Buttons.List[Index].Texture = Binary.ReadByte();
 
         // Fecha o sistema
@@ -104,10 +104,10 @@ class Read
         BinaryReader Binary = new BinaryReader(Arquivo.OpenRead());
 
         // Lê os Data
-        Scanners.List[Index].General.Name = Binary.ReadString();
-        Scanners.List[Index].General.Position.X = Binary.ReadInt32();
-        Scanners.List[Index].General.Position.Y = Binary.ReadInt32();
-        Scanners.List[Index].General.Visible = Binary.ReadBoolean();
+        Scanners.List[Index].Geral.Name = Binary.ReadString();
+        Scanners.List[Index].Geral.Position.X = Binary.ReadInt32();
+        Scanners.List[Index].Geral.Position.Y = Binary.ReadInt32();
+        Scanners.List[Index].Geral.Visible = Binary.ReadBoolean();
         Scanners.List[Index].Max_Carácteres = Binary.ReadInt16();
         Scanners.List[Index].Width = Binary.ReadInt16();
         Scanners.List[Index].Senha = Binary.ReadBoolean();
@@ -135,10 +135,10 @@ class Read
         BinaryReader Binary = new BinaryReader(Arquivo.OpenRead());
 
         // Carrega os Data
-        Panels.List[Index].General.Name = Binary.ReadString();
-        Panels.List[Index].General.Position.X = Binary.ReadInt32();
-        Panels.List[Index].General.Position.Y = Binary.ReadInt32();
-        Panels.List[Index].General.Visible = Binary.ReadBoolean();
+        Panels.List[Index].Geral.Name = Binary.ReadString();
+        Panels.List[Index].Geral.Position.X = Binary.ReadInt32();
+        Panels.List[Index].Geral.Position.Y = Binary.ReadInt32();
+        Panels.List[Index].Geral.Visible = Binary.ReadBoolean();
         Panels.List[Index].Texture = Binary.ReadByte();
 
         // Fecha o sistema
@@ -164,10 +164,10 @@ class Read
         BinaryReader Binary = new BinaryReader(Arquivo.OpenRead());
 
         // Carrega os Data
-        Markers.List[Index].General.Name = Binary.ReadString();
-        Markers.List[Index].General.Position.X = Binary.ReadInt32();
-        Markers.List[Index].General.Position.Y = Binary.ReadInt32();
-        Markers.List[Index].General.Visible = Binary.ReadBoolean();
+        Markers.List[Index].Geral.Name = Binary.ReadString();
+        Markers.List[Index].Geral.Position.X = Binary.ReadInt32();
+        Markers.List[Index].Geral.Position.Y = Binary.ReadInt32();
+        Markers.List[Index].Geral.Visible = Binary.ReadBoolean();
         Markers.List[Index].Text = Binary.ReadString();
         Markers.List[Index].State = Binary.ReadBoolean();
 
@@ -198,8 +198,8 @@ class Read
         Lists.Map.Smoke.Transparency = Binary.ReadByte();
 
         // Redimensiona as ligações
-        Lists.Map.Ligação = new short[(byte)Game.Location.Amount];
-        for (short i = 0; i <= (short)Game.Location.Amount - 1; i++)
+        Lists.Map.Ligação = new short[(byte)Jogo.Location.Amount];
+        for (short i = 0; i <= (short)Jogo.Location.Amount - 1; i++)
             Lists.Map.Ligação[i] = Binary.ReadInt16();
 
         // Redimensiona os Tiles 
@@ -229,8 +229,8 @@ class Read
             for (byte y = 0; y <= Lists.Map.Height; y++)
             {
                 Lists.Map.Tile[x, y].Attribute = Binary.ReadByte();
-                Lists.Map.Tile[x, y].Block = new bool[(byte)Game.Location.Amount];
-                for (byte i = 0; i <= (byte)Game.Location.Amount - 1; i++)
+                Lists.Map.Tile[x, y].Block = new bool[(byte)Jogo.Location.Amount];
+                for (byte i = 0; i <= (byte)Jogo.Location.Amount - 1; i++)
                     Lists.Map.Tile[x, y].Block[i] = Binary.ReadBoolean();
             }
 

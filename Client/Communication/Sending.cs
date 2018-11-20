@@ -41,7 +41,7 @@ partial class Sending
 
         // Envia os Data
         Data.Write((byte)Packages.Connect);
-        Data.Write(Scanners.Locate("Connect_User").Text);
+        Data.Write(Scanners.Locate("Conectar_Usuário").Text);
         Data.Write(Scanners.Locate("Connect_Senha").Text);
         Package(Data);
     }
@@ -64,7 +64,7 @@ partial class Sending
         // Envia os Data
         Data.Write((byte)Packages.CreateCharacter);
         Data.Write(Scanners.Locate("CreateCharacter_Name").Text);
-        Data.Write(Game.CreateCharacter_Classe);
+        Data.Write(Jogo.CreateCharacter_Classe);
         Data.Write(Markers.Locate("GenreMasculino").State);
         Package(Data);
     }
@@ -75,7 +75,7 @@ partial class Sending
 
         // Envia os Data
         Data.Write((byte)Packages.Character_Use);
-        Data.Write(Game.SelectCharacter);
+        Data.Write(Jogo.SelectCharacter);
         Package(Data);
     }
 
@@ -94,7 +94,7 @@ partial class Sending
 
         // Envia os Data
         Data.Write((byte)Packages.Character_Delete);
-        Data.Write(Game.SelectCharacter);
+        Data.Write(Jogo.SelectCharacter);
         Package(Data);
     }
 
@@ -117,10 +117,10 @@ partial class Sending
         Package(Data);
 
         // Define a contaem na hora do envio
-        Game.Latency_Envio = Environment.TickCount;
+        Jogo.Latency_Envio = Environment.TickCount;
     }
 
-    public static void Message(string Message, Game.Mensagens Type, string Dado = "")
+    public static void Message(string Message, Jogo.Mensagens Type, string Dado = "")
     {
         NetOutgoingMessage Data = Network.Device.CreateMessage();
 
@@ -132,7 +132,7 @@ partial class Sending
         Package(Data);
     }
 
-    public static void AddPoints(Game.Attributes Attribute)
+    public static void AddPoints(Jogo.Attributes Attribute)
     {
         NetOutgoingMessage Data = Network.Device.CreateMessage();
 

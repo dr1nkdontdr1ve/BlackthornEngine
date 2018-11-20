@@ -41,7 +41,7 @@ class Directories
 
     public static void Create()
     {
-        // Cria todos os Directories do Game
+        // Cria todos os Directories do Jogo
         Fontes.Create();
         Sons.Create();
         Músicas.Create();

@@ -10,17 +10,17 @@ class Write
 
     public static void Options()
     {
-        // Cria um arquivo Timerário
+        // Create a Timer file
         BinaryWriter Arquivo = new BinaryWriter(File.OpenWrite(Directories.Options.FullName));
 
         // Load all Options
-        Arquivo.Write(Lists.Options.Game_Name);
-        Arquivo.Write(Lists.Options.SaveUser);
+        Arquivo.Write(Lists.Options.Jogo_Name);
+        Arquivo.Write(Lists.Options.SalvarUsuário);
         Arquivo.Write(Lists.Options.Sons);
         Arquivo.Write(Lists.Options.Músicas);
         Arquivo.Write(Lists.Options.User);
 
-        // Fecha o arquivo
+        // Closes the file
         Arquivo.Dispose();
     }
 
@@ -47,7 +47,7 @@ class Write
         Binário.Write(Lists.Map.Smoke.Transparency);
 
         // Ligação
-        for (short i = 0; i <= (short)Game.Location.Amount - 1; i++)
+        for (short i = 0; i <= (short)Jogo.Location.Amount - 1; i++)
             Binário.Write(Lists.Map.Ligação[i]);
 
         // Tiles
@@ -68,7 +68,7 @@ class Write
             for (byte y = 0; y <= Lists.Map.Height; y++)
             {
                 Binário.Write((byte)Lists.Map.Tile[x, y].Attribute);
-                for (byte i = 0; i <= (byte)Game.Location.Amount - 1; i++)
+                for (byte i = 0; i <= (byte)Jogo.Location.Amount - 1; i++)
                     Binário.Write(Lists.Map.Tile[x, y].Block[i]);
             }
 

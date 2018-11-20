@@ -63,15 +63,15 @@ class Map
         Climate();
     }
 
-    public static void NextTile(Game.Location Direction, ref short X, ref short Y)
+    public static void NextTile(Jogo.Location Direction, ref short X, ref short Y)
     {
         // Next Tile
         switch (Direction)
         {
-            case Game.Location.Above: Y -= 1; break;
-            case Game.Location.Below: Y += 1; break;
-            case Game.Location.Right: X += 1; break;
-            case Game.Location.Left: X -= 1; break;
+            case Jogo.Location.Above: Y -= 1; break;
+            case Jogo.Location.Below: Y += 1; break;
+            case Jogo.Location.Right: X += 1; break;
+            case Jogo.Location.Left: X -= 1; break;
         }
     }
 
@@ -84,7 +84,7 @@ class Map
             return false;
     }
 
-    public static bool Tile_Blocked(short Map, byte X, byte Y, Game.Location Direction)
+    public static bool Tile_Blocked(short Map, byte X, byte Y, Jogo.Location Direction)
     {
         short Next_X = X, Next_Y = Y;
 
@@ -101,7 +101,7 @@ class Map
         // Verifica se o Tile está Blocked
         if (Lists.Map.Tile[Next_X, Next_Y].Attribute == (byte)Tile_Attributes.Block)
             return true;
-        else if (Lists.Map.Tile[Next_X, Next_Y].Block[(byte)Game.DirectionInverse(Direction)])
+        else if (Lists.Map.Tile[Next_X, Next_Y].Block[(byte)Jogo.DirectionInverse(Direction)])
             return true;
         else if (Lists.Map.Tile[X, Y].Block[(byte)Direction])
             return true;
@@ -227,7 +227,7 @@ class Map
         for (short i = 1; i <= Lists.Climate_Particles.GetUpperBound(0); i++)
             if (!Lists.Climate_Particles[i].Visible)
             {
-                if (Game.Aleatório.Next(0, Max_Climate_Intensity - Lists.Map.Climate.Intensity) == 0)
+                if (Jogo.Aleatório.Next(0, Max_Climate_Intensity - Lists.Map.Climate.Intensity) == 0)
                 {
                     if (!Stop)
                     {
@@ -257,16 +257,16 @@ class Map
                 }
 
                 // Reseta a partícula
-                if (Lists.Climate_Particles[i].x > Game.Screen_Width || Lists.Climate_Particles[i].y > Game.Screen_Height)
+                if (Lists.Climate_Particles[i].x > Jogo.Screen_Width || Lists.Climate_Particles[i].y > Jogo.Screen_Height)
                     Lists.Climate_Particles[i] = new Lists.Structures.Climate();
             }
 
         // Trovoadas
         if (Lists.Map.Climate.Type == (byte)Climates.Trovoando)
-            if (Game.Aleatório.Next(0, Max_Climate_Intensity * 10 - Lists.Map.Climate.Intensity * 2) == 0)
+            if (Jogo.Aleatório.Next(0, Max_Climate_Intensity * 10 - Lists.Map.Climate.Intensity * 2) == 0)
             {
                 // Som do trovão
-                int Trovão = Game.Aleatório.Next(Primerio_Trovão, Último_Trovão);
+                int Trovão = Jogo.Aleatório.Next(Primerio_Trovão, Último_Trovão);
                 Audio.Som.Reproduce((Audio.Sons)Trovão);
 
                 // Lightning
@@ -277,16 +277,16 @@ class Map
     private static void Climate_Chuva_Criação(int i)
     {
         // Define a Velocity e a Position da partícula
-        Lists.Climate_Particles[i].Velocity = Game.Aleatório.Next(8, 13);
+        Lists.Climate_Particles[i].Velocity = Jogo.Aleatório.Next(8, 13);
 
-        if (Game.Aleatório.Next(2) == 0)
+        if (Jogo.Aleatório.Next(2) == 0)
         {
             Lists.Climate_Particles[i].x = -32;
-            Lists.Climate_Particles[i].y = Game.Aleatório.Next(-32, Game.Screen_Height);
+            Lists.Climate_Particles[i].y = Jogo.Aleatório.Next(-32, Jogo.Screen_Height);
         }
         else
         {
-            Lists.Climate_Particles[i].x = Game.Aleatório.Next(-32, Game.Screen_Width);
+            Lists.Climate_Particles[i].x = Jogo.Aleatório.Next(-32, Jogo.Screen_Width);
             Lists.Climate_Particles[i].y = -32;
         }
     }
@@ -301,12 +301,12 @@ class Map
     private static void Climate_Neve_Criação(int i)
     {
         // Define a Velocity e a Position da partícula
-        Lists.Climate_Particles[i].Velocity = Game.Aleatório.Next(1, 3);
+        Lists.Climate_Particles[i].Velocity = Jogo.Aleatório.Next(1, 3);
         Lists.Climate_Particles[i].y = -32;
-        Lists.Climate_Particles[i].x = Game.Aleatório.Next(-32, Game.Screen_Width);
+        Lists.Climate_Particles[i].x = Jogo.Aleatório.Next(-32, Jogo.Screen_Width);
         Lists.Climate_Particles[i].Inicío = Lists.Climate_Particles[i].x;
 
-        if (Game.Aleatório.Next(2) == 0)
+        if (Jogo.Aleatório.Next(2) == 0)
             Lists.Climate_Particles[i].Voltar = false;
         else
             Lists.Climate_Particles[i].Voltar = true;
@@ -314,7 +314,7 @@ class Map
 
     private static void Climate_Neve_Movement(int i, bool Movimentrar = true)
     {
-        int Diferença = Game.Aleatório.Next(0, Neve_Movement / 3);
+        int Diferença = Jogo.Aleatório.Next(0, Neve_Movement / 3);
         int x1 = Lists.Climate_Particles[i].Inicío + Neve_Movement + Diferença;
         int x2 = Lists.Climate_Particles[i].Inicío - Neve_Movement - Diferença;
 
@@ -432,8 +432,8 @@ class Map
 
             // Define a Position do mini Tile
             Lists.Structures.Tile_Data Data = Lists.Map.Tile[x, y].Data[Camada_Type, Camada_Num];
-            Lists.Map.Tile[x, y].Data[Camada_Type, Camada_Num].Mini[Parte].X = Data.x * Game.Grade + Position.X;
-            Lists.Map.Tile[x, y].Data[Camada_Type, Camada_Num].Mini[Parte].Y = Data.y * Game.Grade + Position.Y;
+            Lists.Map.Tile[x, y].Data[Camada_Type, Camada_Num].Mini[Parte].X = Data.x * Jogo.Grade + Position.X;
+            Lists.Map.Tile[x, y].Data[Camada_Type, Camada_Num].Mini[Parte].Y = Data.y * Jogo.Grade + Position.Y;
         }
 
         public static bool Check(int X1, int Y1, int X2, int Y2, byte Camada_Num, byte Camada_Type)
@@ -592,20 +592,20 @@ partial class Graphics
         SFML.Graphics.Color Cor = CCor(TempCor.R, TempCor.G, TempCor.B);
 
         // Desenha todas as Layers dos Tiles
-        for (short x = (short)Game.Tiles_View.X; x <= Game.Tiles_View.Width; x++)
-            for (short y = (short)Game.Tiles_View.Y; y <= Game.Tiles_View.Height; y++)
+        for (short x = (short)Jogo.Tiles_View.X; x <= Jogo.Tiles_View.Width; x++)
+            for (short y = (short)Jogo.Tiles_View.Y; y <= Jogo.Tiles_View.Height; y++)
                 if (!Map.ForaDoLimite(x, y))
                     for (byte q = 0; q <= Lists.Map.Tile[x, y].Data.GetUpperBound(1); q++)
                         if (Lists.Map.Tile[x, y].Data[c, q].Tile > 0)
                         {
-                            int x2 = Lists.Map.Tile[x, y].Data[c, q].x * Game.Grade;
-                            int y2 = Lists.Map.Tile[x, y].Data[c, q].y * Game.Grade;
+                            int x2 = Lists.Map.Tile[x, y].Data[c, q].x * Jogo.Grade;
+                            int y2 = Lists.Map.Tile[x, y].Data[c, q].y * Jogo.Grade;
 
                             // Desenha o Tile
                             if (!Lists.Map.Tile[x, y].Data[c, q].Automático)
-                                Desenhar(Tex_Tile[Lists.Map.Tile[x, y].Data[c, q].Tile], Game.ConvertX(x * Game.Grade), Game.ConvertY(y * Game.Grade), x2, y2, Game.Grade, Game.Grade, Cor);
+                                Desenhar(Tex_Tile[Lists.Map.Tile[x, y].Data[c, q].Tile], Jogo.ConvertX(x * Jogo.Grade), Jogo.ConvertY(y * Jogo.Grade), x2, y2, Jogo.Grade, Jogo.Grade, Cor);
                             else
-                                Maps_AutoCriação(new Point(Game.ConvertX(x * Game.Grade), Game.ConvertY(y * Game.Grade)), Lists.Map.Tile[x, y].Data[c, q], Cor);
+                                Maps_AutoCriação(new Point(Jogo.ConvertX(x * Jogo.Grade), Jogo.ConvertY(y * Jogo.Grade)), Lists.Map.Tile[x, y].Data[c, q], Cor);
                         }
     }
 
@@ -645,8 +645,8 @@ partial class Graphics
         if (Data.Texture <= 0) return;
 
         // Desenha a Smoke
-        for (int x = -1; x <= Lists.Map.Width * Game.Grade / Texture_Size.Width + 1; x++)
-            for (int y = -1; y <= Lists.Map.Height * Game.Grade / Texture_Size.Height + 1; y++)
+        for (int x = -1; x <= Lists.Map.Width * Jogo.Grade / Texture_Size.Width + 1; x++)
+            for (int y = -1; y <= Lists.Map.Height * Jogo.Grade / Texture_Size.Height + 1; y++)
                 Desenhar(Tex_Smoke[Data.Texture], new Point(x * Texture_Size.Width + Map.Smoke_X, y * Texture_Size.Height + Map.Smoke_Y), new SFML.Graphics.Color(255, 255, 255, Data.Transparency));
     }
 
@@ -669,7 +669,7 @@ partial class Graphics
                 Desenhar(Tex_Climate, new Rectangle(x, 0, 32, 32), new Rectangle(Lists.Climate_Particles[i].x, Lists.Climate_Particles[i].y, 32, 32), CCor(255, 255, 255, 150));
 
         // Trovoadas
-        Desenhar(Tex_Preenchido, 0, 0, 0, 0, Game.Screen_Width, Game.Screen_Height, new SFML.Graphics.Color(255, 255, 255, Map.Lightning));
+        Desenhar(Tex_Preenchido, 0, 0, 0, 0, Jogo.Screen_Width, Jogo.Screen_Height, new SFML.Graphics.Color(255, 255, 255, Map.Lightning));
     }
 
     public static void Map_Name()
@@ -701,7 +701,7 @@ partial class Graphics
             if (Data.Index == 0) continue;
 
             // Desenha o item
-            Point Position = new Point(Game.ConvertX(Data.X * Game.Grade), Game.ConvertY(Data.Y * Game.Grade));
+            Point Position = new Point(Jogo.ConvertX(Data.X * Jogo.Grade), Jogo.ConvertY(Data.Y * Jogo.Grade));
             Desenhar(Tex_Item[Lists.Item[Data.Index].Texture], Position);
         }
     }

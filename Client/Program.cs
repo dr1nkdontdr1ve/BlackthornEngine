@@ -21,9 +21,9 @@ class Program
         Network.Start();
 
         // Abre a Window
-        Window.Objects.Text = Lists.Options.Game_Name;
+        Window.Objects.Text = Lists.Options.Jogo_Name;
         Window.Objects.Visible = true;
-        Game.OpenMenu();
+        Jogo.OpenMenu();
 
         // Inicia a aplicação
         Tie.Principal();

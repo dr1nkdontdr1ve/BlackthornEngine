@@ -17,8 +17,8 @@
     {
         public struct Options
         {
-            public string Game_Name;
-            public bool SaveUser;
+            public string Jogo_Name;
+            public bool SalvarUsuário;
             public bool Sons;
             public bool Músicas;
             public string User;
@@ -52,7 +52,7 @@
             public int Suffering;
             public short[] Max_Vital;
             public int Coletar_Time;
-            // General
+            // Geral
             public string Name;
             public byte Classe;
             public bool Genre;
@@ -65,8 +65,8 @@
             public short Map;
             public byte X;
             public byte Y;
-            public Game.Location Direction;
-            public Game.Movements Movement;
+            public Jogo.Location Direction;
+            public Jogo.Movements Movement;
             public short[] Equipment;
         }
 
@@ -176,12 +176,12 @@
             public bool Atacando;
             public int Attack_Time;
             public int Suffering;
-            // General
+            // Geral
             public short Index;
             public byte X;
             public byte Y;
-            public Game.Location Direction;
-            public Game.Movements Movement;
+            public Jogo.Location Direction;
+            public Jogo.Movements Movement;
             public short[] Vital;
         }
 
@@ -194,7 +194,7 @@
 
         public struct Items
         {
-            // General
+            // Geral
             public string Name;
             public string Description;
             public short Texture;

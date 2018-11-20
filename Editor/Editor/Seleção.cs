@@ -14,7 +14,7 @@ public partial class Seleção : Form
     private void Seleção_FormClosing(object sender, FormClosingEventArgs e)
     {
         // Fecha a aplicação
-        Aplicação.Funcionado = false;
+        Program.Funcionado = false;
     }
 
     private void butSelecionarDiretório_Cliente_Click(object sender, EventArgs e)

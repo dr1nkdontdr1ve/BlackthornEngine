@@ -227,8 +227,8 @@ partial class Editor_Mapas : Form
     private void butPropriedades_Click(object sender, EventArgs e)
     {
         // Para os áudios
-        Audio.Som.Parar_Tudo();
-        Audio.Music.Parar();
+        Áudio.Som.Parar_Tudo();
+        Áudio.Música.Parar();
 
         // Abre as propriedades
         Editor_Mapas_Propriedades.Abrir();

@@ -18,14 +18,14 @@ public class Scanners
         public short Max_Carácteres;
         public short Width;
         public bool Senha;
-        public Tools.General General;
+        public Tools.Geral Geral;
     }
 
     public static byte LocateIndex(string Name)
     {
         // List os Names das Tools
         for (byte i = 1; i <= List.GetUpperBound(0); i++)
-            if (List[i].General.Name == Name)
+            if (List[i].Geral.Name == Name)
                 return i;
 
         return 0;
@@ -35,7 +35,7 @@ public class Scanners
     {
         // List os Names das Tools
         for (byte i = 1; i <= List.GetUpperBound(0); i++)
-            if (List[i].General.Name == Name)
+            if (List[i].Geral.Name == Name)
                 return List[i];
 
         return null;
@@ -44,14 +44,14 @@ public class Scanners
     public static void Focalizar()
     {
         // Se o Scanner não estiver habilitado então isso não é necessário 
-        if (List[Foco] != null && List[Foco].General.Habilitado) return;
+        if (List[Foco] != null && List[Foco].Geral.Habilitado) return;
 
         // Altera o Scanner focado para o mais Next
         for (byte i = 1; i <= Tools.Ordem.GetUpperBound(0); i++)
         {
             if (Tools.Ordem[i].Type != Tools.Types.Scanner)
                 continue;
-            else if (!List[Tools.Ordem[i].Index].General.Habilitado)
+            else if (!List[Tools.Ordem[i].Index].Geral.Habilitado)
                 continue;
             else if (i == LocateIndex("Chat"))
 
@@ -67,7 +67,7 @@ public class Scanners
         {
             if (Tools.Ordem[i].Type != Tools.Types.Scanner)
                 continue;
-            else if (!List[Tools.Ordem[i].Index].General.Habilitado)
+            else if (!List[Tools.Ordem[i].Index].Geral.Habilitado)
                 continue;
             if (Foco != Último() && i <= Tools.Locate(Tools.Types.Scanner, Foco))
                 continue;
@@ -84,7 +84,7 @@ public class Scanners
         // Retorna o último Scanner habilitado
         for (byte i = 1; i <= Tools.Ordem.GetUpperBound(0); i++)
             if (Tools.Ordem[i].Type == Tools.Types.Scanner)
-                if (List[Tools.Ordem[i].Index].General.Habilitado)
+                if (List[Tools.Ordem[i].Index].Geral.Habilitado)
                     Index = Tools.Ordem[i].Index;
 
         return Index;
@@ -98,10 +98,10 @@ public class Scanners
         if (!Player.IsPlaying(Player.MyIndex)) return;
 
         // Altera a visiblidade da caixa
-        Panels.Locate("Chat").General.Visible = !Panels.Locate("Chat").General.Visible;
+        Panels.Locate("Chat").Geral.Visible = !Panels.Locate("Chat").Geral.Visible;
 
         // Altera o foco do Scanner
-        if (Panels.Locate("Chat").General.Visible)
+        if (Panels.Locate("Chat").Geral.Visible)
         {
             Tools.Lines_Visible = true;
             Foco = Index;
@@ -126,7 +126,7 @@ public class Scanners
 
         // Global
         if (Message.Substring(0, 1) == "'")
-            Sending.Message(Message.Substring(1), Game.Mensagens.Global);
+            Sending.Message(Message.Substring(1), Jogo.Mensagens.Global);
         // Particular
         else if (Message.Substring(0, 1) == "!")
         {
@@ -140,12 +140,12 @@ public class Scanners
                 Message = Message.Substring(Partes[0].Length + 1);
 
                 // Envia a Message
-                Sending.Message(Message, Game.Mensagens.Particular, Destinatário);
+                Sending.Message(Message, Jogo.Mensagens.Particular, Destinatário);
             }
         }
         // Map
         else
-            Sending.Message(Message, Game.Mensagens.Map);
+            Sending.Message(Message, Jogo.Mensagens.Map);
 
         // Limpa a caixa de Text
         List[Index].Text = string.Empty;
@@ -156,8 +156,8 @@ public class Scanners
         public static void MouseUp(MouseEventArgs e, byte Index)
         {
             // Somente se necessário
-            if (!List[Index].General.Habilitado) return;
-            if (!Tools.EstáOverlapping(new Rectangle(List[Index].General.Position, new Size(List[Index].Width, Graphics.MySize(Graphics.Tex_Scanner).Height)))) return;
+            if (!List[Index].Geral.Habilitado) return;
+            if (!Tools.IsOverlapping(new Rectangle(List[Index].Geral.Position, new Size(List[Index].Width, Graphics.MySize(Graphics.Tex_Scanner).Height)))) return;
 
             // Define o foco no Scanner
             Foco = Index;

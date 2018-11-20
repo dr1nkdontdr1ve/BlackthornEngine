@@ -95,11 +95,11 @@ partial class Receiving
     private static void Connect(NetIncomingMessage Data)
     {
         // Reseta os valores
-        Game.SelectCharacter = 1;
+        Jogo.SelectCharacter = 1;
 
         // Abre o Panel de seleção de Characters
         Panels.Menu_Close();
-        Panels.Locate("SelectCharacter").General.Visible = true;
+        Panels.Locate("SelectCharacter").Geral.Visible = true;
     }
 
     private static void Entrada(NetIncomingMessage Data)
@@ -121,11 +121,11 @@ partial class Receiving
         Scanners.Locate("CreateCharacter_Name").Text = string.Empty;
         Markers.Locate("GenreMasculino").State = true;
         Markers.Locate("GenreFeminino").State = false;
-        Game.CreateCharacter_Classe = 1;
+        Jogo.CreateCharacter_Classe = 1;
 
         // Abre o Panel de criação de Character
         Panels.Menu_Close();
-        Panels.Locate("CreateCharacter").General.Visible = true;
+        Panels.Locate("CreateCharacter").Geral.Visible = true;
     }
 
     private static void Classes(NetIncomingMessage Data)
@@ -169,12 +169,12 @@ partial class Receiving
         // Reseta os valores
         Tools.Chat = new System.Collections.Generic.List<Tools.Chat_Structure>();
         Scanners.Locate("Chat").Text = string.Empty;
-        Panels.Locate("Chat").General.Visible = false;
+        Panels.Locate("Chat").Geral.Visible = false;
         Tools.Line = 0;
 
-        // Abre o Game
+        // Abre o Jogo
         Audio.Música.Stop();
-        Tools.CurrentWindow = Tools.Windows.Game;
+        Tools.CurrentWindow = Tools.Windows.Jogo;
     }
 
     private static void BiggerIndex(NetIncomingMessage Data)
@@ -221,9 +221,9 @@ partial class Receiving
         Lists.Map.Smoke.Transparency = Data.ReadByte();
 
         // Redimensiona as ligações
-        Lists.Map.Ligação = new short[(byte)Game.Location.Amount];
+        Lists.Map.Ligação = new short[(byte)Jogo.Location.Amount];
 
-        for (short i = 0; i <= (short)Game.Location.Amount - 1; i++)
+        for (short i = 0; i <= (short)Jogo.Location.Amount - 1; i++)
             Lists.Map.Ligação[i] = Data.ReadInt16();
 
         // Redimensiona os Tiles
@@ -253,8 +253,8 @@ partial class Receiving
             for (byte y = 0; y <= Lists.Map.Height; y++)
             {
                 Lists.Map.Tile[x, y].Attribute = Data.ReadByte();
-                Lists.Map.Tile[x, y].Block = new bool[(byte)Game.Location.Amount];
-                for (byte i = 0; i <= (byte)Game.Location.Amount - 1; i++)
+                Lists.Map.Tile[x, y].Block = new bool[(byte)Jogo.Location.Amount];
+                for (byte i = 0; i <= (byte)Jogo.Location.Amount - 1; i++)
                     Lists.Map.Tile[x, y].Block[i] = Data.ReadBoolean();
             }
 
@@ -295,7 +295,7 @@ partial class Receiving
     public static void Latency(NetIncomingMessage Data)
     {
         // Define a Latency
-        Game.Latency = Environment.TickCount - Game.Latency_Envio;
+        Jogo.Latency = Environment.TickCount - Jogo.Latency_Envio;
     }
 
     public static void Message(NetIncomingMessage Data)
@@ -314,8 +314,8 @@ partial class Receiving
         for (byte i = 1; i <= Lists.Item.GetUpperBound(0); i++)
         {
             // Redimensiona os valores necessários 
-            Lists.Item[i].Potion_Vital = new short[(byte)Game.Vital.Amount];
-            Lists.Item[i].Equip_Attribute = new short[(byte)Game.Attributes.Amount];
+            Lists.Item[i].Potion_Vital = new short[(byte)Jogo.Vital.Amount];
+            Lists.Item[i].Equip_Attribute = new short[(byte)Jogo.Attributes.Amount];
 
             // Lê os Data
             Lists.Item[i].Name = Data.ReadString();
@@ -325,9 +325,9 @@ partial class Receiving
             Lists.Item[i].Req_Level = Data.ReadInt16();
             Lists.Item[i].Req_Classe = Data.ReadByte();
             Lists.Item[i].Potion_Experience = Data.ReadInt16();
-            for (byte n = 0; n <= (byte)Game.Vital.Amount - 1; n++) Lists.Item[i].Potion_Vital[n] = Data.ReadInt16();
+            for (byte n = 0; n <= (byte)Jogo.Vital.Amount - 1; n++) Lists.Item[i].Potion_Vital[n] = Data.ReadInt16();
             Lists.Item[i].Equip_Type = Data.ReadByte();
-            for (byte n = 0; n <= (byte)Game.Attributes.Amount - 1; n++) Lists.Item[i].Equip_Attribute[n] = Data.ReadInt16();
+            for (byte n = 0; n <= (byte)Jogo.Attributes.Amount - 1; n++) Lists.Item[i].Equip_Attribute[n] = Data.ReadInt16();
             Lists.Item[i].Weapon_Damage = Data.ReadInt16();
         }
     }
@@ -340,7 +340,7 @@ partial class Receiving
         // Lê os Data de todos
         for (byte i = 1; i <= Lists.Map.Temp_Item.GetUpperBound(0); i++)
         {
-            // General
+            // Geral
             Lists.Map.Temp_Item[i].Index = Data.ReadInt16();
             Lists.Map.Temp_Item[i].X = Data.ReadByte();
             Lists.Map.Temp_Item[i].Y = Data.ReadByte();

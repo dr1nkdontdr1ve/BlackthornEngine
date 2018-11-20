@@ -12,11 +12,11 @@ public partial class Window : Form
 
     private void Window_FormClosing(object sender, FormClosingEventArgs e)
     {
-        // Fecha o Game
-        if (Tools.CurrentWindow == Tools.Windows.Game)
+        // Fecha o Jogo
+        if (Tools.CurrentWindow == Tools.Windows.Jogo)
         {
             e.Cancel = true;
-            Game.Leave();
+            Jogo.Leave();
         }
         else
            Program.Functional = false;
@@ -31,8 +31,8 @@ public partial class Window : Form
                 case Tools.Types.Button: Buttons.Events.MouseDown(e, Tools.Ordem[i].Index); break;
             }
 
-        // Events em Game
-        if (Tools.CurrentWindow == Tools.Windows.Game)
+        // Events em Jogo
+        if (Tools.CurrentWindow == Tools.Windows.Jogo)
         {
             Tools.Inventory_MouseDown(e);
             Tools.Equipment_MouseDown(e);
@@ -65,8 +65,8 @@ public partial class Window : Form
                 case Tools.Types.Scanner: Scanners.Events.MouseUp(e, Tools.Ordem[i].Index); break;
             }
 
-        // Events em Game
-        if (Tools.CurrentWindow == Tools.Windows.Game)
+        // Events em Jogo
+        if (Tools.CurrentWindow == Tools.Windows.Jogo)
         {
             // Muda o slot do item
             if (Player.Inventory_Moving > 0)
@@ -77,7 +77,7 @@ public partial class Window : Form
             if (Tools.Hotbar_Overlapping() > 0)
             {
                 if (Player.Hotbar_Moving > 0) Sending.Hotbar_Change(Player.Hotbar_Moving, Tools.Hotbar_Overlapping());
-                if (Player.Inventory_Moving > 0) Sending.Hotbar_Add(Tools.Hotbar_Overlapping(), (byte)Game.Hotbar.Item, Player.Inventory_Moving);
+                if (Player.Inventory_Moving > 0) Sending.Hotbar_Add(Tools.Hotbar_Overlapping(), (byte)Jogo.Hotbar.Item, Player.Inventory_Moving);
             }
 
             // Reseta a Movement
@@ -97,18 +97,18 @@ public partial class Window : Form
         // Define se um Button está sendo HoldKey
         switch (e.KeyCode)
         {
-            case Keys.Up: Game.HoldKey_Above = true; break;
-            case Keys.Down: Game.HoldKey_Below = true; break;
-            case Keys.Left: Game.HoldKey_Left = true; break;
-            case Keys.Right: Game.HoldKey_Right = true; break;
-            case Keys.ShiftKey: Game.HoldKey_Shift = true; break;
-            case Keys.ControlKey: Game.HoldKey_Control = true; break;
+            case Keys.Up: Jogo.HoldKey_Above = true; break;
+            case Keys.Down: Jogo.HoldKey_Below = true; break;
+            case Keys.Left: Jogo.HoldKey_Left = true; break;
+            case Keys.Right: Jogo.HoldKey_Right = true; break;
+            case Keys.ShiftKey: Jogo.HoldKey_Shift = true; break;
+            case Keys.ControlKey: Jogo.HoldKey_Control = true; break;
             case Keys.Enter: Scanners.Chat_Digitar(); break;
         }
 
-        // Em Game
-        if (Tools.CurrentWindow == Tools.Windows.Game)
-            if (!Panels.Locate("Chat").General.Visible)
+        // Em Jogo
+        if (Tools.CurrentWindow == Tools.Windows.Jogo)
+            if (!Panels.Locate("Chat").Geral.Visible)
             {
                 switch (e.KeyCode)
                 {
@@ -132,12 +132,12 @@ public partial class Window : Form
         // Define se um Button está sendo HoldKey
         switch (e.KeyCode)
         {
-            case Keys.Up: Game.HoldKey_Above = false; break;
-            case Keys.Down: Game.HoldKey_Below = false; break;
-            case Keys.Left: Game.HoldKey_Left = false; break;
-            case Keys.Right: Game.HoldKey_Right = false; break;
-            case Keys.ShiftKey: Game.HoldKey_Shift = false; break;
-            case Keys.ControlKey: Game.HoldKey_Control = false; break;
+            case Keys.Up: Jogo.HoldKey_Above = false; break;
+            case Keys.Down: Jogo.HoldKey_Below = false; break;
+            case Keys.Left: Jogo.HoldKey_Left = false; break;
+            case Keys.Right: Jogo.HoldKey_Right = false; break;
+            case Keys.ShiftKey: Jogo.HoldKey_Shift = false; break;
+            case Keys.ControlKey: Jogo.HoldKey_Control = false; break;
         }
     }
 
@@ -149,8 +149,8 @@ public partial class Window : Form
 
     private void Window_DoubleClick(object sender, System.EventArgs e)
     {
-        // Events em Game
-        if (Tools.CurrentWindow == Tools.Windows.Game)
+        // Events em Jogo
+        if (Tools.CurrentWindow == Tools.Windows.Jogo)
         {
             // Use item
             byte Slot = Tools.Inventory_Overlapping();

@@ -14,14 +14,14 @@ public class Markers
     {
         public string Text;
         public bool State;
-        public Tools.General General;
+        public Tools.Geral Geral;
     }
 
     public static byte LocateIndex(string Name)
     {
         // List the names of the tools
         for (byte i = 1; i <= List.GetUpperBound(0); i++)
-            if (List[i].General.Name == Name)
+            if (List[i].Geral.Name == Name)
                 return i;
 
         return 0;
@@ -31,7 +31,7 @@ public class Markers
     {
         // List the names of the tools
         for (byte i = 1; i <= List.GetUpperBound(0); i++)
-            if (List[i].General.Name == Name)
+            if (List[i].Geral.Name == Name)
                 return List[i];
 
         return null;
@@ -44,7 +44,7 @@ public class Markers
             int Text_Width; Size Texture_Size; Size Caixa;
 
             // Only if necessary
-            if (!List[Index].General.Habilitado) return;
+            if (!List[Index].Geral.Habilitado) return;
 
             // Marker size
             Texture_Size = Graphics.MySize(Graphics.Tex_Marker);
@@ -52,13 +52,13 @@ public class Markers
             Caixa = new Size(Texture_Size.Width / 2 + Text_Width + Margin, Texture_Size.Height);
 
             // Somente se estiver Overlapping a ferramenta
-            if (!Tools.EstáOverlapping(new Rectangle(List[Index].General.Position, Caixa))) return;
+            if (!Tools.IsOverlapping(new Rectangle(List[Index].Geral.Position, Caixa))) return;
 
             // Altera o State do Marker
             List[Index].State = !List[Index].State;
 
             // Executa o evento
-            Run(List[Index].General.Name);
+            Run(List[Index].Geral.Name);
             Audio.Som.Reproduce(Audio.Sons.Click);
         }
 
@@ -69,7 +69,7 @@ public class Markers
             {
                 case "Sons": Sons(); break;
                 case "Músicas": Músicas(); break;
-                case "SaveUser": SaveUser(); break;
+                case "SalvarUsuário": SalvarUsuário(); break;
                 case "GenreMasculino": GenreMale(); break;
                 case "GenreFeminino": GenreFemale(); break;
             }
@@ -95,10 +95,10 @@ public class Markers
                 Audio.Música.Reproduce(Audio.Músicas.Menu);
         }
 
-        public static void SaveUser()
+        public static void SalvarUsuário()
         {
             // Salva os Data
-            Lists.Options.SaveUser = Locate("SaveUser").State;
+            Lists.Options.SalvarUsuário = Locate("SalvarUsuário").State;
             Write.Options();
         }
 

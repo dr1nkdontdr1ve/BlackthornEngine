@@ -5,13 +5,13 @@ using System.Collections.Generic;
 
 public class Tools
 {
-    // Habilitação das Tools
+    // Enabling Tools
     public static bool Habilitação;
 
-    // Position do ponteiro do mouse
+    // Position of the mouse pointer
     public static Point Ponteiro;
 
-    // Window que está focada
+    // Window that is focused
     public static Windows CurrentWindow;
 
     // Chat
@@ -20,24 +20,24 @@ public class Tools
     public const byte Max_Lines = 50;
     public static byte Line;
 
-    // Ordem da renderização das Tools
-    public static Identificação[] Ordem = new Identificação[0];
+    // Tools Rendering Order
+    public static Identification[] Ordem = new Identification[0];
     public static List<Chat_Structure> Chat = new List<Chat_Structure>();
 
-    public struct Identificação
+    public struct Identification
     {
         public byte Index;
         public Types Type;
     }
 
-    public class General
+    public class Geral
     {
         public string Name;
         public bool Visible;
         public Point Position;
         public bool Habilitado;
 
-        public bool CheckHabilitação()
+        public bool CheckHabilitation()
         {
             // Define a habilitação da ferramenta
             if (!Visible || !Habilitação)
@@ -53,12 +53,12 @@ public class Tools
         public SFML.Graphics.Color Cor;
     }
 
-    // Identificação das Windows do Game
+    // Identificação das Windows do Jogo
     public enum Windows
     {
         Nenhuma,
         Menu,
-        Game
+        Jogo
     }
 
     // Types de Tools
@@ -70,10 +70,10 @@ public class Tools
         Scanner
     }
 
-    public static void DefinirHabilitação(string Panel, Windows Window)
+    public static void DefineHabilitation(string Panel, Windows Window)
     {
         // Define a habilitação
-        if (CurrentWindow != Window || Panel != string.Empty && !Panels.Locate(Panel).General.Visible)
+        if (CurrentWindow != Window || Panel != string.Empty && !Panels.Locate(Panel).Geral.Visible)
             Habilitação = false;
         else
             Habilitação = true;
@@ -84,7 +84,7 @@ public class Tools
         int Amount = Ordem.GetUpperBound(0) + 1;
 
         // Se já estiver Listdo não é necessário Listr de novo
-        if (EstáListdo(Type, Index))
+        if (IsListed(Type, Index))
             return;
 
         // Altera o Size da caixa
@@ -95,9 +95,9 @@ public class Tools
         Ordem[Amount].Index = Index;
     }
 
-    private static bool EstáListdo(Types Type, byte Index)
+    private static bool IsListed(Types Type, byte Index)
     {
-        // Verifica se a ferramenta já está Listda
+        // Checks whether the tool is already listed
         for (short i = 1; i <= Ordem.GetUpperBound(0); i++)
             if (Ordem[i].Type == Type && Ordem[i].Index == Index)
                 return true;
@@ -105,7 +105,7 @@ public class Tools
         return false;
     }
 
-    public static bool EstáOverlapping(Rectangle Retângulo)
+    public static bool IsOverlapping(Rectangle Retângulo)
     {
         // Verficia se o mouse está sobre o objeto
         if (Ponteiro.X >= Retângulo.X && Ponteiro.X <= Retângulo.X + Retângulo.Width)
@@ -223,9 +223,9 @@ public class Tools
     public static byte Inventory_Overlapping()
     {
         byte NumColumns = 5;
-        Point Panel_Position = Panels.Locate("Menu_Inventory").General.Position;
+        Point Panel_Position = Panels.Locate("Menu_Inventory").Geral.Position;
 
-        for (byte i = 1; i <= Game.Max_Inventory; i++)
+        for (byte i = 1; i <= Jogo.Max_Inventory; i++)
         {
             // Position do item
             byte Line = (byte)((i - 1) / NumColumns);
@@ -233,7 +233,7 @@ public class Tools
             Point Position = new Point(Panel_Position.X + 7 + Coluna * 36, Panel_Position.Y + 30 + Line * 36);
 
             // Retorna o slot em que o mouse está por cima
-            if (EstáOverlapping(new Rectangle(Position.X, Position.Y, 32, 32)))
+            if (IsOverlapping(new Rectangle(Position.X, Position.Y, 32, 32)))
                 return i;
         }
 
@@ -264,10 +264,10 @@ public class Tools
 
     public static void Equipment_MouseDown(MouseEventArgs e)
     {
-        Point Panel_Position = Panels.Locate("Menu_Character").General.Position;
+        Point Panel_Position = Panels.Locate("Menu_Character").Geral.Position;
 
-        for (byte i = 0; i <= (byte)Game.Equipments.Amount - 1; i++)
-            if (EstáOverlapping(new Rectangle(Panel_Position.X + 7 + i * 36, Panel_Position.Y + 247, 32, 32)))
+        for (byte i = 0; i <= (byte)Jogo.Equipments.Amount - 1; i++)
+            if (IsOverlapping(new Rectangle(Panel_Position.X + 7 + i * 36, Panel_Position.Y + 247, 32, 32)))
                 // Remove o Equipment
                 if (e.Button == MouseButtons.Right)
                 {
@@ -278,15 +278,15 @@ public class Tools
 
     public static byte Hotbar_Overlapping()
     {
-        Point Panel_Position = Panels.Locate("Hotbar").General.Position;
+        Point Panel_Position = Panels.Locate("Hotbar").Geral.Position;
 
-        for (byte i = 1; i <= Game.Max_Hotbar; i++)
+        for (byte i = 1; i <= Jogo.Max_Hotbar; i++)
         {
             // Position do slot
             Point Position = new Point(Panel_Position.X + 8 + (i - 1) * 36, Panel_Position.Y + 6);
 
             // Retorna o slot em que o mouse está por cima
-            if (EstáOverlapping(new Rectangle(Position.X, Position.Y, 32, 32)))
+            if (IsOverlapping(new Rectangle(Position.X, Position.Y, 32, 32)))
                 return i;
         }
 

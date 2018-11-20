@@ -3,8 +3,8 @@
     public static void Options()
     {
         // Defini os Data das Options
-        Lists.Options.Game_Name = "CryBits";
-        Lists.Options.SaveUser = true;
+        Lists.Options.Jogo_Name = "CryBits";
+        Lists.Options.SalvarUsuário = true;
         Lists.Options.Músicas = true;
         Lists.Options.Sons = true;
         Lists.Options.User = string.Empty;
@@ -17,38 +17,38 @@
     {
         // Limpa a Structure
         Buttons.List[Index] = new Buttons.Structure();
-        Buttons.List[Index].General = new Tools.General();
+        Buttons.List[Index].Geral = new Tools.Geral();
     }
 
     public static void Scanner(int Index)
     {
         // Limpa a Structure
         Scanners.List[Index] = new Scanners.Structure();
-        Scanners.List[Index].General = new Tools.General();
+        Scanners.List[Index].Geral = new Tools.Geral();
     }
 
     public static void Panel(int Index)
     {
         // Limpa a Structure
         Panels.List[Index] = new Panels.Structure();
-        Panels.List[Index].General = new Tools.General();
+        Panels.List[Index].Geral = new Tools.Geral();
     }
 
     public static void Marker(int Index)
     {
         // Limpa a Structure
         Markers.List[Index] = new Markers.Structure();
-        Markers.List[Index].General = new Tools.General();
+        Markers.List[Index].Geral = new Tools.Geral();
     }
 
     public static void Player(byte Index)
     {
         // Limpa a Structure
         Lists.Player[Index] = new Lists.Structures.Player();
-        Lists.Player[Index].Vital = new short[(byte)Game.Vital.Amount];
-        Lists.Player[Index].Max_Vital = new short[(byte)Game.Vital.Amount];
-        Lists.Player[Index].Attribute = new short[(byte)Game.Attributes.Amount];
-        Lists.Player[Index].Equipment = new short[(byte)Game.Equipments.Amount];
+        Lists.Player[Index].Vital = new short[(byte)Jogo.Vital.Amount];
+        Lists.Player[Index].Max_Vital = new short[(byte)Jogo.Vital.Amount];
+        Lists.Player[Index].Attribute = new short[(byte)Jogo.Attributes.Amount];
+        Lists.Player[Index].Equipment = new short[(byte)Jogo.Equipments.Amount];
 
         // Reseta os valores
         Lists.Player[Index].Name = string.Empty;

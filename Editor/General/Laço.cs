@@ -17,7 +17,7 @@ class Laço
         int Contagem_1000 = 0;
         short FPS = 0;
 
-        while (Aplicação.Funcionado)
+        while (Program.Funcionado)
         {
             Contagem = Environment.TickCount;
 
@@ -48,7 +48,7 @@ class Laço
         }
 
         // Fecha a aplicação
-        Aplicação.Sair();
+        Program.Sair();
     }
 
     private static void Editor_Mapas_Fumaça()
